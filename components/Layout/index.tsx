@@ -3,6 +3,8 @@ import React, {FunctionComponent, PropsWithChildren} from 'react';
 import Head from "next/head";
 import Navigation from './Navigation';
 import {usePathname} from 'next/navigation';
+import Footer from '@/components/Layout/Footer';
+import styles from './index.module.scss'
 
 interface LayoutProps {
     readonly title?: string
@@ -15,7 +17,6 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
         loading = false
     }) => {
     const pathname = usePathname()
-
     return (
         <>
             <Head>
@@ -32,7 +33,10 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
             </Head>
                 <main>
                     <Navigation />
-                    {children}
+                    <div className={styles.content}>
+                        {children}
+                    </div>
+                    <Footer />
                 </main>
         </>
     );

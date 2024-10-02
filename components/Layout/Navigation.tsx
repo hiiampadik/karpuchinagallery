@@ -3,14 +3,15 @@ import React, {FunctionComponent} from 'react';
 import styles from './index.module.scss'
 import Link from 'next/link';
 import {useRouter} from 'next/router';
+import {GetStaticPropsContext} from 'next';
+import {useTranslations} from 'next-intl';
 
 interface NavigationProps {
 }
 
 const Navigation: FunctionComponent<NavigationProps> = ({}) => {
     const router = useRouter();
-    const languageButton = router.locale === "cs" ? "EN" : "CZ";
-
+    const t = useTranslations('Navigation');
 
     return (
        <div className={styles.navigationContainer}>
@@ -22,26 +23,27 @@ const Navigation: FunctionComponent<NavigationProps> = ({}) => {
 
            <div className={styles.navigationLinksContainer}>
                <Link href={"/artists"}>
-                   Artists
+                   {t('artists')}
                </Link>
                <Link href={"/exhibitions"}>
-                   Exhibitions
+                   {t('exhibitions')}
                </Link>
                <Link href={"/fairs"}>
-                   Fairs
+                   {t('fairs')}
                </Link>
                <Link href={"/about"}>
-                   Contact+About
+                   {t('contact')}
                </Link>
 
-               Search
+               {t('search')}
+
 
                <Link
                    href={router.asPath}
-                   locale={languageButton == "EN" ? "en" : "cs"}
+                   locale={router.locale === "cs" ? "en" : "cs"}
                    className={styles.languageButton}
                >
-                   {languageButton}
+                   {t('language')}
                </Link>
 
 
@@ -51,3 +53,15 @@ const Navigation: FunctionComponent<NavigationProps> = ({}) => {
 };
 
 export default Navigation;
+
+
+export async function getStaticProps(context: GetStaticPropsContext) {
+    return {
+        props: {
+            // You can get the messages from anywhere you like. The recommended
+            // pattern is to put them in JSON files separated by locale and read
+            // the desired one based on the `locale` received from Next.js.
+            messages: (await import(`../../public/locales/${context.locale}.json`)).default
+        }
+    };
+}

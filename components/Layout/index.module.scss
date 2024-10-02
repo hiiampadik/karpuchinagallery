@@ -1,5 +1,9 @@
 @import '../../styles/variables';
 
+.content {
+  flex: 1 0 auto;
+}
+
 .navigationContainer {
   padding: 100px 20px;
   display: flex;
@@ -17,4 +21,22 @@
       width: 40px;
     }
   }
+}
+
+.footerContainer {
+  text-align: center;
+
+  .footerGradient {
+    height: 70px;
+    background: linear-gradient(rgba(255, 255, 255, 0), #000);
+
+
+  }
+  .footerContent {
+    padding: 30px;
+    color: white;
+    background: black;
+  }
+
+
 }
