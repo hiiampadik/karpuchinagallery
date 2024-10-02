@@ -1,0 +1,20 @@
+@import '../../styles/variables';
+
+.navigationContainer {
+  padding: 100px 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+
+  font-size: 27px;
+
+  .navigationLinksContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+
+    .languageButton {
+      width: 40px;
+    }
+  }
+}
