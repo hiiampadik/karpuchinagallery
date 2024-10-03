@@ -5,12 +5,14 @@ import Link from 'next/link';
 import {useRouter} from 'next/router';
 import {GetStaticPropsContext} from 'next';
 import {useTranslations} from 'next-intl';
+import {usePathname} from 'next/navigation';
 
 interface NavigationProps {
 }
 
 const Navigation: FunctionComponent<NavigationProps> = ({}) => {
     const router = useRouter();
+    const currentPath = usePathname();
     const t = useTranslations('Navigation');
 
     return (
@@ -22,16 +24,16 @@ const Navigation: FunctionComponent<NavigationProps> = ({}) => {
            </div>
 
            <div className={styles.navigationLinksContainer}>
-               <Link href={"/artists"}>
+               <Link href={"/artists"} className={currentPath === '/artists' ? styles.active : ''}>
                    {t('artists')}
                </Link>
-               <Link href={"/exhibitions"}>
+               <Link href={"/exhibitions"} className={currentPath === '/exhibitions' ? styles.active : ''}>
                    {t('exhibitions')}
                </Link>
-               <Link href={"/fairs"}>
+               <Link href={"/fairs"} className={currentPath === '/fairs' ? styles.active : ''}>
                    {t('fairs')}
                </Link>
-               <Link href={"/about"}>
+               <Link href={"/about"} className={currentPath === '/about' ? styles.active : ''}>
                    {t('contact')}
                </Link>
 

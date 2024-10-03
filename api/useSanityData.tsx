@@ -1,8 +1,9 @@
 'use client'
 import {useEffect, useState} from 'react';
-import client from '../../client';
+import client from '../client';
+import { About } from '@/domain/classes';
 
-export const useFetchAbout = () => {
+export const useFetchAbout = (locale: string): { data: About | null, loading: boolean, error: Error | null} => {
     const [data, setData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
@@ -27,5 +28,5 @@ export const useFetchAbout = () => {
         };
     }, []);
 
-    return { data, loading, error };
+    return { data: data && About.fromPayload(data, locale), loading, error };
 };

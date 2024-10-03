@@ -2,6 +2,9 @@
 
 .content {
   flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .navigationContainer {
@@ -11,11 +14,24 @@
   gap: 10px;
 
   font-size: 27px;
+  line-height: 33px;
+  font-family: Rhymes, serif;
+  a {
+    text-decoration: none;
+  }
 
   .navigationLinksContainer {
     display: flex;
     justify-content: space-between;
-    gap: 30px;
+    gap: 40px;
+    color: $text-secondary-default;
+    a {
+      color: $text-secondary-default;
+    }
+    .active {
+      color: $text-primary-default;
+    }
+
 
     .languageButton {
       width: 40px;

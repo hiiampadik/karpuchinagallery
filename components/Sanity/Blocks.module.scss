@@ -1,0 +1,126 @@
+@import "../../styles/_variables.scss";
+
+.wrapper {
+  margin-top: 0;
+
+  max-width: 1200px;
+  width: 100%;
+}
+
+.eventWrapper {
+  margin-top: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.eventsList {
+  max-width: 1200px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(12, [col] 1fr);
+  grid-gap: $lh;
+  // font-family: CenturySchoolbook;
+  list-style: none;
+  padding: 0;
+
+  li {
+    grid-column: span 4;
+    @media only screen and (max-width: $breakpoint-smalltablet-max) {
+      grid-column: span 6;
+    }
+    @media only screen and (max-width: $breakpoint-mobile-max) {
+      grid-column: span 12;
+    }
+  }
+}
+
+.eventsItem a {
+  display: block;
+  padding: $lh * 0.25;
+}
+
+.newsItemDate {
+  font-family: LarsM;
+  text-transform: up;
+  font-size: 0.8rem;
+}
+
+.exhibitonTitle {
+  margin-bottom: $lh;
+}
+
+.poster {
+  img {
+    width: 100%;
+    max-height: 50vh;
+    height: auto;
+    display: block;
+  }
+  margin-bottom: $lh;
+}
+
+.overview {
+  img {
+    width: 100%;
+    max-height: 50vh;
+    height: auto;
+    display: block;
+  }
+  margin-bottom: $lh * 0.5;
+}
+
+.top {
+  margin: 0;
+  padding-left: 0;
+  padding-bottom: $lh;
+  max-width: 600px;
+  width: 100%;
+  font-size: 1.52em;
+}
+
+.blocks {
+  p {
+    margin: 0;
+    min-height: $lh;
+  }
+  h1 {
+    margin: 0;
+    margin-top: $lh / 1.3;
+    font-size: 1rem;
+  }
+  h1:first-of-type {
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  figure {
+    margin: $lh;
+    width: 100%;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
+  figcaption {
+    font-size: 0.7em;
+  }
+
+  a {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    
+  }
+  a:hover, a:active{
+    text-decoration: none;
+  }
+}
+
+.small {
+  font-size: 0.92rem;
+}

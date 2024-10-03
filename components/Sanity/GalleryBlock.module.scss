@@ -1,0 +1,49 @@
+@import "../../styles/_variables.scss";
+
+.prevButton, .nextButton{
+  position: absolute;
+  z-index: 100;
+  cursor: pointer;
+  border: none;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  opacity: 0;
+}
+
+.prevButton{
+  left: 0;
+}
+
+.nextButton{
+  right: 0;
+}
+
+.pagination {
+  position: absolute;
+  bottom: $padding * 3;
+  left: 50%;
+  transform: translate(-50%, 0);
+  color: white;
+  border-radius: $radius3;
+  height: $radius3 * 2;
+  padding: 0 15px 0 15px;
+  line-height: $radius3 * 2;
+  font-family: ibm-plex-mono, monospace;
+  font-size: 14px;
+  text-align: center;
+  //background-color: black;
+}
+
+.swiperNavigation {
+  height: calc(100% - $padding * 2);
+
+  :global {
+    .swiper-pagination {
+      color: white;
+      font-family: ibm-plex-mono, monospace;
+      font-size: 14px;
+      text-align: center;
+    }
+  }
+}
