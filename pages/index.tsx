@@ -2,14 +2,39 @@
 import {useTranslations} from 'next-intl';
 import Layout from '../components/Layout';
 import {GetStaticPropsContext} from 'next';
+import {useFetchHomepage} from '@/api/useSanityData';
+import styles from '@/styles/homepage.module.scss';
+import BlockContent from '@/components/Sanity/BlockContent';
+import Link from 'next/link';
+import React from 'react';
 
 export default function Home() {
-
-    const t = useTranslations('Navigation');
-
+    const {data: homepage} = useFetchHomepage()
+    const t = useTranslations('Homepage');
 
     return (
         <Layout>
+            {homepage &&
+                <div className={styles.homepageContainer}>
+                    <h1 className={styles.exhibitionTitle}>
+                        {t('onDisplay')}{' '}
+                        <span className={styles.title}>Always Over Titled Dreamers Safari</span>
+                        {' '}{t('by')}{' '}
+                        Julius Reichel and Roel van der Linden And Peter Sagan Jr.
+                        {' '}<span className={styles.date}>21.07.2024 — 21.07.2024</span>
+                    </h1>
+                    <div className={styles.exhibitionCover}>
+                    </div>
+                    <div className={styles.upcomingContainer}>
+                        Always Over Titled Dreamers Safari by Julius Reichel an d Roel van der Linden
+                    </div>
+                    <div className={styles.olderExhibitions}>
+                        <Link href={"/exhibitions"}>
+                            {t('olderExhibition')}
+                        </Link>
+                    </div>
+                </div>
+            }
 
         </Layout>
     );

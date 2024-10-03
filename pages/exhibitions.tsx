@@ -1,12 +1,33 @@
 'use client'
 import Layout from '../components/Layout';
 import {GetStaticPropsContext} from 'next';
+import {useRouter} from 'next/router';
+import {useFetchArtists, useFetchExhibitions} from '@/api/useSanityData';
+import styles from '@/styles/artists.module.scss';
+import Link from 'next/link';
 
 export default function Exhibitions() {
+    const router = useRouter();
+    const {data: exhibitions} = useFetchExhibitions(router.locale ?? 'cs')
 
     return (
         <Layout>
-            Exhi
+            <div className={styles.artistsContainer}>
+                {exhibitions?.map((exhibition =>  {
+                    return (
+                        <Link href="/exhibition/[slug]"
+                              as={`/exhibition/${exhibition.Slug}`}
+                              key={exhibition.Slug}
+                              className={styles.artistContainer}>
+                            <div className={styles.cover}>
+
+                            </div>
+                            <h2>{exhibition.Title}</h2>
+
+
+                        </Link>
+                    )}))}
+            </div>
         </Layout>
     );
 }

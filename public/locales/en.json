@@ -7,6 +7,12 @@
     "search": "Search",
     "language": "CZ"
   },
+  "Homepage": {
+    "onDisplay": "On display:",
+    "by": "by",
+    "upcoming": "Upcoming",
+    "olderExhibition": "Older exhibitions"
+  },
   "About": {
     "contact": "Contact",
     "address": "Address",

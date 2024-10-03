@@ -18,7 +18,6 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
         title = 'Karpuchina Gallery',
         loading = false
     }) => {
-    const pathname = usePathname()
     const [showSearch, setShowSearch] = useState(false);
 
     // todo disable scroll

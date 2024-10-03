@@ -61,8 +61,10 @@
   .footerGradient {
     height: 70px;
     background: linear-gradient(rgba(255, 255, 255, 0), #000);
-
-
+  }
+  .footerNoGradient {
+    height: 70px;
+    background: black;
   }
   .footerContent {
     padding: 30px;

@@ -7,6 +7,12 @@
     "search": "Hledat",
     "language": "EN"
   },
+  "Homepage": {
+    "onDisplay": "Aktuální:",
+    "by": "od",
+    "upcoming": "Nadcházející",
+    "olderExhibition": "Starší výstavy"
+  },
   "About": {
     "contact": "Kontakt",
     "address": "Adresa",
