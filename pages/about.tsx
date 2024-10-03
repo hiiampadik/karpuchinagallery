@@ -1,12 +1,33 @@
 'use client'
 import Layout from '../components/Layout';
 import {GetStaticPropsContext} from 'next';
+import {useFetchAbout} from '@/components/utils/useSanityData';
+import {useTranslations} from 'next-intl';
+import styles from '../styles/about.module.scss'
 
 export default function About() {
+    const {data: about} = useFetchAbout()
+    const t = useTranslations('About');
+
+    // todo class about
 
     return (
         <Layout>
-            About
+            <div className={styles.aboutInfo}>
+
+            </div>
+
+            oteviracka
+
+            Gallery todo
+
+            bio
+
+            loga
+
+
+
+
         </Layout>
     );
 }

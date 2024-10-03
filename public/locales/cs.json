@@ -6,5 +6,11 @@
     "contact": "Kontakt+O nás",
     "search": "Hledat",
     "language": "EN"
+  },
+  "About": {
+    "contact": "Kontakt",
+    "address": "Adresa",
+    "open": "Otevřeno",
+    "connect": "Connect"
   }
 }

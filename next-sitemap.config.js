@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  // siteUrl: "https://bronislavmusil.com", todo
+  siteUrl: "https://www.karpuchina.gallery",
   generateRobotsTxt: true, // (optional)
   // ...other options
 };

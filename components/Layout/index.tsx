@@ -9,6 +9,7 @@ import styles from './index.module.scss'
 interface LayoutProps {
     readonly title?: string
     readonly loading?: boolean;
+    // todo loading
 }
 
 const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (

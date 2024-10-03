@@ -6,5 +6,11 @@
     "contact": "Contact+About",
     "search": "Search",
     "language": "EN"
+  },
+  "About": {
+    "contact": "Contact",
+    "address": "Address",
+    "open": "Open",
+    "connect": "Connect"
   }
 }
