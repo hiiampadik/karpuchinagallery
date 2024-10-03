@@ -1,47 +1,50 @@
-// @ts-nocheck
-// todo
-
-import { PortableText } from '@portabletext/react'
-import Figure from './Figure'
-import styles from './Blocks.module.scss'
-import { useRouter } from "next/router";
-import React, {FunctionComponent} from 'react';
+import { PortableText, PortableTextComponents } from '@portabletext/react';
+import Figure from './Figure';
+import styles from './Blocks.module.scss';
+import React, { FunctionComponent, ReactNode } from 'react';
 import Link from 'next/link';
 
-const components = {
+interface ImageValue {
+  asset: any;
+  caption?: string;
+}
+
+interface LinkValue {
+  href: string;
+  alt?: string;
+}
+
+const components: PortableTextComponents = {
   types: {
-    image: ({ value }) => {
+    image: ({ value }: { value: ImageValue }) => {
       return (
-        <figure >
-          <Figure image={value.asset} alt={value.caption}/>
-          {value.caption != null ?
-                    <figcaption>{value.caption}</figcaption>
-                    : ""
-          }
-        </figure>
-      )
+          <figure>
+            <Figure image={value.asset} alt={value.caption || ''} />
+            {value.caption ? <figcaption>{value.caption}</figcaption> : null}
+          </figure>
+      );
     },
-  },
-  block: {
-    small: ({children}) => <div className={styles.small}>{children}</div>,
   },
   marks: {
-    link: ({children, value}) => {
+    link: ({ children, value }: { children?: ReactNode; value?: LinkValue }) => {
+      if (!value?.href) {
+        return <>{children}</>; // If no href is provided, just render the children
+      }
       return (
-      <Link href={value.href} alt={value.alt}>
-        {children}
-      </Link>
-      )
+          <Link href={value.href}>
+            {children}
+          </Link>
+      );
     },
   },
-}
+};
 
 interface BlockContentProps {
-  readonly blocks?: any
+  readonly blocks?: any;
 }
 
-const BlockContent: FunctionComponent<BlockContentProps> = ({ blocks}) => {
-  return <PortableText value={blocks} components={components}/>
-}
+const BlockContent: FunctionComponent<BlockContentProps> = ({ blocks }) => {
+  return <PortableText value={blocks} components={components} />;
+};
 
 export default BlockContent;

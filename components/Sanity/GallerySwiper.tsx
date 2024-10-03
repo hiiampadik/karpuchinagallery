@@ -1,7 +1,6 @@
 'use client'
-import React, {FunctionComponent, useContext, useEffect} from "react";
+import React, {FunctionComponent, useEffect} from "react";
 import styles from './GalleryBlock.module.scss'
-import {CursorContext, CursorSVG} from '@/components/CustomStyles';
 import {useRouter} from 'next/router';
 import {Swiper, SwiperSlide, useSwiper} from "swiper/react";
 import 'swiper/css';
@@ -9,7 +8,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import "swiper/css/scrollbar";
 import {Pagination, Scrollbar} from 'swiper/modules';
-import Figure from '@/utils/sanity/Figure';
+import Figure from '@/components/Sanity/Figure';
 
 // @refresh reset
 
@@ -53,12 +52,8 @@ export default GallerySwiper
 
 const PrevButton: FunctionComponent = () => {
     const swiper = useSwiper();
-    const {setCursorType} = useContext(CursorContext);
     return (
         <button className={styles.prevButton}
-                onMouseEnter={() => setCursorType(CursorSVG.PREV)}
-                onMouseLeave={() => setCursorType(undefined)}
-            // ref={navigationPrevRef}
                 onClick={() => swiper?.slidePrev()}
         />
     )
@@ -66,7 +61,6 @@ const PrevButton: FunctionComponent = () => {
 
 const NextButton: FunctionComponent = () => {
     const swiper = useSwiper();
-    const {setCursorType} = useContext(CursorContext);
     const router = useRouter()
 
     useEffect(() => {
@@ -76,9 +70,6 @@ const NextButton: FunctionComponent = () => {
     }, [swiper, router])
     return (
         <button className={styles.nextButton}
-                onMouseEnter={() => setCursorType(CursorSVG.NEXT)}
-                onMouseLeave={() => setCursorType(undefined)}
-            // ref={navigationNextRef}
                 onClick={() => swiper?.slideNext()}
         />
     )
