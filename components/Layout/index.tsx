@@ -1,10 +1,11 @@
 'use client'
-import React, {FunctionComponent, PropsWithChildren} from 'react';
+import React, {FunctionComponent, PropsWithChildren, useState} from 'react';
 import Head from "next/head";
 import Navigation from './Navigation';
 import {usePathname} from 'next/navigation';
 import Footer from '@/components/Layout/Footer';
 import styles from './index.module.scss'
+import SearchInput from '@/components/Search';
 
 interface LayoutProps {
     readonly title?: string
@@ -18,6 +19,10 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
         loading = false
     }) => {
     const pathname = usePathname()
+    const [showSearch, setShowSearch] = useState(false);
+
+    // todo disable scroll
+
     return (
         <>
             <Head>
@@ -33,11 +38,14 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
                 />
             </Head>
                 <main>
-                    <Navigation />
+                    <Navigation handleSearch={() => setShowSearch(true)} />
                     <div className={styles.content}>
                         {children}
                     </div>
                     <Footer />
+                    {showSearch &&
+                        <SearchInput onClose={() => setShowSearch(false)} />
+                    }
                 </main>
         </>
     );

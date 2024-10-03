@@ -1,0 +1,34 @@
+@import '../../styles/variables';
+
+.searchInputContainer {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(18px);
+  padding: 100px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.searchInputClose {
+  font-size: 27px;
+  line-height: 33px;
+  font-family: Rhymes, serif;
+
+  border: none;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  align-self: flex-end;
+  color: $text-secondary-default;
+
+  @media (hover: hover) {
+    &:hover {
+      color: $text-primary-default;
+    }
+  }
+}

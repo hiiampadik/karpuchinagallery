@@ -25,12 +25,28 @@
     justify-content: space-between;
     gap: 40px;
     color: $text-secondary-default;
-    a {
+    a, button {
       color: $text-secondary-default;
+      @media (hover: hover) {
+        &:hover {
+          color: $text-primary-default;
+        }
+      }
+    }
+    button {
+      border: none;
+      padding: 0;
+      background: none;
+      font-size: 27px;
+      line-height: 33px;
+      font-family: Rhymes, serif;
+      align-self: flex-start;
+      cursor: pointer;
     }
     .active {
       color: $text-primary-default;
     }
+
 
 
     .languageButton {

@@ -12,5 +12,8 @@
     "address": "Adresa",
     "open": "Otevřeno",
     "connect": "Connect"
+  },
+  "Search": {
+    "close": "Zavřít"
   }
 }

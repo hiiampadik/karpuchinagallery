@@ -8,17 +8,17 @@ export class About {
         public readonly Footer: any,
         public readonly Open: any,
         public readonly Bio: any,
-        public readonly logos: any,
+        public readonly Logos: any,
     ) {}
 
     public static fromPayload(payload: any, locale: string): About {
         return new About(
-            payload.Contact[locale],
-            payload.Address[locale],
-            payload.Connect[locale],
-            payload.Footer[locale],
-            payload.Open[locale],
-            payload.Bio[locale],
+            payload.contact[locale],
+            payload.address[locale],
+            payload.connect[locale],
+            payload.footer[locale],
+            payload.open[locale],
+            payload.bio[locale],
             payload.logos
         );
     }

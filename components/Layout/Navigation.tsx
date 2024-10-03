@@ -8,9 +8,10 @@ import {useTranslations} from 'next-intl';
 import {usePathname} from 'next/navigation';
 
 interface NavigationProps {
+    readonly handleSearch: () => void
 }
 
-const Navigation: FunctionComponent<NavigationProps> = ({}) => {
+const Navigation: FunctionComponent<NavigationProps> = ({handleSearch}) => {
     const router = useRouter();
     const currentPath = usePathname();
     const t = useTranslations('Navigation');
@@ -37,8 +38,9 @@ const Navigation: FunctionComponent<NavigationProps> = ({}) => {
                    {t('contact')}
                </Link>
 
-               {t('search')}
-
+               <button onClick={handleSearch}>
+                   {t('search')}
+               </button>
 
                <Link
                    href={router.asPath}

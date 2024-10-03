@@ -12,5 +12,8 @@
     "address": "Address",
     "open": "Open",
     "connect": "Connect"
+  },
+  "Search": {
+    "close": "Close"
   }
 }
