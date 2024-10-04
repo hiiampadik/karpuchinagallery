@@ -41,19 +41,40 @@
     background: linear-gradient(rgba(255, 255, 255, 0), #000);
   }
 
-  .upcomingContainer{
-    min-height: 200px;
+  .upcomingWrapping {
     background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+  }
+  .upcomingContainer{
+    width: calc(100vw - 20px);
+    max-width: 900px;
     color: #737373;
     padding: 70px 0;
+    font-size: 37px;
+    font-family: Rhymes, serif;
+    font-weight: 400;
+    letter-spacing: 0;
+    .title {
+      font-style: italic;
+    }
+    .note {
+      font-family: NHG, -apple-system, 'Helvetica Neue', 'Arial', sans-serif;
+      font-size: 17px;
+      letter-spacing: 0.08em;
+      color: white;
+    }
   }
 
   .olderExhibitions {
-    padding: 120px 0;
+    height: 250px;
     display: flex;
     justify-content: center;
     align-items: center;
     background: black;
+    position: relative;
     a {
       color: white;
       font-family: NHG, -apple-system, 'Helvetica Neue', 'Arial', sans-serif;
@@ -63,5 +84,17 @@
       text-decoration: none;
       letter-spacing: 0.08em;
     }
+  }
+  .olderExhibitions::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 250px;
+    left: 0;
+    right: 0;
+    background: black;
+    height: 70px;
+
+    // todo variable height of gradient
   }
 }

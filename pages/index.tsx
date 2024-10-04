@@ -25,8 +25,13 @@ export default function Home() {
                     </h1>
                     <div className={styles.exhibitionCover}>
                     </div>
-                    <div className={styles.upcomingContainer}>
-                        Always Over Titled Dreamers Safari by Julius Reichel an d Roel van der Linden
+                    <div className={styles.upcomingWrapping}>
+                        <h1 className={styles.upcomingContainer}>
+                            <span className={styles.note}>{t('upcoming')}</span>
+                            <span className={styles.title}>{' '}Always Over Titled Dreamers Safari</span>
+                            {' '}by Julius Reichel an d Roel van der Linden
+                            {' '}<span className={styles.note}>{t('from')}{' '}20.11.2024</span>
+                        </h1>
                     </div>
                     <div className={styles.olderExhibitions}>
                         <Link href={"/exhibitions"}>
@@ -35,9 +40,8 @@ export default function Home() {
                     </div>
                 </div>
             }
-
         </Layout>
-    );
+);
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
