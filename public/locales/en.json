@@ -5,7 +5,8 @@
     "fairs": "Fairs",
     "contact": "Contact+About",
     "search": "Search",
-    "language": "CZ"
+    "language": "CZ",
+    "close": "Close"
   },
   "Homepage": {
     "onDisplay": "On display:",
