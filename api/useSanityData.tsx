@@ -32,7 +32,7 @@ export const useFetchHomepage = (): { data: any | null, loading: boolean, error:
     return { data: data, loading, error };
 };
 
-export const useFetchAbout = (locale: string): { data: About | null, loading: boolean, error: Error | null} => {
+export const useFetchAbout = (locale: string ): { data: About | null, loading: boolean, error: Error | null} => {
     const [data, setData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
@@ -92,6 +92,39 @@ export const useFetchArtists = (locale: string): { data: Artist[] | null, loadin
         error };
 };
 
+
+export const useFetchArtist = (slug: string | undefined, locale: string): { data: Artist | null, loading: boolean, error: Error | null} => {
+    const [data, setData] = useState<any>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<Error | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (slug !== undefined){
+                try {
+                    const result = await client.fetch(
+                        `{"artist": *[_type == "artists" && slug.current == $slug] | order(_updatedAt desc) [0] {...}}`,
+                        { slug: slug}
+                    );
+                    setData(result.artist);
+                } catch (error) {
+                    setError(error as Error);
+                } finally {
+                    setLoading(false);
+                }
+            }
+        };
+
+        fetchData();
+
+        // Cleanup function
+        return () => {
+            // Optionally, you can cancel any pending requests here
+        };
+    }, [slug]);
+
+    return { data: data && Artist.fromPayload(data, locale), loading, error };
+};
 
 export const useFetchExhibitions = (locale: string): { data: Exhibition[] | null, loading: boolean, error: Error | null} => {
     const [data, setData] = useState<any>(null);

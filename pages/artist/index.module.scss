@@ -1,1 +1,37 @@
 @import '../../styles/variables';
+
+.artistContainer {
+  max-width: 1200px;
+  width: calc(100vw - 20px);
+
+  h1 {
+    font-size: 42px;
+    font-family: Rhymes, serif;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
+  h2 {
+    @include labelSmall;
+  }
+}
+
+.bioContainer {
+  margin-top: 50px;
+  p {
+    font-size: 16px;
+    column-count: 3;
+    column-gap: 22px;
+    orphans: 7;
+  }
+}
+.selectedWorks {
+  margin-top: 100px;
+}
+.exhibitions {
+  margin-top: 100px;
+}
+.artistDetailsContainer {
+  margin-top: 100px;
+  margin-bottom: 250px;
+}

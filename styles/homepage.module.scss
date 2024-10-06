@@ -11,7 +11,6 @@
     font-size: 50px;
     font-family: Rhymes, serif;
     font-weight: 400;
-    letter-spacing: 0;
     width: calc(100vw - 20px);
     max-width: 900px;
 
@@ -20,9 +19,7 @@
     }
 
     .date {
-      font-family: NHG, -apple-system, 'Helvetica Neue', 'Arial', sans-serif;
-      font-size: 17px;
-      letter-spacing: 0.08em;
+      @include labelThin;
     }
   }
   .exhibitionCover {
@@ -56,14 +53,11 @@
     font-size: 37px;
     font-family: Rhymes, serif;
     font-weight: 400;
-    letter-spacing: 0;
     .title {
       font-style: italic;
     }
     .note {
-      font-family: NHG, -apple-system, 'Helvetica Neue', 'Arial', sans-serif;
-      font-size: 17px;
-      letter-spacing: 0.08em;
+      @include labelThin;
       color: white;
     }
   }

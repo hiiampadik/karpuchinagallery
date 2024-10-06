@@ -5,8 +5,8 @@
     "fairs": "Veletrhy",
     "contact": "Kontakt+O nás",
     "search": "Hledat",
-    "language": "EN",
-    "close": "Zavřít"
+    "close": "Zavřít",
+    "menu": "Menu"
   },
   "Homepage": {
     "onDisplay": "Aktuální:",
@@ -23,5 +23,16 @@
   },
   "Search": {
     "close": "Zavřít"
+  },
+
+  "Artist": {
+    "bio": "Bio",
+    "selectedWorks": "Projekty (VÝBĚR)",
+    "exhibitions": "Výstavy",
+
+    "detailsSelectedGroupExhibitions": "Skupinové výstavy (VÝBĚR)",
+    "detailsSelectedSoloExhibitions": "Solo výstavy (VÝBĚR)",
+    "detailsEducation": "Vzdělání",
+    "detailsAwards": "Ocenění"
   }
 }

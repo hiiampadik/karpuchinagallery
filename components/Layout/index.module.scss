@@ -16,42 +16,50 @@
   font-size: 27px;
   line-height: 33px;
   font-family: Rhymes, serif;
-  a {
-    text-decoration: none;
-  }
+
 
   .navigationLinksContainer {
     display: flex;
     justify-content: space-between;
-    gap: 40px;
+    gap: 38px;
     color: $text-secondary-default;
-    a, button {
-      color: $text-secondary-default;
-      @media (hover: hover) {
-        &:hover {
-          color: $text-primary-default;
-        }
+    @media (max-width: $breakpoint-md-max) {
+      display: none;
+    }
+  }
+
+  .navigationMenuContainer {
+    @media (min-width: $breakpoint-lg-min) {
+      display: none;
+    }
+  }
+
+  a, button {
+    color: $text-secondary-default;
+    @media (hover: hover) {
+      &:hover {
+        color: $text-primary-default;
       }
     }
-    button {
-      border: none;
-      padding: 0;
-      background: none;
-      font-size: 27px;
-      line-height: 33px;
-      font-family: Rhymes, serif;
-      align-self: flex-start;
-      cursor: pointer;
-    }
-    .active {
-      color: $text-primary-default;
-    }
-
-
-
-    .languageButton {
-      width: 40px;
-    }
+  }
+  button {
+    border: none;
+    padding: 0;
+    background: none;
+    font-size: 27px;
+    line-height: 33px;
+    font-family: Rhymes, serif;
+    align-self: flex-start;
+    cursor: pointer;
+  }
+  a {
+    text-decoration: none;
+  }
+  .activeRoute {
+    color: $text-primary-default;
+  }
+  .languageButton {
+    width: 40px;
   }
 }
 
@@ -81,16 +89,18 @@
     line-height: 64px;
     font-family: Rhymes, serif;
   }
-  .searchButtonContainer {
-    button {
-      color: rgba(0, 0, 0, 0.5);
-      border: none;
-      padding: 0;
-      background: none;
-      cursor: pointer;
+  button {
+    color: rgba(0, 0, 0, 0.5);
+    border: none;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+    img {
+      margin-left: 8px;
     }
   }
-  .languageContainer {
+
+  .languageButton {
     font-size: 22px;
     font-family: Rhymes, serif;
     display: flex;
@@ -98,15 +108,12 @@
     gap: 16px;
     align-items: center;
     color: rgba(0,0,0,0.5);
-    a {
-      font-size: 22px;
-      font-family: Rhymes, serif;
-      color: rgba(0,0,0,0.5);
-    }
-    .black{
+
+    :not(.activeLocale){
       color: rgb(0,0,0);
     }
   }
+
   .menuClose {
     font-size: 27px;
     line-height: 33px;
@@ -138,6 +145,22 @@
     padding: 30px;
     color: white;
     background: black;
+    font-size: 21px;
+    font-family: Rhymes, serif;
+    text-align: center;
+
+    a {
+      color: white;
+      margin-right: 12px;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+      white-space: nowrap;
+      @media (hover: hover) {
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
   }
 
 

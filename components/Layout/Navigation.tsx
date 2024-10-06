@@ -6,17 +6,21 @@ import {useRouter} from 'next/router';
 import {GetStaticPropsContext} from 'next';
 import {useTranslations} from 'next-intl';
 import {usePathname} from 'next/navigation';
+import SearchIcon from '../../public/SearchIcon.svg'
+import Image from 'next/image'
 
 interface NavigationProps {
     readonly handleSearch: () => void
+    readonly handleDisableScroll: (disable: boolean) => void
 }
 
-const Navigation: FunctionComponent<NavigationProps> = ({handleSearch}) => {
+const Navigation: FunctionComponent<NavigationProps> = ({handleSearch, handleDisableScroll}) => {
     const router = useRouter();
     const currentPath = usePathname();
     const t = useTranslations('Navigation');
 
-    const [showMenu, setShowMenu] = useState(true);
+    console.log(currentPath)
+    const [showMenu, setShowMenu] = useState(false);
 
     return (
         <>
@@ -27,77 +31,81 @@ const Navigation: FunctionComponent<NavigationProps> = ({handleSearch}) => {
                    </Link>
                </div>
                <div className={styles.navigationLinksContainer}>
-                   <Link href={"/artists"} className={currentPath === '/artists' ? styles.active : ''}>
+                   <Link href={"/artists"} className={currentPath === '/artists' ? styles.activeRoute : ''}>
                        {t('artists')}
                    </Link>
-                   <Link href={"/exhibitions"} className={currentPath === '/exhibitions' ? styles.active : ''}>
+                   <Link href={"/exhibitions"} className={currentPath === '/exhibitions' ? styles.activeRoute : ''}>
                        {t('exhibitions')}
                    </Link>
-                   <Link href={"/fairs"} className={currentPath === '/fairs' ? styles.active : ''}>
+                   <Link href={"/fairs"} className={currentPath === '/fairs' ? styles.activeRoute : ''}>
                        {t('fairs')}
                    </Link>
-                   <Link href={"/about"} className={currentPath === '/about' ? styles.active : ''}>
+                   <Link href={"/about"} className={currentPath === '/about' ? styles.activeRoute : ''}>
                        {t('contact')}
                    </Link>
 
-                   <button onClick={handleSearch}>
+                   <button onClick={() => {
+                       handleDisableScroll(true)
+                       handleSearch()
+                   }}>
                        {t('search')}
                    </button>
 
                    <Link
                        href={router.asPath}
                        locale={router.locale === "cs" ? "en" : "cs"}
-                       className={styles.languageButton}
-                   >
-                       {t('language')}
+                       className={styles.languageButton}>
+                       {router.locale === "cs" ? "EN" : "CZ"}
                    </Link>
-
-
+               </div>
+               <div className={styles.navigationMenuContainer}>
+                   <button onClick={() => {
+                       setShowMenu(true)
+                       handleDisableScroll(true)
+                   }}>
+                       {t('menu')}
+                   </button>
                </div>
            </div>
             {showMenu &&
                 <div className={styles.menuContainer}>
-                    <button className={styles.menuClose} onClick={() => setShowMenu(false)}>
+                    <button
+                        className={styles.menuClose}
+                        onClick={() => {
+                            setShowMenu(false)
+                            handleDisableScroll(false)
+                    }}>
                         {t('close')}
                     </button>
 
-
                     <div className={styles.linksContainer}>
-                        <Link href={"/artists"} className={currentPath === '/artists' ? styles.active : ''}>
+                        <Link href={"/artists"} onClick={() => setShowMenu(false)}>
                             {t('artists')}
                         </Link>
-                        <Link href={"/exhibitions"} className={currentPath === '/exhibitions' ? styles.active : ''}>
+                        <Link href={"/exhibitions"} onClick={() => setShowMenu(false)}>
                             {t('exhibitions')}
                         </Link>
-                        <Link href={"/fairs"} className={currentPath === '/fairs' ? styles.active : ''}>
+                        <Link href={"/fairs"} onClick={() => setShowMenu(false)}>
                             {t('fairs')}
                         </Link>
-                        <Link href={"/about"} className={currentPath === '/about' ? styles.active : ''}>
+                        <Link href={"/about"} onClick={() => setShowMenu(false)}>
                             {t('contact')}
                         </Link>
 
-                        {/*todo zavrit menu*/}
-                        {/*todo icon */}
-                        <div className={styles.searchButtonContainer}>
-                            <button onClick={handleSearch}>
-                                {t('search')}
-                            </button>
-                        </div>
+                        <button
+                            onClick={() => {
+                                handleSearch();
+                                setShowMenu(false)}}
+                        >
+                            {t('search')}
+                            <Image  src={SearchIcon} alt={'s'} width="30" height="30" />
+                        </button>
 
-                        {/*todo zavrit na switch?*/}
-                        <div className={styles.languageContainer}>
-                            <Link
-                                href={router.asPath}
-                                locale={'cs'}
-                                className={router.locale === "en" ? styles.black : ''}
-                            >CZ</Link>
+                        <Link href={router.asPath} locale={router.locale === "cs" ? "en" : "cs"} className={styles.languageButton}>
+                            <span className={router.locale === "cs" ? styles.activeLocale : ''}>CZ</span>
                             {'/'}
-                            <Link
-                                href={router.asPath}
-                                locale={'en'}
-                                className={router.locale === "cs" ? styles.black : ''}
-                            >EN</Link>
-                        </div>
+                            <span className={router.locale === "en" ? styles.activeLocale : ''}>EN</span>
+                        </Link>
                     </div>
                 </div>
             }

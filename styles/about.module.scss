@@ -1,5 +1,6 @@
 @import '_variables.scss';
 
+
 .aboutInfoContainer{
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -9,6 +10,9 @@
   max-width: 770px;
   width: calc(100vw - 20px);
   margin-bottom: 90px;
+  h1 {
+    @include labelSmall;
+  }
   p {
     font-size: 32px;
     font-weight: normal;
@@ -29,6 +33,7 @@
   width: calc(100vw - 20px);
   h1 {
     margin: 32px 0 12px;
+    @include labelSmall;
   }
 }
 

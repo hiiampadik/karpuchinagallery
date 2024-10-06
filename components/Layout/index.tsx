@@ -20,7 +20,14 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
     }) => {
     const [showSearch, setShowSearch] = useState(false);
 
-    // todo disable scroll
+    const handleDisableScroll = (disable: boolean) => {
+        const body = document.body;
+        if (disable) {
+            body.classList.add('disableScroll');
+        } else {
+            body.classList.remove('disableScroll');
+        }
+    }
 
     return (
         <>
@@ -37,13 +44,19 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
                 />
             </Head>
                 <main>
-                    <Navigation handleSearch={() => setShowSearch(true)} />
+                    <Navigation
+                        handleSearch={() => setShowSearch(true)}
+                        handleDisableScroll={(value) => handleDisableScroll(value)}
+                    />
                     <div className={styles.content}>
                         {children}
                     </div>
                     <Footer />
                     {showSearch &&
-                        <SearchInput onClose={() => setShowSearch(false)} />
+                        <SearchInput onClose={() => {
+                            setShowSearch(false);
+                            handleDisableScroll(false);
+                        }} />
                     }
                 </main>
         </>

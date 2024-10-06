@@ -2,8 +2,6 @@ import {PortableTextBlock} from '@portabletext/types';
 
 
 export class About {
-
-    // todo anys
     public constructor(
         public readonly Contact: PortableTextBlock,
         public readonly Address: PortableTextBlock,
@@ -28,8 +26,6 @@ export class About {
 }
 
 export class Artist {
-
-    // todo anys
     public constructor(
         public readonly Name: string,
         public readonly Slug: string,
@@ -46,8 +42,6 @@ export class Artist {
 }
 
 export class Exhibition {
-
-    // todo anys
     public constructor(
         public readonly Title: string,
         public readonly Slug: string,

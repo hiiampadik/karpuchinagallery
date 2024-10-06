@@ -6,7 +6,9 @@ export default function Fairs() {
 
     return (
         <Layout>
-            Fairs
+            <div >
+                Fairs
+            </div>
         </Layout>
     );
 }

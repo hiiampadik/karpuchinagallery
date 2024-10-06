@@ -1,27 +1,31 @@
 $lh: 10px;
 
-$breakpoint-mobile-max: 600px;
-
-
-$breakpoint-mobile-max     : 320px;
-$breakpoint-mobile-max     : 575px;
-
-$breakpoint-smalltablet-min: 576px;
-$breakpoint-smalltablet-max: 767px;
-
-$breakpoint-largetablet-min: 768px;
-$breakpoint-largetablet-max: 1024px;
-
-$breakpoint-smallscreen-min: 1025px;
-$breakpoint-smallscreen-max: 1399px;
-
-$breakpoint-largescreen-min: 1400px;
-$breakpoint-largescreen-max: 2559px;
-
-$breakpoint-2k-min: 2560px;
-$breakpoint-2k-max: 3839px;
-
-$breakpoint-4k-min: 3840px;
+$breakpoint-xs-max: 575px;
+$breakpoint-sm-min: 576px;
+$breakpoint-sm-max: 767px;
+$breakpoint-md-min: 768px;
+$breakpoint-md-max: 991px;
+$breakpoint-lg-min: 992px;
+$breakpoint-lg-max: 1199px;
+$breakpoint-xl-min: 1200px;
+$breakpoint-xl-max: 1399px;
+$breakpoint-xxl-min: 1400px;
 
 $text-secondary-default: #A4A4A4;
 $text-primary-default: #000;
+
+
+
+@mixin labelSmall {
+  font-size: 12px;
+  font-family: NHG, -apple-system, 'Helvetica Neue', 'Arial', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+
+@mixin labelThin {
+  font-size: 17px;
+  font-family: NHG, -apple-system, 'Helvetica Neue', 'Arial', sans-serif;
+  letter-spacing: 0.08em;
+}

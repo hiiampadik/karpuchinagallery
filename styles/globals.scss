@@ -26,6 +26,11 @@ body {
   -webkit-overflow-scrolling: touch;
   height: auto;
   overflow: scroll;
+
+  &.disableScroll {
+    height: 100vh !important;
+    overflow-x: hidden !important;
+  }
 }
 
 main {
@@ -57,13 +62,6 @@ h3 {
   font-weight: inherit;
   padding: 0;
   margin: 0;
-}
-
-h1 {
-  font-size: 12px;
-  font-family: NHG, -apple-system, 'Helvetica Neue', 'Arial', sans-serif;
-  font-weight: 500;
-  letter-spacing: 0.08em;
 }
 
 p {

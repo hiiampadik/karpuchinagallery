@@ -5,8 +5,8 @@
     "fairs": "Fairs",
     "contact": "Contact+About",
     "search": "Search",
-    "language": "CZ",
-    "close": "Close"
+    "close": "Close",
+    "menu": "Menu"
   },
   "Homepage": {
     "onDisplay": "On display:",
@@ -23,5 +23,16 @@
   },
   "Search": {
     "close": "Close"
+  },
+
+  "Artist": {
+    "bio": "Bio",
+    "selectedWorks": "Selected Works",
+    "exhibitions": "Exhibitions",
+
+    "detailsSelectedGroupExhibitions": "Selection of Group Exhibitions",
+    "detailsSelectedSoloExhibitions": "Selection of Solo Exhibitions",
+    "detailsEducation": "Education",
+    "detailsAwards": "Awards"
   }
 }
