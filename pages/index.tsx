@@ -4,23 +4,42 @@ import Layout from '../components/Layout';
 import {GetStaticPropsContext} from 'next';
 import {useFetchHomepage} from '@/api/useSanityData';
 import styles from '@/styles/homepage.module.scss';
-import BlockContent from '@/components/Sanity/BlockContent';
 import Link from 'next/link';
 import React from 'react';
+import {useRouter} from 'next/router';
+import {Artist} from '@/api/classes';
 
 export default function Home() {
-    const {data: homepage} = useFetchHomepage()
+    const router = useRouter();
+    const {data: homepage} = useFetchHomepage(router.locale ?? 'cs')
     const t = useTranslations('Homepage');
+
+    const formatArtists = (artists: {name: string}[]) => {
+        const names = artists.map((artist) => artist.name);
+        if (names.length === 1) {
+            return names[0];
+        }
+        if (names.length === 2) {
+            return names.join(' and ');
+        }
+        return names.slice(0, -1).join(', ') + ', and ' + names[names.length - 1];
+    };
+
+    // todo start dates enddates
 
     return (
         <Layout>
             {homepage &&
                 <div className={styles.homepageContainer}>
-                    <h1 className={styles.exhibitionTitle}>
-                        {t('onDisplay')}{' '}
-                        <span className={styles.title}>Always Over Titled Dreamers Safari</span>
-                        {' '}{t('by')}{' '}
-                        Julius Reichel and Roel van der Linden And Peter Sagan Jr.
+                    <h1 className={styles.exhibitionTitle} style={{color: homepage.OnDisplay.Color}}>
+                        {t('onDisplay')}
+                        {' '}<span className={styles.title}>{homepage.OnDisplay.Title}</span>
+                        {homepage.OnDisplay.Artists.length > 0 &&
+                            <>
+                                {' '}{t('by')}
+                                {' '}{formatArtists(homepage.OnDisplay.Artists)}
+                            </>
+                        }
                         {' '}<span className={styles.date}>21.07.2024 — 21.07.2024</span>
                     </h1>
                     <div className={styles.exhibitionCover}>
@@ -28,8 +47,13 @@ export default function Home() {
                     <div className={styles.upcomingWrapping}>
                         <h1 className={styles.upcomingContainer}>
                             <span className={styles.note}>{t('upcoming')}</span>
-                            <span className={styles.title}>{' '}Always Over Titled Dreamers Safari</span>
-                            {' '}by Julius Reichel an d Roel van der Linden
+                            {' '}<span className={styles.title}>{homepage.Upcoming.Title}</span>
+                            {homepage.Upcoming.Artists.length > 0 &&
+                                <>
+                                {' '}{t('by')}
+                                {' '}{formatArtists(homepage.Upcoming.Artists)}
+                                </>
+                            }
                             {' '}<span className={styles.note}>{t('from')}{' '}20.11.2024</span>
                         </h1>
                     </div>

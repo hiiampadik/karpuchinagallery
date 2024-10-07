@@ -1,6 +1,22 @@
 import {PortableTextBlock} from '@portabletext/types';
 
 
+export class Homepage {
+    public constructor(
+        public readonly OnDisplay: Exhibition,
+        public readonly Upcoming: Exhibition,
+    ) {}
+
+    public static fromPayload(payload: any, locale: string): Homepage {
+        return new Homepage(
+            Exhibition.fromPayload(payload.onDisplay, locale),
+            Exhibition.fromPayload(payload.upcoming, locale),
+        );
+    }
+}
+
+
+
 export class About {
     public constructor(
         public readonly Contact: PortableTextBlock,
@@ -46,6 +62,10 @@ export class Exhibition {
         public readonly Title: string,
         public readonly Slug: string,
         public readonly Artists: any[],
+        public readonly StartDate: string,
+        public readonly EndDate: string,
+        public readonly Color: string
+
     ) {}
 
     public static fromPayload(payload: any, locale: string): Exhibition {
@@ -53,6 +73,10 @@ export class Exhibition {
             payload.title[locale],
             payload.slug.current,
             payload.artists,
+            payload.startDate,
+            payload.endDate,
+            payload.color.hex
+
         );
     }
 }

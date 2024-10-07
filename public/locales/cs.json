@@ -27,11 +27,11 @@
 
   "Artist": {
     "bio": "Bio",
-    "selectedWorks": "Projekty (VÝBĚR)",
+    "selectedWorks": "Práce (výběr)",
     "exhibitions": "Výstavy",
 
-    "detailsSelectedGroupExhibitions": "Skupinové výstavy (VÝBĚR)",
-    "detailsSelectedSoloExhibitions": "Solo výstavy (VÝBĚR)",
+    "detailsSelectedGroupExhibitions": "Skupinové výstavy (výběr)",
+    "detailsSelectedSoloExhibitions": "Solo výstavy (výběr)",
     "detailsEducation": "Vzdělání",
     "detailsAwards": "Ocenění"
   }

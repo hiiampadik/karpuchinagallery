@@ -61,6 +61,11 @@
   .languageButton {
     width: 40px;
   }
+  .galleryTitle {
+    a {
+      color: $text-primary-default;
+    }
+  }
 }
 
 .menuContainer {

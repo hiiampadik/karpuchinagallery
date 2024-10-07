@@ -19,13 +19,12 @@ const Navigation: FunctionComponent<NavigationProps> = ({handleSearch, handleDis
     const currentPath = usePathname();
     const t = useTranslations('Navigation');
 
-    console.log(currentPath)
     const [showMenu, setShowMenu] = useState(false);
 
     return (
         <>
            <div className={styles.navigationContainer}>
-               <div>
+               <div className={styles.galleryTitle}>
                    <Link href="/">
                        Karpuchina<br />Gallery
                    </Link>

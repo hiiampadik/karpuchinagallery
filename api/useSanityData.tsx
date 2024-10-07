@@ -1,10 +1,10 @@
 'use client'
 import {useEffect, useState} from 'react';
 import client from '../client';
-import {About, Artist, Exhibition} from '@/api/classes';
+import {About, Artist, Exhibition, Homepage} from '@/api/classes';
 
 
-export const useFetchHomepage = (): { data: any | null, loading: boolean, error: Error | null} => {
+export const useFetchHomepage = (locale: string): { data: any | null, loading: boolean, error: Error | null} => {
     const [data, setData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
@@ -12,7 +12,23 @@ export const useFetchHomepage = (): { data: any | null, loading: boolean, error:
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await client.fetch(`*[_type == 'homepage'][0]`);
+                const result = await client.fetch(`
+                *[_type == 'homepage'][0]{
+                    onDisplay->{
+                        ...,
+                        artists[]->{
+                            name
+                        }
+                    },
+                    upcoming->{
+                        ...,
+                        artists[]->{
+                            name
+                        }
+                    }
+                }
+                `
+                );
                 setData(result);
             } catch (error) {
                 setError(error as Error);
@@ -29,10 +45,10 @@ export const useFetchHomepage = (): { data: any | null, loading: boolean, error:
         };
     }, []);
 
-    return { data: data, loading, error };
+    return { data: data && Homepage.fromPayload(data, locale), loading, error };
 };
 
-export const useFetchAbout = (locale: string ): { data: About | null, loading: boolean, error: Error | null} => {
+export const useFetchAbout = (locale: string): { data: About | null, loading: boolean, error: Error | null} => {
     const [data, setData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
@@ -134,7 +150,9 @@ export const useFetchExhibitions = (locale: string): { data: Exhibition[] | null
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await client.fetch(`*[_type == "exhibitions"] | order(orderRank)`);
+                const result = await client.fetch(`
+                *[_type == "exhibitions"] | order(orderRank)
+                `);
                 setData(result);
             } catch (error) {
                 setError(error as Error);
