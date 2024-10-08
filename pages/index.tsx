@@ -7,55 +7,69 @@ import styles from '@/styles/homepage.module.scss';
 import Link from 'next/link';
 import React from 'react';
 import {useRouter} from 'next/router';
-import {Artist} from '@/api/classes';
+import FormatArtists from '@/components/utils/FormatArtists';
 
 export default function Home() {
     const router = useRouter();
     const {data: homepage} = useFetchHomepage(router.locale ?? 'cs')
     const t = useTranslations('Homepage');
 
-    const formatArtists = (artists: {name: string}[]) => {
-        const names = artists.map((artist) => artist.name);
-        if (names.length === 1) {
-            return names[0];
-        }
-        if (names.length === 2) {
-            return names.join(' and ');
-        }
-        return names.slice(0, -1).join(', ') + ', and ' + names[names.length - 1];
+    const LocalizedDate = (dateString: string) => {
+        const date = new Date(dateString);
+        const formatter = new Intl.DateTimeFormat(router.locale ?? 'cs', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+        });
+        return formatter.format(date);
     };
-
-    // todo start dates enddates
 
     return (
         <Layout>
             {homepage &&
                 <div className={styles.homepageContainer}>
-                    <h1 className={styles.exhibitionTitle} style={{color: homepage.OnDisplay.Color}}>
-                        {t('onDisplay')}
-                        {' '}<span className={styles.title}>{homepage.OnDisplay.Title}</span>
-                        {homepage.OnDisplay.Artists.length > 0 &&
-                            <>
-                                {' '}{t('by')}
-                                {' '}{formatArtists(homepage.OnDisplay.Artists)}
-                            </>
-                        }
-                        {' '}<span className={styles.date}>21.07.2024 — 21.07.2024</span>
-                    </h1>
-                    <div className={styles.exhibitionCover}>
-                    </div>
-                    <div className={styles.upcomingWrapping}>
-                        <h1 className={styles.upcomingContainer}>
-                            <span className={styles.note}>{t('upcoming')}</span>
-                            {' '}<span className={styles.title}>{homepage.Upcoming.Title}</span>
-                            {homepage.Upcoming.Artists.length > 0 &&
+                    <Link href="/exhibition/[slug]"
+                          as={`/exhibition/${homepage.Upcoming.Slug}`}
+                          key={homepage.Upcoming.Slug}
+                          className={styles.onDisplayContainer}
+                    >
+                        <h1 className={styles.onDisplayTitle} style={{color: homepage.OnDisplay.Color ?? '#000000'}}>
+                            {t('onDisplay')}
+                            {' '}<span className={styles.title}>{homepage.OnDisplay.Title}</span>
+                            {homepage.OnDisplay.Artists.length > 0 &&
                                 <>
-                                {' '}{t('by')}
-                                {' '}{formatArtists(homepage.Upcoming.Artists)}
+                                    {' '}<FormatArtists artists={homepage.OnDisplay.Artists} />
                                 </>
                             }
-                            {' '}<span className={styles.note}>{t('from')}{' '}20.11.2024</span>
+                            {' '}
+                            <span className={styles.date}>
+                                {LocalizedDate(homepage.OnDisplay.StartDate)}
+                                {!homepage.OnDisplay.EndDate ? '' : ' — ' + LocalizedDate(homepage.OnDisplay.EndDate)}
+                            </span>
                         </h1>
+                        <div className={styles.onDisplayCover}>
+                        </div>
+                    </Link>
+                    <div className={styles.upcomingContainer}>
+                        <Link href="/exhibition/[slug]"
+                              as={`/exhibition/${homepage.Upcoming.Slug}`}
+                              key={homepage.Upcoming.Slug}
+                        >
+                            <h1>
+                                <span className={styles.note}>{t('upcoming')}</span>
+                                {' '}<span className={styles.title}>{homepage.Upcoming.Title}</span>
+                                {homepage.Upcoming.Artists.length > 0 &&
+                                    <>
+                                        {' '}<FormatArtists artists={homepage.Upcoming.Artists} />
+                                    </>
+                                }
+                                {' '}
+                                <span className={styles.note}>
+                                    {homepage.Upcoming.EndDate && <>{t('from')}{' '}</>}
+                                    {LocalizedDate(homepage.Upcoming.StartDate)}
+                                </span>
+                            </h1>
+                        </Link>
                     </div>
                     <div className={styles.olderExhibitions}>
                         <Link href={"/exhibitions"}>

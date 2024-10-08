@@ -61,10 +61,10 @@ export class Exhibition {
     public constructor(
         public readonly Title: string,
         public readonly Slug: string,
-        public readonly Artists: any[],
+        public readonly Artists: {name: string}[] | undefined,
         public readonly StartDate: string,
-        public readonly EndDate: string,
-        public readonly Color: string
+        public readonly EndDate: string | undefined,
+        public readonly Color: string | undefined
 
     ) {}
 
@@ -75,8 +75,7 @@ export class Exhibition {
             payload.artists,
             payload.startDate,
             payload.endDate,
-            payload.color.hex
-
+            payload.color !== undefined && payload.color.hex
         );
     }
 }

@@ -3,31 +3,63 @@ import Layout from '../components/Layout';
 import {GetStaticPropsContext} from 'next';
 import {useRouter} from 'next/router';
 import {useFetchArtists, useFetchExhibitions} from '@/api/useSanityData';
-import styles from '@/styles/artists.module.scss';
+import styles from '@/styles/exhibitions.module.scss';
 import Link from 'next/link';
+import {useMemo} from 'react';
+import {Exhibition} from '@/api/classes';
+import FormatArtists from '@/components/utils/FormatArtists';
 
 export default function Exhibitions() {
     const router = useRouter();
     const {data: exhibitions} = useFetchExhibitions(router.locale ?? 'cs')
 
+    const groupedExhibitionsByYear = useMemo(() => {
+        if (!exhibitions){
+            return []
+        }
+        const exhibitionsByYear: { [key: number]: Exhibition[] } = {};
+
+        exhibitions.forEach(exhibition => {
+            const year = new Date(exhibition.StartDate).getFullYear();
+            if (!exhibitionsByYear[year]) {
+                exhibitionsByYear[year] = [];
+            }
+            exhibitionsByYear[year].push(exhibition);
+        });
+        return Object.entries(exhibitionsByYear)
+            .map(([year, exhibitions]) => ({
+                year: parseInt(year),
+                exhibitions,
+            }))
+            .sort((a, b) => b.year - a.year);
+    }, [exhibitions])
+
     return (
         <Layout>
-            <div className={styles.artistsContainer}>
-                {exhibitions?.map((exhibition =>  {
-                    return (
-                        <Link href="/exhibition/[slug]"
-                              as={`/exhibition/${exhibition.Slug}`}
-                              key={exhibition.Slug}
-                              className={styles.artistContainer}>
-                            <div className={styles.cover}>
+            {groupedExhibitionsByYear.map((group) => (
+                <div key={group.year} className={styles.exhibitionYear}>
+                    <h1>{group.year}</h1>
+                    <div className={styles.exhibitionsContainer}>
+                        {group.exhibitions.map((exhibition => {
+                            return (
+                                <Link href="/exhibition/[slug]"
+                                      as={`/exhibition/${exhibition.Slug}`}
+                                      key={exhibition.Slug}
+                                      className={styles.exhibitionContainer}>
+                                    <div className={styles.cover}>
 
-                            </div>
-                            <h2>{exhibition.Title}</h2>
+                                    </div>
+                                    <h2>
+                                        <span>{exhibition.Title}</span>
+                                        {' '}<FormatArtists artists={exhibition.Artists} />
+                                    </h2>
+                                </Link>
+                            )
+                        }))}
+                    </div>
+                </div>
+            ))}
 
-
-                        </Link>
-                    )}))}
-            </div>
         </Layout>
     );
 }

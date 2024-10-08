@@ -4,7 +4,7 @@ import client from '../client';
 import {About, Artist, Exhibition, Homepage} from '@/api/classes';
 
 
-export const useFetchHomepage = (locale: string): { data: any | null, loading: boolean, error: Error | null} => {
+export const useFetchHomepage = (locale: string): { data: Homepage | null, loading: boolean, error: Error | null} => {
     const [data, setData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
@@ -150,8 +150,13 @@ export const useFetchExhibitions = (locale: string): { data: Exhibition[] | null
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await client.fetch(`
-                *[_type == "exhibitions"] | order(orderRank)
+                const result = await client.fetch(`               
+                *[_type == "exhibitions"] | order(orderRank) {
+                    ...,
+                    artists[]->{
+                        name
+                    },
+                }
                 `);
                 setData(result);
             } catch (error) {
