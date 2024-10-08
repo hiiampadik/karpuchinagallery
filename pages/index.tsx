@@ -36,7 +36,7 @@ export default function Home() {
                         <h1 className={styles.onDisplayTitle} style={{color: homepage.OnDisplay.Color ?? '#000000'}}>
                             {t('onDisplay')}
                             {' '}<span className={styles.title}>{homepage.OnDisplay.Title}</span>
-                            {homepage.OnDisplay.Artists.length > 0 &&
+                            {homepage.OnDisplay.Artists !== undefined && homepage.OnDisplay.Artists.length > 0 &&
                                 <>
                                     {' '}<FormatArtists artists={homepage.OnDisplay.Artists} />
                                 </>
@@ -58,7 +58,7 @@ export default function Home() {
                             <h1>
                                 <span className={styles.note}>{t('upcoming')}</span>
                                 {' '}<span className={styles.title}>{homepage.Upcoming.Title}</span>
-                                {homepage.Upcoming.Artists.length > 0 &&
+                                {homepage.Upcoming.Artists !== undefined && homepage.Upcoming.Artists.length > 0 &&
                                     <>
                                         {' '}<FormatArtists artists={homepage.Upcoming.Artists} />
                                     </>
