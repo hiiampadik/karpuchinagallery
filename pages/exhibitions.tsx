@@ -2,7 +2,7 @@
 import Layout from '../components/Layout';
 import {GetStaticPropsContext} from 'next';
 import {useRouter} from 'next/router';
-import {useFetchArtists, useFetchExhibitions} from '@/api/useSanityData';
+import {useFetchExhibitions} from '@/api/useSanityData';
 import styles from '@/styles/exhibitions.module.scss';
 import Link from 'next/link';
 import {useMemo} from 'react';
@@ -34,6 +34,8 @@ export default function Exhibitions() {
             .sort((a, b) => b.year - a.year);
     }, [exhibitions])
 
+
+    // todo svetle onDisplay, carky a and
     return (
         <Layout>
             {groupedExhibitionsByYear.map((group) => (

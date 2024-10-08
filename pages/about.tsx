@@ -6,6 +6,7 @@ import {useTranslations} from 'next-intl';
 import styles from '../styles/about.module.scss'
 import {useRouter} from 'next/router';
 import BlockContent from '@/components/Sanity/BlockContent';
+import React from 'react';
 
 export default function About() {
     const router = useRouter();
@@ -19,7 +20,7 @@ export default function About() {
                     <div className={styles.aboutInfoContainer}>
                         <div>
                             <h1>{t('contact')}</h1>
-                            <BlockContent blocks={about.Contact} />
+                            <BlockContent blocks={about.Contact}/>
                         </div>
                         <div>
                             <h1>{t('address')}</h1>
@@ -34,7 +35,10 @@ export default function About() {
                             <BlockContent blocks={about.Connect}/>
                         </div>
                     </div>
-                    <div className={styles.aboutGallery}>Gallery todo</div>
+                    {/*<div className={styles.aboutGallery}>Gallery todo</div>*/}
+                    <div className={'gallery'}>
+
+                    </div>
                     <div className={styles.aboutBio}>
                         <BlockContent blocks={about.Bio}/>
                     </div>

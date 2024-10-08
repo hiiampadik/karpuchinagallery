@@ -9,13 +9,19 @@
     "menu": "Menu"
   },
   "Homepage": {
-    "onDisplay": "Aktuální:",
     "by": "od",
     "and": "a",
     "upcoming": "Nadcházející",
     "from": "Od",
     "olderExhibition": "Starší výstavy"
   },
+
+  "ExhibitionTitle": {
+    "onDisplay": "Aktuální:",
+    "by": "od",
+    "and": "a"
+  },
+
   "About": {
     "contact": "Kontakt",
     "address": "Adresa",
@@ -35,5 +41,10 @@
     "detailsSelectedSoloExhibitions": "Solo výstavy (výběr)",
     "detailsEducation": "Vzdělání",
     "detailsAwards": "Ocenění"
+  },
+  "Exhibition": {
+    "curatorsText": "Kurátorský text",
+    "documents": "Dokumenty",
+    "selectedWorks": "Práce (výběr)"
   }
 }

@@ -68,7 +68,10 @@ export class Exhibition {
 
     ) {}
 
+
+
     public static fromPayload(payload: any, locale: string): Exhibition {
+        console.log(payload)
         return new Exhibition(
             payload.title[locale],
             payload.slug.current,

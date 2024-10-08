@@ -1,0 +1,32 @@
+@import '../styles/_variables.scss';
+
+.exhibitionTitle {
+  align-self: center;
+  margin-bottom: 36px;
+  font-size: 50px;
+  font-family: Rhymes, serif;
+  font-weight: 400;
+  width: calc(100vw - 40px);
+  max-width: 900px;
+
+  .title {
+    font-style: italic;
+  }
+
+  .date {
+    @include labelThin;
+    position: relative;
+
+    &.galleryNameInTitle {
+      display:inline-block;
+      min-width: 170px; // galleryName width
+      bottom: 20px;
+    }
+
+    .galleryName {
+      position: absolute;
+      left: 0;
+      bottom: -20px;
+    }
+  }
+}

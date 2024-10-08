@@ -8,21 +8,15 @@ import Link from 'next/link';
 import React from 'react';
 import {useRouter} from 'next/router';
 import FormatArtists from '@/components/utils/FormatArtists';
+import LocalizedDate from '@/components/utils/LocalizeDate';
+import ExhibitionTitle from '@/components/utils/ExhibitionTitle';
 
 export default function Home() {
     const router = useRouter();
     const {data: homepage} = useFetchHomepage(router.locale ?? 'cs')
     const t = useTranslations('Homepage');
 
-    const LocalizedDate = (dateString: string) => {
-        const date = new Date(dateString);
-        const formatter = new Intl.DateTimeFormat(router.locale ?? 'cs', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-        });
-        return formatter.format(date);
-    };
+    // todo svetle onDisplay, carky a and
 
     return (
         <Layout>
@@ -33,20 +27,7 @@ export default function Home() {
                           key={homepage.Upcoming.Slug}
                           className={styles.onDisplayContainer}
                     >
-                        <h1 className={styles.onDisplayTitle} style={{color: homepage.OnDisplay.Color ?? '#000000'}}>
-                            {t('onDisplay')}
-                            {' '}<span className={styles.title}>{homepage.OnDisplay.Title}</span>
-                            {homepage.OnDisplay.Artists !== undefined && homepage.OnDisplay.Artists.length > 0 &&
-                                <>
-                                    {' '}<FormatArtists artists={homepage.OnDisplay.Artists} />
-                                </>
-                            }
-                            {' '}
-                            <span className={styles.date}>
-                                {LocalizedDate(homepage.OnDisplay.StartDate)}
-                                {!homepage.OnDisplay.EndDate ? '' : ' — ' + LocalizedDate(homepage.OnDisplay.EndDate)}
-                            </span>
-                        </h1>
+                        <ExhibitionTitle exhibition={homepage.Upcoming} onDisplay={true} />
                         <div className={styles.onDisplayCover}>
                         </div>
                     </Link>
@@ -66,7 +47,7 @@ export default function Home() {
                                 {' '}
                                 <span className={styles.note}>
                                     {homepage.Upcoming.EndDate && <>{t('from')}{' '}</>}
-                                    {LocalizedDate(homepage.Upcoming.StartDate)}
+                                    {LocalizedDate(homepage.Upcoming.StartDate, router.locale ?? 'cs')}
                                 </span>
                             </h1>
                         </Link>

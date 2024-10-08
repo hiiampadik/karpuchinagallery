@@ -9,13 +9,20 @@
     "menu": "Menu"
   },
   "Homepage": {
-    "onDisplay": "On display:",
     "by": "by",
     "and": "and",
     "upcoming": "Upcoming",
     "from": "From",
     "olderExhibition": "Older exhibitions"
   },
+
+
+  "ExhibitionTitle": {
+    "onDisplay": "On display:",
+    "by": "by",
+    "and": "and"
+  },
+
   "About": {
     "contact": "Contact",
     "address": "Address",
@@ -35,5 +42,11 @@
     "detailsSelectedSoloExhibitions": "Selection of Solo Exhibitions",
     "detailsEducation": "Education",
     "detailsAwards": "Awards"
+  },
+
+  "Exhibition": {
+    "curatorsText": "Curator's text",
+    "documents": "Documents",
+    "selectedWorks": "Selected Works"
   }
 }

@@ -179,3 +179,41 @@ export const useFetchExhibitions = (locale: string): { data: Exhibition[] | null
         loading,
         error };
 };
+
+export const useFetchExhibition = (slug: string | undefined, locale: string): { data: Exhibition | null, loading: boolean, error: Error | null} => {
+    const [data, setData] = useState<any>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<Error | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (slug !== undefined){
+                try {
+                    const result = await client.fetch(
+                        `{"exhibition": *[_type == "exhibitions" && slug.current == $slug] | order(_updatedAt desc) [0] {
+                        ...,
+                        artists[]->{
+                            name
+                        },
+                        }}`,
+                        { slug: slug}
+                    );
+                    setData(result.exhibition);
+                } catch (error) {
+                    setError(error as Error);
+                } finally {
+                    setLoading(false);
+                }
+            }
+        };
+
+        fetchData();
+
+        // Cleanup function
+        return () => {
+            // Optionally, you can cancel any pending requests here
+        };
+    }, [slug]);
+
+    return { data: data && Exhibition.fromPayload(data, locale), loading, error };
+};

@@ -1,1 +1,30 @@
 @import '../../styles/variables';
+
+.exhibitionContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.curatorsTextContainer, .documentsContainer, .selectedWorksContainer {
+  max-width: 770px;
+  width: calc(100vw - 40px);
+
+  h2 {
+    @include labelSmall;
+  }
+}
+
+
+.curatorsTextContainer {
+  margin-top: 24px
+}
+
+.documentsContainer{
+  margin-top: 24px
+}
+
+.selectedWorksContainer{
+  margin-top: 100px;
+}
