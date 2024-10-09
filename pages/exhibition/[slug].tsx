@@ -17,18 +17,22 @@ export default function Exhibition() {
     const t = useTranslations('Exhibition');
 
     {/*todo current on display fetch*/}
+    // todo disable color
 
     return (
         <Layout >
             {exhibition &&
                 <div className={styles.exhibitionContainer}>
-                    <ExhibitionTitle exhibition={exhibition} galleryNameInTitle={true}/>
+                    <ExhibitionTitle exhibition={exhibition} fromHomepage={false}/>
                     <div className={'gallery'}/>
 
                     <div className={styles.curatorsTextContainer}>
                         <h2>
                             {t('curatorsText')}
                         </h2>
+                        <BlockContent blocks={exhibition.CuratorsText}/>
+                        <br />
+                        <p className={styles.curatorName}>{exhibition.Curator}</p>
                     </div>
 
                     <div className={styles.documentsContainer}>

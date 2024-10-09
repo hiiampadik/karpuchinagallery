@@ -17,6 +17,7 @@ export default function Home() {
     const t = useTranslations('Homepage');
 
     // todo svetle onDisplay, carky a and
+    // todo podtrhnute na mobinu
 
     return (
         <Layout>
@@ -27,7 +28,7 @@ export default function Home() {
                           key={homepage.Upcoming.Slug}
                           className={styles.onDisplayContainer}
                     >
-                        <ExhibitionTitle exhibition={homepage.Upcoming} onDisplay={true} />
+                        <ExhibitionTitle exhibition={homepage.Upcoming} onDisplay={true} fromHomepage={true}/>
                         <div className={styles.onDisplayCover}>
                         </div>
                     </Link>

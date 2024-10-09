@@ -46,6 +46,7 @@ export class Artist {
         public readonly Name: string,
         public readonly Slug: string,
         public readonly Bio: PortableTextBlock,
+        public readonly Cover: any, // required
     ) {}
 
     public static fromPayload(payload: any, locale: string): Artist {
@@ -53,6 +54,7 @@ export class Artist {
             payload.name,
             payload.slug.current,
             payload.bio[locale],
+            payload.cover,
         );
     }
 }
@@ -64,21 +66,26 @@ export class Exhibition {
         public readonly Artists: {name: string}[] | undefined,
         public readonly StartDate: string,
         public readonly EndDate: string | undefined,
-        public readonly Color: string | undefined
+        public readonly Color: string | undefined,
+        public readonly Cover: any, // required,
+        public readonly Document: any,
+        public readonly Curator: string,
+        public readonly CuratorsText: PortableTextBlock, // required,
 
     ) {}
 
-
-
     public static fromPayload(payload: any, locale: string): Exhibition {
-        console.log(payload)
         return new Exhibition(
             payload.title[locale],
             payload.slug.current,
             payload.artists,
             payload.startDate,
             payload.endDate,
-            payload.color !== undefined && payload.color.hex
+            payload.color !== undefined && payload.color.hex,
+            payload.cover,
+            payload.document,
+            payload.curator,
+            payload.curatorsText[locale],
         );
     }
 }

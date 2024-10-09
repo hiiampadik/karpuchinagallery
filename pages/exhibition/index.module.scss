@@ -14,6 +14,15 @@
   h2 {
     @include labelSmall;
   }
+
+  .curatorName {
+    width: 100%;
+    text-align: right;
+    font-size: 42px;
+    font-family: Rhymes, serif;
+    font-weight: 400;
+    color: $text-secondary-default;
+  }
 }
 
 

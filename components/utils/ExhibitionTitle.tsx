@@ -10,16 +10,16 @@ import {classNames} from '@/components/utils/classNames';
 
 interface ExhibitionTitleProps {
     readonly exhibition: Exhibition
-    readonly onDisplay?: boolean
-    readonly galleryNameInTitle?: boolean
+    readonly onDisplay?: boolean // todo automaticky podle data
+    readonly fromHomepage: boolean
 }
 
-const ExhibitionTitle: FunctionComponent<ExhibitionTitleProps> = ({exhibition, onDisplay = false, galleryNameInTitle = false}) => {
+const ExhibitionTitle: FunctionComponent<ExhibitionTitleProps> = ({exhibition, onDisplay = false, fromHomepage}) => {
     const t = useTranslations('ExhibitionTitle');
     const router = useRouter();
 
     return (
-        <h1 className={styles.exhibitionTitle} style={{color: exhibition.Color ?? '#000000'}}>
+        <h1 className={styles.exhibitionTitle} style={{color: fromHomepage && exhibition.Color ? exhibition.Color : '#000000'}}>
             {onDisplay && <>{t('onDisplay')}{' '}</>}
             <span className={styles.title}>{exhibition.Title}</span>
             {exhibition.Artists !== undefined && exhibition.Artists.length > 0 &&
@@ -28,10 +28,10 @@ const ExhibitionTitle: FunctionComponent<ExhibitionTitleProps> = ({exhibition, o
                 </>
             }
             {' '}
-            <span className={classNames([styles.date, galleryNameInTitle && styles.galleryNameInTitle])}>
+            <span className={classNames([styles.date, !fromHomepage && styles.galleryNameInTitle])}>
                 {LocalizedDate(exhibition.StartDate, router.locale ?? 'cs')}
                 {!exhibition.EndDate ? '' : ' — ' + LocalizedDate(exhibition.EndDate, router.locale ?? 'cs')}
-                {galleryNameInTitle &&
+                {!fromHomepage &&
                     <span className={styles.galleryName}>Korpuchina Gallery</span>
                 }
             </span>
