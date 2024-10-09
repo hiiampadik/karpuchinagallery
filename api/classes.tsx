@@ -67,10 +67,10 @@ export class Exhibition {
         public readonly StartDate: string,
         public readonly EndDate: string | undefined,
         public readonly Color: string | undefined,
-        public readonly Cover: any, // required,
-        public readonly Document: any,
+        public readonly Cover: any, // todo
+        public readonly Document: any | undefined, // todo
         public readonly Curator: string,
-        public readonly CuratorsText: PortableTextBlock, // required,
+        public readonly CuratorsText: PortableTextBlock,
 
     ) {}
 

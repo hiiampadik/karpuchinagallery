@@ -45,6 +45,7 @@
   "Exhibition": {
     "curatorsText": "Kurátorský text",
     "documents": "Dokumenty",
-    "selectedWorks": "Práce (výběr)"
+    "selectedWorks": "Práce (výběr)",
+    "allExhibitions": "Všechny výstavy"
   }
 }

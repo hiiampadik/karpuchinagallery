@@ -31,9 +31,44 @@
 }
 
 .documentsContainer{
-  margin-top: 24px
+  margin-top: 24px;
+  .documents {
+    display: flex;
+    gap: 24px;
+    margin-top: 24px;
+    a {
+      img {
+        height: 100%;
+        width: 100%;
+        max-height: 300px;
+        max-width: 200px;
+        object-fit: contain;
+        filter: drop-shadow(0 0 5px rgba(0,0,0,0.3));
+        transition: 0.2s;
+      }
+      @media (hover: hover) {
+        &:hover {
+          img {
+            filter: drop-shadow(0 0 10px rgba(0,0,0,0.3));
+          }
+        }
+      }
+    }
+  }
 }
 
 .selectedWorksContainer{
   margin-top: 100px;
+}
+
+.allExhibitions {
+  padding: 50px 0 100px 0;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  a {
+    @include blackButton;
+  }
 }

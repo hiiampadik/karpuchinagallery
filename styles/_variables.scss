@@ -14,7 +14,7 @@ $breakpoint-xxl-min: 1400px;
 $text-secondary-default: #A4A4A4;
 $text-primary-default: #000;
 
-
+//todo max width content 100vw - 40px
 
 @mixin labelSmall {
   font-size: 12px;
@@ -28,4 +28,31 @@ $text-primary-default: #000;
   font-size: 17px;
   font-family: NHG, -apple-system, 'Helvetica Neue', 'Arial', sans-serif;
   letter-spacing: 0.08em;
+}
+
+@mixin squareButton {
+  font-family: NHG, -apple-system, 'Helvetica Neue', 'Arial', sans-serif;
+  font-size: 13px;
+  padding: 9px 14px;
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  transition: 0.2s;
+
+  @media (hover: hover) {
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+}
+
+@mixin whiteButton {
+  @include squareButton;
+  color: white;
+  border: 1px white solid;
+}
+
+@mixin blackButton {
+  @include squareButton;
+  color: black;
+  border: 1px black solid;
 }

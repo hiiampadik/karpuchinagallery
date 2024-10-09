@@ -195,6 +195,10 @@ export const useFetchExhibition = (slug: string | undefined, locale: string): { 
                         artists[]->{
                             name
                         },
+                        "document": document{
+                            ..., 
+                            asset->{...},
+                            },
                         }}`,
                         { slug: slug}
                     );

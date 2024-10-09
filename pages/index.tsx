@@ -10,6 +10,7 @@ import {useRouter} from 'next/router';
 import FormatArtists from '@/components/utils/FormatArtists';
 import LocalizedDate from '@/components/utils/LocalizeDate';
 import ExhibitionTitle from '@/components/utils/ExhibitionTitle';
+import Figure from '@/components/Sanity/Figure';
 
 export default function Home() {
     const router = useRouter();
@@ -30,6 +31,10 @@ export default function Home() {
                     >
                         <ExhibitionTitle exhibition={homepage.Upcoming} onDisplay={true} fromHomepage={true}/>
                         <div className={styles.onDisplayCover}>
+                            <Figure
+                                image={homepage.Upcoming.Cover}
+                                alt={homepage.Upcoming.Title.concat(" – Exhibition Cover Image")}
+                            />
                         </div>
                     </Link>
                     <div className={styles.upcomingContainer}>

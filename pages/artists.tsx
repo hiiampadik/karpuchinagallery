@@ -5,6 +5,8 @@ import {useFetchArtists} from '@/api/useSanityData';
 import {useRouter} from 'next/router';
 import styles from '../styles/artists.module.scss'
 import Link from 'next/link';
+import Figure from '@/components/Sanity/Figure';
+import React from 'react';
 
 export default function Artists() {
     const router = useRouter();
@@ -23,7 +25,10 @@ export default function Artists() {
                               key={artist.Slug}
                               className={styles.artistContainer}>
                             <div className={styles.cover}>
-
+                                <Figure
+                                    image={artist.Cover}
+                                    alt={artist.Name.concat(" – Artist Cover Image")}
+                                />
                             </div>
                             <h2>{firstNames}<br/>{lastName}</h2>
                         </Link>

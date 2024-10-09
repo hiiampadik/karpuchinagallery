@@ -7,8 +7,9 @@ import {useFetchExhibition} from '@/api/useSanityData';
 import {useTranslations} from 'next-intl';
 import styles from './index.module.scss';
 import BlockContent from '@/components/Sanity/BlockContent';
-import FormatArtists from '@/components/utils/FormatArtists';
 import ExhibitionTitle from '@/components/utils/ExhibitionTitle';
+import Link from 'next/link';
+import Figure from '@/components/Sanity/Figure';
 
 export default function Exhibition() {
     const params = useParams()
@@ -17,7 +18,6 @@ export default function Exhibition() {
     const t = useTranslations('Exhibition');
 
     {/*todo current on display fetch*/}
-    // todo disable color
 
     return (
         <Layout >
@@ -25,32 +25,46 @@ export default function Exhibition() {
                 <div className={styles.exhibitionContainer}>
                     <ExhibitionTitle exhibition={exhibition} fromHomepage={false}/>
                     <div className={'gallery'}/>
-
                     <div className={styles.curatorsTextContainer}>
                         <h2>
                             {t('curatorsText')}
                         </h2>
                         <BlockContent blocks={exhibition.CuratorsText}/>
-                        <br />
                         <p className={styles.curatorName}>{exhibition.Curator}</p>
                     </div>
 
-                    <div className={styles.documentsContainer}>
-                        <h2>
-                            {t('documents')}
-                        </h2>
-                    </div>
+                    {exhibition.Document &&
+                        <div className={styles.documentsContainer}>
+                            <h2>
+                                {t('documents')}
+                            </h2>
+                            <div className={styles.documents}>
+                                <Link href={exhibition.Document.asset.url} download={true}>
+                                    <Figure
+                                        image={exhibition.Document.documentCover}
+                                        alt={("Document Cover")}
+                                    />
+                                </Link>
+                            </div>
+                        </div>
+                    }
+
                     <div className={styles.selectedWorksContainer}>
                         <h2>
                             {t('selectedWorks')}
                         </h2>
+                        {/*todo*/}
                     </div>
 
-                    {/*todo all exhibition button*/}
+                    <div className={styles.allExhibitions}>
+                        <Link href={"/exhibitions"}>
+                            {t('allExhibitions')}
+                        </Link>
+                    </div>
                 </div>
             }
-                </Layout>
-                )
+        </Layout>
+    )
 }
 
 Exhibition.getInitialProps = async (context: GetStaticPropsContext) => {

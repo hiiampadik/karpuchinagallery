@@ -5,9 +5,10 @@ import {useRouter} from 'next/router';
 import {useFetchExhibitions} from '@/api/useSanityData';
 import styles from '@/styles/exhibitions.module.scss';
 import Link from 'next/link';
-import {useMemo} from 'react';
+import React, {useMemo} from 'react';
 import {Exhibition} from '@/api/classes';
 import FormatArtists from '@/components/utils/FormatArtists';
+import Figure from '@/components/Sanity/Figure';
 
 export default function Exhibitions() {
     const router = useRouter();
@@ -49,7 +50,10 @@ export default function Exhibitions() {
                                       key={exhibition.Slug}
                                       className={styles.exhibitionContainer}>
                                     <div className={styles.cover}>
-
+                                        <Figure
+                                            image={exhibition.Cover}
+                                            alt={exhibition.Title.concat(" – Exhibition Cover Image")}
+                                        />
                                     </div>
                                     <h2>
                                         <span>{exhibition.Title}</span>

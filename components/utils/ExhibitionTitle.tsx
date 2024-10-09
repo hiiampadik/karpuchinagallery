@@ -32,7 +32,7 @@ const ExhibitionTitle: FunctionComponent<ExhibitionTitleProps> = ({exhibition, o
                 {LocalizedDate(exhibition.StartDate, router.locale ?? 'cs')}
                 {!exhibition.EndDate ? '' : ' — ' + LocalizedDate(exhibition.EndDate, router.locale ?? 'cs')}
                 {!fromHomepage &&
-                    <span className={styles.galleryName}>Korpuchina Gallery</span>
+                    <span className={styles.galleryName}>Karpuchina Gallery</span>
                 }
             </span>
         </h1>

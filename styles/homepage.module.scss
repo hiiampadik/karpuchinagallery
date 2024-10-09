@@ -5,9 +5,12 @@
   display: flex;
   flex-direction: column;
 
+  a {
+    text-decoration: none;
+  }
+
   @media (hover: hover) {
     a {
-      text-decoration: none;
       h1 {
         transition: 0.2s;
       }
@@ -26,9 +29,14 @@
 
   .onDisplayCover {
     width: 100%;
-    height: 500px;
+    height: 600px;
     position: relative;
     background: #e6e6e6;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
   .onDisplayCover::after{
     content: '';
@@ -49,6 +57,10 @@
   align-items: center;
   min-height: 200px;
   padding: 70px 0;
+
+  a {
+    text-decoration: none;
+  }
 
   h1 {
     width: calc(100vw - 40px);
@@ -78,13 +90,7 @@
   background: black;
   position: relative;
   a {
-    color: white;
-    font-family: NHG, -apple-system, 'Helvetica Neue', 'Arial', sans-serif;
-    font-size: 13px;
-    padding: 9px 14px;
-    border: 1px white solid;
-    text-decoration: none;
-    letter-spacing: 0.08em;
+    @include whiteButton;
   }
 }
 .olderExhibitions::after {

@@ -4,7 +4,7 @@ import imageUrlBuilder from "@sanity/image-url";
 import client from "../../client";
 import Image from "next/image";
 import {FunctionComponent, useState} from 'react';
-import { getImageDimensions } from '@sanity/asset-utils';
+import {getImageDimensions} from '@sanity/asset-utils';
 import styles from './Figure.module.scss';
 import {classNames} from '@/components/utils/classNames';
 
@@ -27,21 +27,19 @@ const Figure: FunctionComponent<FigureProps> = ({image, alt, className, placehol
 
     const [loaded, setLoaded] = useState<boolean>(false)
 
-  return (
-    <Image
-      onLoad={() => setLoaded(true)}
-      className={classNames([loaded ? styles.loaded : styles.loading, className])}
-      sizes="(max-width: 1024px) 110vw, 55vw"
-      width={WIDTH}
-      height={getHeight()}
-      src={builder.image(image).auto("format").url()}
-      alt={alt ?? ''}
-      placeholder={placeholderBlur ? 'blur' : 'empty'}
-      blurDataURL={builder.image(image).width(1).blur(50).url()}
-
-
-    />
-  )
+    return (
+        <Image
+            onLoad={() => setLoaded(true)}
+            className={classNames([loaded ? styles.loaded : styles.loading, className])}
+            sizes="(max-width: 1024px) 110vw, 55vw"
+            width={WIDTH}
+            height={getHeight()}
+            src={builder.image(image).auto("format").url()}
+            alt={alt ?? ''}
+            placeholder={placeholderBlur ? 'blur' : 'empty'}
+            blurDataURL={builder.image(image).width(1).blur(50).url()}
+        />
+    )
 }
 
 export default Figure

@@ -47,6 +47,7 @@
   "Exhibition": {
     "curatorsText": "Curator's text",
     "documents": "Documents",
-    "selectedWorks": "Selected Works"
+    "selectedWorks": "Selected Works",
+    "allExhibitions": "All exhibitions"
   }
 }
