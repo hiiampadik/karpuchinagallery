@@ -9,6 +9,7 @@ const Footer: FunctionComponent = () => {
     const router = useRouter();
     const {data: about} = useFetchAbout(router.locale ?? 'cs')
 
+    // todo gradient do ztracena za koncem stranky
     return (
         <div className={styles.footerContainer}>
             <div className={styles.footerGradient} />
