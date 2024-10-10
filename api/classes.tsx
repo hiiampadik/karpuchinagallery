@@ -63,7 +63,7 @@ export class Exhibition {
     public constructor(
         public readonly Title: string,
         public readonly Slug: string,
-        public readonly Artists: {name: string}[] | undefined,
+        public readonly Artists: {name: string}[] | undefined | null,
         public readonly StartDate: string,
         public readonly EndDate: string | undefined,
         public readonly Color: string | undefined,

@@ -45,7 +45,7 @@ export default function Home() {
                             <h1>
                                 <span className={styles.note}>{t('upcoming')}</span>
                                 {' '}<span className={styles.title}>{homepage.Upcoming.Title}</span>
-                                {homepage.Upcoming.Artists !== undefined && homepage.Upcoming.Artists.length > 0 &&
+                                {homepage.Upcoming.Artists && homepage.Upcoming.Artists.length > 0 &&
                                     <>
                                         {' '}<FormatArtists artists={homepage.Upcoming.Artists} />
                                     </>

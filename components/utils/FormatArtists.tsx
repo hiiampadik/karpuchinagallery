@@ -4,14 +4,14 @@ import {useTranslations} from 'next-intl';
 
 
 interface FormatArtistsProps {
-    readonly artists?: {name: string }[]
+    readonly artists?: {name: string }[] | null
 }
 
 const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists}) => {
     const t = useTranslations('Homepage');
 
     const formatedNames = useMemo(() => {
-        if (artists === undefined){
+        if (!artists){
             return null
         }
 

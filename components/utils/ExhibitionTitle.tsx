@@ -22,7 +22,7 @@ const ExhibitionTitle: FunctionComponent<ExhibitionTitleProps> = ({exhibition, o
         <h1 className={styles.exhibitionTitle} style={{color: fromHomepage && exhibition.Color ? exhibition.Color : '#000000'}}>
             {onDisplay && <>{t('onDisplay')}{' '}</>}
             <span className={styles.title}>{exhibition.Title}</span>
-            {exhibition.Artists !== undefined && exhibition.Artists.length > 0 &&
+            {exhibition.Artists && exhibition.Artists.length > 0 &&
                 <>
                     {' '}<FormatArtists artists={exhibition.Artists} />
                 </>
