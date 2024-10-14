@@ -17,8 +17,15 @@ export default function Artists() {
             <div className={styles.artistsContainer}>
                 {artists?.map((artist =>  {
                     const words = artist.Name.trim().split(" ");
-                    const lastName = words.pop(); // Get the last word
-                    const firstNames = words.join(" "); // Join the rest of the words
+                    let lastName, firstNames;
+                    if (words.length === 1){
+                        firstNames = words.pop();
+                        lastName = '';
+                    } else {
+                        lastName = words.pop();
+                        firstNames = words.join(" ");
+                    }
+
                     return (
                         <Link href="/artist/[slug]"
                               as={`/artist/${artist.Slug}`}

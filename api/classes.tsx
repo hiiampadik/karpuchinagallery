@@ -43,6 +43,7 @@ export class About {
 
 export class Artist {
     public constructor(
+        public readonly Id: string,
         public readonly Name: string,
         public readonly Slug: string,
         public readonly Bio: PortableTextBlock,
@@ -51,6 +52,7 @@ export class Artist {
 
     public static fromPayload(payload: any, locale: string): Artist {
         return new Artist(
+            payload._id,
             payload.name,
             payload.slug.current,
             payload.bio[locale],
@@ -61,9 +63,10 @@ export class Artist {
 
 export class Exhibition {
     public constructor(
+        public readonly Id: string,
         public readonly Title: string,
         public readonly Slug: string,
-        public readonly Artists: {name: string}[] | undefined | null,
+        public readonly Artists: {Id: string, Name: string}[] | undefined | null,
         public readonly StartDate: string,
         public readonly EndDate: string | undefined,
         public readonly Color: string | undefined,
@@ -76,9 +79,10 @@ export class Exhibition {
 
     public static fromPayload(payload: any, locale: string): Exhibition {
         return new Exhibition(
+            payload._id,
             payload.title[locale],
             payload.slug.current,
-            payload.artists,
+            payload.artists.map((artist: any) => ({Id: artist._id, Name: artist.name})),
             payload.startDate,
             payload.endDate,
             payload.color !== undefined && payload.color.hex,
@@ -86,6 +90,27 @@ export class Exhibition {
             payload.document,
             payload.curator,
             payload.curatorsText[locale],
+        );
+    }
+}
+
+
+export class Artwork {
+    public constructor(
+        public readonly Id: string,
+        public readonly Title: string,
+        public readonly ArtistsId: string,
+        public readonly ShowInSelection: boolean,
+        public readonly Cover: any, // todo
+            ) {}
+
+    public static fromPayload(payload: any, locale: string): Artwork {
+        return new Artwork(
+            payload._id,
+            payload.title,
+            payload.artist._ref,
+            payload.showInSelection,
+            payload.cover,
         );
     }
 }

@@ -1,7 +1,7 @@
 'use client'
 import {useEffect, useState} from 'react';
 import client from '../client';
-import {About, Artist, Exhibition, Homepage} from '@/api/classes';
+import {About, Artist, Artwork, Exhibition, Homepage} from '@/api/classes';
 
 
 export const useFetchHomepage = (locale: string): { data: Homepage | null, loading: boolean, error: Error | null} => {
@@ -154,7 +154,8 @@ export const useFetchExhibitions = (locale: string): { data: Exhibition[] | null
                 *[_type == "exhibitions"] | order(orderRank) {
                     ...,
                     artists[]->{
-                        name
+                        _id,
+                        name,
                     },
                 }
                 `);
@@ -220,4 +221,36 @@ export const useFetchExhibition = (slug: string | undefined, locale: string): { 
     }, [slug]);
 
     return { data: data && Exhibition.fromPayload(data, locale), loading, error };
+};
+
+export const useFetchArtworks = (locale: string): { data: Artwork[] | null, loading: boolean, error: Error | null} => {
+    const [data, setData] = useState<any>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<Error | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const result = await client.fetch(`*[_type == "artworks"]`);
+                setData(result);
+            } catch (error) {
+                setError(error as Error);
+            } finally {
+                setLoading(false);
+            }
+
+        };
+
+        fetchData();
+
+        // Cleanup function
+        return () => {
+            // Optionally, you can cancel any pending requests here
+        };
+    }, []);
+
+    return {
+        data: data && data.map((value: any) => Artwork.fromPayload(value, locale)),
+        loading,
+        error };
 };

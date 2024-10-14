@@ -4,8 +4,10 @@ import {useTranslations} from 'next-intl';
 
 
 interface FormatArtistsProps {
-    readonly artists?: {name: string }[] | null
+    readonly artists?: {Name: string }[] | null
 }
+
+// todo unbreakable pre a
 
 const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists}) => {
     const t = useTranslations('Homepage');
@@ -15,7 +17,7 @@ const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists}) => {
             return null
         }
 
-        const names = artists.map((artist) => artist.name);
+        const names = artists.map((artist) => artist.Name);
 
         if (names.length === 1) {
             return names[0];
