@@ -34,6 +34,8 @@ export default function Exhibitions() {
                 exhibitions,
             }))
             .sort((a, b) => b.year - a.year);
+
+        // todo sort podle data
     }, [exhibitions])
 
 

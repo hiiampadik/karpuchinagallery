@@ -89,13 +89,13 @@ export default function Artist() {
                           </div>
                       </div>
                   }
-                  <div className={styles.artistDetailsContainer}>
 
-                      <h2>{t('detailsSelectedGroupExhibitions')}</h2>
-                      <h2>{t('detailsSelectedSoloExhibitions')}</h2>
-                      <h2>{t('detailsEducation')}</h2>
-                      <h2>{t('detailsAwards')}</h2>
-                  </div>
+                  {/*<div className={styles.artistDetailsContainer}>*/}
+                  {/*    <h2>{t('detailsSelectedGroupExhibitions')}</h2>*/}
+                  {/*    <h2>{t('detailsSelectedSoloExhibitions')}</h2>*/}
+                  {/*    <h2>{t('detailsEducation')}</h2>*/}
+                  {/*    <h2>{t('detailsAwards')}</h2>*/}
+                  {/*</div>*/}
               </div>
           }
       </Layout>

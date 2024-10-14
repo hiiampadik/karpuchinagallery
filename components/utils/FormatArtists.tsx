@@ -3,17 +3,21 @@ import {FunctionComponent, useMemo} from 'react';
 import {useTranslations} from 'next-intl';
 
 
+
+function formatText(text: string) {
+    // Regex to find one-letter words followed by a space
+    return text.replace(/\s([a-zA-Z]{1})\s/g, ' $1&nbsp;');
+}
+
 interface FormatArtistsProps {
     readonly artists?: {Name: string }[] | null
 }
-
-// todo unbreakable pre a
 
 const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists}) => {
     const t = useTranslations('Homepage');
 
     const formatedNames = useMemo(() => {
-        if (!artists){
+        if (!artists) {
             return null
         }
 
@@ -32,7 +36,11 @@ const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists}) => {
     if (!formatedNames) {
         return <></>
     }
-    return <>{t('by')} {formatedNames}</>
+
+    return (
+        <>{t('by')} <span dangerouslySetInnerHTML={{__html: formatText(formatedNames)}}/></>
+    )
+
 }
 
 export default FormatArtists
