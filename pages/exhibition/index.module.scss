@@ -8,8 +8,7 @@
 }
 
 .curatorsTextContainer, .documentsContainer, .selectedWorksContainer {
-  max-width: 770px;
-  width: calc(100vw - 40px);
+  @include container770px;
 
   h2 {
     @include labelSmall;

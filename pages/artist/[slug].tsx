@@ -9,8 +9,7 @@ import styles from './index.module.scss'
 import {useTranslations} from 'next-intl';
 import BlockContent from '@/components/Sanity/BlockContent';
 import Figure from '@/components/Sanity/Figure';
-import Link from 'next/link';
-import FormatArtists from '@/components/utils/FormatArtists';
+import ExhibitionItem from '@/components/Layout/ExhibitionItem';
 
 export default function Artist() {
     const params = useParams()
@@ -85,22 +84,7 @@ export default function Artist() {
                           <h2>{t('exhibitions')}</h2>
                           <div className={styles.exhibitions}>
                               {artistExhibitions.map(exhibition => (
-                                  <Link key={exhibition.Id}
-                                        href="/exhibition/[slug]"
-                                        as={`/exhibition/${exhibition.Slug}`}
-                                        className={styles.exhibition}
-                                  >
-                                      <div className={styles.cover}>
-                                          <Figure
-                                              image={exhibition.Cover}
-                                              alt={exhibition.Title.concat(" – Exhibition Cover")}
-                                          />
-                                      </div>
-                                      <h3>
-                                          <span>{exhibition.Title}</span>
-                                          {' '}<FormatArtists artists={exhibition.Artists}/>
-                                      </h3>
-                                  </Link>
+                                  <ExhibitionItem exhibition={exhibition} key={exhibition.Id} useH2={false} />
                               ))}
                           </div>
                       </div>
@@ -112,13 +96,13 @@ export default function Artist() {
                       <h2>{t('detailsEducation')}</h2>
                       <h2>{t('detailsAwards')}</h2>
                   </div>
-                      </div>
-                  }
-              </Layout>
-              )
+              </div>
           }
+      </Layout>
+  )
+}
 
-          Artist.getInitialProps = async (context: GetStaticPropsContext) => {
+Artist.getInitialProps = async (context: GetStaticPropsContext) => {
     return {messages: (await import(`../../public/locales/${context.locale}.json`)).default}
 }
 

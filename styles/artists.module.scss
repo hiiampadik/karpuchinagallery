@@ -1,13 +1,8 @@
 @import '_variables.scss';
 
 .artistsContainer{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  column-gap: 20px;
-  row-gap: 100px;
-  max-width: 1200px;
-  width: calc(100vw - 40px);
-
+  @include gridCol4-2;
+  @include container1200px;
 }
 
 .artistContainer{

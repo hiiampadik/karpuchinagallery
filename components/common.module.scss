@@ -6,8 +6,7 @@
   font-size: 50px;
   font-family: Rhymes, serif;
   font-weight: 400;
-  width: calc(100vw - 40px);
-  max-width: 900px;
+  @include container900px;
 
   .title {
     font-style: italic;

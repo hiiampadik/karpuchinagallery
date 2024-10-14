@@ -2,13 +2,12 @@
 
 
 .aboutInfoContainer{
+  @include container770px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   row-gap: 60px;
   column-gap: 10px;
-  max-width: 770px;
-  width: calc(100vw - 40px);
   margin-bottom: 90px;
   h1 {
     @include labelSmall;
@@ -29,8 +28,7 @@
 
 .aboutBio{
   margin-bottom:150px;
-  max-width: 770px;
-  width: calc(100vw - 40px);
+  @include container770px;
   h1 {
     margin: 32px 0 12px;
     @include labelSmall;

@@ -1,8 +1,7 @@
 @import '../../styles/variables';
 
 .artistContainer {
-  max-width: 1200px;
-  width: calc(100vw - 40px);
+  @include container1200px;
 
   h1 {
     font-size: 42px;
@@ -24,8 +23,21 @@
     column-count: 3;
     column-gap: 20px;
     orphans: 7;
+
+    @media (max-width: $breakpoint-md-max) {
+      column-count: 2;
+      column-gap: 16px;
+    }
+    @media (max-width: $breakpoint-xs-max) {
+      column-count: 1;
+      column-gap: 8px;
+    }
   }
+
+
 }
+
+
 .selectedWorksContainer {
   margin-top: 100px;
   .selectedWorks {
@@ -33,6 +45,15 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     column-gap: 20px;
     row-gap: 100px;
+
+    @media (max-width: $breakpoint-lg-max) {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      column-gap: 16px;
+    }
+    @media (max-width: $breakpoint-sm-max) {
+      grid-template-columns: 1fr 1fr 1fr;
+      column-gap: 8px;
+    }
 
     .work {
       h3 {
@@ -57,10 +78,7 @@
 .exhibitionsContainer {
   margin-top: 100px;
   .exhibitions {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    column-gap: 20px;
-    row-gap: 100px;
+    @include gridCol4-1;
 
     .exhibition {
       text-decoration: none;

@@ -9,6 +9,7 @@ import React, {useMemo} from 'react';
 import {Exhibition} from '@/api/classes';
 import FormatArtists from '@/components/utils/FormatArtists';
 import Figure from '@/components/Sanity/Figure';
+import ExhibitionItem from '@/components/Layout/ExhibitionItem';
 
 export default function Exhibitions() {
     const router = useRouter();
@@ -45,21 +46,7 @@ export default function Exhibitions() {
                     <div className={styles.exhibitionsContainer}>
                         {group.exhibitions.map((exhibition => {
                             return (
-                                <Link href="/exhibition/[slug]"
-                                      as={`/exhibition/${exhibition.Slug}`}
-                                      key={exhibition.Slug}
-                                      className={styles.exhibitionContainer}>
-                                    <div className={styles.cover}>
-                                        <Figure
-                                            image={exhibition.Cover}
-                                            alt={exhibition.Title.concat(" – Exhibition Cover Image")}
-                                        />
-                                    </div>
-                                    <h2>
-                                        <span>{exhibition.Title}</span>
-                                        {' '}<FormatArtists artists={exhibition.Artists} />
-                                    </h2>
-                                </Link>
+                                <ExhibitionItem exhibition={exhibition} key={exhibition.Id} useH2={true} />
                             )
                         }))}
                     </div>
