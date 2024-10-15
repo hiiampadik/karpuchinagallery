@@ -10,14 +10,21 @@
 
 .navigationContainer {
   padding: 100px 20px;
-  @media (max-width: $breakpoint-md-max) {padding: 100px 16px}
   display: flex;
   justify-content: space-between;
   gap: 10px;
 
   font-size: 27px;
-  line-height: 33px;
+  line-height: 120%;
   font-family: Rhymes, serif;
+
+  @media (max-width: $breakpoint-md-max) {
+    padding: 100px 16px;
+  }
+
+  @media (max-width: $breakpoint-xs-max) {
+    font-size: 18px;
+  }
 
 
   .navigationLinksContainer {
@@ -49,10 +56,14 @@
     padding: 0;
     background: none;
     font-size: 27px;
-    line-height: 33px;
+    line-height: 120%;
     font-family: Rhymes, serif;
     align-self: flex-start;
     cursor: pointer;
+
+    @media (max-width: $breakpoint-xs-max) {
+      font-size: 18px;
+    }
   }
   a {
     text-decoration: none;
@@ -123,8 +134,12 @@
 
   .menuClose {
     font-size: 27px;
-    line-height: 33px;
+    line-height: 120%;
     font-family: Rhymes, serif;
+
+    @media (max-width: $breakpoint-xs-max) {
+      font-size: 18px;
+    }
 
     border: none;
     padding: 0;
@@ -143,6 +158,7 @@
 
 .footerContainer {
   text-align: center;
+  position: relative;
 
   .footerGradient {
     height: 70px;
@@ -169,10 +185,7 @@
       }
     }
   }
-
-
 }
-
 
 .exhibitionContainer{
   text-decoration: none;

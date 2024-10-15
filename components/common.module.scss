@@ -2,11 +2,20 @@
 
 .exhibitionTitle {
   align-self: center;
+  line-height: 120%;
   margin-bottom: 36px;
   font-size: 50px;
   font-family: Rhymes, serif;
   font-weight: 400;
   @include container900px;
+
+  @media (max-width: $breakpoint-md-max) {
+    font-size: 42px;
+  }
+  @media (max-width: $breakpoint-xs-max) {
+    font-size: 23px;
+  }
+
 
   .title {
     font-style: italic;
@@ -26,6 +35,13 @@
       position: absolute;
       left: 0;
       bottom: -20px;
+    }
+
+    @media (max-width: $breakpoint-md-max) {
+      font-size: 14px;
+    }
+    @media (max-width: $breakpoint-xs-max) {
+      font-size: 12px;
     }
   }
 }

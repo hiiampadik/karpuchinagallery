@@ -11,14 +11,16 @@ const Footer: FunctionComponent = () => {
 
     // todo gradient do ztracena za koncem stranky
     return (
-        <div className={styles.footerContainer}>
-            <div className={styles.footerGradient} />
-            <div className={styles.footerContent}>
-                {about &&
-                    <BlockContent blocks={about.Footer}/>
-                }
+        <>
+            <div className={styles.footerContainer}>
+                <div className={styles.footerGradient}/>
+                <div className={styles.footerContent}>
+                    {about &&
+                        <BlockContent blocks={about.Footer}/>
+                    }
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

@@ -5,7 +5,7 @@ const LocalizedDate = (dateString: string, locale: string) => {
         month: 'short',
         day: 'numeric',
     });
-    return formatter.format(date);
+    return formatter.format(date).replace(/ /g, '\u00A0');
 };
 
 export default LocalizedDate

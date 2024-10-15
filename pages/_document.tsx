@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function Document() {
     return (
-        <Html>
+        <Html >
             <Head>
                 {/*<link rel="preload" href="https://use.typekit.net/pjp5dtl.css"/>*/}
                 {/*<link rel="stylesheet" href="https://use.typekit.net/pjp5dtl.css"/>*/}

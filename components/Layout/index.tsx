@@ -21,6 +21,8 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
     const [showSearch, setShowSearch] = useState(false);
 
     const handleDisableScroll = (disable: boolean) => {
+
+
         const body = document.body;
         if (disable) {
             body.classList.add('disableScroll');

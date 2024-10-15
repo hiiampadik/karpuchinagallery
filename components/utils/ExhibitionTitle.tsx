@@ -8,6 +8,7 @@ import LocalizedDate from '@/components/utils/LocalizeDate';
 import styles from '../common.module.scss'
 import {classNames} from '@/components/utils/classNames';
 
+
 interface ExhibitionTitleProps {
     readonly exhibition: Exhibition
     readonly onDisplay?: boolean // todo automaticky podle data
@@ -29,8 +30,13 @@ const ExhibitionTitle: FunctionComponent<ExhibitionTitleProps> = ({exhibition, o
             }
             {' '}
             <span className={classNames([styles.date, !fromHomepage && styles.galleryNameInTitle])}>
-                {LocalizedDate(exhibition.StartDate, router.locale ?? 'cs')}
-                {!exhibition.EndDate ? '' : ' — ' + LocalizedDate(exhibition.EndDate, router.locale ?? 'cs')}
+                <span dangerouslySetInnerHTML={{__html: LocalizedDate(exhibition.StartDate, router.locale ?? 'cs')}}/>
+                {exhibition.EndDate &&
+                    <>
+                        {' - '}
+                        <span dangerouslySetInnerHTML={{__html: LocalizedDate(exhibition.EndDate, router.locale ?? 'cs')}}/>
+                    </>
+                }
                 {!fromHomepage &&
                     <span className={styles.galleryName}>Karpuchina Gallery</span>
                 }
