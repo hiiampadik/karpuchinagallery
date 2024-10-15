@@ -21,13 +21,11 @@ const GallerySwiper: FunctionComponent<GalleryProps> = ({images}) => {
     return (
         <>
             <Swiper
-                pagination={{
-                    type: "fraction",
-                }}
                 loop={true}
-                effect="fade"
-                speed={300}
-                modules={[Pagination, Scrollbar]}
+                // modules={[Pagination, Scrollbar]}
+                grabCursor={true}
+                loopAdditionalSlides={2}
+                freeMode={{enabled: true, momentum: false}}
                 className={styles.swiperNavigation}
             >
                 {images.map((el) => {
@@ -41,8 +39,8 @@ const GallerySwiper: FunctionComponent<GalleryProps> = ({images}) => {
                     )
                 })}
 
-                <PrevButton />
-                <NextButton />
+                {/*<PrevButton />*/}
+                {/*<NextButton />*/}
 
             </Swiper>
         </>
