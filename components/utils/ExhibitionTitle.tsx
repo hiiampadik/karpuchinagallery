@@ -7,6 +7,7 @@ import {useRouter} from 'next/router';
 import LocalizedDate from '@/components/utils/LocalizeDate';
 import styles from '../common.module.scss'
 import {classNames} from '@/components/utils/classNames';
+import {replaceSpaces} from '@/components/utils/replaceSpaces';
 
 
 interface ExhibitionTitleProps {
@@ -30,15 +31,15 @@ const ExhibitionTitle: FunctionComponent<ExhibitionTitleProps> = ({exhibition, o
             }
             {' '}
             <span className={classNames([styles.date, !fromHomepage && styles.galleryNameInTitle])}>
-                <span dangerouslySetInnerHTML={{__html: LocalizedDate(exhibition.StartDate, router.locale ?? 'cs')}}/>
+                {replaceSpaces(LocalizedDate(exhibition.StartDate, router.locale ?? 'cs'))}
                 {exhibition.EndDate &&
                     <>
                         {' - '}
-                        <span dangerouslySetInnerHTML={{__html: LocalizedDate(exhibition.EndDate, router.locale ?? 'cs')}}/>
+                        {replaceSpaces(LocalizedDate(exhibition.EndDate, router.locale ?? 'cs'))}
                     </>
                 }
                 {!fromHomepage &&
-                    <span className={styles.galleryName}>Karpuchina Gallery</span>
+                    <span className={styles.galleryName}>{replaceSpaces("Karpuchina Gallery")}</span>
                 }
             </span>
         </h1>

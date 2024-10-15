@@ -78,7 +78,6 @@ export default function Artist() {
                       </div>
                   }
 
-                  {/*todo schovat pokud prazde*/}
                   {artistExhibitions.length > 0 &&
                       <div className={styles.exhibitionsContainer}>
                           <h2>{t('exhibitions')}</h2>
@@ -90,16 +89,73 @@ export default function Artist() {
                       </div>
                   }
 
-                  {/*<div className={styles.artistDetailsContainer}>*/}
-                  {/*    <h2>{t('detailsSelectedGroupExhibitions')}</h2>*/}
-                  {/*    <h2>{t('detailsSelectedSoloExhibitions')}</h2>*/}
-                  {/*    <h2>{t('detailsEducation')}</h2>*/}
-                  {/*    <h2>{t('detailsAwards')}</h2>*/}
-                  {/*</div>*/}
+                  <div className={styles.artistDetailsContainer}>
+                      {artist.SoloExhibitions && artist.SoloExhibitions.length > 0 &&
+                          <div className={styles.itemsWrapper}>
+                              <h2>{t('detailsSelectedSoloExhibitions')}</h2>
+                              <div className={styles.itemsContainer}>
+                                  {artist.SoloExhibitions.map(exhibition => (
+                                      <div key={exhibition.Id} className={styles.item}>
+                                          <div className={styles.year}>{exhibition.Year}</div>
+                                          <div className={styles.title}><BlockContent blocks={exhibition.Title}/></div>
+                                      </div>
+                                  ))}
+                              </div>
+                          </div>
+                      }
+
+                      {artist.GroupExhibitions && artist.GroupExhibitions.length > 0 &&
+                          <div className={styles.itemsWrapper}>
+                              <h2>{t('detailsSelectedGroupExhibitions')}</h2>
+                              <div className={styles.itemsContainer}>
+                                  {artist.GroupExhibitions.map(exhibition => (
+                                      <div key={exhibition.Id} className={styles.item}>
+                                          <div className={styles.year}>{exhibition.Year}</div>
+                                          <div className={styles.title}><BlockContent blocks={exhibition.Title}/></div>
+                                      </div>
+                                  ))}
+                              </div>
+                          </div>
+                      }
+
+                      {((artist.Education && artist.Education.length > 0) || (artist.Awards && artist.Awards.length > 0)) &&
+                          <div className={styles.itemsFlexWrapper}>
+                              {artist.Education && artist.Education.length > 0 &&
+                                  <div className={styles.itemsWrapper}>
+                                      <h2>{t('detailsEducation')}</h2>
+                                      <div className={styles.itemsContainer}>
+                                          {artist.Education.map(education => (
+                                              <div key={education.Id} className={styles.item}>
+                                                  <div className={styles.year}>{education.Year}</div>
+                                                  <div className={styles.title}><BlockContent blocks={education.Title}/></div>
+                                              </div>
+                                          ))}
+                                      </div>
+                                  </div>
+                              }
+                              {artist.Awards && artist.Awards.length > 0 &&
+                                  <div className={styles.itemsWrapper}>
+                                      <h2>{t('detailsAwards')}</h2>
+                                      <div className={styles.itemsContainer}>
+                                          {artist.Awards.map(award => (
+                                              <div key={award.Id} className={styles.item}>
+                                                  <div className={styles.year}>{award.Year}</div>
+                                                  <div className={styles.title}><BlockContent blocks={award.Title}/>
+                                                  </div>
+                                              </div>
+                                          ))}
+                                      </div>
+                                  </div>
+                              }
+                          </div>
+                      }
+                  </div>
+
+                  {/*todo all artist button*/}
               </div>
           }
       </Layout>
-  )
+    )
 }
 
 Artist.getInitialProps = async (context: GetStaticPropsContext) => {

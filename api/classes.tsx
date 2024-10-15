@@ -41,6 +41,22 @@ export class About {
     }
 }
 
+export class ArtistItem {
+    public constructor(
+        public readonly Id: string,
+        public readonly Year: string,
+        public readonly Title: PortableTextBlock,
+    ) {}
+
+    public static fromPayload(payload: any, locale: string): ArtistItem {
+        return new ArtistItem(
+            payload._key,
+            payload.year,
+            payload.title[locale],
+        );
+    }
+}
+
 export class Artist {
     public constructor(
         public readonly Id: string,
@@ -48,6 +64,11 @@ export class Artist {
         public readonly Slug: string,
         public readonly Bio: PortableTextBlock,
         public readonly Cover: any, // required
+        public readonly SoloExhibitions?: ArtistItem[],
+        public readonly GroupExhibitions?: ArtistItem[],
+        public readonly Education?: ArtistItem[],
+        public readonly Awards?: ArtistItem[],
+
     ) {}
 
     public static fromPayload(payload: any, locale: string): Artist {
@@ -57,6 +78,10 @@ export class Artist {
             payload.slug.current,
             payload.bio[locale],
             payload.cover,
+            payload.soloExhibitions?.map((exhibition: any) => ArtistItem.fromPayload(exhibition, locale)),
+            payload.groupExhibitions?.map((exhibition: any) => ArtistItem.fromPayload(exhibition, locale)),
+            payload.education?.map((edu: any) => ArtistItem.fromPayload(edu, locale)),
+            payload.awards?.map((award: any) => ArtistItem.fromPayload(award, locale)),
         );
     }
 }

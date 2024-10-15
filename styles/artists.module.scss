@@ -17,6 +17,18 @@
       height: 100%;
       object-fit: cover;
     }
+
+    @media (max-width: $breakpoint-md-max) {
+      height: 320px;
+    }
+
+    @media (max-width: $breakpoint-sm-max) {
+      height: 300px;
+    }
+    @media (max-width: $breakpoint-xs-max) {
+      height: 220px;
+    }
+
   }
   h2 {
     font-size: 20px;

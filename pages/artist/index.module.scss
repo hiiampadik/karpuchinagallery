@@ -107,4 +107,61 @@
 .artistDetailsContainer {
   margin-top: 100px;
   margin-bottom: 250px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 34px;
+  row-gap: 54px;
+
+  @media (max-width: $breakpoint-md-max) {
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 50px;
+  }
+
+  @media (max-width: $breakpoint-sm-max) {
+    grid-template-columns: 1fr;
+  }
+
+
+
+  .itemsWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    h2 {
+      margin: 0;
+    }
+
+    .itemsContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .item {
+        display: flex;
+        gap: 6px;
+        flex-wrap: nowrap;
+
+        .year {
+          flex: 0 0 35px;
+          font-size: 12px;
+          font-family: Rhymes, serif;
+        }
+        .title {
+          p {
+            font-size: 12px;
+            font-family: Rhymes, serif;
+          }
+        }
+      }
+    }
+  }
+
+  .itemsFlexWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 54px;
+  }
+
 }

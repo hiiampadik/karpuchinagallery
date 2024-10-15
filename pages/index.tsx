@@ -11,6 +11,7 @@ import FormatArtists from '@/components/utils/FormatArtists';
 import LocalizedDate from '@/components/utils/LocalizeDate';
 import ExhibitionTitle from '@/components/utils/ExhibitionTitle';
 import Figure from '@/components/Sanity/Figure';
+import {replaceSpaces} from '@/components/utils/replaceSpaces';
 
 export default function Home() {
     const router = useRouter();
@@ -52,8 +53,9 @@ export default function Home() {
                                 }
                                 {' '}
                                 <span className={styles.note}>
-                                    {homepage.Upcoming.EndDate && <>{t('from')}{' '}</>}
-                                    {LocalizedDate(homepage.Upcoming.StartDate, router.locale ?? 'cs')}
+                                    {homepage.Upcoming.EndDate && <>{t('from')}{replaceSpaces(' ')}</>}
+                                    {replaceSpaces(LocalizedDate(homepage.Upcoming.StartDate, router.locale ?? 'cs'))}
+
                                 </span>
                             </h1>
                         </Link>
