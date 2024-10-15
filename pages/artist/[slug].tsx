@@ -25,8 +25,6 @@ export default function Artist() {
             return []
         }
         return artworks.filter(artwork => artwork.ArtistsId === artist.Id && artwork.ShowInSelection)
-
-        // todo year sort
     }, [artworks, artist])
 
 
@@ -34,7 +32,7 @@ export default function Artist() {
         if (exhibitions === undefined || exhibitions === null || artist === null){
             return []
         }
-        return exhibitions.filter(exhibition => {
+        const filtered = exhibitions.filter(exhibition => {
             if (exhibition.Artists){
                 for (const exhibitionArtist of exhibition.Artists){
                     if (exhibitionArtist.Id === artist.Id){
@@ -44,6 +42,8 @@ export default function Artist() {
             }
             return false
         })
+
+        return filtered;
 
         // todo year sort
     }, [exhibitions, artist])
@@ -70,7 +70,7 @@ export default function Artist() {
                                           />
                                       </div>
                                       <h3>
-                                        {artwork.Title}
+                                        {artwork.Title} {artwork.Year && `(${artwork.Year})`}
                                       </h3>
                                   </div>
                               ))}

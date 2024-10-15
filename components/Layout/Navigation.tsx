@@ -53,7 +53,8 @@ const Navigation: FunctionComponent<NavigationProps> = ({handleSearch, handleDis
                    <Link
                        href={router.asPath}
                        locale={router.locale === "cs" ? "en" : "cs"}
-                       className={styles.languageButton}>
+                       className={styles.languageButton}
+                   >
                        {router.locale === "cs" ? "EN" : "CZ"}
                    </Link>
                </div>
@@ -71,23 +72,35 @@ const Navigation: FunctionComponent<NavigationProps> = ({handleSearch, handleDis
                     <button
                         className={styles.menuClose}
                         onClick={() => {
-                            setShowMenu(false)
                             handleDisableScroll(false)
+                            setShowMenu(false)
                     }}>
                         {t('close')}
                     </button>
 
                     <div className={styles.linksContainer}>
-                        <Link href={"/artists"} onClick={() => setShowMenu(false)}>
+                        <Link href={"/artists"} onClick={() => {
+                            handleDisableScroll(false)
+                            setShowMenu(false)}
+                        }>
                             {t('artists')}
                         </Link>
-                        <Link href={"/exhibitions"} onClick={() => setShowMenu(false)}>
+                        <Link href={"/exhibitions"} onClick={() => {
+                            handleDisableScroll(false)
+                            setShowMenu(false)}
+                        }>
                             {t('exhibitions')}
                         </Link>
-                        <Link href={"/fairs"} onClick={() => setShowMenu(false)}>
+                        <Link href={"/fairs"} onClick={() => {
+                            handleDisableScroll(false)
+                            setShowMenu(false)}
+                        }>
                             {t('fairs')}
                         </Link>
-                        <Link href={"/about"} onClick={() => setShowMenu(false)}>
+                        <Link href={"/about"} onClick={() => {
+                            handleDisableScroll(false)
+                            setShowMenu(false)}
+                        }>
                             {t('contact')}
                         </Link>
 

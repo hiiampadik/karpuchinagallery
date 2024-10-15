@@ -99,6 +99,7 @@ export class Artwork {
     public constructor(
         public readonly Id: string,
         public readonly Title: string,
+        public readonly Year: string | null,
         public readonly ArtistsId: string,
         public readonly ShowInSelection: boolean,
         public readonly Cover: any, // todo
@@ -108,6 +109,7 @@ export class Artwork {
         return new Artwork(
             payload._id,
             payload.title,
+            payload.year ?? null,
             payload.artist._ref,
             payload.showInSelection,
             payload.cover,
