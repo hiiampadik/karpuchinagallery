@@ -43,7 +43,8 @@ export default function About() {
                         <BlockContent blocks={about.Bio}/>
                     </div>
                     <div className={styles.aboutLogos}>
-                        <BlockContent blocks={about.Logos}/>
+                        {/*<BlockContent blocks={about.Logos}/>*/}
+                        {/*todo logos*/}
                     </div>
                 </>
             }

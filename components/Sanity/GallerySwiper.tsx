@@ -38,38 +38,8 @@ const GallerySwiper: FunctionComponent<GalleryProps> = ({images}) => {
                         </SwiperSlide>
                     )
                 })}
-
-                {/*<PrevButton />*/}
-                {/*<NextButton />*/}
-
             </Swiper>
         </>
 )}
 
 export default GallerySwiper
-
-const PrevButton: FunctionComponent = () => {
-    const swiper = useSwiper();
-    return (
-        <button className={styles.prevButton}
-                onClick={() => swiper?.slidePrev()}
-        />
-    )
-}
-
-const NextButton: FunctionComponent = () => {
-    const swiper = useSwiper();
-    const router = useRouter()
-
-    useEffect(() => {
-        if (swiper) {
-            swiper.slideTo(0)
-        }
-    }, [swiper, router])
-    return (
-        <button className={styles.nextButton}
-                onClick={() => swiper?.slideNext()}
-        />
-    )
-}
-

@@ -25,7 +25,7 @@ export class About {
         public readonly Footer: PortableTextBlock,
         public readonly Open: PortableTextBlock,
         public readonly Bio: PortableTextBlock,
-        public readonly Logos: PortableTextBlock,
+        public readonly Logos: Image[],
     ) {}
 
     public static fromPayload(payload: any, locale: string): About {
@@ -36,7 +36,23 @@ export class About {
             payload.footer[locale],
             payload.open[locale],
             payload.bio[locale],
-            payload.logos
+            payload.logos.map((logo: any) => Image.fromPayload(logo, locale)),
+        );
+    }
+}
+
+export class Image {
+    public constructor(
+        public readonly Id: string,
+        public readonly Image: PortableTextBlock,
+        public readonly Alt: string,
+    ) {}
+
+    public static fromPayload(payload: any, locale: string): Image {
+        return new Image(
+            payload._key,
+            payload.image,
+            payload.alt,
         );
     }
 }
