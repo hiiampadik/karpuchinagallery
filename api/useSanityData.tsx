@@ -17,14 +17,18 @@ export const useFetchHomepage = (locale: string): { data: Homepage | null, loadi
                     onDisplay->{
                         ...,
                         artists[]->{
-                            name
-                        }
+                            _id,
+                            slug,
+                            name,
+                        },
                     },
                     upcoming->{
                         ...,
                         artists[]->{
-                            name
-                        }
+                            _id,
+                            slug,
+                            name,
+                        },
                     }
                 }
                 `

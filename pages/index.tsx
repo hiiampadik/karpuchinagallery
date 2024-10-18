@@ -26,15 +26,15 @@ export default function Home() {
             {homepage &&
                 <div className={styles.homepageContainer}>
                     <Link href="/exhibition/[slug]"
-                          as={`/exhibition/${homepage.Upcoming.Slug}`}
-                          key={homepage.Upcoming.Slug}
+                          as={`/exhibition/${homepage.OnDisplay.Slug}`}
+                          key={homepage.OnDisplay.Slug}
                           className={styles.onDisplayContainer}
                     >
-                        <ExhibitionTitle exhibition={homepage.Upcoming} onDisplay={true} fromHomepage={true}/>
+                        <ExhibitionTitle exhibition={homepage.OnDisplay} onDisplay={true} fromHomepage={true}/>
                         <div className={styles.onDisplayCover}>
                             <Figure
-                                image={homepage.Upcoming.Cover}
-                                alt={homepage.Upcoming.Title.concat(" – Exhibition Cover Image")}
+                                image={homepage.OnDisplay.Cover}
+                                alt={homepage.OnDisplay.Title.concat(" – Exhibition Cover Image")}
                             />
                         </div>
                     </Link>
