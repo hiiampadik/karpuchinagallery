@@ -61,10 +61,45 @@
 
 .selectedWorksContainer{
   margin-top: 100px;
+  h2 {
+    margin-bottom: 16px;
+  }
+
+  .selectedWorks {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 20px;
+    row-gap: 100px;
+
+    @media (max-width: $breakpoint-sm-max) {
+      grid-template-columns: 1fr 1fr 1fr;
+      column-gap: 16px;
+    }
+    @media (max-width: $breakpoint-xs-max) {
+      column-gap: 8px;
+    }
+
+    .work {
+      h3 {
+        font-size: 12px;
+        font-family: Rhymes, serif;
+      }
+      .cover {
+        width: 100%;
+        display: flex;
+        margin-bottom: 12px;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+  }
 }
 
 .allExhibitions {
-  padding: 50px 0 100px 0;
+  padding: 100px 0 100px 0;
   height: 150px;
   display: flex;
   justify-content: center;

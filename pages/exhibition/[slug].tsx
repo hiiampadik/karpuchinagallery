@@ -49,12 +49,28 @@ export default function Exhibition() {
                         </div>
                     }
 
+                    {exhibition.Artworks && exhibition.Artworks.length > 0 &&
                     <div className={styles.selectedWorksContainer}>
                         <h2>
                             {t('selectedWorks')}
                         </h2>
-                        {/*todo*/}
+                        <div className={styles.selectedWorks}>
+                            {exhibition.Artworks.map(artwork => (
+                                <div key={artwork.Id} className={styles.work}>
+                                    <div className={styles.cover}>
+                                        <Figure
+                                            image={artwork.Cover}
+                                            alt={artwork.Title.concat(" – Artwork Cover")}
+                                        />
+                                    </div>
+                                    <h3>
+                                        {artwork.Title} {artwork.Year && `(${artwork.Year})`}
+                                    </h3>
+                                </div>
+                            ))}
+                        </div>
                     </div>
+                    }
 
                     <div className={styles.allExhibitions}>
                         <Link href={"/exhibitions"}>

@@ -127,7 +127,7 @@ export class ExhibitionDetail {
         public readonly Document: Document | null,
         public readonly Curator: string,
         public readonly CuratorsText: PortableTextBlock,
-        public readonly Artworks: Artwork[],
+        public readonly Artworks: Artwork[] | null,
 
     ) {}
 
@@ -144,7 +144,7 @@ export class ExhibitionDetail {
             payload.document ? Document.fromPayload(payload.document) : null,
             payload.curator,
             payload.curatorsText[locale],
-            payload.artworks?.map((artwork: any) =>  Artwork.fromPayload(artwork, locale)),
+            payload.artworks?.map((artwork: any) =>  Artwork.fromPayload(artwork, locale)) ?? null,
         );
     }
 }
