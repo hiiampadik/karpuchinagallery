@@ -1,7 +1,7 @@
 'use client'
 import {useEffect, useState} from 'react';
 import client from '../client';
-import {About, Artist, Artwork, Exhibition, Homepage} from '@/api/classes';
+import {About, Artist, Artwork, Exhibition, ExhibitionDetail, Homepage} from '@/api/classes';
 
 
 export const useFetchHomepage = (locale: string): { data: Homepage | null, loading: boolean, error: Error | null} => {
@@ -153,10 +153,18 @@ export const useFetchExhibitions = (locale: string): { data: Exhibition[] | null
                 const result = await client.fetch(`               
                 *[_type == "exhibitions"] | order(orderRank) {
                     ...,
+                    _id,
+                    title,
+                    slug,
                     artists[]->{
                         _id,
+                        slug,
                         name,
                     },
+                    startDate,
+                    endDate,
+                    color,
+                    cover,
                 }
                 `);
                 setData(result);
@@ -181,7 +189,7 @@ export const useFetchExhibitions = (locale: string): { data: Exhibition[] | null
         error };
 };
 
-export const useFetchExhibition = (slug: string | undefined, locale: string): { data: Exhibition | null, loading: boolean, error: Error | null} => {
+export const useFetchExhibitionDetail = (slug: string | undefined, locale: string): { data: ExhibitionDetail | null, loading: boolean, error: Error | null} => {
     const [data, setData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
@@ -194,7 +202,21 @@ export const useFetchExhibition = (slug: string | undefined, locale: string): { 
                         `{"exhibition": *[_type == "exhibitions" && slug.current == $slug] | order(_updatedAt desc) [0] {
                         ...,
                         artists[]->{
-                            name
+                            _id,
+                            name,
+                            slug
+                        },
+                        artworks[]->{
+                            _id,
+                            title,
+                            year,
+                            artist->{
+                                _id,
+                                name,
+                                slug
+                            },
+                            showInSelection,
+                            cover
                         },
                         "document": document{
                             ..., 
@@ -220,7 +242,7 @@ export const useFetchExhibition = (slug: string | undefined, locale: string): { 
         };
     }, [slug]);
 
-    return { data: data && Exhibition.fromPayload(data, locale), loading, error };
+    return { data: data && ExhibitionDetail.fromPayload(data, locale), loading, error };
 };
 
 export const useFetchArtworks = (locale: string): { data: Artwork[] | null, loading: boolean, error: Error | null} => {
@@ -231,7 +253,15 @@ export const useFetchArtworks = (locale: string): { data: Artwork[] | null, load
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await client.fetch(`*[_type == "artworks"]`);
+                const result = await client.fetch(`*[_type == "artworks"] {
+                ...,
+                artist->{
+                                _id,
+                                name,
+                                slug
+                            },
+                
+                }`);
                 setData(result);
             } catch (error) {
                 setError(error as Error);

@@ -15,10 +15,25 @@
 //  //background-color: black;
 //}
 
-.swiperNavigation {
-  height: calc(100% - 20 * 2);
+.swiperWrapper {
+  height: 100%;
+  width: 100vw;
+
+  //.swiperSlide {
+  //  //user-select: none;
+  //  width: 80vw !important;
+  //}
+
+  img {
+    width: auto;
+    height: 100%;
+
+  }
 
   :global {
+    .swiper-slide {
+      width: auto !important;
+    }
     .swiper-pagination {
       color: white;
       font-size: 14px;

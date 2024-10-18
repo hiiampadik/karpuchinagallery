@@ -7,6 +7,8 @@ import styles from '../styles/about.module.scss'
 import {useRouter} from 'next/router';
 import BlockContent from '@/components/Sanity/BlockContent';
 import React from 'react';
+import GallerySwiper from '@/components/Sanity/GallerySwiper';
+import Figure from '@/components/Sanity/Figure';
 
 export default function About() {
     const router = useRouter();
@@ -35,17 +37,27 @@ export default function About() {
                             <BlockContent blocks={about.Connect}/>
                         </div>
                     </div>
-                    {/*<div className={styles.aboutGallery}>Gallery todo</div>*/}
-                    <div className={'gallery'}>
 
-                    </div>
+                    {about.Gallery &&
+                        <div className={styles.aboutGallery}>
+                            <GallerySwiper images={about.Gallery}></GallerySwiper>
+                        </div>
+                    }
+
                     <div className={styles.aboutBio}>
                         <BlockContent blocks={about.Bio}/>
                     </div>
-                    <div className={styles.aboutLogos}>
-                        {/*<BlockContent blocks={about.Logos}/>*/}
-                        {/*todo logos*/}
-                    </div>
+
+
+                    {about.Logos &&
+                        <div className={styles.aboutLogos}>
+                            {about.Logos.map((logo) => (
+                                <figure key={logo.Id}>
+                                    <Figure image={logo.Image} alt={logo.Alt} />
+                                </figure>
+                            ))}
+                        </div>
+                    }
                 </>
             }
 

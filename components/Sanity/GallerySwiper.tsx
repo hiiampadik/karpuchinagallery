@@ -7,13 +7,14 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import "swiper/css/scrollbar";
-import {Pagination, Scrollbar} from 'swiper/modules';
+import {Pagination, Scrollbar, FreeMode} from 'swiper/modules';
 import Figure from '@/components/Sanity/Figure';
+import {Image} from '@/api/classes';
 
 // @refresh reset
 
 interface GalleryProps {
-  readonly images: any[]
+  readonly images: Image[]
 }
 
 
@@ -21,19 +22,21 @@ const GallerySwiper: FunctionComponent<GalleryProps> = ({images}) => {
     return (
         <>
             <Swiper
-                loop={true}
-                // modules={[Pagination, Scrollbar]}
+                // loop={true}
+                modules={[FreeMode, Scrollbar]}
                 grabCursor={true}
-                loopAdditionalSlides={2}
+                // loopAdditionalSlides={2}
                 freeMode={{enabled: true, momentum: false}}
-                className={styles.swiperNavigation}
+                slidesPerView={'auto'}
+                spaceBetween={'20'}
+                className={styles.swiperWrapper}
             >
-                {images.map((el) => {
+                {images.map((image) => {
                     return (
-                        <SwiperSlide key={el._key} className={styles.swiperSlide}>
+                        <SwiperSlide key={image.Id} className={styles.swiperSlide} >
                             <Figure
-                                image={el.asset}
-                                alt={el.caption}
+                                image={image.Image}
+                                alt={image.Alt}
                             />
                         </SwiperSlide>
                     )

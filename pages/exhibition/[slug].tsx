@@ -3,7 +3,7 @@ import React from "react";
 import {GetStaticPropsContext} from 'next';
 import {useParams} from 'next/navigation';
 import {useRouter} from 'next/router';
-import {useFetchExhibition} from '@/api/useSanityData';
+import {useFetchExhibitionDetail} from '@/api/useSanityData';
 import {useTranslations} from 'next-intl';
 import styles from './index.module.scss';
 import BlockContent from '@/components/Sanity/BlockContent';
@@ -14,7 +14,7 @@ import Figure from '@/components/Sanity/Figure';
 export default function Exhibition() {
     const params = useParams()
     const router = useRouter();
-    const {data: exhibition} = useFetchExhibition(params?.slug as string, router.locale ?? 'cs')
+    const {data: exhibition} = useFetchExhibitionDetail(params?.slug as string, router.locale ?? 'cs')
     const t = useTranslations('Exhibition');
 
     {/*todo current on display fetch*/}
@@ -39,9 +39,9 @@ export default function Exhibition() {
                                 {t('documents')}
                             </h2>
                             <div className={styles.documents}>
-                                <Link href={exhibition.Document.asset.url} download={true}>
+                                <Link href={exhibition.Document.Url} download={true}>
                                     <Figure
-                                        image={exhibition.Document.documentCover}
+                                        image={exhibition.Document.Cover}
                                         alt={("Document Cover")}
                                     />
                                 </Link>

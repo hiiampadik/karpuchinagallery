@@ -25,7 +25,8 @@ export class About {
         public readonly Footer: PortableTextBlock,
         public readonly Open: PortableTextBlock,
         public readonly Bio: PortableTextBlock,
-        public readonly Logos: Image[],
+        public readonly Logos: Image[] | null,
+        public readonly Gallery: Image[] | null,
     ) {}
 
     public static fromPayload(payload: any, locale: string): About {
@@ -36,23 +37,8 @@ export class About {
             payload.footer[locale],
             payload.open[locale],
             payload.bio[locale],
-            payload.logos.map((logo: any) => Image.fromPayload(logo, locale)),
-        );
-    }
-}
-
-export class Image {
-    public constructor(
-        public readonly Id: string,
-        public readonly Image: PortableTextBlock,
-        public readonly Alt: string,
-    ) {}
-
-    public static fromPayload(payload: any, locale: string): Image {
-        return new Image(
-            payload._key,
-            payload.image,
-            payload.alt,
+            payload.logos?.map((logo: any) => Image.fromPayload(logo, locale)) ?? null,
+            payload.gallery?.map((logo: any) => Image.fromPayload(logo, locale)) ?? null,
         );
     }
 }
@@ -80,10 +66,10 @@ export class Artist {
         public readonly Slug: string,
         public readonly Bio: PortableTextBlock,
         public readonly Cover: any, // required
-        public readonly SoloExhibitions?: ArtistItem[],
-        public readonly GroupExhibitions?: ArtistItem[],
-        public readonly Education?: ArtistItem[],
-        public readonly Awards?: ArtistItem[],
+        public readonly SoloExhibitions: ArtistItem[] | null,
+        public readonly GroupExhibitions: ArtistItem[] | null,
+        public readonly Education: ArtistItem[] | null,
+        public readonly Awards: ArtistItem[] | null,
 
     ) {}
 
@@ -94,10 +80,10 @@ export class Artist {
             payload.slug.current,
             payload.bio[locale],
             payload.cover,
-            payload.soloExhibitions?.map((exhibition: any) => ArtistItem.fromPayload(exhibition, locale)),
-            payload.groupExhibitions?.map((exhibition: any) => ArtistItem.fromPayload(exhibition, locale)),
-            payload.education?.map((edu: any) => ArtistItem.fromPayload(edu, locale)),
-            payload.awards?.map((award: any) => ArtistItem.fromPayload(award, locale)),
+            payload.soloExhibitions?.map((exhibition: any) => ArtistItem.fromPayload(exhibition, locale)) ?? null,
+            payload.groupExhibitions?.map((exhibition: any) => ArtistItem.fromPayload(exhibition, locale)) ?? null,
+            payload.education?.map((edu: any) => ArtistItem.fromPayload(edu, locale)) ?? null,
+            payload.awards?.map((award: any) => ArtistItem.fromPayload(award, locale)) ?? null,
         );
     }
 }
@@ -107,15 +93,11 @@ export class Exhibition {
         public readonly Id: string,
         public readonly Title: string,
         public readonly Slug: string,
-        public readonly Artists: {Id: string, Name: string}[] | undefined | null,
+        public readonly Artists: {Id: string, Name: string, Slug: string}[] | null,
         public readonly StartDate: string,
-        public readonly EndDate: string | undefined,
-        public readonly Color: string | undefined,
+        public readonly EndDate: string | null,
+        public readonly Color: string | null,
         public readonly Cover: any, // todo
-        public readonly Document: any | undefined, // todo
-        public readonly Curator: string,
-        public readonly CuratorsText: PortableTextBlock,
-
     ) {}
 
     public static fromPayload(payload: any, locale: string): Exhibition {
@@ -123,14 +105,46 @@ export class Exhibition {
             payload._id,
             payload.title[locale],
             payload.slug.current,
-            payload.artists.map((artist: any) => ({Id: artist._id, Name: artist.name})),
+            payload.artists?.map((artist: any) => ({Id: artist._id, Name: artist.name})) ?? null,
             payload.startDate,
-            payload.endDate,
-            payload.color !== undefined && payload.color.hex,
+            payload.endDate ?? null,
+            payload.color?.hex ?? null,
             payload.cover,
-            payload.document,
+        );
+    }
+}
+
+export class ExhibitionDetail {
+    public constructor(
+        public readonly Id: string,
+        public readonly Title: string,
+        public readonly Slug: string,
+        public readonly Artists: {Id: string, Name: string, Slug: string}[] | null,
+        public readonly StartDate: string,
+        public readonly EndDate: string | null,
+        public readonly Color: string | null,
+        public readonly Cover: any, // todo
+        public readonly Document: Document | null,
+        public readonly Curator: string,
+        public readonly CuratorsText: PortableTextBlock,
+        public readonly Artworks: Artwork[],
+
+    ) {}
+
+    public static fromPayload(payload: any, locale: string): ExhibitionDetail {
+        return new ExhibitionDetail(
+            payload._id,
+            payload.title[locale],
+            payload.slug.current,
+            payload.artists?.map((artist: any) => ({Id: artist._id, Name: artist.name})) ?? null,
+            payload.startDate,
+            payload.endDate ?? null,
+            payload.color?.hex ?? null,
+            payload.cover,
+            payload.document ? Document.fromPayload(payload.document) : null,
             payload.curator,
             payload.curatorsText[locale],
+            payload.artworks?.map((artwork: any) =>  Artwork.fromPayload(artwork, locale)),
         );
     }
 }
@@ -141,7 +155,7 @@ export class Artwork {
         public readonly Id: string,
         public readonly Title: string,
         public readonly Year: string | null,
-        public readonly ArtistsId: string,
+        public readonly Artist: {Id: string, Name: string, Slug: string},
         public readonly ShowInSelection: boolean,
         public readonly Cover: any, // todo
             ) {}
@@ -151,9 +165,44 @@ export class Artwork {
             payload._id,
             payload.title,
             payload.year ?? null,
-            payload.artist._ref,
+            {Id: payload.artist._id, Name: payload.artist.name, Slug: payload.artist.slug.current },
             payload.showInSelection,
             payload.cover,
+        );
+    }
+}
+
+
+
+export class Image {
+    public constructor(
+        public readonly Id: string,
+        public readonly Image: PortableTextBlock,
+        public readonly Alt: string,
+    ) {}
+
+    public static fromPayload(payload: any, locale: string): Image {
+        return new Image(
+            payload._key,
+            payload.image,
+            payload.alt,
+        );
+    }
+}
+
+
+export class Document {
+    public constructor(
+        public readonly Id: string,
+        public readonly Url: string,
+        public readonly Cover: any, // todo
+    ) {}
+
+    public static fromPayload(payload: any): Document {
+        return new Document(
+            payload.asset.assetId,
+            payload.asset.url,
+            payload.documentCover,
         );
     }
 }

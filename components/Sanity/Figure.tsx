@@ -29,8 +29,8 @@ const Figure: FunctionComponent<FigureProps> = ({image, alt, className, placehol
 
     return (
         <Image
-            onLoad={() => setLoaded(true)}
-            className={classNames([loaded ? styles.loaded : styles.loading, className])}
+            // onLoad={() => setLoaded(true)}
+            // className={classNames([loaded ? styles.loaded : styles.loading, className])}
             sizes="(max-width: 1024px) 110vw, 55vw"
             width={WIDTH}
             height={getHeight()}

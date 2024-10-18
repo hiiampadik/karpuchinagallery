@@ -24,7 +24,7 @@ export default function Artist() {
         if (artworks === null || artist === null){
             return []
         }
-        return artworks.filter(artwork => artwork.ArtistsId === artist.Id && artwork.ShowInSelection)
+        return artworks.filter(artwork => artwork.Artist.Id === artist.Id && artwork.ShowInSelection)
     }, [artworks, artist])
 
 

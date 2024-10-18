@@ -36,19 +36,22 @@
     gap: 24px;
     margin-top: 24px;
     a {
+      position: relative;
+      left: -3px;
+
       img {
         height: 100%;
         width: 100%;
         max-height: 300px;
         max-width: 200px;
         object-fit: contain;
-        filter: drop-shadow(0 0 5px rgba(0,0,0,0.3));
+        filter: drop-shadow(0 0 5px rgba(0,0,0,0));
         transition: 0.2s;
       }
       @media (hover: hover) {
         &:hover {
           img {
-            filter: drop-shadow(0 0 10px rgba(0,0,0,0.3));
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));
           }
         }
       }
