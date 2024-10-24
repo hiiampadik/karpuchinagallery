@@ -9,7 +9,7 @@ import React from 'react';
 import {useRouter} from 'next/router';
 import FormatArtists from '@/components/utils/FormatArtists';
 import LocalizedDate from '@/components/utils/LocalizeDate';
-import ExhibitionTitle from '@/components/utils/ExhibitionTitle';
+import EventTitle from '@/components/utils/EventTitle';
 import Figure from '@/components/Sanity/Figure';
 import {replaceSpaces} from '@/components/utils/replaceSpaces';
 
@@ -27,7 +27,7 @@ export default function Home() {
                           key={homepage.OnDisplay.Slug}
                           className={styles.onDisplayContainer}
                     >
-                        <ExhibitionTitle exhibition={homepage.OnDisplay} onDisplay={true} fromHomepage={true}/>
+                        <EventTitle exhibition={homepage.OnDisplay} onDisplay={true} fromHomepage={true}/>
 
                         <Figure
                             className={styles.onDisplayCover}

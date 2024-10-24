@@ -1,60 +1,16 @@
 'use client'
-import Layout from '../components/Layout';
 import {GetStaticPropsContext} from 'next';
 import {useRouter} from 'next/router';
 import {useFetchEvents} from '@/api/useSanityData';
-import styles from '@/styles/exhibitions.module.scss';
-import React, {useMemo} from 'react';
-import {Event} from '@/api/classes';
-import ExhibitionItem from '@/components/Layout/ExhibitionItem';
+import React from 'react';
+import Events from '@/components/EventsComponents/Events';
 
 export default function Fairs() {
     const router = useRouter();
-    const {data: exhibitions} = useFetchEvents(router.locale ?? 'cs', 'fairs')
-
-    const groupedExhibitionsByYear = useMemo(() => {
-        if (!exhibitions){
-            return []
-        }
-        const exhibitionsByYear: { [key: number]: Event[] } = {};
-
-        exhibitions.forEach(exhibition => {
-            const year = new Date(exhibition.StartDate).getFullYear();
-            if (!exhibitionsByYear[year]) {
-                exhibitionsByYear[year] = [];
-            }
-            exhibitionsByYear[year].push(exhibition);
-        });
-        return Object.entries(exhibitionsByYear)
-            .map(([year, exhibitions]) => ({
-                year: parseInt(year),
-                exhibitions: exhibitions.sort((a, b) => {
-                    const dateA = new Date(a.StartDate).getTime();
-                    const dateB = new Date(b.StartDate).getTime();
-                    return dateB - dateA;
-                }),
-            }))
-            .sort((a, b) => b.year - a.year);
-    }, [exhibitions])
-
+    const {data: fairs} = useFetchEvents(router.locale ?? 'cs', 'fairs')
 
     return (
-        <Layout>
-            {groupedExhibitionsByYear.map((group) => (
-                <div key={group.year} className={styles.exhibitionYear}>
-                    <h1>{group.year}</h1>
-                    <div className={styles.exhibitionsContainer}>
-                        {group.exhibitions.map((exhibition => {
-                            return (
-                                // todo fair item
-                                // <ExhibitionItem exhibition={exhibition} key={exhibition.Id} useH2={true} />
-                            )
-                        }))}
-                    </div>
-                </div>
-            ))}
-
-        </Layout>
+        <Events events={fairs ?? []} type={'fairs'}/>
     );
 }
 

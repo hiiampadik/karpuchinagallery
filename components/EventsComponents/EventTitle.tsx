@@ -10,33 +10,33 @@ import {classNames} from '@/components/utils/classNames';
 import {replaceSpaces} from '@/components/utils/replaceSpaces';
 
 
-interface ExhibitionTitleProps {
-    readonly exhibition: Event
+interface EventTitleProps {
+    readonly event: Event
     readonly onDisplay: boolean
     readonly fromHomepage: boolean
 }
 
-const ExhibitionTitle: FunctionComponent<ExhibitionTitleProps> = ({exhibition, onDisplay, fromHomepage}) => {
-    const t = useTranslations('ExhibitionTitle');
+const EventTitle: FunctionComponent<EventTitleProps> = ({event, onDisplay, fromHomepage}) => {
+    const t = useTranslations('EventTitle');
     const router = useRouter();
 
 
     return (
-        <h1 className={styles.exhibitionTitle} style={{color: fromHomepage && exhibition.Color ? exhibition.Color : '#000000'}}>
+        <h1 className={styles.eventTitle} style={{color: fromHomepage && event.Color ? event.Color : '#000000'}}>
             {onDisplay && <span className={styles.opacity}>{t('onDisplay')}{' '}</span>}
-            <span className={styles.title}>{exhibition.Title}</span>
-            {exhibition.Artists && exhibition.Artists.length > 0 &&
+            <span className={styles.title}>{event.Title}</span>
+            {event.Artists && event.Artists.length > 0 &&
                 <>
-                    {' '}<FormatArtists artists={exhibition.Artists} opacity={true}/>
+                    {' '}<FormatArtists artists={event.Artists} opacity={true}/>
                 </>
             }
             {' '}
             <span className={classNames([styles.date, !fromHomepage && styles.galleryNameInTitle])}>
-                {replaceSpaces(LocalizedDate(exhibition.StartDate, router.locale ?? 'cs'))}
-                {exhibition.EndDate &&
+                {replaceSpaces(LocalizedDate(event.StartDate, router.locale ?? 'cs'))}
+                {event.EndDate &&
                     <>
                         {' - '}
-                        {replaceSpaces(LocalizedDate(exhibition.EndDate, router.locale ?? 'cs'))}
+                        {replaceSpaces(LocalizedDate(event.EndDate, router.locale ?? 'cs'))}
                     </>
                 }
                 {!fromHomepage &&
@@ -47,4 +47,4 @@ const ExhibitionTitle: FunctionComponent<ExhibitionTitleProps> = ({exhibition, o
     )
 }
 
-export default ExhibitionTitle
+export default EventTitle

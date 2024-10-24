@@ -16,7 +16,7 @@
     "olderExhibition": "Starší výstavy"
   },
 
-  "ExhibitionTitle": {
+  "EventTitle": {
     "onDisplay": "Aktuální:",
     "by": "od",
     "and": "a"
@@ -44,10 +44,11 @@
 
     "allArtists": "Všichni umělci"
   },
-  "Exhibition": {
+  "Event": {
     "curatorsText": "Kurátorský text",
     "documents": "Dokumenty",
     "selectedWorks": "Práce (výběr)",
-    "allExhibitions": "Všechny výstavy"
+    "allExhibitions": "Všechny výstavy",
+    "allFairs": "Všechny veletrhy"
   }
 }

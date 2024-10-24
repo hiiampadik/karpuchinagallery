@@ -17,7 +17,7 @@
   },
 
 
-  "ExhibitionTitle": {
+  "EventTitle": {
     "onDisplay": "On display:",
     "by": "by",
     "and": "and"
@@ -46,10 +46,11 @@
     "allArtists": "All artists"
   },
 
-  "Exhibition": {
+  "Event": {
     "curatorsText": "Curator's text",
     "documents": "Documents",
     "selectedWorks": "Selected Works",
-    "allExhibitions": "All exhibitions"
+    "allExhibitions": "All exhibitions",
+    "allFairs": "All fairs"
   }
 }

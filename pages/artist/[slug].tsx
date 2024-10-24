@@ -9,7 +9,7 @@ import styles from './index.module.scss'
 import {useTranslations} from 'next-intl';
 import BlockContent from '@/components/Sanity/BlockContent';
 import Figure from '@/components/Sanity/Figure';
-import ExhibitionItem from '@/components/Layout/ExhibitionItem';
+import EventItem from '@/components/EventsComponents/EventItem';
 import Link from 'next/link';
 
 export default function Artist() {
@@ -82,12 +82,14 @@ export default function Artist() {
                       </div>
                   }
 
+                  {/*todo fairs*/}
+
                   {artistExhibitions.length > 0 &&
                       <div className={styles.exhibitionsContainer}>
                           <h2>{t('exhibitions')}</h2>
                           <div className={styles.exhibitions}>
                               {artistExhibitions.map(exhibition => (
-                                  <ExhibitionItem exhibition={exhibition} key={exhibition.Id} useH2={false}/>
+                                  <EventItem event={exhibition} key={exhibition.Id} useH2={false} type={'exhibitions'}/>
                               ))}
                           </div>
                       </div>
