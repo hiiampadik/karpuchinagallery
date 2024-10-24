@@ -20,6 +20,7 @@ const ExhibitionTitle: FunctionComponent<ExhibitionTitleProps> = ({exhibition, o
     const t = useTranslations('ExhibitionTitle');
     const router = useRouter();
 
+
     return (
         <h1 className={styles.exhibitionTitle} style={{color: fromHomepage && exhibition.Color ? exhibition.Color : '#000000'}}>
             {onDisplay && <>{t('onDisplay')}{' '}</>}

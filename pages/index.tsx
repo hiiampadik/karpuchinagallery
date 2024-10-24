@@ -31,12 +31,15 @@ export default function Home() {
                           className={styles.onDisplayContainer}
                     >
                         <ExhibitionTitle exhibition={homepage.OnDisplay} onDisplay={true} fromHomepage={true}/>
-                        <div className={styles.onDisplayCover}>
-                            <Figure
-                                image={homepage.OnDisplay.Cover}
-                                alt={homepage.OnDisplay.Title.concat(" – Exhibition Cover Image")}
-                            />
-                        </div>
+
+                        <Figure
+                            className={styles.onDisplayCover}
+                            image={homepage.OnDisplay.Cover}
+                            alt={homepage.OnDisplay.Title.concat(" – Exhibition Cover Image")}
+                        />
+                        {/*<div className={styles.onDisplayCover}>*/}
+                        {/*    */}
+                        {/*</div>*/}
                     </Link>
                     <div className={styles.upcomingContainer}>
                         <Link href="/exhibition/[slug]"

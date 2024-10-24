@@ -18,12 +18,15 @@
   line-height: 120%;
   font-family: Rhymes, serif;
 
+  height: 270px;
+
   @media (max-width: $breakpoint-md-max) {
     padding: 100px 16px;
   }
 
   @media (max-width: $breakpoint-xs-max) {
     font-size: 18px;
+    height: 240px;
   }
 
 
