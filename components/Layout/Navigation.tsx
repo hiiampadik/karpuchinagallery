@@ -21,6 +21,8 @@ const Navigation: FunctionComponent<NavigationProps> = ({handleSearch, handleDis
 
     const [showMenu, setShowMenu] = useState(false);
 
+    // todo onclose too fast
+
     return (
         <>
            <div className={styles.navigationContainer}>

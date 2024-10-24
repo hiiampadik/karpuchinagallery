@@ -2,21 +2,21 @@
 import Layout from '../components/Layout';
 import {GetStaticPropsContext} from 'next';
 import {useRouter} from 'next/router';
-import {useFetchExhibitions} from '@/api/useSanityData';
+import {useFetchEvents} from '@/api/useSanityData';
 import styles from '@/styles/exhibitions.module.scss';
 import React, {useMemo} from 'react';
-import {Exhibition} from '@/api/classes';
+import {Event} from '@/api/classes';
 import ExhibitionItem from '@/components/Layout/ExhibitionItem';
 
 export default function Exhibitions() {
     const router = useRouter();
-    const {data: exhibitions} = useFetchExhibitions(router.locale ?? 'cs')
+    const {data: exhibitions} = useFetchEvents(router.locale ?? 'cs', 'exhibitions')
 
     const groupedExhibitionsByYear = useMemo(() => {
         if (!exhibitions){
             return []
         }
-        const exhibitionsByYear: { [key: number]: Exhibition[] } = {};
+        const exhibitionsByYear: { [key: number]: Event[] } = {};
 
         exhibitions.forEach(exhibition => {
             const year = new Date(exhibition.StartDate).getFullYear();

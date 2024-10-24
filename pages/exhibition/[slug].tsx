@@ -3,20 +3,20 @@ import React from "react";
 import {GetStaticPropsContext} from 'next';
 import {useParams} from 'next/navigation';
 import {useRouter} from 'next/router';
-import {useFetchExhibitionDetail} from '@/api/useSanityData';
+import {useFetchEventDetail} from '@/api/useSanityData';
 import {useTranslations} from 'next-intl';
 import styles from './index.module.scss';
 import BlockContent from '@/components/Sanity/BlockContent';
 import ExhibitionTitle from '@/components/utils/ExhibitionTitle';
 import Link from 'next/link';
 import Figure from '@/components/Sanity/Figure';
-import {Exhibition as ExhibitionClass} from '@/api/classes';
+import {Event as ExhibitionClass} from '@/api/classes';
 import GallerySwiper from '@/components/Sanity/GallerySwiper';
 
 export default function Exhibition() {
     const params = useParams()
     const router = useRouter();
-    const {data: exhibition} = useFetchExhibitionDetail(params?.slug as string, router.locale ?? 'cs')
+    const {data: exhibition} = useFetchEventDetail(params?.slug as string, router.locale ?? 'cs', 'exhibitions')
     const t = useTranslations('Exhibition');
 
     const getOnDisplay = (exhibition: ExhibitionClass) => {

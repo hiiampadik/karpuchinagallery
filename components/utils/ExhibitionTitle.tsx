@@ -2,7 +2,7 @@
 import React, {FunctionComponent} from 'react';
 import {useTranslations} from 'next-intl';
 import FormatArtists from '@/components/utils/FormatArtists';
-import {Exhibition} from '@/api/classes';
+import {Event} from '@/api/classes';
 import {useRouter} from 'next/router';
 import LocalizedDate from '@/components/utils/LocalizeDate';
 import styles from '../common.module.scss'
@@ -11,7 +11,7 @@ import {replaceSpaces} from '@/components/utils/replaceSpaces';
 
 
 interface ExhibitionTitleProps {
-    readonly exhibition: Exhibition
+    readonly exhibition: Event
     readonly onDisplay: boolean
     readonly fromHomepage: boolean
 }

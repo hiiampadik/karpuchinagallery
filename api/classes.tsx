@@ -3,14 +3,14 @@ import {PortableTextBlock} from '@portabletext/types';
 
 export class Homepage {
     public constructor(
-        public readonly OnDisplay: Exhibition,
-        public readonly Upcoming: Exhibition,
+        public readonly OnDisplay: Event,
+        public readonly Upcoming: Event,
     ) {}
 
     public static fromPayload(payload: any, locale: string): Homepage {
         return new Homepage(
-            Exhibition.fromPayload(payload.onDisplay, locale),
-            Exhibition.fromPayload(payload.upcoming, locale),
+            Event.fromPayload(payload.onDisplay, locale),
+            Event.fromPayload(payload.upcoming, locale),
         );
     }
 }
@@ -88,7 +88,7 @@ export class Artist {
     }
 }
 
-export class Exhibition {
+export class Event {
     public constructor(
         public readonly Id: string,
         public readonly Title: string,
@@ -100,8 +100,8 @@ export class Exhibition {
         public readonly Cover: any, // todo
     ) {}
 
-    public static fromPayload(payload: any, locale: string): Exhibition {
-        return new Exhibition(
+    public static fromPayload(payload: any, locale: string): Event {
+        return new Event(
             payload._id,
             payload.title[locale],
             payload.slug.current,
@@ -114,7 +114,7 @@ export class Exhibition {
     }
 }
 
-export class ExhibitionDetail {
+export class EventDetail {
     public constructor(
         public readonly Id: string,
         public readonly Title: string,
@@ -130,8 +130,8 @@ export class ExhibitionDetail {
         public readonly Gallery: Image[] | null,
     ) {}
 
-    public static fromPayload(payload: any, locale: string): ExhibitionDetail {
-        return new ExhibitionDetail(
+    public static fromPayload(payload: any, locale: string): EventDetail {
+        return new EventDetail(
             payload._id,
             payload.title[locale],
             payload.slug.current,

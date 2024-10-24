@@ -2,7 +2,7 @@
 import Layout from "../../components/Layout";
 import React, {useMemo} from "react";
 import {GetStaticPropsContext} from 'next';
-import {useFetchArtist, useFetchArtworks, useFetchExhibitions} from '@/api/useSanityData';
+import {useFetchArtist, useFetchArtworks, useFetchEvents} from '@/api/useSanityData';
 import {useParams} from 'next/navigation';
 import {useRouter} from 'next/router';
 import styles from './index.module.scss'
@@ -17,7 +17,8 @@ export default function Artist() {
     const router = useRouter();
     const {data: artist} = useFetchArtist(params?.slug as string, router.locale ?? 'cs')
     const {data: artworks} = useFetchArtworks(router.locale ?? 'cs')
-    const {data: exhibitions} = useFetchExhibitions(router.locale ?? 'cs')
+    const {data: exhibitions} = useFetchEvents(router.locale ?? 'cs', 'exhibitions')
+    // todo fairs
     const t = useTranslations('Artist');
 
 

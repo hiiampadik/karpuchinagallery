@@ -1,12 +1,12 @@
 import styles from './index.module.scss'
 import Link from 'next/link';
 import React, {FunctionComponent} from 'react';
-import {Exhibition} from '@/api/classes';
+import {Event} from '@/api/classes';
 import FormatArtists from '@/components/utils/FormatArtists';
 import Figure from '@/components/Sanity/Figure';
 
 interface ExhibitionItemProps {
-    readonly exhibition: Exhibition;
+    readonly exhibition: Event;
     readonly useH2: boolean
 }
 
