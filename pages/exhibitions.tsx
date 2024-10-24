@@ -4,11 +4,8 @@ import {GetStaticPropsContext} from 'next';
 import {useRouter} from 'next/router';
 import {useFetchExhibitions} from '@/api/useSanityData';
 import styles from '@/styles/exhibitions.module.scss';
-import Link from 'next/link';
 import React, {useMemo} from 'react';
 import {Exhibition} from '@/api/classes';
-import FormatArtists from '@/components/utils/FormatArtists';
-import Figure from '@/components/Sanity/Figure';
 import ExhibitionItem from '@/components/Layout/ExhibitionItem';
 
 export default function Exhibitions() {
@@ -41,7 +38,6 @@ export default function Exhibitions() {
     }, [exhibitions])
 
 
-    // todo svetle onDisplay, carky a and
     return (
         <Layout>
             {groupedExhibitionsByYear.map((group) => (

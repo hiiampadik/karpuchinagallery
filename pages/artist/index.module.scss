@@ -106,7 +106,6 @@
 }
 .artistDetailsContainer {
   margin-top: 100px;
-  margin-bottom: 250px;
 
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -164,4 +163,15 @@
     gap: 54px;
   }
 
+}
+
+.allArtists {
+  padding: 150px 0 100px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  a {
+    @include blackButton;
+  }
 }

@@ -10,6 +10,7 @@ import {useTranslations} from 'next-intl';
 import BlockContent from '@/components/Sanity/BlockContent';
 import Figure from '@/components/Sanity/Figure';
 import ExhibitionItem from '@/components/Layout/ExhibitionItem';
+import Link from 'next/link';
 
 export default function Artist() {
     const params = useParams()
@@ -43,9 +44,11 @@ export default function Artist() {
             return false
         })
 
-        return filtered;
-
-        // todo year sort
+        return filtered.sort((a, b) => {
+            const dateA = new Date(a.StartDate).getTime();
+            const dateB = new Date(b.StartDate).getTime();
+            return dateB - dateA;
+        });
     }, [exhibitions, artist])
     return (
       <Layout >
@@ -70,7 +73,7 @@ export default function Artist() {
                                           />
                                       </div>
                                       <h3>
-                                        {artwork.Title} {artwork.Year && `(${artwork.Year})`}
+                                          {artwork.Title} {artwork.Year && `(${artwork.Year})`}
                                       </h3>
                                   </div>
                               ))}
@@ -83,75 +86,82 @@ export default function Artist() {
                           <h2>{t('exhibitions')}</h2>
                           <div className={styles.exhibitions}>
                               {artistExhibitions.map(exhibition => (
-                                  <ExhibitionItem exhibition={exhibition} key={exhibition.Id} useH2={false} />
+                                  <ExhibitionItem exhibition={exhibition} key={exhibition.Id} useH2={false}/>
                               ))}
                           </div>
                       </div>
                   }
 
-                  <div className={styles.artistDetailsContainer}>
-                      {artist.SoloExhibitions && artist.SoloExhibitions.length > 0 &&
-                          <div className={styles.itemsWrapper}>
-                              <h2>{t('detailsSelectedSoloExhibitions')}</h2>
-                              <div className={styles.itemsContainer}>
-                                  {artist.SoloExhibitions.map(exhibition => (
-                                      <div key={exhibition.Id} className={styles.item}>
-                                          <div className={styles.year}>{exhibition.Year}</div>
-                                          <div className={styles.title}><BlockContent blocks={exhibition.Title}/></div>
-                                      </div>
-                                  ))}
-                              </div>
-                          </div>
-                      }
-
-                      {artist.GroupExhibitions && artist.GroupExhibitions.length > 0 &&
-                          <div className={styles.itemsWrapper}>
-                              <h2>{t('detailsSelectedGroupExhibitions')}</h2>
-                              <div className={styles.itemsContainer}>
-                                  {artist.GroupExhibitions.map(exhibition => (
-                                      <div key={exhibition.Id} className={styles.item}>
-                                          <div className={styles.year}>{exhibition.Year}</div>
-                                          <div className={styles.title}><BlockContent blocks={exhibition.Title}/></div>
-                                      </div>
-                                  ))}
-                              </div>
-                          </div>
-                      }
-
-                      {((artist.Education && artist.Education.length > 0) || (artist.Awards && artist.Awards.length > 0)) &&
-                          <div className={styles.itemsFlexWrapper}>
-                              {artist.Education && artist.Education.length > 0 &&
-                                  <div className={styles.itemsWrapper}>
-                                      <h2>{t('detailsEducation')}</h2>
-                                      <div className={styles.itemsContainer}>
-                                          {artist.Education.map(education => (
-                                              <div key={education.Id} className={styles.item}>
-                                                  <div className={styles.year}>{education.Year}</div>
-                                                  <div className={styles.title}><BlockContent blocks={education.Title}/></div>
-                                              </div>
-                                          ))}
-                                      </div>
+                  {(artist.SoloExhibitions || artist.GroupExhibitions ||  artist.Education || artist.Awards) &&
+                      <div className={styles.artistDetailsContainer}>
+                          {artist.SoloExhibitions && artist.SoloExhibitions.length > 0 &&
+                              <div className={styles.itemsWrapper}>
+                                  <h2>{t('detailsSelectedSoloExhibitions')}</h2>
+                                  <div className={styles.itemsContainer}>
+                                      {artist.SoloExhibitions.map(exhibition => (
+                                          <div key={exhibition.Id} className={styles.item}>
+                                              <div className={styles.year}>{exhibition.Year}</div>
+                                              <div className={styles.title}><BlockContent blocks={exhibition.Title}/></div>
+                                          </div>
+                                      ))}
                                   </div>
-                              }
-                              {artist.Awards && artist.Awards.length > 0 &&
-                                  <div className={styles.itemsWrapper}>
-                                      <h2>{t('detailsAwards')}</h2>
-                                      <div className={styles.itemsContainer}>
-                                          {artist.Awards.map(award => (
-                                              <div key={award.Id} className={styles.item}>
-                                                  <div className={styles.year}>{award.Year}</div>
-                                                  <div className={styles.title}><BlockContent blocks={award.Title}/>
+                              </div>
+                          }
+
+                          {artist.GroupExhibitions && artist.GroupExhibitions.length > 0 &&
+                              <div className={styles.itemsWrapper}>
+                                  <h2>{t('detailsSelectedGroupExhibitions')}</h2>
+                                  <div className={styles.itemsContainer}>
+                                      {artist.GroupExhibitions.map(exhibition => (
+                                          <div key={exhibition.Id} className={styles.item}>
+                                              <div className={styles.year}>{exhibition.Year}</div>
+                                              <div className={styles.title}><BlockContent blocks={exhibition.Title}/></div>
+                                          </div>
+                                      ))}
+                                  </div>
+                              </div>
+                          }
+
+                          {((artist.Education && artist.Education.length > 0) || (artist.Awards && artist.Awards.length > 0)) &&
+                              <div className={styles.itemsFlexWrapper}>
+                                  {artist.Education && artist.Education.length > 0 &&
+                                      <div className={styles.itemsWrapper}>
+                                          <h2>{t('detailsEducation')}</h2>
+                                          <div className={styles.itemsContainer}>
+                                              {artist.Education.map(education => (
+                                                  <div key={education.Id} className={styles.item}>
+                                                      <div className={styles.year}>{education.Year}</div>
+                                                      <div className={styles.title}><BlockContent blocks={education.Title}/>
+                                                      </div>
                                                   </div>
-                                              </div>
-                                          ))}
+                                              ))}
+                                          </div>
                                       </div>
-                                  </div>
-                              }
-                          </div>
-                      }
-                  </div>
+                                  }
+                                  {artist.Awards && artist.Awards.length > 0 &&
+                                      <div className={styles.itemsWrapper}>
+                                          <h2>{t('detailsAwards')}</h2>
+                                          <div className={styles.itemsContainer}>
+                                              {artist.Awards.map(award => (
+                                                  <div key={award.Id} className={styles.item}>
+                                                      <div className={styles.year}>{award.Year}</div>
+                                                      <div className={styles.title}><BlockContent blocks={award.Title}/>
+                                                      </div>
+                                                  </div>
+                                              ))}
+                                          </div>
+                                      </div>
+                                  }
+                              </div>
+                          }
+                      </div>
+                  }
 
-                  {/*todo all artist button*/}
+                  <div className={styles.allArtists}>
+                      <Link href={"/artists"}>
+                          {t('allArtists')}
+                      </Link>
+                  </div>
               </div>
           }
       </Layout>

@@ -41,7 +41,9 @@
     "detailsSelectedGroupExhibitions": "Selection of Group Exhibitions",
     "detailsSelectedSoloExhibitions": "Selection of Solo Exhibitions",
     "detailsEducation": "Education",
-    "detailsAwards": "Awards"
+    "detailsAwards": "Awards",
+
+    "allArtists": "All artists"
   },
 
   "Exhibition": {

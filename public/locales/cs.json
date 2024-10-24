@@ -40,7 +40,9 @@
     "detailsSelectedGroupExhibitions": "Skupinové výstavy (výběr)",
     "detailsSelectedSoloExhibitions": "Solo výstavy (výběr)",
     "detailsEducation": "Vzdělání",
-    "detailsAwards": "Ocenění"
+    "detailsAwards": "Ocenění",
+
+    "allArtists": "Všichni umělci"
   },
   "Exhibition": {
     "curatorsText": "Kurátorský text",
