@@ -124,11 +124,10 @@ export class ExhibitionDetail {
         public readonly EndDate: string | null,
         public readonly Color: string | null,
         public readonly Cover: any, // todo
-        public readonly Document: Document | null,
-        public readonly Curator: string,
+        public readonly Documents: Document[] | null,
         public readonly CuratorsText: PortableTextBlock,
         public readonly Artworks: Artwork[] | null,
-
+        public readonly Gallery: Image[] | null,
     ) {}
 
     public static fromPayload(payload: any, locale: string): ExhibitionDetail {
@@ -141,10 +140,10 @@ export class ExhibitionDetail {
             payload.endDate ?? null,
             payload.color?.hex ?? null,
             payload.cover,
-            payload.document ? Document.fromPayload(payload.document) : null,
-            payload.curator,
+            payload.documents?.map((document: any) => Document.fromPayload(document)) ?? null,
             payload.curatorsText[locale],
             payload.artworks?.map((artwork: any) =>  Artwork.fromPayload(artwork, locale)) ?? null,
+            payload.gallery?.map((logo: any) => Image.fromPayload(logo, locale)) ?? null,
         );
     }
 }
@@ -195,13 +194,15 @@ export class Document {
     public constructor(
         public readonly Id: string,
         public readonly Url: string,
+        public readonly Alt: string,
         public readonly Cover: any, // todo
     ) {}
 
     public static fromPayload(payload: any): Document {
         return new Document(
-            payload.asset.assetId,
-            payload.asset.url,
+            payload._key,
+            payload.file.asset.url,
+            payload.alt,
             payload.documentCover,
         );
     }

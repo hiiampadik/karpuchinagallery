@@ -80,9 +80,13 @@
     text-decoration: none;
   }
 
+  .opacity {
+    opacity: 0.6;
+  }
+
   h1 {
     @include container900px;
-    color: #737373;
+    color: white;
     font-size: 37px;
     font-family: Rhymes, serif;
     font-weight: 400;

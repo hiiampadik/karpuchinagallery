@@ -12,22 +12,22 @@ import {replaceSpaces} from '@/components/utils/replaceSpaces';
 
 interface ExhibitionTitleProps {
     readonly exhibition: Exhibition
-    readonly onDisplay?: boolean // todo automaticky podle data
+    readonly onDisplay: boolean
     readonly fromHomepage: boolean
 }
 
-const ExhibitionTitle: FunctionComponent<ExhibitionTitleProps> = ({exhibition, onDisplay = false, fromHomepage}) => {
+const ExhibitionTitle: FunctionComponent<ExhibitionTitleProps> = ({exhibition, onDisplay, fromHomepage}) => {
     const t = useTranslations('ExhibitionTitle');
     const router = useRouter();
 
 
     return (
         <h1 className={styles.exhibitionTitle} style={{color: fromHomepage && exhibition.Color ? exhibition.Color : '#000000'}}>
-            {onDisplay && <>{t('onDisplay')}{' '}</>}
+            {onDisplay && <span className={styles.opacity}>{t('onDisplay')}{' '}</span>}
             <span className={styles.title}>{exhibition.Title}</span>
             {exhibition.Artists && exhibition.Artists.length > 0 &&
                 <>
-                    {' '}<FormatArtists artists={exhibition.Artists} />
+                    {' '}<FormatArtists artists={exhibition.Artists} opacity={true}/>
                 </>
             }
             {' '}

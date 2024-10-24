@@ -1,36 +1,48 @@
 'use client'
 import {FunctionComponent, useMemo} from 'react';
 import {useTranslations} from 'next-intl';
+import styles from '@/components/common.module.scss';
+import {replaceSpaces} from '@/components/utils/replaceSpaces';
+import {classNames} from '@/components/utils/classNames';
 
-
-
-function formatText(text: string) {
-    // Regex to find one-letter words followed by a space
-    return text.replace(/\s([a-zA-Z]{1})\s/g, ' $1&nbsp;');
-}
 
 interface FormatArtistsProps {
     readonly artists?: {Name: string }[] | null
+    readonly opacity?: boolean
 }
 
-const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists}) => {
+const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists, opacity=false}) => {
     const t = useTranslations('Homepage');
 
     const formatedNames = useMemo(() => {
         if (!artists) {
-            return null
+            return null;
         }
 
-        const names = artists.map((artist) => artist.Name);
+        const names = artists.map(artist => artist.Name);
 
         if (names.length === 1) {
-            return names[0];
+            return replaceSpaces(names[0]);
         } else if (names.length === 2) {
-            return names.join(` ${t('and')} `);
+            return (
+                <>
+                {replaceSpaces(names[0])} <span className={classNames([opacity && styles.opacity])}>{replaceSpaces(t('and'))}</span>{' '}{replaceSpaces(names[1])}
+                </>
+            );
         } else {
-            return names.slice(0, -1).join(', ') + ` ${t('and')} ` + names[names.length - 1];
+            return (
+                <>
+                    {names.slice(0, -1).map((name, index) => (
+                        <span key={index}>
+                            {replaceSpaces(name)}
+                            {index < names.length - 2 ?  ', ' : ' '}
+                        </span>
+                    ))}
+                    <span className={classNames([opacity && styles.opacity])}>{replaceSpaces(t('and'))}</span>{' '}{replaceSpaces(names[names.length - 1])}
+                </>
+            );
         }
-    }, [artists, t])
+    }, [artists, t]);
 
 
     if (!formatedNames) {
@@ -38,7 +50,11 @@ const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists}) => {
     }
 
     return (
-        <>{t('by')} <span dangerouslySetInnerHTML={{__html: formatText(formatedNames)}}/></>
+        <>
+            <span className={classNames([opacity && styles.opacity])}>{t('by')}</span>
+            {' '}
+            {formatedNames}
+        </>
     )
 
 }

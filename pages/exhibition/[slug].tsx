@@ -10,6 +10,8 @@ import BlockContent from '@/components/Sanity/BlockContent';
 import ExhibitionTitle from '@/components/utils/ExhibitionTitle';
 import Link from 'next/link';
 import Figure from '@/components/Sanity/Figure';
+import {Exhibition as ExhibitionClass} from '@/api/classes';
+import GallerySwiper from '@/components/Sanity/GallerySwiper';
 
 export default function Exhibition() {
     const params = useParams()
@@ -17,34 +19,54 @@ export default function Exhibition() {
     const {data: exhibition} = useFetchExhibitionDetail(params?.slug as string, router.locale ?? 'cs')
     const t = useTranslations('Exhibition');
 
-    {/*todo current on display fetch*/}
+    const getOnDisplay = (exhibition: ExhibitionClass) => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0)
+
+        const start = new Date(exhibition.StartDate);
+        start.setHours(0, 0, 0, 0)
+
+        const end = exhibition.EndDate ? new Date(exhibition.EndDate) : start;
+        end.setHours(0, 0, 0, 0)
+
+        return today >= start && today <= end;
+    };
 
     return (
         <Layout >
             {exhibition &&
                 <div className={styles.exhibitionContainer}>
-                    <ExhibitionTitle exhibition={exhibition} fromHomepage={false}/>
-                    <div className={'gallery'}/>
+                    <div className={styles.exhibitionFold}>
+                        <ExhibitionTitle exhibition={exhibition} fromHomepage={false} onDisplay={getOnDisplay(exhibition)}/>
+                        {exhibition.Gallery &&
+                            <div className={styles.exhibitionGallery}>
+                                <GallerySwiper images={exhibition.Gallery}></GallerySwiper>
+                            </div>
+                        }
+                    </div>
+
                     <div className={styles.curatorsTextContainer}>
                         <h2>
                             {t('curatorsText')}
                         </h2>
                         <BlockContent blocks={exhibition.CuratorsText}/>
-                        <p className={styles.curatorName}>{exhibition.Curator}</p>
                     </div>
 
-                    {exhibition.Document &&
+                    {exhibition.Documents &&
                         <div className={styles.documentsContainer}>
                             <h2>
                                 {t('documents')}
                             </h2>
                             <div className={styles.documents}>
-                                <Link href={exhibition.Document.Url} download={true}>
-                                    <Figure
-                                        image={exhibition.Document.Cover}
-                                        alt={("Document Cover")}
-                                    />
-                                </Link>
+                                {exhibition.Documents.map(document => (
+                                    <Link href={document.Url} download={true} key={document.Id}>
+                                        <Figure
+                                            image={document.Cover}
+                                            alt={(document.Alt)}
+                                        />
+                                    </Link>
+                                ))}
+
                             </div>
                         </div>
                     }

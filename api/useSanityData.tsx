@@ -222,10 +222,20 @@ export const useFetchExhibitionDetail = (slug: string | undefined, locale: strin
                             showInSelection,
                             cover
                         },
-                        "document": document{
-                            ..., 
-                            asset->{...},
+                        documents[]{
+                            ...,
+                            documentCover{
+                                ...,
                             },
+                            file{
+                                ...,
+                                asset->{
+                                    ...
+                                }
+                            }
+                        }
+                        
+                        
                         }}`,
                         { slug: slug}
                     );

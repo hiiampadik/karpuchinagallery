@@ -18,9 +18,6 @@ export default function Home() {
     const {data: homepage} = useFetchHomepage(router.locale ?? 'cs')
     const t = useTranslations('Homepage');
 
-    // todo svetle onDisplay, carky a and
-    // todo podtrhnute na mobinu
-
     return (
         <Layout>
             {homepage &&
@@ -47,11 +44,11 @@ export default function Home() {
                               key={homepage.Upcoming.Slug}
                         >
                             <h1>
-                                <span className={styles.note}>{t('upcoming')}</span>
+                                <span className={styles.opacity}>{t('upcoming')}:</span>
                                 {' '}<span className={styles.title}>{homepage.Upcoming.Title}</span>
                                 {homepage.Upcoming.Artists && homepage.Upcoming.Artists.length > 0 &&
                                     <>
-                                        {' '}<FormatArtists artists={homepage.Upcoming.Artists} />
+                                        {' '}<FormatArtists artists={homepage.Upcoming.Artists} opacity={true} />
                                     </>
                                 }
                                 {' '}

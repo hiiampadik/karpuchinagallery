@@ -31,11 +31,13 @@ export default function Exhibitions() {
         return Object.entries(exhibitionsByYear)
             .map(([year, exhibitions]) => ({
                 year: parseInt(year),
-                exhibitions,
+                exhibitions: exhibitions.sort((a, b) => {
+                    const dateA = new Date(a.StartDate).getTime();
+                    const dateB = new Date(b.StartDate).getTime();
+                    return dateB - dateA;
+                }),
             }))
             .sort((a, b) => b.year - a.year);
-
-        // todo sort podle data
     }, [exhibitions])
 
 
