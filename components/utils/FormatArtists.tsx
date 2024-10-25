@@ -9,9 +9,10 @@ import {classNames} from '@/components/utils/classNames';
 interface FormatArtistsProps {
     readonly artists?: {Name: string }[] | null
     readonly opacity?: boolean
+    readonly fromHomepage?: boolean
 }
 
-const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists, opacity=false}) => {
+const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists, opacity=false, fromHomepage=false}) => {
     const t = useTranslations('Homepage');
 
     const formatedNames = useMemo(() => {
@@ -32,13 +33,13 @@ const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists, opacity=
         } else {
             return (
                 <>
-                    {names.slice(0, -1).map((name, index) => (
+                    {names.slice(0, 2).map((name, index) => (
                         <span key={index}>
                             {replaceSpaces(name)}
                             {index < names.length - 2 ?  ', ' : ' '}
                         </span>
                     ))}
-                    <span className={classNames([opacity && styles.opacity])}>{replaceSpaces(t('and'))}</span>{' '}{replaceSpaces(names[names.length - 1])}
+                    <span className={classNames([opacity && styles.opacity])}>{replaceSpaces(t('and'))}</span>{' '}{replaceSpaces(names[2])}<span className={styles.gradient}></span>
                 </>
             );
         }

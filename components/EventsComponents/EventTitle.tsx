@@ -16,10 +16,9 @@ interface EventTitleProps {
     readonly fromHomepage: boolean
 }
 
-const EventTitle: FunctionComponent<EventTitleProps> = ({event, onDisplay, fromHomepage}) => {
+const EventTitle: FunctionComponent<EventTitleProps> = ({event, onDisplay, fromHomepage = false}) => {
     const t = useTranslations('EventTitle');
     const router = useRouter();
-
 
     return (
         <h1 className={styles.eventTitle} style={{color: fromHomepage && event.Color ? event.Color : '#000000'}}>
@@ -27,7 +26,7 @@ const EventTitle: FunctionComponent<EventTitleProps> = ({event, onDisplay, fromH
             <span className={styles.title}>{event.Title}</span>
             {event.Artists && event.Artists.length > 0 &&
                 <>
-                    {' '}<FormatArtists artists={event.Artists} opacity={true}/>
+                    {' '}<FormatArtists artists={event.Artists} opacity={true} fromHomepage={fromHomepage}/>
                 </>
             }
             {' '}

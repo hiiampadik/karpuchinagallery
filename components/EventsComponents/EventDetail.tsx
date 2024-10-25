@@ -36,7 +36,7 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
             {event &&
                 <div className={styles.eventContainer}>
                     <div className={styles.eventFold}>
-                        <EventTitle event={event} fromHomepage={false} onDisplay={getOnDisplay(event)}/>
+                        <EventTitle event={event} onDisplay={getOnDisplay(event)}/>
                         {event.Gallery &&
                             <div className={styles.eventGallery}>
                                 <GallerySwiper images={event.Gallery}></GallerySwiper>

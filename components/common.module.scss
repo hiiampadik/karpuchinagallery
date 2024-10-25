@@ -55,4 +55,20 @@
   opacity: 0.6;
 }
 
+.gradient {
+  position: relative;
+  height: 1em;
+  display: inline-block;
+  overflow: visible;
+}
 
+.gradient:before{
+  position: absolute;
+  z-index: 1;
+  content: '';
+  height: 1.2em;
+  top: 0;
+  right: 0;
+  width: 200px;
+  background: linear-gradient(0.25turn, rgba(255, 255, 255, 0) 0%, #FFF 90%);
+}
