@@ -39,7 +39,8 @@ const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists, opacity=
                             {index < names.length - 2 ?  ', ' : ' '}
                         </span>
                     ))}
-                    <span className={classNames([opacity && styles.opacity])}>{replaceSpaces(t('and'))}</span>{' '}{replaceSpaces(names[2])}<span className={styles.gradient}></span>
+                    <span className={classNames([opacity && styles.opacity])}>{replaceSpaces(t('and'))}</span>{' '}{replaceSpaces(names[2])}
+                    {fromHomepage && <span className={styles.gradient}></span>}
                 </>
             );
         }
