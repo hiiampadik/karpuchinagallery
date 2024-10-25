@@ -53,5 +53,9 @@
     "selectedWorks": "Selected Works",
     "allExhibitions": "All exhibitions",
     "allFairs": "All fairs"
+  },
+
+  "Artwork": {
+    "close": "Close"
   }
 }

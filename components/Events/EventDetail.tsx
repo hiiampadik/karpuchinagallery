@@ -8,7 +8,7 @@ import BlockContent from '@/components/Sanity/BlockContent';
 import Link from 'next/link';
 import Figure from '@/components/Sanity/Figure';
 import {useTranslations} from 'next-intl';
-import EventTitle from '@/components/EventsComponents/EventTitle';
+import EventTitle from '@/components/Events/EventTitle';
 
 
 interface EventDetailProps {

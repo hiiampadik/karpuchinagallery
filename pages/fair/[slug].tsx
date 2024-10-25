@@ -3,7 +3,7 @@ import {GetStaticPropsContext} from 'next';
 import {useParams} from 'next/navigation';
 import {useRouter} from 'next/router';
 import {useFetchEventDetail} from '@/api/useSanityData';
-import EventDetail from '@/components/EventsComponents/EventDetail';
+import EventDetail from '@/components/Events/EventDetail';
 
 export default function Fair() {
     const params = useParams()

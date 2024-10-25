@@ -3,13 +3,13 @@ import styles from '@/styles/events.module.scss';
 import React, {FunctionComponent, useMemo} from 'react';
 import {Event} from '@/api/classes';
 import Layout from '@/components/Layout';
-import EventItem from '@/components/EventsComponents/EventItem';
+import EventItem from '@/components/Events/EventItem';
 
 interface EventsProps {
     readonly events: Event[]
     readonly type: 'fairs' | 'exhibitions'
 }
-const Events: FunctionComponent<EventsProps> = ({events, type}) => {
+const EventList: FunctionComponent<EventsProps> = ({events, type}) => {
 
     const groupedEventsByYear = useMemo(() => {
         if (!events){
@@ -54,4 +54,4 @@ const Events: FunctionComponent<EventsProps> = ({events, type}) => {
     );
 }
 
-export default Events
+export default EventList

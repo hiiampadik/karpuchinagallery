@@ -11,7 +11,7 @@ import FormatArtists from '@/components/utils/FormatArtists';
 import LocalizedDate from '@/components/utils/LocalizeDate';
 import Figure from '@/components/Sanity/Figure';
 import {replaceSpaces} from '@/components/utils/replaceSpaces';
-import EventTitle from '@/components/EventsComponents/EventTitle';
+import EventTitle from '@/components/Events/EventTitle';
 
 export default function Home() {
     const router = useRouter();

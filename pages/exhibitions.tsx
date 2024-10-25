@@ -3,14 +3,14 @@ import {GetStaticPropsContext} from 'next';
 import {useRouter} from 'next/router';
 import {useFetchEvents} from '@/api/useSanityData';
 import React from 'react';
-import Events from '@/components/EventsComponents/Events';
+import EventList from '@/components/Events/EventList';
 
 export default function Exhibitions() {
     const router = useRouter();
     const {data: exhibitions} = useFetchEvents(router.locale ?? 'cs', 'exhibitions')
 
     return (
-       <Events events={exhibitions ?? []} type={'exhibitions'} />
+       <EventList events={exhibitions ?? []} type={'exhibitions'} />
     );
 }
 
