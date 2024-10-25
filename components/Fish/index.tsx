@@ -16,7 +16,7 @@ const Fish = () => {
     const maxSpeed = 2.25;
     let angle = 0;
     const orientation = 0;
-    let hover = false;
+    const hover = false;
     let isInRadius = false;
     let isMouseActive = true;
     let isRadiusEntered = false;
