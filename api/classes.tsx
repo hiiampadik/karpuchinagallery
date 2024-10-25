@@ -156,7 +156,10 @@ export class Artwork {
         public readonly Year: string | null,
         public readonly Artist: {Id: string, Name: string, Slug: string},
         public readonly ShowInSelection: boolean,
-        public readonly Cover: any, // todo
+        public readonly Cover: any, // todo,
+        public readonly Info: PortableTextBlock | null
+
+        // todo gallery
             ) {}
 
     public static fromPayload(payload: any, locale: string): Artwork {
@@ -167,6 +170,7 @@ export class Artwork {
             {Id: payload.artist._id, Name: payload.artist.name, Slug: payload.artist.slug.current },
             payload.showInSelection,
             payload.cover,
+            payload.info ? payload.info[locale] : null,
         );
     }
 }
