@@ -74,8 +74,10 @@
     width: 40px;
   }
   .galleryTitle {
-    position: relative;
-    color: $text-primary-default;
+    a {
+      position: relative;
+      color: $text-primary-default;
+    }
   }
 }
 

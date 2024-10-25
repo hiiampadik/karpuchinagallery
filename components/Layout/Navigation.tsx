@@ -25,8 +25,8 @@ const Navigation: FunctionComponent<NavigationProps> = ({handleSearch, handleDis
     return (
         <>
            <div className={styles.navigationContainer}>
-               <div className={styles.galleryTitle}>
-                   <Link href="/">
+               <div className={styles.galleryTitle} >
+                   <Link href="/" >
                        Karpuchina<br />Gallery
                    </Link>
                </div>
