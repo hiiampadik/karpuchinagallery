@@ -239,7 +239,6 @@ export const useFetchEventDetail = (slug: string | undefined, locale: string, ev
                         }}`,
                         { slug: slug}
                     );
-                    console.log(result)
                     setData(result.event);
                 } catch (error) {
                     setError(error as Error);

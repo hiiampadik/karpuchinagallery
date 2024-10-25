@@ -45,7 +45,8 @@ const Fish = () => {
     const delta = new Two.Vector();
 
     const r1 = two.makeSprite('/fish.svg', two.width / 2, two.height / 2);
-    r1.scale = 0.62;
+    // r1.scale = 0.62;
+    r1.scale = 0.4;
 
     two.bind('update', () => {
       angle += 1;
@@ -114,15 +115,16 @@ const Fish = () => {
       activate();
     });
 
+    // can't use mouseenter because of the animation glitches on menu links
     const $triggers = document.querySelectorAll('a, button, input, [data-action="hover>fish"]');
-    $triggers.forEach($trigger => {
-      $trigger.addEventListener('mouseenter', () => {
-        hover = true;
-      });
-      $trigger.addEventListener('mouseleave', () => {
-        hover = false;
-      });
-    });
+    // $triggers.forEach($trigger => {
+    //   $trigger.addEventListener('mouseenter', () => {
+    //     hover = true;
+    //   });
+    //   $trigger.addEventListener('mouseleave', () => {
+    //     hover = false;
+    //   });
+    // });
 
     return () => {
       // Cleanup event listeners and the animation

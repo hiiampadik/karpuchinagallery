@@ -9,6 +9,7 @@
 }
 
 .navigationContainer {
+  position: relative;
   padding: 100px 20px;
   display: flex;
   justify-content: space-between;
@@ -31,17 +32,12 @@
 
 
   .navigationLinksContainer {
+    position: relative;
     display: flex;
     justify-content: space-between;
     gap: 38px;
     color: $text-secondary-default;
     @media (max-width: $breakpoint-md-max) {
-      display: none;
-    }
-  }
-
-  .navigationMenuContainer {
-    @media (min-width: $breakpoint-lg-min) {
       display: none;
     }
   }
@@ -78,9 +74,14 @@
     width: 40px;
   }
   .galleryTitle {
-    a {
-      color: $text-primary-default;
-    }
+    position: relative;
+    color: $text-primary-default;
+  }
+}
+
+.navigationMenuContainer {
+  @media (min-width: $breakpoint-lg-min) {
+    display: none;
   }
 }
 
@@ -222,4 +223,14 @@
       margin-bottom: 0;
     }
   }
+}
+
+.fishContainer {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 101;
+  pointer-events: none !important;
 }

@@ -2,7 +2,6 @@
 import React, {FunctionComponent, PropsWithChildren, useState} from 'react';
 import Head from "next/head";
 import Navigation from './Navigation';
-import {usePathname} from 'next/navigation';
 import Footer from '@/components/Layout/Footer';
 import styles from './index.module.scss'
 import SearchInput from '@/components/Search';
@@ -11,7 +10,6 @@ import Fish from '@/components/Fish';
 interface LayoutProps {
     readonly title?: string
     readonly loading?: boolean;
-    // todo loading
 }
 
 const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
@@ -20,7 +18,6 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
         loading = false
     }) => {
     const [showSearch, setShowSearch] = useState(false);
-
     const handleDisableScroll = (disable: boolean) => {
 
 
@@ -46,6 +43,7 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
                   content=""
                 />
             </Head>
+
                 <main>
                     <Navigation
                         handleSearch={() => setShowSearch(true)}
@@ -54,15 +52,20 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
                     <div className={styles.content}>
                         {children}
                     </div>
-                    <Footer />
+                    <Footer/>
                     {showSearch &&
                         <SearchInput onClose={() => {
                             setShowSearch(false);
                             handleDisableScroll(false);
-                        }} />
+                        }}/>
                     }
-                    <Fish />
                 </main>
+
+
+            <div className={styles.fishContainer}>
+                <Fish/>
+            </div>
+
         </>
     );
 };
