@@ -1,7 +1,7 @@
 "use client"
 import { useEffect } from 'react';
 import Two from 'two.js';
-
+import styles from '../common.module.scss'
 const Fish = () => {
   useEffect(() => {
     // Ensure this runs only in the client
@@ -133,7 +133,7 @@ const Fish = () => {
     };
   }, []);
 
-  return <div data-controller="fish" style={{ width: '100%', height: '100%' }} />;
+  return <div data-controller="fish" className={styles.fish} style={{ width: '100%', height: '100%' }} />;
 };
 
 export default Fish;

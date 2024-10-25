@@ -48,6 +48,7 @@
 
   "Event": {
     "curatorsText": "Curator's text",
+    "text": "Text",
     "documents": "Documents",
     "selectedWorks": "Selected Works",
     "allExhibitions": "All exhibitions",

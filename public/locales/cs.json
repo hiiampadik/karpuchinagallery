@@ -46,6 +46,7 @@
   },
   "Event": {
     "curatorsText": "Kurátorský text",
+    "text": "Text",
     "documents": "Dokumenty",
     "selectedWorks": "Práce (výběr)",
     "allExhibitions": "Všechny výstavy",

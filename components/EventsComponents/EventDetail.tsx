@@ -46,7 +46,7 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
 
                     <div className={styles.curatorsTextContainer}>
                         <h2>
-                            {t('curatorsText')}
+                            {type === 'fairs' ? t('curatorsText') : t('text')}
                         </h2>
                         <BlockContent blocks={event.CuratorsText}/>
                     </div>

@@ -34,9 +34,6 @@ export default function Home() {
                             image={homepage.OnDisplay.Cover}
                             alt={homepage.OnDisplay.Title.concat(" – Exhibition Cover Image")}
                         />
-                        {/*<div className={styles.onDisplayCover}>*/}
-                        {/*    */}
-                        {/*</div>*/}
                     </Link>
                     <div className={styles.upcomingContainer}>
                         <Link href="/exhibition/[slug]"

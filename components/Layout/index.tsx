@@ -6,6 +6,7 @@ import {usePathname} from 'next/navigation';
 import Footer from '@/components/Layout/Footer';
 import styles from './index.module.scss'
 import SearchInput from '@/components/Search';
+import Fish from '@/components/Fish';
 
 interface LayoutProps {
     readonly title?: string
@@ -60,6 +61,7 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
                             handleDisableScroll(false);
                         }} />
                     }
+                    <Fish />
                 </main>
         </>
     );

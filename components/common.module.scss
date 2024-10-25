@@ -54,3 +54,11 @@
 .opacity {
   opacity: 0.6;
 }
+
+.fish {
+  position: fixed;
+  z-index: 1000;
+  user-select: none;
+  pointer-events: none;
+
+}
