@@ -13,7 +13,7 @@ import {replaceSpaces} from '@/components/utils/replaceSpaces';
 interface EventTitleProps {
     readonly event: Event
     readonly onDisplay: boolean
-    readonly fromHomepage: boolean
+    readonly fromHomepage?: boolean
 }
 
 const EventTitle: FunctionComponent<EventTitleProps> = ({event, onDisplay, fromHomepage = false}) => {
