@@ -5,7 +5,6 @@
     "fairs": "Veletrhy",
     "contact": "Kontakt+O nás",
     "search": "Hledat",
-    "close": "Zavřít",
     "menu": "Menu"
   },
   "Homepage": {
@@ -28,7 +27,7 @@
     "open": "Otevřeno",
     "connect": "Connect"
   },
-  "Search": {
+  "Overlay": {
     "close": "Zavřít"
   },
 

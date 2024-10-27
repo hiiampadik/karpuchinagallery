@@ -1,11 +1,12 @@
 'use client'
-import React, {FunctionComponent, PropsWithChildren, useState} from 'react';
+import React, {FunctionComponent, PropsWithChildren, useCallback, useState} from 'react';
 import Head from "next/head";
 import Navigation from './Navigation';
 import Footer from '@/components/Layout/Footer';
 import styles from './index.module.scss'
-import SearchInput from '@/components/Search';
 import Fish from '@/components/Fish';
+import {OverlaysProvider} from '@blueprintjs/core';
+import Overlay from '@/components/Overlay';
 
 interface LayoutProps {
     readonly title?: string
@@ -18,16 +19,7 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
         loading = false
     }) => {
     const [showSearch, setShowSearch] = useState(false);
-    const handleDisableScroll = (disable: boolean) => {
-
-
-        const body = document.body;
-        if (disable) {
-            body.classList.add('disableScroll');
-        } else {
-            body.classList.remove('disableScroll');
-        }
-    }
+    const toggleOverlay = useCallback(() => setShowSearch(open => !open), [setShowSearch]);
 
     return (
         <>
@@ -44,23 +36,19 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
                 />
             </Head>
 
-                <main>
-                    <Navigation
-                        handleSearch={() => setShowSearch(true)}
-                        handleDisableScroll={(value) => handleDisableScroll(value)}
-                    />
-                    <div className={styles.content}>
-                        {children}
-                    </div>
-                    <Footer/>
-                    {showSearch &&
-                        <SearchInput onClose={() => {
-                            setShowSearch(false);
-                            handleDisableScroll(false);
-                        }}/>
-                    }
-                </main>
+            <main>
 
+                <Navigation handleSearch={() => toggleOverlay()}/>
+                <div className={styles.content}>
+                    {children}
+                </div>
+                <Footer/>
+
+                <Overlay handleClose={() => toggleOverlay()} isOpen={showSearch}>
+                    Search
+                </Overlay>
+
+            </main>
 
             <div className={styles.fishContainer}>
                 <Fish/>

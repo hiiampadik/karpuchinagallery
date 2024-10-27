@@ -1,5 +1,5 @@
 'use client'
-import React, {FunctionComponent, useState} from 'react';
+import React, {FunctionComponent, useCallback, useState} from 'react';
 import styles from './index.module.scss'
 import Link from 'next/link';
 import {useRouter} from 'next/router';
@@ -7,18 +7,19 @@ import {useTranslations} from 'next-intl';
 import {usePathname} from 'next/navigation';
 import SearchIcon from '../../public/SearchIcon.svg'
 import Image from 'next/image'
+import Overlay from '@/components/Overlay';
 
 interface NavigationProps {
     readonly handleSearch: () => void
-    readonly handleDisableScroll: (disable: boolean) => void
 }
 
-const Navigation: FunctionComponent<NavigationProps> = ({handleSearch, handleDisableScroll}) => {
+const Navigation: FunctionComponent<NavigationProps> = ({handleSearch}) => {
     const router = useRouter();
     const currentPath = usePathname();
     const t = useTranslations('Navigation');
 
     const [showMenu, setShowMenu] = useState(false);
+    const toggleOverlay = useCallback(() => setShowMenu(open => !open), [setShowMenu]);
 
     // todo onclose too fast
 
@@ -45,7 +46,6 @@ const Navigation: FunctionComponent<NavigationProps> = ({handleSearch, handleDis
                    </Link>
 
                    <button onClick={() => {
-                       handleDisableScroll(true)
                        handleSearch()
                    }}>
                        {t('search')}
@@ -60,68 +60,49 @@ const Navigation: FunctionComponent<NavigationProps> = ({handleSearch, handleDis
                    </Link>
                </div>
                <div className={styles.navigationMenuContainer}>
-                   <button onClick={() => {
-                       setShowMenu(true)
-                       handleDisableScroll(true)
-                   }}>
+                   <button onClick={() => toggleOverlay()}>
                        {t('menu')}
                    </button>
                </div>
            </div>
-            {showMenu &&
-                <div className={styles.menuContainer}>
+
+            <Overlay handleClose={() => toggleOverlay()}
+                     isOpen={showMenu}
+                     className={styles.menuContainer}>
+
+                <div className={styles.linksContainer}>
+                    <Link href={"/artists"} onClick={() => toggleOverlay()}>
+                        {t('artists')}
+                    </Link>
+                    <Link href={"/exhibitions"} onClick={() => toggleOverlay()}>
+                        {t('exhibitions')}
+                    </Link>
+                    <Link href={"/fairs"} onClick={() => toggleOverlay()}>
+                        {t('fairs')}
+                    </Link>
+                    <Link href={"/about"} onClick={() => toggleOverlay()}>
+                        {t('contact')}
+                    </Link>
+
                     <button
-                        className={styles.menuClose}
                         onClick={() => {
-                            handleDisableScroll(false)
-                            setShowMenu(false)
-                    }}>
-                        {t('close')}
+                            handleSearch();
+                            toggleOverlay();
+                        }}
+                    >
+                        {t('search')}
+                        <Image src={SearchIcon} alt={'s'} width="30" height="30"/>
                     </button>
 
-                    <div className={styles.linksContainer}>
-                        <Link href={"/artists"} onClick={() => {
-                            handleDisableScroll(false)
-                            setShowMenu(false)}
-                        }>
-                            {t('artists')}
-                        </Link>
-                        <Link href={"/exhibitions"} onClick={() => {
-                            handleDisableScroll(false)
-                            setShowMenu(false)}
-                        }>
-                            {t('exhibitions')}
-                        </Link>
-                        <Link href={"/fairs"} onClick={() => {
-                            handleDisableScroll(false)
-                            setShowMenu(false)}
-                        }>
-                            {t('fairs')}
-                        </Link>
-                        <Link href={"/about"} onClick={() => {
-                            handleDisableScroll(false)
-                            setShowMenu(false)}
-                        }>
-                            {t('contact')}
-                        </Link>
-
-                        <button
-                            onClick={() => {
-                                handleSearch();
-                                setShowMenu(false)}}
-                        >
-                            {t('search')}
-                            <Image  src={SearchIcon} alt={'s'} width="30" height="30" />
-                        </button>
-
-                        <Link href={router.asPath} locale={router.locale === "cs" ? "en" : "cs"} className={styles.languageButton}>
-                            <span className={router.locale === "cs" ? styles.activeLocale : ''}>CZ</span>
-                            {'/'}
-                            <span className={router.locale === "en" ? styles.activeLocale : ''}>EN</span>
-                        </Link>
-                    </div>
+                    <Link href={router.asPath} locale={router.locale === "cs" ? "en" : "cs"}
+                          className={styles.languageButton}>
+                        <span className={router.locale === "cs" ? styles.activeLocale : ''}>CZ</span>
+                        {'/'}
+                        <span className={router.locale === "en" ? styles.activeLocale : ''}>EN</span>
+                    </Link>
                 </div>
-            }
+            </Overlay>
+
         </>
     );
 };

@@ -6,6 +6,7 @@ import {useRouter} from 'next/router';
 import {useTranslations} from 'next-intl';
 import {usePathname} from 'next/navigation';
 import {Artwork} from '@/api/classes';
+import GallerySwiper from '@/components/Sanity/GallerySwiper';
 
 interface ArtworkDetailProps {
     readonly handleClose: () => void
@@ -22,6 +23,10 @@ const ArtworkDetail: FunctionComponent<ArtworkDetailProps> = ({handleClose, artw
             <button className={styles.artworkClose} onClick={() => handleClose()}>
                 {t('close')}
             </button>
+
+            <div>
+                <GallerySwiper images={artwork.Gallery}></GallerySwiper>
+            </div>
 
 
         </div>

@@ -5,7 +5,6 @@
     "fairs": "Fairs",
     "contact": "Contact+About",
     "search": "Search",
-    "close": "Close",
     "menu": "Menu"
   },
   "Homepage": {
@@ -29,7 +28,9 @@
     "open": "Open",
     "connect": "Connect"
   },
-  "Search": {
+
+
+  "Overlay": {
     "close": "Close"
   },
 

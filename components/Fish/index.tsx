@@ -71,7 +71,7 @@ const Fish = () => {
       acceleration.copy(destination).subSelf(position).subSelf(velocity);
 
       if (hover) {
-        acceleration.setLength(1.2);
+        acceleration.setLength(1);
       } else if (!isMouseActive && isInRadius) {
         acceleration.setLength(0.6);
       } else {
@@ -86,6 +86,7 @@ const Fish = () => {
       position.addSelf(velocity);
       delta.copy(mouse).subSelf(position);
       const rotation = Math.atan2(delta.y, delta.x);
+      // todo orientation
       r1.rotation = rotation + toRadians(orientation);
       r1.translation.copy(position);
     }).play();
@@ -94,6 +95,9 @@ const Fish = () => {
       if (!isMouseActive) return;
       isMouseActive = false;
     }
+
+    // todo freeze on focuse out
+    // todo multiple SVGS
 
     function activate() {
       if (!isMouseActive) {
@@ -116,7 +120,7 @@ const Fish = () => {
     });
 
     // can't use mouseenter because of the animation glitches on menu links
-    const $triggers = document.querySelectorAll('a, button, input, [data-action="hover>fish"]');
+    // const $triggers = document.querySelectorAll('a, button, input, [data-action="hover>fish"]');
     // $triggers.forEach($trigger => {
     //   $trigger.addEventListener('mouseenter', () => {
     //     hover = true;

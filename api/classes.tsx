@@ -157,10 +157,9 @@ export class Artwork {
         public readonly Artist: {Id: string, Name: string, Slug: string},
         public readonly ShowInSelection: boolean,
         public readonly Cover: any, // todo,
-        public readonly Info: PortableTextBlock | null
-
-        // todo gallery
-            ) {}
+        public readonly Info: PortableTextBlock | null,
+        public readonly Gallery: Image[]
+    ) {}
 
     public static fromPayload(payload: any, locale: string): Artwork {
         return new Artwork(
@@ -171,6 +170,7 @@ export class Artwork {
             payload.showInSelection,
             payload.cover,
             payload.info ? payload.info[locale] : null,
+            payload.gallery.map((image: any) => Image.fromPayload(image, locale)),
         );
     }
 }

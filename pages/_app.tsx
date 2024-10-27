@@ -3,6 +3,7 @@ import { AppProps } from 'next/app';
 import '../styles/globals.scss';
 import {NextIntlClientProvider} from 'next-intl';
 import {useRouter} from 'next/router';
+import {OverlaysProvider} from '@blueprintjs/core';
 
 const MyApp: FunctionComponent<AppProps> = ({ Component, pageProps }) => {
     const router = useRouter();
@@ -13,7 +14,9 @@ const MyApp: FunctionComponent<AppProps> = ({ Component, pageProps }) => {
                 timeZone="Europe/Vienna"
                 messages={pageProps.messages}
             >
-                <Component key={router.route} {...pageProps} />
+                <OverlaysProvider>
+                    <Component key={router.route} {...pageProps} />
+                </OverlaysProvider>
             </NextIntlClientProvider>
         )
 

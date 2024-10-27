@@ -88,14 +88,6 @@
 }
 
 .menuContainer {
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(18px);
   padding: 100px 20px;
   display: flex;
   flex-direction: column;
@@ -235,4 +227,15 @@
   top: 0;
   z-index: 101;
   pointer-events: none !important;
+  animation: 1s opacity forwards;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes opacity {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

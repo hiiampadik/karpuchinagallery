@@ -37,6 +37,11 @@ body {
   }
 }
 
+//todo fix me
+:global(.bp5-overlay-open){
+  overflow: hidden !important;
+}
+
 main {
   display: flex;
   flex-direction: column;
