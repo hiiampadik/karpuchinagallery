@@ -27,7 +27,7 @@ const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists, opacity=
         } else if (names.length === 2) {
             return (
                 <>
-                {replaceSpaces(names[0])} <span className={classNames([opacity && styles.opacity])}>{replaceSpaces(t('and'))}</span>{' '}{replaceSpaces(names[1])}
+                {replaceSpaces(names[0])} <span className={classNames([opacity && styles.opacity])}>{replaceSpaces(t('and') + ' ' + names[1])}</span>
                 </>
             );
         } else {
@@ -36,10 +36,10 @@ const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists, opacity=
                     {names.slice(0, 2).map((name, index) => (
                         <span key={index}>
                             {replaceSpaces(name)}
-                            {index < names.length - 2 ?  ', ' : ' '}
+                            {index < names.length - 2 ? ', ' : ' '}
                         </span>
                     ))}
-                    <span className={classNames([opacity && styles.opacity])}>{replaceSpaces(t('and'))}</span>{' '}{replaceSpaces(names[2])}
+                    <span className={classNames([opacity && styles.opacity])}>{replaceSpaces(t('and') + ' ' + names[2])}</span>
                     {fromHomepage && <span className={styles.gradient}></span>}
                 </>
             );

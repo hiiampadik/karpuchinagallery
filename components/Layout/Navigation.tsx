@@ -1,5 +1,5 @@
 'use client'
-import React, {FunctionComponent, useCallback, useState} from 'react';
+import React, {FunctionComponent, useEffect, useState} from 'react';
 import styles from './index.module.scss'
 import Link from 'next/link';
 import {useRouter} from 'next/router';
@@ -9,19 +9,19 @@ import SearchIcon from '../../public/SearchIcon.svg'
 import Image from 'next/image'
 import Overlay from '@/components/Overlay';
 
-interface NavigationProps {
-    readonly handleSearch: () => void
-}
-
-const Navigation: FunctionComponent<NavigationProps> = ({handleSearch}) => {
+const Navigation: FunctionComponent = () => {
     const router = useRouter();
     const currentPath = usePathname();
     const t = useTranslations('Navigation');
 
-    const [showMenu, setShowMenu] = useState(false);
-    const toggleOverlay = useCallback(() => setShowMenu(open => !open), [setShowMenu]);
+    const [showOverlay, setShowOverlay] = useState<'menu' | 'search' | null>(null);
 
-    // todo onclose too fast
+    useEffect(() => {
+        router.events.on('routeChangeComplete', () => setShowOverlay(null));
+
+        return () => router.events.off('routeChangeComplete', () => setShowOverlay(null));
+    }, [router.events]);
+
 
     return (
         <>
@@ -46,7 +46,7 @@ const Navigation: FunctionComponent<NavigationProps> = ({handleSearch}) => {
                    </Link>
 
                    <button onClick={() => {
-                       handleSearch()
+                       setShowOverlay('search')
                    }}>
                        {t('search')}
                    </button>
@@ -60,47 +60,19 @@ const Navigation: FunctionComponent<NavigationProps> = ({handleSearch}) => {
                    </Link>
                </div>
                <div className={styles.navigationMenuContainer}>
-                   <button onClick={() => toggleOverlay()}>
+                   <button onClick={() => setShowOverlay('menu')}>
                        {t('menu')}
                    </button>
                </div>
            </div>
 
-            <Overlay handleClose={() => toggleOverlay()}
-                     isOpen={showMenu}
-                     className={styles.menuContainer}>
-
-                <div className={styles.linksContainer}>
-                    <Link href={"/artists"} onClick={() => toggleOverlay()}>
-                        {t('artists')}
-                    </Link>
-                    <Link href={"/exhibitions"} onClick={() => toggleOverlay()}>
-                        {t('exhibitions')}
-                    </Link>
-                    <Link href={"/fairs"} onClick={() => toggleOverlay()}>
-                        {t('fairs')}
-                    </Link>
-                    <Link href={"/about"} onClick={() => toggleOverlay()}>
-                        {t('contact')}
-                    </Link>
-
-                    <button
-                        onClick={() => {
-                            handleSearch();
-                            toggleOverlay();
-                        }}
-                    >
-                        {t('search')}
-                        <Image src={SearchIcon} alt={'s'} width="30" height="30"/>
-                    </button>
-
-                    <Link href={router.asPath} locale={router.locale === "cs" ? "en" : "cs"}
-                          className={styles.languageButton}>
-                        <span className={router.locale === "cs" ? styles.activeLocale : ''}>CZ</span>
-                        {'/'}
-                        <span className={router.locale === "en" ? styles.activeLocale : ''}>EN</span>
-                    </Link>
-                </div>
+            <Overlay handleClose={() => setShowOverlay(null)} isOpen={showOverlay !== null} className={styles.menuContainer}>
+                {showOverlay === 'menu' &&
+                    <NavigationOverlay handleShowSearch={() => setShowOverlay('search')} />
+                }
+                {showOverlay === 'search' &&
+                    <SearchOverlay />
+                }
             </Overlay>
 
         </>
@@ -109,3 +81,53 @@ const Navigation: FunctionComponent<NavigationProps> = ({handleSearch}) => {
 
 export default Navigation;
 
+interface NavigationOverlayProps {
+    readonly handleShowSearch: () => void
+}
+const NavigationOverlay: FunctionComponent<NavigationOverlayProps> = ({handleShowSearch}) => {
+    const t = useTranslations('Navigation');
+    const router = useRouter();
+
+    return (
+        <div className={styles.linksContainer}>
+            <Link href={"/artists"}>
+                {t('artists')}
+            </Link>
+            <Link href={"/exhibitions"}>
+                {t('exhibitions')}
+            </Link>
+            <Link href={"/fairs"}>
+                {t('fairs')}
+            </Link>
+            <Link href={"/about"}>
+                {t('contact')}
+            </Link>
+
+            <button
+                onClick={() => {
+                    handleShowSearch();
+                }}
+            >
+                {t('search')}
+                <Image src={SearchIcon} alt={'s'} width="30" height="30"/>
+            </button>
+
+            <Link href={router.asPath} locale={router.locale === "cs" ? "en" : "cs"}
+                  className={styles.languageButton}>
+                <span className={router.locale === "cs" ? styles.activeLocale : ''}>CZ</span>
+                {'/'}
+                <span className={router.locale === "en" ? styles.activeLocale : ''}>EN</span>
+            </Link>
+        </div>
+    )
+}
+
+
+const SearchOverlay: FunctionComponent = () => {
+
+    return (
+        <div className={styles.linksContainer}>
+            Search
+        </div>
+    )
+}

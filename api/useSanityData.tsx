@@ -220,7 +220,8 @@ export const useFetchEventDetail = (slug: string | undefined, locale: string, ev
                                 slug
                             },
                             showInSelection,
-                            cover
+                            cover,
+                            gallery
                         },
                         documents[]{
                             ...,

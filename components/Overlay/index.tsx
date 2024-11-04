@@ -1,8 +1,7 @@
 'use client'
 import {FunctionComponent, PropsWithChildren} from 'react';
 import {useTranslations} from 'next-intl';
-import {Classes, Overlay2} from '@blueprintjs/core';
-import classNames from 'classnames';
+import {Overlay2} from '@blueprintjs/core';
 import styles from './index.module.scss';
 
 interface OverlayProps {

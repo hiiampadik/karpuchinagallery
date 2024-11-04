@@ -15,7 +15,7 @@ const Fish = () => {
     const radius = innerWidth / 7;
     const maxSpeed = 2.25;
     let angle = 0;
-    const orientation = 0;
+    let orientation = 0;
     const hover = false;
     let isInRadius = false;
     let isMouseActive = true;
@@ -83,10 +83,26 @@ const Fish = () => {
         velocity.setLength(hover ? maxSpeed * 2 : maxSpeed);
       }
 
+      // smooth transition between orientations (2 degrees per frame)
+      if (!isInRadius || hover) {
+        orientation = orientation === 0 ? orientation : orientation + 2;
+      } else {
+        if (position.distanceTo(mouse) > radius) {
+          orientation = orientation === 0 ? orientation : orientation + 2;
+        } else {
+          const oriRot = isMouseActive ? -45 : -90;
+
+          if (orientation < oriRot) {
+            orientation = orientation === oriRot ? orientation : orientation + 2;
+          } else {
+            orientation = orientation === oriRot ? orientation : orientation - 2;
+          }
+        }
+      }
+
       position.addSelf(velocity);
       delta.copy(mouse).subSelf(position);
       const rotation = Math.atan2(delta.y, delta.x);
-      // todo orientation
       r1.rotation = rotation + toRadians(orientation);
       r1.translation.copy(position);
     }).play();

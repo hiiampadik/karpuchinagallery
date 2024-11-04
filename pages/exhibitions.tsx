@@ -8,7 +8,6 @@ import EventList from '@/components/Events/EventList';
 export default function Exhibitions() {
     const router = useRouter();
     const {data: exhibitions} = useFetchEvents(router.locale ?? 'cs', 'exhibitions')
-
     return (
        <EventList events={exhibitions ?? []} type={'exhibitions'} />
     );

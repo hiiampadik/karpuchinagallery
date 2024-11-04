@@ -5,8 +5,6 @@ import Navigation from './Navigation';
 import Footer from '@/components/Layout/Footer';
 import styles from './index.module.scss'
 import Fish from '@/components/Fish';
-import {OverlaysProvider} from '@blueprintjs/core';
-import Overlay from '@/components/Overlay';
 
 interface LayoutProps {
     readonly title?: string
@@ -18,8 +16,6 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
         title = 'Karpuchina Gallery',
         loading = false
     }) => {
-    const [showSearch, setShowSearch] = useState(false);
-    const toggleOverlay = useCallback(() => setShowSearch(open => !open), [setShowSearch]);
 
     return (
         <>
@@ -37,17 +33,11 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
             </Head>
 
             <main>
-
-                <Navigation handleSearch={() => toggleOverlay()}/>
+                <Navigation/>
                 <div className={styles.content}>
                     {children}
                 </div>
                 <Footer/>
-
-                <Overlay handleClose={() => toggleOverlay()} isOpen={showSearch}>
-                    Search
-                </Overlay>
-
             </main>
 
             <div className={styles.fishContainer}>

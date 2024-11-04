@@ -29,7 +29,6 @@ body {
   height: auto;
   overflow: scroll;
   max-width: 100vw;
-  min-height: 100vh;
 
   &.disableScroll {
     height: 100vh !important;
@@ -37,9 +36,11 @@ body {
   }
 }
 
-//todo fix me
-:global(.bp5-overlay-open){
+
+:global{
+  .bp5-overlay-open{
   overflow: hidden !important;
+    }
 }
 
 main {
@@ -47,6 +48,7 @@ main {
   flex-direction: column;
   justify-content: flex-start;
   min-height: 100vh;
+  //background: white;
   background: white;
   position: relative;
 }
@@ -86,22 +88,22 @@ figure {
 }
 
 
-.exhibitionTitleContainer {
-  align-self: center;
-  margin-bottom: 36px;
-  font-size: 50px;
-  font-family: Rhymes, serif;
-  font-weight: 400;
-  @include container900px;
+/*.exhibitionTitleContainer {*/
+/*  align-self: center;*/
+/*  margin-bottom: 36px;*/
+/*  font-size: 50px;*/
+/*  font-family: Rhymes, serif;*/
+/*  font-weight: 400;*/
+/*  @include container900px;*/
 
-  .title {
-    font-style: italic;
-  }
+/*  .title {*/
+/*    font-style: italic;*/
+/*  }*/
 
-  .date {
-    @include labelThin;
-  }
-}
+/*  .date {*/
+/*    @include labelThin;*/
+/*  }*/
+/*}*/
 
 .gallery {
   background: #e6e6e6;
