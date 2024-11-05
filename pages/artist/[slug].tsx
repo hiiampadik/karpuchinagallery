@@ -2,7 +2,8 @@
 import Layout from "../../components/Layout";
 import React, {useMemo, useState} from "react";
 import {GetStaticPropsContext} from 'next';
-import {useFetchArtist, useFetchArtworks, useFetchEvents} from '@/api/useSanityData';
+import {useFetchArtworks, useFetchEvents} from '@/api';
+import {useFetchArtist} from '@/api';
 import {useParams} from 'next/navigation';
 import {useRouter} from 'next/router';
 import styles from './index.module.scss'

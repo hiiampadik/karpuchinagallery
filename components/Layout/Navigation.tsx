@@ -1,5 +1,5 @@
 'use client'
-import React, {FunctionComponent, useEffect, useState} from 'react';
+import React, {FormEvent, FunctionComponent, useEffect, useState} from 'react';
 import styles from './index.module.scss'
 import Link from 'next/link';
 import {useRouter} from 'next/router';
@@ -17,10 +17,24 @@ const Navigation: FunctionComponent = () => {
     const [showOverlay, setShowOverlay] = useState<'menu' | 'search' | null>(null);
 
     useEffect(() => {
-        router.events.on('routeChangeComplete', () => setShowOverlay(null));
-
-        return () => router.events.off('routeChangeComplete', () => setShowOverlay(null));
+        const handleRouteChange = () => {
+            setShowOverlay(null);
+        };
+        router.events.on('routeChangeComplete', handleRouteChange);
+        return () => router.events.off('routeChangeComplete', handleRouteChange);
     }, [router.events]);
+
+    useEffect(() => {
+        if (showOverlay === null){
+            const scrollY = document.body.style.top
+            document.body.style.position = ''
+            document.body.style.top = ''
+            window.scrollTo(0, parseInt(scrollY || '0') * -1)
+        } else {
+            document.body.style.top = `-${window.scrollY}px`
+            document.body.style.position = 'fixed'
+        }
+    }, [showOverlay])
 
 
     return (
@@ -89,7 +103,7 @@ const NavigationOverlay: FunctionComponent<NavigationOverlayProps> = ({handleSho
     const router = useRouter();
 
     return (
-        <div className={styles.linksContainer}>
+        <div className={styles.searchContainer}>
             <Link href={"/artists"}>
                 {t('artists')}
             </Link>
@@ -103,11 +117,7 @@ const NavigationOverlay: FunctionComponent<NavigationOverlayProps> = ({handleSho
                 {t('contact')}
             </Link>
 
-            <button
-                onClick={() => {
-                    handleShowSearch();
-                }}
-            >
+            <button onClick={() => handleShowSearch()} className={styles.searchButton}>
                 {t('search')}
                 <Image src={SearchIcon} alt={'s'} width="30" height="30"/>
             </button>
@@ -124,10 +134,26 @@ const NavigationOverlay: FunctionComponent<NavigationOverlayProps> = ({handleSho
 
 
 const SearchOverlay: FunctionComponent = () => {
+    const t = useTranslations('Search');
+    const router = useRouter();
+
+    const [searchQuery, setSearchQuery] = useState('')
+
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        router.push({
+            pathname: '/search',
+            query: { query: searchQuery }
+        });
+    };
 
     return (
-        <div className={styles.linksContainer}>
-            Search
+        <div className={styles.searchContainer}>
+            <form onSubmit={handleSubmit}>
+                <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
+                       placeholder={t('placeholder')}/>
+                <button type="submit">Search</button>
+            </form>
         </div>
     )
 }

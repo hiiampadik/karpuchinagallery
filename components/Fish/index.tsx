@@ -1,5 +1,5 @@
 "use client"
-import { useEffect } from 'react';
+import {memo, useEffect} from 'react';
 import Two from 'two.js';
 import styles from '../common.module.scss'
 const Fish = () => {
@@ -112,7 +112,6 @@ const Fish = () => {
       isMouseActive = false;
     }
 
-    // todo freeze on focuse out
     // todo multiple SVGS
 
     function activate() {
@@ -158,4 +157,5 @@ const Fish = () => {
   return <div data-controller="fish" className={styles.fish} style={{ width: '100%', height: '100%' }} />;
 };
 
-export default Fish;
+export default memo(Fish, () => true);
+

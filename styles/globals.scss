@@ -29,19 +29,8 @@ body {
   height: auto;
   overflow: scroll;
   max-width: 100vw;
-
-  &.disableScroll {
-    height: 100vh !important;
-    overflow-x: hidden !important;
-  }
 }
 
-
-:global{
-  .bp5-overlay-open{
-  overflow: hidden !important;
-    }
-}
 
 main {
   display: flex;

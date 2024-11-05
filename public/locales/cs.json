@@ -27,6 +27,12 @@
     "open": "Otevřeno",
     "connect": "Connect"
   },
+
+  "Search": {
+    "results": "Výsledky",
+    "placeholder": "Hledat…"
+  },
+
   "Overlay": {
     "close": "Zavřít"
   },

@@ -1,7 +1,7 @@
 'use client'
 import {GetStaticPropsContext} from 'next';
 import {useRouter} from 'next/router';
-import {useFetchEvents} from '@/api/useSanityData';
+import {useFetchEvents} from '@/api';
 import React from 'react';
 import EventList from '@/components/Events/EventList';
 

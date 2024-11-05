@@ -1,11 +1,9 @@
 'use client'
-
 import imageUrlBuilder from "@sanity/image-url";
 import client from "../../client";
 import Image from "next/image";
-import {FunctionComponent, useState} from 'react';
+import {FunctionComponent} from 'react';
 import {getImageDimensions} from '@sanity/asset-utils';
-import styles from './Figure.module.scss';
 import {classNames} from '@/components/utils/classNames';
 
 const builder = imageUrlBuilder(client);
@@ -15,22 +13,28 @@ interface FigureProps {
     readonly alt?: string
     readonly className?: string
     readonly placeholderBlur?: boolean
+    readonly onLoad?: () => void
 }
 
 
-const Figure: FunctionComponent<FigureProps> = ({image, alt, className, placeholderBlur = false}) => {
+const Figure: FunctionComponent<FigureProps> = (
+    {image,
+        alt,
+        className,
+        placeholderBlur = false,
+        onLoad
+    }) => {
+
     const WIDTH = 10
     const getHeight = () => {
         const multiply = getImageDimensions(image).width / WIDTH;
         return getImageDimensions(image).height / multiply
     }
 
-    const [loaded, setLoaded] = useState<boolean>(false)
-
     return (
         <Image
-            onLoad={() => setLoaded(true)}
-            className={classNames([loaded ? styles.loaded : styles.loading, className])}
+            onLoad={() => onLoad?.()}
+            className={classNames([className])}
             sizes="(max-width: 1024px) 110vw, 55vw"
             width={WIDTH}
             height={getHeight()}

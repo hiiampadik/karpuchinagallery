@@ -29,6 +29,11 @@
     "connect": "Connect"
   },
 
+  "Search": {
+    "results": "Results",
+    "placeholder": "Search…"
+  },
+
 
   "Overlay": {
     "close": "Close"

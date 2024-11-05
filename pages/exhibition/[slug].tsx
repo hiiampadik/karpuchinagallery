@@ -2,7 +2,7 @@ import React from "react";
 import {GetStaticPropsContext} from 'next';
 import {useParams} from 'next/navigation';
 import {useRouter} from 'next/router';
-import {useFetchEventDetail} from '@/api/useSanityData';
+import {useFetchEventDetail} from '@/api';
 import EventDetail from '@/components/Events/EventDetail';
 
 export default function Exhibition() {
