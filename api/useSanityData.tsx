@@ -14,20 +14,10 @@ export const useFetchHomepage = (locale: string): { data: Homepage | null, loadi
                 const result = await client.fetch(`
                 *[_type == 'homepage'][0]{
                     onDisplay->{
-                        ...,
-                        artists[]->{
-                            _id,
-                            slug,
-                            name,
-                        },
+                        ...
                     },
                     upcoming->{
-                        ...,
-                        artists[]->{
-                            _id,
-                            slug,
-                            name,
-                        },
+                        ...
                     }
                 }
                 `

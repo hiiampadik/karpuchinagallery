@@ -7,7 +7,7 @@ import {classNames} from '@/components/utils/classNames';
 
 
 interface FormatArtistsProps {
-    readonly artists?: {Name: string }[] | null
+    readonly artists: string[] | null
     readonly opacity?: boolean
     readonly fromHomepage?: boolean
 }
@@ -19,27 +19,24 @@ const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists, opacity=
         if (!artists) {
             return null;
         }
-
-        const names = artists.map(artist => artist.Name);
-
-        if (names.length === 1) {
-            return replaceSpaces(names[0]);
-        } else if (names.length === 2) {
+        if (artists.length === 1) {
+            return replaceSpaces(artists[0]);
+        } else if (artists.length === 2) {
             return (
                 <>
-                {replaceSpaces(names[0])} <span className={classNames([opacity && styles.opacity])}>{replaceSpaces(t('and') + ' ' + names[1])}</span>
+                {replaceSpaces(artists[0])} <span className={classNames([opacity && styles.opacity])}>{replaceSpaces(t('and') + ' ' + artists[1])}</span>
                 </>
             );
         } else {
             return (
                 <>
-                    {names.slice(0, 2).map((name, index) => (
+                    {artists.slice(0, 2).map((name, index) => (
                         <span key={index}>
                             {replaceSpaces(name)}
-                            {index < names.length - 2 ? ', ' : ' '}
+                            {index < artists.length - 2 ? ', ' : ' '}
                         </span>
                     ))}
-                    <span className={classNames([opacity && styles.opacity])}>{replaceSpaces(t('and') + ' ' + names[2])}</span>
+                    <span className={classNames([opacity && styles.opacity])}>{replaceSpaces(t('and') + ' ' + artists[2])}</span>
                     {fromHomepage && <span className={styles.gradient}></span>}
                 </>
             );

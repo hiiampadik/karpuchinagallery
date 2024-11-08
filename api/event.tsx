@@ -21,11 +21,7 @@ export const useFetchEvents = (locale: string, eventType: 'exhibitions' | 'fairs
                             _id,
                             title,
                             slug,
-                            artists[]->{
-                                _id,
-                                slug,
-                                name,
-                            },
+                            artists,
                             startDate,
                             endDate,
                             color,
@@ -39,11 +35,7 @@ export const useFetchEvents = (locale: string, eventType: 'exhibitions' | 'fairs
                             _id,
                             title,
                             slug,
-                            artists[]->{
-                                _id,
-                                slug,
-                                name,
-                            },
+                            artists,
                             startDate,
                             endDate,
                             color,
@@ -51,7 +43,7 @@ export const useFetchEvents = (locale: string, eventType: 'exhibitions' | 'fairs
                         }
                         `);
                 }
-
+                console.log(result)
                 setData(result);
             } catch (error) {
                 console.log(error)
@@ -87,11 +79,7 @@ export const useFetchEventDetail = (slug: string | undefined, locale: string, ev
                     const result = await client.fetch(
                         `{"event": *[_type == "${eventType}" && slug.current == $slug] | order(_updatedAt desc) [0] {
                         ...,
-                        artists[]->{
-                            _id,
-                            name,
-                            slug
-                        },
+                        artists,
                         artworks[]->{
                             _id,
                             title,
