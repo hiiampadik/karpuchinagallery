@@ -20,8 +20,7 @@ export default function Artist() {
     const router = useRouter();
     const {data: artist} = useFetchArtist(params?.slug as string, router.locale ?? 'cs')
     const {data: artworks} = useFetchArtworks(router.locale ?? 'cs')
-    const {data: exhibitions} = useFetchEvents(router.locale ?? 'cs', 'exhibitions')
-    // todo fairs
+
     const t = useTranslations('Artist');
 
     const [showArtwork, setArtwork] = useState<Artwork | null>(null)
@@ -35,26 +34,15 @@ export default function Artist() {
 
 
     const artistExhibitions = useMemo(() => {
-        if (exhibitions === undefined || exhibitions === null || artist === null){
+        if (artist === null || artist.Events === null){
             return []
         }
-        const filtered = exhibitions.filter(exhibition => {
-            if (exhibition.Artists){
-                for (const exhibitionArtist of exhibition.Artists){
-                    if (exhibitionArtist.Id === artist.Id){
-                        return true
-                    }
-                }
-            }
-            return false
-        })
-
-        return filtered.sort((a, b) => {
-            const dateA = new Date(a.StartDate).getTime();
-            const dateB = new Date(b.StartDate).getTime();
+        return artist.Events.sort((a, b) => {
+            const dateA = new Date(a.OpeningDate).getTime();
+            const dateB = new Date(b.OpeningDate).getTime();
             return dateB - dateA;
         });
-    }, [exhibitions, artist])
+    }, [artist])
     return (
         <>
             <Layout >

@@ -31,11 +31,11 @@ const EventTitle: FunctionComponent<EventTitleProps> = ({event, onDisplay, fromH
             }
             {' '}
             <span className={classNames([styles.date, !fromHomepage && styles.galleryNameInTitle])}>
-                {replaceSpaces(LocalizedDate(event.StartDate, router.locale ?? 'cs'))}
-                {event.EndDate &&
+                {replaceSpaces(LocalizedDate(event.OpeningDate, router.locale ?? 'cs'))}
+                {event.ToDate &&
                     <>
                         {' - '}
-                        {replaceSpaces(LocalizedDate(event.EndDate, router.locale ?? 'cs'))}
+                        {replaceSpaces(LocalizedDate(event.ToDate, router.locale ?? 'cs'))}
                     </>
                 }
                 {!fromHomepage &&

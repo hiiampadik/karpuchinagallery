@@ -18,7 +18,7 @@ const EventList: FunctionComponent<EventsProps> = ({events, type}) => {
         const eventsByYear: { [key: number]: Event[] } = {};
 
         events.forEach(event => {
-            const year = new Date(event.StartDate).getFullYear();
+            const year = new Date(event.OpeningDate).getFullYear();
             if (!eventsByYear[year]) {
                 eventsByYear[year] = [];
             }
@@ -28,8 +28,8 @@ const EventList: FunctionComponent<EventsProps> = ({events, type}) => {
             .map(([year, event]) => ({
                 year: parseInt(year),
                 events: event.sort((a, b) => {
-                    const dateA = new Date(a.StartDate).getTime();
-                    const dateB = new Date(b.StartDate).getTime();
+                    const dateA = new Date(a.OpeningDate).getTime();
+                    const dateB = new Date(b.OpeningDate).getTime();
                     return dateB - dateA;
                 }),
             }))

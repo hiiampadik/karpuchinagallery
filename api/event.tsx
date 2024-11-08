@@ -22,8 +22,9 @@ export const useFetchEvents = (locale: string, eventType: 'exhibitions' | 'fairs
                             title,
                             slug,
                             artists,
-                            startDate,
-                            endDate,
+                            openingDate,
+                            fromDate,
+                            toDate,
                             color,
                             cover,
                         }
@@ -36,14 +37,14 @@ export const useFetchEvents = (locale: string, eventType: 'exhibitions' | 'fairs
                             title,
                             slug,
                             artists,
-                            startDate,
-                            endDate,
+                            openingDate,
+                            fromDate,
+                            toDate,
                             color,
                             cover,
                         }
                         `);
                 }
-                console.log(result)
                 setData(result);
             } catch (error) {
                 console.log(error)

@@ -15,10 +15,20 @@ export const useFetchArtists = (locale: string, query?: string | null): { data: 
             try {
                 let result;
                 if (query){
-                    result = await client.fetch(`*[_type == "artists" && name match $queryString + '*'] | order(orderRank)`,
+                    result = await client.fetch(`*[_type == "artists" && name match $queryString + '*'] | order(orderRank){
+                        ...,
+                        events[]->{
+                            ...
+                        }
+                    }`,
                         {queryString: query});
                 } else {
-                    result = await client.fetch(`*[_type == "artists"] | order(orderRank)`);
+                    result = await client.fetch(`*[_type == "artists"] | order(orderRank){
+                        ...,
+                        events[]->{
+                            ...
+                        }
+                    }`);
                 }
                 setData(result);
             } catch (error) {
@@ -52,7 +62,12 @@ export const useFetchArtist = (slug: string | undefined, locale: string): { data
             if (slug !== undefined){
                 try {
                     const result = await client.fetch(
-                        `{"artist": *[_type == "artists" && slug.current == $slug] | order(_updatedAt desc) [0] {...}}`,
+                        `{"artist": *[_type == "artists" && slug.current == $slug] | order(_updatedAt desc) [0] {
+                        ...,
+                         events[]->{
+                            ...
+                        },
+                        }}`,
                         { slug: slug}
                     );
                     setData(result.artist);

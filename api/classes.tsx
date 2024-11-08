@@ -70,7 +70,7 @@ export class Artist {
         public readonly GroupExhibitions: ArtistItem[] | null,
         public readonly Education: ArtistItem[] | null,
         public readonly Awards: ArtistItem[] | null,
-
+        public readonly Events: Event[] | null,
     ) {}
 
     public static fromPayload(payload: any, locale: string): Artist {
@@ -84,6 +84,7 @@ export class Artist {
             payload.groupExhibitions?.map((exhibition: any) => ArtistItem.fromPayload(exhibition, locale)) ?? null,
             payload.education?.map((edu: any) => ArtistItem.fromPayload(edu, locale)) ?? null,
             payload.awards?.map((award: any) => ArtistItem.fromPayload(award, locale)) ?? null,
+            payload.events?.map((event: any) => Event.fromPayload(event, locale)) ?? null
         );
     }
 }
@@ -94,8 +95,9 @@ export class Event {
         public readonly Title: string,
         public readonly Slug: string,
         public readonly Artists: string[] | null,
-        public readonly StartDate: string,
-        public readonly EndDate: string | null,
+        public readonly OpeningDate: string,
+        public readonly FromDate: string | null,
+        public readonly ToDate: string | null,
         public readonly Color: string | null,
         public readonly Cover: any, // todo
     ) {}
@@ -106,8 +108,9 @@ export class Event {
             payload.title[locale],
             payload.slug.current,
             payload.artists ?? null,
-            payload.startDate,
-            payload.endDate ?? null,
+            payload.openingDate,
+            payload.fromDate ?? null,
+            payload.toDate ?? null,
             payload.color?.hex ?? null,
             payload.cover,
         );
@@ -120,8 +123,9 @@ export class EventDetail {
         public readonly Title: string,
         public readonly Slug: string,
         public readonly Artists: string[],
-        public readonly StartDate: string,
-        public readonly EndDate: string | null,
+        public readonly OpeningDate: string,
+        public readonly FromDate: string | null,
+        public readonly ToDate: string | null,
         public readonly Color: string | null,
         public readonly Cover: any, // todo
         public readonly Documents: Document[] | null,
@@ -136,8 +140,9 @@ export class EventDetail {
             payload.title[locale],
             payload.slug.current,
             payload.artists,
-            payload.startDate,
-            payload.endDate ?? null,
+            payload.openingDate,
+            payload.fromDate ?? null,
+            payload.toDate ?? null,
             payload.color?.hex ?? null,
             payload.cover,
             payload.documents?.map((document: any) => Document.fromPayload(document)) ?? null,
