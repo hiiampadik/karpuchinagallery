@@ -122,7 +122,8 @@ export class EventDetail {
         public readonly Id: string,
         public readonly Title: string,
         public readonly Slug: string,
-        public readonly Artists: string[],
+        public readonly Artists: string[] | null,
+        public readonly Curators: string[] | null,
         public readonly OpeningDate: string,
         public readonly FromDate: string | null,
         public readonly ToDate: string | null,
@@ -130,7 +131,7 @@ export class EventDetail {
         public readonly Cover: any, // todo
         public readonly Documents: Document[] | null,
         public readonly TextAuthor: string | null,
-        public readonly CuratorsText: PortableTextBlock,
+        public readonly Text: PortableTextBlock,
         public readonly Artworks: Artwork[] | null,
         public readonly Gallery: Image[] | null,
     ) {}
@@ -140,7 +141,8 @@ export class EventDetail {
             payload._id,
             payload.title[locale],
             payload.slug.current,
-            payload.artists,
+            payload.artists ?? null,
+            payload.curators ?? null,
             payload.openingDate,
             payload.fromDate ?? null,
             payload.toDate ?? null,
@@ -148,7 +150,7 @@ export class EventDetail {
             payload.cover,
             payload.documents?.map((document: any) => Document.fromPayload(document)) ?? null,
             payload.textAuthor ?? null,
-            payload.curatorsText[locale],
+            payload.text[locale],
             payload.artworks?.map((artwork: any) =>  Artwork.fromPayload(artwork, locale)) ?? null,
             payload.gallery?.map((logo: any) => Image.fromPayload(logo, locale)) ?? null,
         );
