@@ -6,8 +6,8 @@ import {useRouter} from 'next/router';
 import React from 'react';
 import {useSearchParams} from 'next/navigation';
 import {useFetchArtists, useFetchEvents} from '@/api';
-import {ArtistItem} from '@/pages/artists';
 import EventItem from '@/components/Events/EventItem';
+import {ArtistItem} from '@/components/Artists/ArtistItem';
 
 export default function Search() {
     const router = useRouter();
