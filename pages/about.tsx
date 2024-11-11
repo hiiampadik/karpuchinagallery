@@ -16,7 +16,7 @@ export default function About() {
     const t = useTranslations('About');
 
     return (
-        <Layout>
+        <Layout loading={about === null}>
             {about &&
                 <>
                     <div className={styles.aboutInfoContainer}>

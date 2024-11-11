@@ -129,6 +129,7 @@ export class EventDetail {
         public readonly Color: string | null,
         public readonly Cover: any, // todo
         public readonly Documents: Document[] | null,
+        public readonly CuratorName: string | null,
         public readonly CuratorsText: PortableTextBlock,
         public readonly Artworks: Artwork[] | null,
         public readonly Gallery: Image[] | null,
@@ -146,6 +147,7 @@ export class EventDetail {
             payload.color?.hex ?? null,
             payload.cover,
             payload.documents?.map((document: any) => Document.fromPayload(document)) ?? null,
+            payload.curatorName ?? null,
             payload.curatorsText[locale],
             payload.artworks?.map((artwork: any) =>  Artwork.fromPayload(artwork, locale)) ?? null,
             payload.gallery?.map((logo: any) => Image.fromPayload(logo, locale)) ?? null,
@@ -163,7 +165,7 @@ export class Artwork {
         public readonly ShowInSelection: boolean,
         public readonly Cover: any, // todo,
         public readonly Info: PortableTextBlock | null,
-        public readonly Gallery: Image[]
+        public readonly Gallery: Image[] | null
     ) {}
 
     public static fromPayload(payload: any, locale: string): Artwork {
@@ -175,7 +177,7 @@ export class Artwork {
             payload.showInSelection,
             payload.cover,
             payload.info ? payload.info[locale] : null,
-            payload.gallery.map((image: any) => Image.fromPayload(image, locale)),
+            payload.gallery?.map((image: any) => Image.fromPayload(image, locale)) ?? null,
         );
     }
 }

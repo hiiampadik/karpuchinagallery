@@ -80,7 +80,6 @@ export const useFetchEventDetail = (slug: string | undefined, locale: string, ev
                     const result = await client.fetch(
                         `{"event": *[_type == "${eventType}" && slug.current == $slug] | order(_updatedAt desc) [0] {
                         ...,
-                        artists,
                         artworks[]->{
                             _id,
                             title,

@@ -5,6 +5,7 @@ import Navigation from './Navigation';
 import Footer from '@/components/Layout/Footer';
 import styles from './index.module.scss'
 import Fish from '@/components/Fish';
+import {classNames} from '@/components/utils/classNames';
 
 interface LayoutProps {
     readonly title?: string
@@ -14,7 +15,7 @@ interface LayoutProps {
 const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
     {children,
         title = 'Karpuchina Gallery',
-        loading = false
+        loading = undefined
     }) => {
 
     return (
@@ -34,7 +35,7 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
 
             <main>
                 <Navigation/>
-                <div className={styles.content}>
+                <div className={classNames([styles.content, loading ? styles.loading : styles.loaded])}>
                     {children}
                 </div>
                 <Footer/>

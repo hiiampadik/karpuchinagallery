@@ -24,9 +24,11 @@ const ArtworkDetail: FunctionComponent<ArtworkDetailProps> = ({handleClose, artw
                 {t('close')}
             </button>
 
-            <div>
-                <GallerySwiper images={artwork.Gallery}></GallerySwiper>
-            </div>
+            {artwork.Gallery &&
+                <div>
+                    <GallerySwiper images={artwork.Gallery}></GallerySwiper>
+                </div>
+            }
 
 
         </div>

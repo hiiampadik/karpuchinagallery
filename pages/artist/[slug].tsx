@@ -75,8 +75,6 @@ export default function Artist() {
                               </div>
                           }
 
-                          {/*todo fairs*/}
-
                           {artistExhibitions.length > 0 &&
                               <div className={styles.exhibitionsContainer}>
                                   <h2>{t('exhibitions')}</h2>

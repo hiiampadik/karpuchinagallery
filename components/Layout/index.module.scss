@@ -19,6 +19,16 @@
   }
 }
 
+.loading {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.loaded {
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
 .navigationContainer {
   position: relative;
   padding: 100px 20px;
