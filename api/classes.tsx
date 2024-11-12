@@ -191,7 +191,7 @@ export class Artwork {
 export class Image {
     public constructor(
         public readonly Id: string,
-        public readonly Image: PortableTextBlock,
+        public readonly Image: any,
         public readonly Alt: string | null,
     ) {}
 

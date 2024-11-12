@@ -6,7 +6,6 @@ import {Event} from '@/api/classes';
 import {useRouter} from 'next/router';
 import LocalizedDate from '@/components/utils/LocalizeDate';
 import styles from '../common.module.scss'
-import {classNames} from '@/components/utils/classNames';
 import {replaceSpaces} from '@/components/utils/replaceSpaces';
 
 
