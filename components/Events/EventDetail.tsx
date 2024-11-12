@@ -16,8 +16,7 @@ interface EventDetailProps {
     readonly type: 'fairs' | 'exhibitions'
 }
 const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
-
-    console.log(type)
+    
     const t = useTranslations('Event');
     const getOnDisplay = (event: EventDetailClass) => {
         const today = new Date();
