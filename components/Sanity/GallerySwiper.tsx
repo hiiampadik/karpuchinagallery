@@ -1,15 +1,15 @@
 'use client'
-import React, {FunctionComponent, useEffect} from "react";
+import React, {FunctionComponent, useState} from "react";
 import styles from './GalleryBlock.module.scss'
-import {useRouter} from 'next/router';
-import {Swiper, SwiperSlide, useSwiper} from "swiper/react";
+import {Swiper, SwiperSlide} from "swiper/react";
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import "swiper/css/scrollbar";
-import {Pagination, Scrollbar, FreeMode} from 'swiper/modules';
+import {FreeMode, Scrollbar} from 'swiper/modules';
 import Figure from '@/components/Sanity/Figure';
 import {Image} from '@/api/classes';
+import figureStyles from '@/components/Sanity/Figure.module.scss';
 
 // @refresh reset
 
@@ -31,19 +31,32 @@ const GallerySwiper: FunctionComponent<GalleryProps> = ({images}) => {
                 spaceBetween={'20'}
                 className={styles.swiperWrapper}
             >
-                {images.map((image) => {
-                    return (
-                        <SwiperSlide key={image.Id} className={styles.swiperSlide} >
-                            <Figure
-                                image={image.Image}
-                                alt={image.Alt}
-                                fullWidth={true}
-                            />
-                        </SwiperSlide>
-                    )
-                })}
+                {images.map((image) => (
+                    <SwiperSlide key={image.Id} className={styles.swiperSlide}>
+                        <GallerySlide image={image}/>
+                    </SwiperSlide>
+                ))}
             </Swiper>
         </>
 )}
 
 export default GallerySwiper
+
+
+interface GallerySlideProps {
+    readonly image: Image
+}
+const GallerySlide: FunctionComponent<GallerySlideProps> = ({image}) => {
+
+    const [loaded, setLoaded] = useState(false)
+
+    return (
+        <Figure
+            image={image.Image}
+            alt={image.Alt}
+            fullWidth={true}
+            onLoad={() => setLoaded(true)}
+            className={loaded ? figureStyles.loaded : figureStyles.loading}
+        />
+    )
+}

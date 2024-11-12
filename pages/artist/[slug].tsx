@@ -51,6 +51,7 @@ export default function Artist() {
                           <h1>{artist.Name}</h1>
                           <div className={styles.bioContainer}>
                               <h2>{t('bio')}</h2>
+                              {/*todo get ready na vic odstavcu*/}
                               <BlockContent blocks={artist.Bio}/>
                           </div>
 

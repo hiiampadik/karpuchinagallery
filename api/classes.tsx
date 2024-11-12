@@ -4,7 +4,7 @@ import {PortableTextBlock} from '@portabletext/types';
 export class Homepage {
     public constructor(
         public readonly OnDisplay: Event,
-        public readonly Upcoming: Event,
+        public readonly Upcoming: Event, // todo nullable
     ) {}
 
     public static fromPayload(payload: any, locale: string): Homepage {

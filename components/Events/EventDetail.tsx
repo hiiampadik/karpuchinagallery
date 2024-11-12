@@ -17,6 +17,7 @@ interface EventDetailProps {
 }
 const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
 
+    console.log(type)
     const t = useTranslations('Event');
     const getOnDisplay = (event: EventDetailClass) => {
         const today = new Date();
@@ -101,7 +102,7 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
                             </Link>
                             :
                             <Link href={"/exhibitions"}>
-                                {t('allFairs')}
+                                {t('allExhibitions')}
                             </Link>
                         }
                     </div>
