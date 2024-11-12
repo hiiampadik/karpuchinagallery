@@ -4,13 +4,13 @@ import {PortableTextBlock} from '@portabletext/types';
 export class Homepage {
     public constructor(
         public readonly OnDisplay: Event,
-        public readonly Upcoming: Event, // todo nullable
+        public readonly Upcoming: Event | null,
     ) {}
 
     public static fromPayload(payload: any, locale: string): Homepage {
         return new Homepage(
             Event.fromPayload(payload.onDisplay, locale),
-            Event.fromPayload(payload.upcoming, locale),
+            payload.upcoming ? Event.fromPayload(payload.upcoming, locale) : null,
         );
     }
 }
@@ -124,7 +124,7 @@ export class EventDetail {
         public readonly Slug: string,
         public readonly Artists: string[] | null,
         public readonly Curators: string[] | null,
-        public readonly GallerySpace: string,
+        public readonly GallerySpace: string | null,
         public readonly OpeningDate: string,
         public readonly FromDate: string | null,
         public readonly ToDate: string | null,
@@ -144,7 +144,7 @@ export class EventDetail {
             payload.slug.current,
             payload.artists ?? null,
             payload.curators ?? null,
-            payload.gallerySpace,
+            payload.gallerySpace ?? null,
             payload.openingDate,
             payload.fromDate ?? null,
             payload.toDate ?? null,

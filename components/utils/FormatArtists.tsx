@@ -59,11 +59,7 @@ const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists, max3Arti
         }
     }, [artists, t]);
 
-// TODO pokud to neni z homepage
-    if (!formatedNames) {
-        return <></>
-    }
-
+    if (!formatedNames) {return <></>}
 
     return (
         <>

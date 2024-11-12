@@ -37,26 +37,28 @@ export default function Home() {
                         />
                     </Link>
                     <div className={styles.upcomingContainer}>
-                        <Link href="/exhibition/[slug]"
-                              as={`/exhibition/${homepage.Upcoming.Slug}`}
-                              key={homepage.Upcoming.Slug}
-                        >
-                            <h1>
-                                <span className={styles.opacity}>{t('upcoming')}:</span>
-                                {' '}<span className={styles.title}>{homepage.Upcoming.Title}</span>
-                                {homepage.Upcoming.Artists && homepage.Upcoming.Artists.length > 0 &&
-                                    <>
-                                        {' '}<FormatArtists artists={homepage.Upcoming.Artists} />
-                                    </>
-                                }
-                                {' '}
-                                <span className={styles.note}>
-                                    {homepage.Upcoming.ToDate && <>{t('from')}{replaceSpaces(' ')}</>}
-                                    {replaceSpaces(LocalizedDate(homepage.Upcoming.OpeningDate, router.locale ?? 'cs'))}
+                        {homepage.Upcoming &&
+                            <Link href="/exhibition/[slug]"
+                                  as={`/exhibition/${homepage.Upcoming.Slug}`}
+                                  key={homepage.Upcoming.Slug}
+                            >
+                                <h1>
+                                    <span className={styles.opacity}>{t('upcoming')}:</span>
+                                    {' '}<span className={styles.title}>{homepage.Upcoming.Title}</span>
+                                    {homepage.Upcoming.Artists && homepage.Upcoming.Artists.length > 0 &&
+                                        <>
+                                            {' '}<FormatArtists artists={homepage.Upcoming.Artists} />
+                                        </>
+                                    }
+                                    {' '}
+                                    <span className={styles.note}>
+                                        {homepage.Upcoming.ToDate && <>{t('from')}{replaceSpaces(' ')}</>}
+                                        {replaceSpaces(LocalizedDate(homepage.Upcoming.OpeningDate, router.locale ?? 'cs'))}
 
-                                </span>
-                            </h1>
-                        </Link>
+                                    </span>
+                                </h1>
+                            </Link>
+                        }
                     </div>
                     <div className={styles.olderExhibitions}>
                         <Link href={"/exhibitions"}>

@@ -12,6 +12,7 @@
 
   h2 {
     @include labelSmall;
+    margin-bottom: 16px;
   }
 }
 
@@ -36,11 +37,9 @@
 }
 
 
-
 .curatorsTextContainer {
-  margin-top: 24px;
   p {
-    margin-top: 1rem;
+    margin-bottom: 1.38em;
   }
 }
 

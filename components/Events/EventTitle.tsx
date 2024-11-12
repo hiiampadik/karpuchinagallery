@@ -14,7 +14,7 @@ interface EventTitleProps {
     readonly event: Event
     readonly onDisplay: boolean
     readonly fromHomepage?: boolean
-    readonly gallerySpace?: string;
+    readonly gallerySpace?: string | null;
 }
 
 const EventTitle: FunctionComponent<EventTitleProps> = ({event, onDisplay, fromHomepage = false, gallerySpace}) => {
@@ -31,16 +31,18 @@ const EventTitle: FunctionComponent<EventTitleProps> = ({event, onDisplay, fromH
                 </>
             }
             {' '}
-            <span className={classNames([styles.date, !fromHomepage && styles.galleryNameInTitle])}>
-                {replaceSpaces(LocalizedDate(event.OpeningDate, router.locale ?? 'cs'))}
-                {event.ToDate &&
-                    <>
-                        {' - '}
-                        {replaceSpaces(LocalizedDate(event.ToDate, router.locale ?? 'cs'))}
-                    </>
-                }
+            <span className={styles.date}>
+                <span className={styles.dateInner}>
+                    {replaceSpaces(LocalizedDate(event.OpeningDate, router.locale ?? 'cs'))}
+                    {event.ToDate &&
+                        <>
+                            {' - '}
+                            {replaceSpaces(LocalizedDate(event.ToDate, router.locale ?? 'cs'))}
+                        </>
+                    }
+                </span>
                 {gallerySpace &&
-                    <span className={styles.galleryName}>{replaceSpaces(gallerySpace)}</span>
+                    <span className={styles.spaceName}>{replaceSpaces(gallerySpace)}</span>
                 }
             </span>
         </h1>

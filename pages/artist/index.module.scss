@@ -18,12 +18,11 @@
 
 .bioContainer {
   margin-top: 50px;
-  p {
-    font-size: 16px;
+
+  .bioContainerParagraphs {
     column-count: 3;
     column-gap: 20px;
     orphans: 7;
-
     @media (max-width: $breakpoint-md-max) {
       column-count: 2;
       column-gap: 16px;
@@ -32,6 +31,11 @@
       column-count: 1;
       column-gap: 8px;
     }
+  }
+
+  p {
+    font-size: 16px;
+    margin-bottom: 1.38em;
   }
 
 
