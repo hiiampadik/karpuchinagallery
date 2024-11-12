@@ -11,6 +11,7 @@ interface EventsProps {
 }
 const EventList: FunctionComponent<EventsProps> = ({events, type}) => {
 
+    // todo lazy loadiung
     const groupedEventsByYear = useMemo(() => {
         if (!events){
             return []

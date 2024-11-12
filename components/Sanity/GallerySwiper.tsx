@@ -37,6 +37,7 @@ const GallerySwiper: FunctionComponent<GalleryProps> = ({images}) => {
                             <Figure
                                 image={image.Image}
                                 alt={image.Alt}
+                                fullWidth={true}
                             />
                         </SwiperSlide>
                     )

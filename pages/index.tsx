@@ -33,6 +33,7 @@ export default function Home() {
                             className={styles.onDisplayCover}
                             image={homepage.OnDisplay.Cover}
                             alt={homepage.OnDisplay.Title.concat(" – Exhibition Cover Image")}
+                            fullWidth={true}
                         />
                     </Link>
                     <div className={styles.upcomingContainer}>

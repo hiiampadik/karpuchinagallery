@@ -14,6 +14,7 @@ interface FigureProps {
     readonly className?: string
     readonly placeholderBlur?: boolean
     readonly onLoad?: () => void
+    readonly fullWidth?: boolean
 }
 
 
@@ -22,7 +23,8 @@ const Figure: FunctionComponent<FigureProps> = (
         alt,
         className,
         placeholderBlur = false,
-        onLoad
+        fullWidth = false,
+        onLoad,
     }) => {
 
     const WIDTH = 10
@@ -35,7 +37,7 @@ const Figure: FunctionComponent<FigureProps> = (
         <Image
             onLoad={() => onLoad?.()}
             className={classNames([className])}
-            sizes="(max-width: 1024px) 110vw, 55vw"
+            sizes={fullWidth ? "100vw" : "(max-width: 767px) 50vw, (max-width: 1199px) 30vw, 300px"}
             width={WIDTH}
             height={getHeight()}
             src={builder.image(image).auto("format").url()}
