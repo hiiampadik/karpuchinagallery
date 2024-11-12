@@ -124,6 +124,7 @@ export class EventDetail {
         public readonly Slug: string,
         public readonly Artists: string[] | null,
         public readonly Curators: string[] | null,
+        public readonly GallerySpace: string,
         public readonly OpeningDate: string,
         public readonly FromDate: string | null,
         public readonly ToDate: string | null,
@@ -143,6 +144,7 @@ export class EventDetail {
             payload.slug.current,
             payload.artists ?? null,
             payload.curators ?? null,
+            payload.gallerySpace,
             payload.openingDate,
             payload.fromDate ?? null,
             payload.toDate ?? null,
@@ -190,14 +192,14 @@ export class Image {
     public constructor(
         public readonly Id: string,
         public readonly Image: PortableTextBlock,
-        public readonly Alt: string,
+        public readonly Alt: string | null,
     ) {}
 
     public static fromPayload(payload: any, locale: string): Image {
         return new Image(
             payload._key,
             payload.image,
-            payload.alt,
+            payload.alt ?? null,
         );
     }
 }

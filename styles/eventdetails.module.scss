@@ -20,20 +20,18 @@
   display: flex;
   flex-direction: column;
 
-  max-height: calc(100vh - 270px);
-  @supports (max-height: calc(100dvh - 270px)) {
-    max-height: calc(100vh - 270px);
-  }
-  @media (max-width: $breakpoint-xs-max) {
-    max-height: calc(100vh - 240px);
-    @supports (max-height: calc(100dvh - 240px)) {
-      max-height: calc(100vh - 240px);
-    }
-  }
-
   .eventGallery{
     margin-bottom: 20px;
-    flex: 1 1 100vh;
+    height: 50vh;
+    @supports (height: 50dvh){
+      height: 50dvh
+    }
+    @media (max-width: $breakpoint-sm-max) {
+      height: 70vh;
+      @supports (height: 70dvh){
+        height: 70dvh
+      }
+    }
   }
 }
 

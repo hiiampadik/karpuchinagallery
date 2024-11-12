@@ -31,13 +31,13 @@ const EventItem: FunctionComponent<EventItemProps> = ({event, useH2, type}) => {
             </div>
             {useH2 ?
                 <h2>
-                    <span>{event.Title}</span>
-                    {' '}<FormatArtists artists={event.Artists}/>
+                    <span className={styles.italic}>{event.Title}</span>
+                    {' '}<FormatArtists artists={event.Artists} conjunctions={type === 'exhibitions'}/>
                 </h2>
                 :
                 <h3>
-                    <span>{event.Title}</span>
-                    {' '}<FormatArtists artists={event.Artists}/>
+                    <span className={styles.italic}>{event.Title}</span>
+                    {' '}<FormatArtists artists={event.Artists} conjunctions={type === 'exhibitions'}/>
                 </h3>
             }
         </Link>

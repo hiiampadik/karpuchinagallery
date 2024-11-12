@@ -14,9 +14,10 @@ interface EventTitleProps {
     readonly event: Event
     readonly onDisplay: boolean
     readonly fromHomepage?: boolean
+    readonly gallerySpace?: string;
 }
 
-const EventTitle: FunctionComponent<EventTitleProps> = ({event, onDisplay, fromHomepage = false}) => {
+const EventTitle: FunctionComponent<EventTitleProps> = ({event, onDisplay, fromHomepage = false, gallerySpace}) => {
     const t = useTranslations('EventTitle');
     const router = useRouter();
 
@@ -26,7 +27,7 @@ const EventTitle: FunctionComponent<EventTitleProps> = ({event, onDisplay, fromH
             <span className={styles.title}>{event.Title}</span>
             {event.Artists && event.Artists.length > 0 &&
                 <>
-                    {' '}<FormatArtists artists={event.Artists} opacity={true} fromHomepage={fromHomepage}/>
+                    {' '}<FormatArtists artists={event.Artists} max3Artists={fromHomepage}/>
                 </>
             }
             {' '}
@@ -38,8 +39,8 @@ const EventTitle: FunctionComponent<EventTitleProps> = ({event, onDisplay, fromH
                         {replaceSpaces(LocalizedDate(event.ToDate, router.locale ?? 'cs'))}
                     </>
                 }
-                {!fromHomepage &&
-                    <span className={styles.galleryName}>{replaceSpaces("Karpuchina Gallery")}</span>
+                {gallerySpace &&
+                    <span className={styles.galleryName}>{replaceSpaces(gallerySpace)}</span>
                 }
             </span>
         </h1>

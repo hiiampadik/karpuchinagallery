@@ -10,7 +10,7 @@ const builder = imageUrlBuilder(client);
 
 interface FigureProps {
     readonly image: any;
-    readonly alt?: string
+    readonly alt?: string | null
     readonly className?: string
     readonly placeholderBlur?: boolean
     readonly onLoad?: () => void
@@ -39,7 +39,7 @@ const Figure: FunctionComponent<FigureProps> = (
             width={WIDTH}
             height={getHeight()}
             src={builder.image(image).auto("format").url()}
-            alt={alt ?? ''}
+            alt={alt ?? 'Alt is missing'}
             placeholder={placeholderBlur ? 'blur' : 'empty'}
             blurDataURL={builder.image(image).width(1).blur(50).url()}
         />

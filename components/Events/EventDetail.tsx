@@ -31,12 +31,13 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
         return today >= start && today <= end;
     };
 
+
     return (
         <Layout >
             {event &&
                 <div className={styles.eventContainer}>
                     <div className={styles.eventFold}>
-                        <EventTitle event={event} onDisplay={getOnDisplay(event)}/>
+                        <EventTitle event={event} onDisplay={getOnDisplay(event)} gallerySpace={event.GallerySpace}/>
                         {event.Gallery &&
                             <div className={styles.eventGallery}>
                                 <GallerySwiper images={event.Gallery}></GallerySwiper>

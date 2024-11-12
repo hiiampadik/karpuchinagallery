@@ -45,7 +45,7 @@ export default function Home() {
                                 {' '}<span className={styles.title}>{homepage.Upcoming.Title}</span>
                                 {homepage.Upcoming.Artists && homepage.Upcoming.Artists.length > 0 &&
                                     <>
-                                        {' '}<FormatArtists artists={homepage.Upcoming.Artists} opacity={true} />
+                                        {' '}<FormatArtists artists={homepage.Upcoming.Artists} />
                                     </>
                                 }
                                 {' '}
