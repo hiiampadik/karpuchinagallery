@@ -52,6 +52,7 @@ const GallerySlide: FunctionComponent<GallerySlideProps> = ({image}) => {
 
     return (
         <Figure
+            loading={'eager'}
             image={image.Image}
             alt={image.Alt}
             fullWidth={true}
