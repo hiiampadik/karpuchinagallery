@@ -77,28 +77,3 @@ figure {
   margin: 0
 }
 
-
-/*.exhibitionTitleContainer {*/
-/*  align-self: center;*/
-/*  margin-bottom: 36px;*/
-/*  font-size: 50px;*/
-/*  font-family: Rhymes, serif;*/
-/*  font-weight: 400;*/
-/*  @include container900px;*/
-
-/*  .title {*/
-/*    font-style: italic;*/
-/*  }*/
-
-/*  .date {*/
-/*    @include labelThin;*/
-/*  }*/
-/*}*/
-
-.gallery {
-  background: #e6e6e6;
-  height: 600px;
-  width: 100%;
-  flex: 1 0 auto;
-}
-
