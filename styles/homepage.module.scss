@@ -49,12 +49,18 @@
       height: calc(100vh - 240px);
     }
   }
-  .onDisplayCover {
+
+  .onDisplayImageContainer {
     flex: 1 1 auto;
     position: relative;
-    width: 100%;
-    object-fit: cover;
+    .onDisplayCover {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      position: absolute;
+    }
   }
+
 }
 
 .onDisplayContainer::after{

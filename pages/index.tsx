@@ -29,12 +29,14 @@ export default function Home() {
                     >
                         <EventTitle event={homepage.OnDisplay} onDisplay={true} fromHomepage={true}/>
 
-                        <Figure
-                            className={styles.onDisplayCover}
-                            image={homepage.OnDisplay.Cover}
-                            alt={homepage.OnDisplay.Title.concat(" – Exhibition Cover Image")}
-                            fullWidth={true}
-                        />
+                        <div className={styles.onDisplayImageContainer}>
+                            <Figure
+                                className={styles.onDisplayCover}
+                                image={homepage.OnDisplay.Cover}
+                                alt={homepage.OnDisplay.Title.concat(" – Exhibition Cover Image")}
+                                fullWidth={true}
+                            />
+                        </div>
                     </Link>
                     <div className={styles.upcomingContainer}>
                         {homepage.Upcoming &&
