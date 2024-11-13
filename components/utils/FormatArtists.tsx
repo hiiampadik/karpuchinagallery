@@ -29,15 +29,19 @@ const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists, max3Arti
             );
         } else {
             if (max3Artists){
+                // if total length === 3 , we add "and" before last name
+                // otherwise we add comma
                 return (
                     <>
                         {artists.slice(0, 2).map((name, index) => (
                             <span key={index}>
-                                {replaceSpaces(name)}
-                                {index < artists.length - 2 ? ', ' : ' '}
-                            </span>
+                            {replaceSpaces(name)}
+                                {(artists.length > 3 || index < artists.length - 2) ? ', ' : ' '}
+                        </span>
                         ))}
-                        <span className={classNames([styles.opacity])}>{replaceSpaces(t('and') + ' ')}</span>
+                        {artists.length === 3 &&
+                            <span className={classNames([styles.opacity])}>{replaceSpaces(t('and') + ' ')}</span>
+                        }
                         {replaceSpaces(artists[2])}
                         <span className={styles.gradient}></span>
                     </>
