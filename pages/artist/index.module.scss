@@ -22,7 +22,7 @@
   .bioContainerParagraphs {
     column-count: 3;
     column-gap: 20px;
-    orphans: 7;
+    orphans: 2;
     @media (max-width: $breakpoint-md-max) {
       column-count: 2;
       column-gap: 16px;

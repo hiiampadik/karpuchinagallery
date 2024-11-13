@@ -33,7 +33,7 @@ const GallerySwiper: FunctionComponent<GalleryProps> = ({images}) => {
             >
                 {images.map((image, index) => (
                     <SwiperSlide key={image.Id} className={styles.swiperSlide}>
-                        <GallerySlide image={image} lazy={index > 4}/>
+                        <GallerySlide image={image}/>
                     </SwiperSlide>
                 ))}
             </Swiper>
@@ -45,15 +45,13 @@ export default GallerySwiper
 
 interface GallerySlideProps {
     readonly image: Image
-    readonly lazy: boolean
 }
-const GallerySlide: FunctionComponent<GallerySlideProps> = ({image, lazy}) => {
+const GallerySlide: FunctionComponent<GallerySlideProps> = ({image}) => {
 
     const [loaded, setLoaded] = useState(false)
 
     return (
         <Figure
-            loading={lazy ? 'lazy' : 'eager'}
             image={image.Image}
             alt={image.Alt}
             fullWidth={true}
