@@ -2,7 +2,7 @@
 import Layout from "../../components/Layout";
 import React, {useMemo, useState} from "react";
 import {GetStaticPropsContext} from 'next';
-import {useFetchArtworks, useFetchEvents} from '@/api';
+import {useFetchArtworks} from '@/api';
 import {useFetchArtist} from '@/api';
 import {useParams} from 'next/navigation';
 import {useRouter} from 'next/router';
@@ -12,7 +12,7 @@ import BlockContent from '@/components/Sanity/BlockContent';
 import Figure from '@/components/Sanity/Figure';
 import EventItem from '@/components/Events/EventItem';
 import Link from 'next/link';
-import {Artwork} from '@/api/classes';
+import {Artwork, EventType, Event} from '@/api/classes';
 import ArtworkDetail from '@/components/Artworks/ArtworkDetails';
 
 export default function Artist() {
@@ -32,16 +32,25 @@ export default function Artist() {
         return artworks.filter(artwork => artwork.Artist.Id === artist.Id && artwork.ShowInSelection)
     }, [artworks, artist])
 
-
-    const artistExhibitions = useMemo(() => {
-        if (artist === null || artist.Events === null){
-            return []
-        }
-        return artist.Events.sort((a, b) => {
+    const sortEvents = (events: Event[]) => {
+        return events.sort((a, b) => {
             const dateA = new Date(a.OpeningDate).getTime();
             const dateB = new Date(b.OpeningDate).getTime();
             return dateB - dateA;
         });
+    }
+
+    const [exhibitions, fairs] = useMemo(() => {
+        if (artist === null || artist.Events === null){
+            return [[], []]
+        }
+        const exhibitions: Event[] = [];
+        const fairs: Event[] = [];
+
+        for (const event of artist.Events){
+            event.Type === EventType.Fairs ? fairs.push(event) : exhibitions.push(event)
+        }
+        return [sortEvents(exhibitions), sortEvents(fairs)]
     }, [artist])
     return (
         <>
@@ -77,12 +86,23 @@ export default function Artist() {
                               </div>
                           }
 
-                          {artistExhibitions.length > 0 &&
+                          {exhibitions.length > 0 &&
                               <div className={styles.exhibitionsContainer}>
                                   <h2>{t('exhibitions')}</h2>
                                   <div className={styles.exhibitions}>
-                                      {artistExhibitions.map(exhibition => (
+                                      {exhibitions.map(exhibition => (
                                           <EventItem event={exhibition} key={exhibition.Id} useH2={false} type={'exhibitions'}/>
+                                      ))}
+                                  </div>
+                              </div>
+                          }
+
+                          {fairs.length > 0 &&
+                              <div className={styles.exhibitionsContainer}>
+                                  <h2>{t('fairs')}</h2>
+                                  <div className={styles.exhibitions}>
+                                      {fairs.map(fair => (
+                                          <EventItem event={fair} key={fair.Id} useH2={false} type={'fairs'}/>
                                       ))}
                                   </div>
                               </div>

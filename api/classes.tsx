@@ -89,9 +89,16 @@ export class Artist {
     }
 }
 
+export enum EventType {
+    Fairs = 'fairs',
+    Exhibitions = 'exhibitions',
+}
+
+
 export class Event {
     public constructor(
         public readonly Id: string,
+        public readonly Type: EventType,
         public readonly Title: string,
         public readonly Slug: string,
         public readonly Artists: string[] | null,
@@ -105,6 +112,7 @@ export class Event {
     public static fromPayload(payload: any, locale: string): Event {
         return new Event(
             payload._id,
+            payload._type,
             payload.title[locale],
             payload.slug.current,
             payload.artists ?? null,
