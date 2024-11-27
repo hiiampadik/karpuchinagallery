@@ -8,7 +8,7 @@ import BlockContent from '@/components/Sanity/BlockContent';
 import Link from 'next/link';
 import Figure from '@/components/Sanity/Figure';
 import {useTranslations} from 'next-intl';
-import EventTitle from '@/components/Events/EventTitle';
+import EventTitle, {TimeContext} from '@/components/Events/EventTitle';
 
 
 interface EventDetailProps {
@@ -18,7 +18,7 @@ interface EventDetailProps {
 const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
     
     const t = useTranslations('Event');
-    const getOnDisplay = (event: EventDetailClass) => {
+    const getTimeContext = (event: EventDetailClass) => {
         const today = new Date();
         today.setHours(0, 0, 0, 0)
 
@@ -28,7 +28,12 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
         const end = event.ToDate ? new Date(event.ToDate) : start;
         end.setHours(0, 0, 0, 0)
 
-        return today >= start && today <= end;
+        if (today >= start && today <= end){
+            return TimeContext.OnDisplay
+        } else if (today < start) {
+            return TimeContext.Upcoming
+        }
+        return null
     };
 
 
@@ -37,7 +42,7 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
             {event &&
                 <div className={styles.eventContainer}>
                     <div className={styles.eventFold}>
-                        <EventTitle event={event} onDisplay={getOnDisplay(event)} gallerySpace={event.GallerySpace}/>
+                        <EventTitle event={event} timeContext={getTimeContext(event)} gallerySpace={event.GallerySpace}/>
                         {event.Gallery &&
                             <div className={styles.eventGallery}>
                                 <GallerySwiper images={event.Gallery}></GallerySwiper>

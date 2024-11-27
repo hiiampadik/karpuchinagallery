@@ -128,6 +128,7 @@ export class Event {
 export class EventDetail {
     public constructor(
         public readonly Id: string,
+        public readonly Type: EventType,
         public readonly Title: string,
         public readonly Slug: string,
         public readonly Artists: string[] | null,
@@ -148,6 +149,7 @@ export class EventDetail {
     public static fromPayload(payload: any, locale: string): EventDetail {
         return new EventDetail(
             payload._id,
+            payload._type,
             payload.title[locale],
             payload.slug.current,
             payload.artists ?? null,

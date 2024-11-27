@@ -18,6 +18,7 @@
 
   "EventTitle": {
     "onDisplay": "On display:",
+    "upcoming": "Upcoming:",
     "by": "by",
     "and": "and"
   },

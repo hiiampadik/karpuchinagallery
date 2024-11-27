@@ -11,7 +11,7 @@ import FormatArtists from '@/components/utils/FormatArtists';
 import LocalizedDate from '@/components/utils/LocalizeDate';
 import Figure from '@/components/Sanity/Figure';
 import {replaceSpaces} from '@/components/utils/replaceSpaces';
-import EventTitle from '@/components/Events/EventTitle';
+import EventTitle, {TimeContext} from '@/components/Events/EventTitle';
 
 export default function Home() {
     const router = useRouter();
@@ -27,7 +27,7 @@ export default function Home() {
                           key={homepage.OnDisplay.Slug}
                           className={styles.onDisplayContainer}
                     >
-                        <EventTitle event={homepage.OnDisplay} onDisplay={true} fromHomepage={true}/>
+                        <EventTitle event={homepage.OnDisplay} timeContext={TimeContext.OnDisplay} fromHomepage={true}/>
 
                         <div className={styles.onDisplayImageContainer}>
                             <Figure

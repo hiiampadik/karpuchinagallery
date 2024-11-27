@@ -17,6 +17,7 @@
 
   "EventTitle": {
     "onDisplay": "Aktuální:",
+    "upcoming": "Nadcházející:",
     "by": "od",
     "and": "a"
   },
