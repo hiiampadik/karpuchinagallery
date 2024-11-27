@@ -30,7 +30,8 @@
 
   "Search": {
     "results": "Výsledky",
-    "placeholder": "Hledat…"
+    "placeholder": "Vyhledat umělce a výstavy…",
+    "button": "Hledat"
   },
 
   "Overlay": {

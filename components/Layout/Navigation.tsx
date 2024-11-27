@@ -141,6 +141,9 @@ const SearchOverlay: FunctionComponent = () => {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if(searchQuery.length === 0){
+            return
+        }
         router.push({
             pathname: '/search',
             query: { query: searchQuery }
@@ -150,9 +153,11 @@ const SearchOverlay: FunctionComponent = () => {
     return (
         <div className={styles.searchContainer}>
             <form onSubmit={handleSubmit}>
-                <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
+                <input type="text" value={searchQuery}
+                       autoFocus={true}
+                       onChange={(e) => setSearchQuery(e.target.value)}
                        placeholder={t('placeholder')}/>
-                <button type="submit">Search</button>
+                <button type="submit">{t('button')}</button>
             </form>
         </div>
     )

@@ -31,7 +31,8 @@
 
   "Search": {
     "results": "Results",
-    "placeholder": "Search…"
+    "placeholder": "Search artists and exhibitions…",
+    "button": "Search"
   },
 
 
