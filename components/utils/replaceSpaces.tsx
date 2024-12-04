@@ -1,7 +1,9 @@
 import React from 'react';
 
 export const replaceSpaces = (text :string) => {
-    return <span dangerouslySetInnerHTML={{__html: text.replace(/ /g, '\u00A0')}}/>
+    const isSmallScreen = window.matchMedia('(max-width: 500px)').matches;
+    const spaceChar = isSmallScreen ? ' ' : '\u00A0';
+    return <span dangerouslySetInnerHTML={{ __html: text.replace(/ /g, spaceChar) }} />;
 }
 
 export const replaceSpacesBeforeOneCharacterWord = (text :string) => {

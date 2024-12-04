@@ -293,6 +293,7 @@
     .italic {
       font-style: italic;
     }
+    overflow: hidden;
   }
 
   @media (max-width: $breakpoint-sm-max) {
