@@ -1,5 +1,5 @@
 'use client'
-import React, {FormEvent, FunctionComponent, useEffect, useState} from 'react';
+import React, {FunctionComponent, useCallback, useEffect, useState} from 'react';
 import styles from './index.module.scss'
 import Link from 'next/link';
 import {useRouter} from 'next/router';
@@ -9,6 +9,12 @@ import SearchIcon from '../../public/SearchIcon.svg'
 import Image from 'next/image'
 import Overlay from '@/components/Overlay';
 import {useDisableScroll} from '@/components/utils/useDisableScroll';
+
+import {fetchEvents} from '@/api/search';
+import {EventType, Event} from '@/api/classes';
+import {debounce} from '@/components/utils/debounce';
+import EventItem from '@/components/Events/EventItem';
+
 
 const Navigation: FunctionComponent = () => {
     const router = useRouter();
@@ -129,26 +135,59 @@ const SearchOverlay: FunctionComponent = () => {
 
     const [searchQuery, setSearchQuery] = useState('')
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if(searchQuery.length === 0){
-            return
-        }
-        router.push({
-            pathname: '/search',
-            query: { query: searchQuery }
-        });
-    };
+    const [exhibitions, setExhibitions] = useState<null | Event[]>(null)
+    const [fairs, setFairs] = useState<null | Event[]>(null)
+
+    const handleSearch = useCallback(
+        debounce(
+            (searchTerm: string) => {
+                if (searchTerm.length === 0){
+                    setExhibitions(null)
+                    setFairs(null)
+                    return
+                }
+                fetchEvents(searchTerm, EventType.Exhibitions, router.locale ?? 'cs').then(
+                    (events) => {
+                        setExhibitions(events)
+                    })
+                fetchEvents(searchTerm, EventType.Fairs, router.locale ?? 'cs').then(
+                    (events) => {
+                        setFairs(events)
+                    })
+            },
+            1000,
+        ),
+        [],
+    );
 
     return (
         <div className={styles.searchContainer}>
-            <form onSubmit={handleSubmit}>
-                <input type="text" value={searchQuery}
-                       autoFocus={true}
-                       onChange={(e) => setSearchQuery(e.target.value)}
-                       placeholder={t('placeholder')}/>
-                <button type="submit">{t('button')}</button>
-            </form>
+            <input type="text" value={searchQuery}
+                   autoFocus={true}
+                   onChange={(e) => {
+                       const searchTerm = e.target.value;
+                       if (searchTerm.length < 40) {
+                           setSearchQuery(searchTerm)
+                           handleSearch(searchTerm);
+                       }
+                   }}
+                   placeholder={t('placeholder')}
+            />
+            {exhibitions !== null && fairs !== null &&
+                <>
+                    {exhibitions.length === 0 && fairs.length === 0 ?
+                        <>
+                            {t('noResults')}
+                        </>
+                        :
+                        <div className={styles.eventsContainer}>
+                            {exhibitions.concat(fairs).map(event => (
+                                <EventItem event={event} key={event.Id} useH2={true} type={event.Type} />
+                            ))}
+                        </div>
+                    }
+                </>
+            }
         </div>
     )
 }

@@ -2,49 +2,29 @@ import {Event, EventDetail, EventType} from '@/api/classes';
 import {useEffect, useState} from 'react';
 import client from '@/client';
 
-export const useFetchEvents = (locale: string, eventType: EventType, query?: string | null): { data: Event[] | null, loading: boolean, error: Error | null} => {
+export const useFetchEvents = (locale: string, eventType: EventType): { data: Event[] | null, loading: boolean, error: Error | null} => {
     const [data, setData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
-        if (query === null){
-            return
-        }
         const fetchData = async () => {
             try {
-                let result;
-                if (query){
-                    result = await client.fetch(`               
-                        *[_type == "${eventType}" && (title.cs match $queryString + "*" || title.en match $queryString + "*")] {
-                            ...,
-                            _id,
-                            title,
-                            slug,
-                            artists,
-                            openingDate,
-                            fromDate,
-                            toDate,
-                            color,
-                            cover,
-                        }
-                        `, {queryString: query});
-                } else {
-                    result = await client.fetch(`               
-                        *[_type == "${eventType}"] | order(orderRank) {
-                            ...,
-                            _id,
-                            title,
-                            slug,
-                            artists,
-                            openingDate,
-                            fromDate,
-                            toDate,
-                            color,
-                            cover,
-                        }
-                        `);
-                }
+                const result = await client.fetch(`               
+                    *[_type == "${eventType}"] | order(orderRank) {
+                        ...,
+                        _id,
+                        title,
+                        slug,
+                        artists,
+                        openingDate,
+                        fromDate,
+                        toDate,
+                        color,
+                        cover,
+                    }
+                    `);
+
                 setData(result);
             } catch (error) {
                 console.log(error)
@@ -60,7 +40,7 @@ export const useFetchEvents = (locale: string, eventType: EventType, query?: str
         return () => {
             // Optionally, you can cancel any pending requests here
         };
-    }, [query, eventType]);
+    }, [locale, eventType]);
 
     return {
         data: data && data.map((value: any) => Event.fromPayload(value, locale)),

@@ -31,8 +31,8 @@
 
   "Search": {
     "results": "Výsledky",
-    "placeholder": "Vyhledat umělce a výstavy…",
-    "button": "Hledat"
+    "placeholder": "Vyhledat výstavy a veletrhy…",
+    "noResults": "Žádné výsledky"
   },
 
   "Overlay": {
