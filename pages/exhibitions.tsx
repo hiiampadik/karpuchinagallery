@@ -8,7 +8,7 @@ import {EventType} from '@/api/classes';
 
 export default function Exhibitions() {
     const router = useRouter();
-    const {data: exhibitions} = useFetchEvents(router.locale ?? 'cs', 'exhibitions')
+    const {data: exhibitions} = useFetchEvents(router.locale ?? 'cs', EventType.Exhibitions)
     return (
        <EventList events={exhibitions ?? []} type={EventType.Exhibitions} />
     );

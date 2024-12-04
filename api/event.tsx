@@ -1,8 +1,8 @@
-import {Event, EventDetail} from '@/api/classes';
+import {Event, EventDetail, EventType} from '@/api/classes';
 import {useEffect, useState} from 'react';
 import client from '@/client';
 
-export const useFetchEvents = (locale: string, eventType: 'exhibitions' | 'fairs', query?: string | null): { data: Event[] | null, loading: boolean, error: Error | null} => {
+export const useFetchEvents = (locale: string, eventType: EventType, query?: string | null): { data: Event[] | null, loading: boolean, error: Error | null} => {
     const [data, setData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
@@ -68,7 +68,7 @@ export const useFetchEvents = (locale: string, eventType: 'exhibitions' | 'fairs
         error };
 };
 
-export const useFetchEventDetail = (slug: string | undefined, locale: string, eventType: 'exhibitions' | 'fairs'): { data: EventDetail | null, loading: boolean, error: Error | null} => {
+export const useFetchEventDetail = (slug: string | undefined, locale: string, eventType: EventType): { data: EventDetail | null, loading: boolean, error: Error | null} => {
     const [data, setData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);

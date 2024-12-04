@@ -32,12 +32,12 @@ const EventItem: FunctionComponent<EventItemProps> = ({event, useH2, type}) => {
             {useH2 ?
                 <h2>
                     <span className={styles.italic}>{event.Title}</span>
-                    {type === EventType.Exhibitions ? ' ' : <br />}<FormatArtists artists={event.Artists} showBy={type === 'exhibitions'}/>
+                    {type === EventType.Exhibitions ? ' ' : <br />}<FormatArtists artists={event.Artists} showBy={type === EventType.Exhibitions}/>
                 </h2>
                 :
                 <h3>
                     <span className={styles.italic}>{event.Title}</span>
-                    {type === EventType.Exhibitions ? ' ' : <br />}<FormatArtists artists={event.Artists} showBy={type === 'exhibitions'}/>
+                    {type === EventType.Exhibitions ? ' ' : <br />}<FormatArtists artists={event.Artists} showBy={type === EventType.Exhibitions}/>
                 </h3>
             }
         </Link>

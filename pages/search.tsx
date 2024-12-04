@@ -8,6 +8,7 @@ import {useSearchParams} from 'next/navigation';
 import {useFetchArtists, useFetchEvents} from '@/api';
 import EventItem from '@/components/Events/EventItem';
 import {ArtistItem} from '@/components/Artists/ArtistItem';
+import {EventType} from '@/api/classes';
 
 export default function Search() {
     const router = useRouter();
@@ -18,7 +19,7 @@ export default function Search() {
     const t = useTranslations('Search');
 
     const {data: artists} = useFetchArtists(router.locale ?? 'cs', searchQuery)
-    const {data: exhibitions} = useFetchEvents(router.locale ?? 'cs','exhibitions', searchQuery)
+    const {data: exhibitions} = useFetchEvents(router.locale ?? 'cs', EventType.Exhibitions, searchQuery)
 
     return (
         <Layout>
@@ -44,7 +45,7 @@ export default function Search() {
             }))}
 
             {exhibitions?.map((event => (
-                    <EventItem event={event} key={event.Id} useH2={true} type={'exhibitions'} />
+                    <EventItem event={event} key={event.Id} useH2={true} type={EventType.Exhibitions} />
                 )
             ))}
         </Layout>

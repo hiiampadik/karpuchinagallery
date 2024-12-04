@@ -2,8 +2,7 @@
 import Layout from "../../components/Layout";
 import React, {useMemo, useState} from "react";
 import {GetStaticPropsContext} from 'next';
-import {useFetchArtworks} from '@/api';
-import {useFetchArtist} from '@/api';
+import {useFetchArtist, useFetchArtworks} from '@/api';
 import {useParams} from 'next/navigation';
 import {useRouter} from 'next/router';
 import styles from './index.module.scss'
@@ -11,7 +10,7 @@ import {useTranslations} from 'next-intl';
 import BlockContent from '@/components/Sanity/BlockContent';
 import EventItem from '@/components/Events/EventItem';
 import Link from 'next/link';
-import {Artwork, EventType, Event} from '@/api/classes';
+import {Artwork, Event, EventType} from '@/api/classes';
 import ArtworkDetail from '@/components/Artworks/ArtworkDetails';
 import ArtworkItem from '@/components/Artworks/ArtworkItem';
 import {useDisableScroll} from '@/components/utils/useDisableScroll';
@@ -83,7 +82,7 @@ export default function Artist() {
                                   <h2>{t('exhibitions')}</h2>
                                   <div className={styles.exhibitions}>
                                       {exhibitions.map(exhibition => (
-                                          <EventItem event={exhibition} key={exhibition.Id} useH2={false} type={'exhibitions'}/>
+                                          <EventItem event={exhibition} key={exhibition.Id} useH2={false} type={EventType.Exhibitions}/>
                                       ))}
                                   </div>
                               </div>
@@ -94,7 +93,7 @@ export default function Artist() {
                                   <h2>{t('fairs')}</h2>
                                   <div className={styles.exhibitions}>
                                       {fairs.map(fair => (
-                                          <EventItem event={fair} key={fair.Id} useH2={false} type={'fairs'}/>
+                                          <EventItem event={fair} key={fair.Id} useH2={false} type={EventType.Fairs}/>
                                       ))}
                                   </div>
                               </div>

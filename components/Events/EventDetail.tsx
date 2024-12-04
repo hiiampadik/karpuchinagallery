@@ -1,7 +1,7 @@
 'use client'
 import styles from '@/styles/eventdetails.module.scss';
 import React, {FunctionComponent, useState} from 'react';
-import {Artwork, EventDetail as EventDetailClass} from '@/api/classes';
+import {Artwork, EventDetail as EventDetailClass, EventType} from '@/api/classes';
 import Layout from '@/components/Layout';
 import GallerySwiper from '@/components/Sanity/GallerySwiper';
 import BlockContent from '@/components/Sanity/BlockContent';
@@ -16,7 +16,7 @@ import ArtworkDetail from '@/components/Artworks/ArtworkDetails';
 
 interface EventDetailProps {
     readonly event: EventDetailClass | null
-    readonly type: 'fairs' | 'exhibitions'
+    readonly type: EventType
 }
 const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
     const [showArtwork, setArtwork] = useState<Artwork | null>(null)
@@ -59,7 +59,7 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
 
                         <div className={styles.curatorsTextContainer}>
                             <h2>
-                                {type === 'fairs' ? t('curatorsText') : t('text')}
+                                {type === EventType.Fairs ? t('curatorsText') : t('text')}
                             </h2>
                             <BlockContent blocks={event.Text}/>
                         </div>
@@ -97,7 +97,7 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
                         }
 
                         <div className={styles.allEvents}>
-                            {type === 'fairs' ?
+                            {type === EventType.Fairs ?
                                 <Link href={"/fairs"}>
                                     {t('allFairs')}
                                 </Link>
