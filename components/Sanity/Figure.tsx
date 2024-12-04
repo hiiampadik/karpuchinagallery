@@ -9,14 +9,16 @@ import {classNames} from '@/components/utils/classNames';
 const builder = imageUrlBuilder(client);
 
 interface FigureProps {
-    readonly image: any;
+    readonly image: {_type: 'image', asset: {_ref: string, _type: "reference"}};
     readonly alt?: string | null
     readonly className?: string
     readonly placeholderBlur?: boolean
     readonly onLoad?: () => void
+    readonly onClick?: () => void
     readonly fullWidth?: boolean
     readonly galleryImage?: boolean
     readonly loading?: 'lazy' | 'eager'
+    readonly sizes?: string
 }
 
 
@@ -27,10 +29,11 @@ const Figure: FunctionComponent<FigureProps> = (
         placeholderBlur = false,
         fullWidth = false,
         galleryImage = false,
+        sizes,
         onLoad,
+        onClick,
         loading
     }) => {
-
     const { innerWidth, innerHeight } = window;
 
     const [height, width] = useMemo(() => {
@@ -38,8 +41,10 @@ const Figure: FunctionComponent<FigureProps> = (
         return [dimensions.height, dimensions.width]
     }, [image])
 
-    const sizes = useMemo(() => {
-        if (fullWidth){
+    const resolvedSizes = useMemo(() => {
+        if (sizes){
+            return sizes
+        } else if (fullWidth){
             return "100vw"
         } else if (galleryImage) {
             const ratio = width / height;
@@ -59,9 +64,10 @@ const Figure: FunctionComponent<FigureProps> = (
     return (
         <Image
             loading={loading}
+            onClick={onClick}
             onLoad={() => onLoad?.()}
             className={classNames([className])}
-            sizes={sizes}
+            sizes={resolvedSizes}
             width={width}
             height={height}
             src={builder.image(image).auto("format").url()}

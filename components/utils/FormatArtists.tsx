@@ -9,10 +9,10 @@ import {classNames} from '@/components/utils/classNames';
 interface FormatArtistsProps {
     readonly artists: string[] | null
     readonly max3Artists?: boolean
-    readonly conjunctions?: boolean
+    readonly showBy?: boolean
 }
 
-const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists, max3Artists=false, conjunctions=true}) => {
+const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists, max3Artists=false, showBy=true}) => {
     const t = useTranslations('Homepage');
 
     const formatedNames = useMemo(() => {
@@ -61,14 +61,15 @@ const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists, max3Arti
                 );
             }
         }
-    }, [artists, t]);
+    }, [artists, max3Artists, t]);
 
     if (!formatedNames) {return <></>}
 
     return (
         <>
-            <span className={classNames([styles.opacity])}>{t('by')}</span>
-            {' '}
+            {showBy &&
+                <><span className={classNames([styles.opacity])}>{t('by')}</span>{' '}</>
+            }
             {formatedNames}
         </>
     )

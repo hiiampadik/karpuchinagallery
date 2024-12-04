@@ -2,7 +2,7 @@
 import React, {FunctionComponent} from 'react';
 import {useTranslations} from 'next-intl';
 import FormatArtists from '@/components/utils/FormatArtists';
-import {Event} from '@/api/classes';
+import {Event, EventType} from '@/api/classes';
 import {useRouter} from 'next/router';
 import LocalizedDate from '@/components/utils/LocalizeDate';
 import styles from '../common.module.scss'
@@ -32,7 +32,7 @@ const EventTitle: FunctionComponent<EventTitleProps> = ({event, timeContext, fro
             <span className={styles.title}>{event.Title}</span>
             {event.Artists && event.Artists.length > 0 &&
                 <>
-                    {' '}<FormatArtists artists={event.Artists} max3Artists={fromHomepage}/>
+                    {event.Type === EventType.Exhibitions ? ' ' : <br />}<FormatArtists artists={event.Artists} max3Artists={fromHomepage} showBy={event.Type === EventType.Exhibitions}/>
                 </>
             }
             {' '}

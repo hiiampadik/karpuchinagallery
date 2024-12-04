@@ -1,7 +1,7 @@
 import styles from '../Layout/index.module.scss'
 import Link from 'next/link';
 import React, {FunctionComponent, useState} from 'react';
-import {Event} from '@/api/classes';
+import {Event, EventType} from '@/api/classes';
 import FormatArtists from '@/components/utils/FormatArtists';
 import Figure from '@/components/Sanity/Figure';
 import figureStyles from '@/components/Sanity/Figure.module.scss';
@@ -10,12 +10,12 @@ import {classNames} from '@/components/utils/classNames';
 interface EventItemProps {
     readonly event: Event;
     readonly useH2: boolean
-    readonly type: 'fairs' | 'exhibitions'
+    readonly type: EventType
 }
 
 const EventItem: FunctionComponent<EventItemProps> = ({event, useH2, type}) => {
     const [loaded, setLoaded] = useState(false)
-    const hrefType = type === 'exhibitions' ? 'exhibition' : 'fair'
+    const hrefType = type === EventType.Exhibitions ? 'exhibition' : 'fair'
 
     return (
         <Link href={`/${hrefType}/[slug]`}
@@ -32,12 +32,12 @@ const EventItem: FunctionComponent<EventItemProps> = ({event, useH2, type}) => {
             {useH2 ?
                 <h2>
                     <span className={styles.italic}>{event.Title}</span>
-                    {' '}<FormatArtists artists={event.Artists} conjunctions={type === 'exhibitions'}/>
+                    {type === EventType.Exhibitions ? ' ' : <br />}<FormatArtists artists={event.Artists} showBy={type === 'exhibitions'}/>
                 </h2>
                 :
                 <h3>
                     <span className={styles.italic}>{event.Title}</span>
-                    {' '}<FormatArtists artists={event.Artists} conjunctions={type === 'exhibitions'}/>
+                    {type === EventType.Exhibitions ? ' ' : <br />}<FormatArtists artists={event.Artists} showBy={type === 'exhibitions'}/>
                 </h3>
             }
         </Link>

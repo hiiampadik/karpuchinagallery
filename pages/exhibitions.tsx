@@ -4,12 +4,13 @@ import {useRouter} from 'next/router';
 import {useFetchEvents} from '@/api';
 import React from 'react';
 import EventList from '@/components/Events/EventList';
+import {EventType} from '@/api/classes';
 
 export default function Exhibitions() {
     const router = useRouter();
     const {data: exhibitions} = useFetchEvents(router.locale ?? 'cs', 'exhibitions')
     return (
-       <EventList events={exhibitions ?? []} type={'exhibitions'} />
+       <EventList events={exhibitions ?? []} type={EventType.Exhibitions} />
     );
 }
 

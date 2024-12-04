@@ -4,13 +4,14 @@ import {useRouter} from 'next/router';
 import {useFetchEvents} from '@/api';
 import React from 'react';
 import EventList from '@/components/Events/EventList';
+import {EventType} from '@/api/classes';
 
 export default function Fairs() {
     const router = useRouter();
     const {data: fairs} = useFetchEvents(router.locale ?? 'cs', 'fairs')
 
     return (
-        <EventList events={fairs ?? []} type={'fairs'}/>
+        <EventList events={fairs ?? []} type={EventType.Fairs}/>
     );
 }
 

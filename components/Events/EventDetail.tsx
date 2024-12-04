@@ -1,7 +1,7 @@
 'use client'
 import styles from '@/styles/eventdetails.module.scss';
-import React, {FunctionComponent} from 'react';
-import {EventDetail as EventDetailClass} from '@/api/classes';
+import React, {FunctionComponent, useState} from 'react';
+import {Artwork, EventDetail as EventDetailClass} from '@/api/classes';
 import Layout from '@/components/Layout';
 import GallerySwiper from '@/components/Sanity/GallerySwiper';
 import BlockContent from '@/components/Sanity/BlockContent';
@@ -9,6 +9,9 @@ import Link from 'next/link';
 import Figure from '@/components/Sanity/Figure';
 import {useTranslations} from 'next-intl';
 import EventTitle, {TimeContext} from '@/components/Events/EventTitle';
+import ArtworkItem from '@/components/Artworks/ArtworkItem';
+import {useDisableScroll} from '@/components/utils/useDisableScroll';
+import ArtworkDetail from '@/components/Artworks/ArtworkDetails';
 
 
 interface EventDetailProps {
@@ -16,7 +19,9 @@ interface EventDetailProps {
     readonly type: 'fairs' | 'exhibitions'
 }
 const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
-    
+    const [showArtwork, setArtwork] = useState<Artwork | null>(null)
+    useDisableScroll(showArtwork !== null)
+
     const t = useTranslations('Event');
     const getTimeContext = (event: EventDetailClass) => {
         const today = new Date();
@@ -37,84 +42,79 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
     };
 
 
+
     return (
-        <Layout >
-            {event &&
-                <div className={styles.eventContainer}>
-                    <div className={styles.eventFold}>
-                        <EventTitle event={event} timeContext={getTimeContext(event)} gallerySpace={event.GallerySpace}/>
-                        {event.Gallery &&
-                            <div className={styles.eventGallery}>
-                                <GallerySwiper images={event.Gallery}></GallerySwiper>
-                            </div>
-                        }
-                    </div>
-
-                    <div className={styles.curatorsTextContainer}>
-                        <h2>
-                            {type === 'fairs' ? t('curatorsText') : t('text')}
-                        </h2>
-                        <BlockContent blocks={event.Text}/>
-                    </div>
-
-                    {event.Documents &&
-                        <div className={styles.documentsContainer}>
-                            <h2>
-                                {t('documents')}
-                            </h2>
-                            <div className={styles.documents}>
-                                {event.Documents.map(document => (
-                                    <Link href={document.Url} download={true} key={document.Id}>
-                                        <Figure
-                                            image={document.Cover}
-                                            alt={(document.Alt)}
-                                        />
-                                    </Link>
-                                ))}
-
-                            </div>
+        <>
+            <Layout >
+                {event &&
+                    <div className={styles.eventContainer}>
+                        <div className={styles.eventFold}>
+                            <EventTitle event={event} timeContext={getTimeContext(event)} gallerySpace={event.GallerySpace}/>
+                            {event.Gallery &&
+                                <div className={styles.eventGallery}>
+                                    <GallerySwiper images={event.Gallery}></GallerySwiper>
+                                </div>
+                            }
                         </div>
-                    }
 
-                    {event.Artworks && event.Artworks.length > 0 &&
-                        <div className={styles.selectedWorksContainer}>
+                        <div className={styles.curatorsTextContainer}>
                             <h2>
-                                {t('selectedWorks')}
+                                {type === 'fairs' ? t('curatorsText') : t('text')}
                             </h2>
-                            <div className={styles.selectedWorks}>
-                                {event.Artworks.map(artwork => (
-                                    <div key={artwork.Id} className={styles.work}>
-                                        <div className={styles.cover}>
+                            <BlockContent blocks={event.Text}/>
+                        </div>
+
+                        {event.Documents &&
+                            <div className={styles.documentsContainer}>
+                                <h2>
+                                    {t('documents')}
+                                </h2>
+                                <div className={styles.documents}>
+                                    {event.Documents.map(document => (
+                                        <Link href={document.Url} download={true} key={document.Id}>
                                             <Figure
-                                                image={artwork.Cover}
-                                                alt={artwork.Title.concat(" – Artwork Cover")}
+                                                image={document.Cover}
+                                                alt={(document.Alt)}
                                             />
-                                        </div>
-                                        <h3>
-                                            {artwork.Title} {artwork.Year && `(${artwork.Year})`}
-                                        </h3>
-                                    </div>
-                                ))}
+                                        </Link>
+                                    ))}
+
+                                </div>
                             </div>
-                        </div>
-                    }
-
-                    <div className={styles.allEvents}>
-                        {type === 'fairs' ?
-                            <Link href={"/fairs"}>
-                                {t('allFairs')}
-                            </Link>
-                            :
-                            <Link href={"/exhibitions"}>
-                                {t('allExhibitions')}
-                            </Link>
                         }
+
+                        {event.Artworks && event.Artworks.length > 0 &&
+                            <div className={styles.selectedWorksContainer}>
+                                <h2>
+                                    {t('works')}
+                                </h2>
+                                <div className={styles.selectedWorks}>
+                                    {event.Artworks.map(artwork => (
+                                        <ArtworkItem key={artwork.Id} artwork={artwork} onOpenArtwork={setArtwork} />
+                                    ))}
+                                </div>
+                            </div>
+                        }
+
+                        <div className={styles.allEvents}>
+                            {type === 'fairs' ?
+                                <Link href={"/fairs"}>
+                                    {t('allFairs')}
+                                </Link>
+                                :
+                                <Link href={"/exhibitions"}>
+                                    {t('allExhibitions')}
+                                </Link>
+                            }
+                        </div>
                     </div>
+                }
+            </Layout>
 
-
-                </div>
+            {showArtwork &&
+                <ArtworkDetail handleArtworkChange={(value) => setArtwork(value)} artwork={showArtwork} otherArtworks={event?.Artworks ?? []} />
             }
-        </Layout>
+        </>
     )
 }
 

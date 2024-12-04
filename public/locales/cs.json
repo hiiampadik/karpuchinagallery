@@ -56,12 +56,13 @@
     "curatorsText": "Kurátorský text",
     "text": "Text",
     "documents": "Dokumenty",
-    "selectedWorks": "Práce (výběr)",
+    "works": "Práce",
     "allExhibitions": "Všechny výstavy",
     "allFairs": "Všechny veletrhy"
   },
 
   "Artwork": {
-    "close": "Zavřít"
+    "close": "Zavřít",
+    "of": "z"
   }
 }

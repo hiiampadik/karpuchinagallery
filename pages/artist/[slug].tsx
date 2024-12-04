@@ -9,11 +9,12 @@ import {useRouter} from 'next/router';
 import styles from './index.module.scss'
 import {useTranslations} from 'next-intl';
 import BlockContent from '@/components/Sanity/BlockContent';
-import Figure from '@/components/Sanity/Figure';
 import EventItem from '@/components/Events/EventItem';
 import Link from 'next/link';
 import {Artwork, EventType, Event} from '@/api/classes';
 import ArtworkDetail from '@/components/Artworks/ArtworkDetails';
+import ArtworkItem from '@/components/Artworks/ArtworkItem';
+import {useDisableScroll} from '@/components/utils/useDisableScroll';
 
 export default function Artist() {
     const params = useParams()
@@ -24,6 +25,7 @@ export default function Artist() {
     const t = useTranslations('Artist');
 
     const [showArtwork, setArtwork] = useState<Artwork | null>(null)
+    useDisableScroll(showArtwork !== null)
 
     const artistArtworks = useMemo(() => {
         if (artworks === null || artist === null){
@@ -70,17 +72,7 @@ export default function Artist() {
                                   <h2>{t('selectedWorks')}</h2>
                                   <div className={styles.selectedWorks}>
                                       {artistArtworks.map(artwork => (
-                                          <div key={artwork.Id} className={styles.work} onClick={() => setArtwork(artwork)}>
-                                              <div className={styles.cover}>
-                                                  <Figure
-                                                      image={artwork.Cover}
-                                                      alt={artwork.Title.concat(" – Artwork Cover")}
-                                                  />
-                                              </div>
-                                              <h3>
-                                                  {artwork.Title} {artwork.Year && `(${artwork.Year})`}
-                                              </h3>
-                                          </div>
+                                          <ArtworkItem key={artwork.Id} artwork={artwork} onOpenArtwork={setArtwork} />
                                       ))}
                                   </div>
                               </div>
@@ -183,7 +175,7 @@ export default function Artist() {
               </Layout>
 
             {showArtwork &&
-                <ArtworkDetail handleClose={() => setArtwork(null)} artwork={showArtwork} />
+                <ArtworkDetail handleArtworkChange={(value) => setArtwork(value)} artwork={showArtwork} otherArtworks={artistArtworks}/>
             }
         </>
     )

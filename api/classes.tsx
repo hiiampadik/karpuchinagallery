@@ -178,8 +178,8 @@ export class Artwork {
         public readonly Artist: {Id: string, Name: string, Slug: string},
         public readonly ShowInSelection: boolean,
         public readonly Cover: any, // todo,
-        public readonly Info: PortableTextBlock | null,
-        public readonly Gallery: Image[] | null
+        public readonly Info: PortableTextBlock,
+        public readonly Gallery: Image[]
     ) {}
 
     public static fromPayload(payload: any, locale: string): Artwork {

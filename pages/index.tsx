@@ -12,6 +12,7 @@ import LocalizedDate from '@/components/utils/LocalizeDate';
 import Figure from '@/components/Sanity/Figure';
 import {replaceSpaces} from '@/components/utils/replaceSpaces';
 import EventTitle, {TimeContext} from '@/components/Events/EventTitle';
+import {EventType} from '@/api/classes';
 
 export default function Home() {
     const router = useRouter();
@@ -49,7 +50,7 @@ export default function Home() {
                                     {' '}<span className={styles.title}>{homepage.Upcoming.Title}</span>
                                     {homepage.Upcoming.Artists && homepage.Upcoming.Artists.length > 0 &&
                                         <>
-                                            {' '}<FormatArtists artists={homepage.Upcoming.Artists} />
+                                            {homepage.Upcoming.Type === EventType.Exhibitions ? ' ' : <br />}<FormatArtists artists={homepage.Upcoming.Artists} showBy={homepage.Upcoming.Type === EventType.Exhibitions}/>
                                         </>
                                     }
                                     {' '}

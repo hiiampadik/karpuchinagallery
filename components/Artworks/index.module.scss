@@ -3,7 +3,7 @@
 
 .artworkDetailContainer {
   position: fixed;
-  z-index: 1;
+  z-index: 1000;
   top: 0;
   left: 0;
   right: 0;
@@ -14,23 +14,108 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: scroll;
 }
 
-.artworkClose {
-  font-size: 27px;
-  line-height: 33px;
-  font-family: Rhymes, serif;
+.artworkHeader{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
 
-  border: none;
-  padding: 0;
-  background: none;
-  cursor: pointer;
-  align-self: flex-end;
-  color: $text-secondary-default;
+  .number {
+    width: 15px;
+    display: inline-block;
+    text-align: right;
+  }
+  .numberWide{
+    width: 30px;
+    display: inline-block;
+    text-align: right;
+  }
+  p {
+    font-size: 27px;
+    line-height: 33px;
+    font-family: Rhymes, serif;
+  }
 
-  @media (hover: hover) {
-    &:hover {
-      color: $text-primary-default;
+  .artworkClose {
+    font-size: 27px;
+    line-height: 33px;
+    font-family: Rhymes, serif;
+
+    border: none;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+    align-self: flex-end;
+    color: $text-secondary-default;
+
+    @media (hover: hover) {
+      &:hover {
+        color: $text-primary-default;
+      }
     }
+  }
+}
+
+.artworkOtherWorks {
+  margin: 26px 0 18px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  .otherArtworkCover{
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+    cursor: pointer;
+  }
+}
+
+.artworkGallery{
+  position: relative;
+  width: 100%;
+  max-height: calc(100vh - 450px);
+  @supports (flex: 0 1 calc(100dvh - 450px)) {
+    max-height: calc(100dvh - 450px);
+  }
+  img {
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+  }
+
+  .prev, .next{
+    height: 100%;
+    width: 50%;
+    position: absolute;
+    top: 0;
+    background: none;
+    border: 0;
+    z-index: 1000;
+  }
+  .prev{
+    left: 0;
+    cursor: w-resize;
+
+  }
+  .next {
+    right: 0;
+    cursor: e-resize;
+  }
+}
+
+.artworkDescription {
+  margin-top: 7px;
+  width: 100%;
+  p {
+    font-size: 12px;
+    font-family: Rhymes, serif;
+
+  }
+  .title{
+    font-style: italic;
   }
 }

@@ -8,6 +8,7 @@ import {usePathname} from 'next/navigation';
 import SearchIcon from '../../public/SearchIcon.svg'
 import Image from 'next/image'
 import Overlay from '@/components/Overlay';
+import {useDisableScroll} from '@/components/utils/useDisableScroll';
 
 const Navigation: FunctionComponent = () => {
     const router = useRouter();
@@ -24,18 +25,7 @@ const Navigation: FunctionComponent = () => {
         return () => router.events.off('routeChangeComplete', handleRouteChange);
     }, [router.events]);
 
-    useEffect(() => {
-        if (showOverlay === null){
-            const scrollY = document.body.style.top
-            document.body.style.position = ''
-            document.body.style.top = ''
-            window.scrollTo(0, parseInt(scrollY || '0') * -1)
-        } else {
-            document.body.style.top = `-${window.scrollY}px`
-            document.body.style.position = 'fixed'
-        }
-    }, [showOverlay])
-
+    useDisableScroll(showOverlay !== null)
 
     return (
         <>
