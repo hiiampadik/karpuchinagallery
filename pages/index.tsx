@@ -56,7 +56,7 @@ export default function Home() {
                                     {' '}
                                     <span className={styles.note}>
                                         {homepage.Upcoming.ToDate && <>{t('from')}{replaceSpaces(' ')}</>}
-                                        {replaceSpaces(LocalizedDate(homepage.Upcoming.OpeningDate, router.locale ?? 'cs'))}
+                                        {replaceSpaces(LocalizedDate(homepage.Upcoming.FromDate, router.locale ?? 'cs'))}
 
                                     </span>
                                 </h1>

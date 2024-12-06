@@ -19,11 +19,8 @@ export class Homepage {
 
 export class About {
     public constructor(
-        public readonly Contact: PortableTextBlock,
-        public readonly Address: PortableTextBlock,
-        public readonly Connect: PortableTextBlock,
-        public readonly Footer: PortableTextBlock,
-        public readonly Open: PortableTextBlock,
+        public readonly LeftColumn: PortableTextBlock,
+        public readonly RightColumn: PortableTextBlock,
         public readonly Bio: PortableTextBlock,
         public readonly Logos: Image[] | null,
         public readonly Gallery: Image[] | null,
@@ -31,11 +28,8 @@ export class About {
 
     public static fromPayload(payload: any, locale: string): About {
         return new About(
-            payload.contact[locale],
-            payload.address[locale],
-            payload.connect[locale],
-            payload.footer[locale],
-            payload.open[locale],
+            payload.leftColumn[locale],
+            payload.rightColumn[locale],
             payload.bio[locale],
             payload.logos?.map((logo: any) => Image.fromPayload(logo, locale)) ?? null,
             payload.gallery?.map((logo: any) => Image.fromPayload(logo, locale)) ?? null,
@@ -103,8 +97,8 @@ export class Event {
         public readonly Slug: string,
         public readonly Artists: string[] | null,
         public readonly OpeningDate: string,
-        public readonly FromDate: string | null,
-        public readonly ToDate: string | null,
+        public readonly FromDate: string,
+        public readonly ToDate: string,
         public readonly Color: string | null,
         public readonly Cover: any, // todo
     ) {}
@@ -117,8 +111,8 @@ export class Event {
             payload.slug.current,
             payload.artists ?? null,
             payload.openingDate,
-            payload.fromDate ?? null,
-            payload.toDate ?? null,
+            payload.fromDate,
+            payload.toDate,
             payload.color?.hex ?? null,
             payload.cover,
         );
@@ -135,8 +129,8 @@ export class EventDetail {
         public readonly Curators: string[] | null,
         public readonly GallerySpace: string | null,
         public readonly OpeningDate: string,
-        public readonly FromDate: string | null,
-        public readonly ToDate: string | null,
+        public readonly FromDate: string,
+        public readonly ToDate: string,
         public readonly Color: string | null,
         public readonly Cover: any, // todo
         public readonly Documents: Document[] | null,
@@ -156,8 +150,8 @@ export class EventDetail {
             payload.curators ?? null,
             payload.gallerySpace ?? null,
             payload.openingDate,
-            payload.fromDate ?? null,
-            payload.toDate ?? null,
+            payload.fromDate,
+            payload.toDate,
             payload.color?.hex ?? null,
             payload.cover,
             payload.documents?.map((document: any) => Document.fromPayload(document)) ?? null,

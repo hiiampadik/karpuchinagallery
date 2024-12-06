@@ -21,20 +21,10 @@ export default function About() {
                 <>
                     <div className={styles.aboutInfoContainer}>
                         <div>
-                            <h1>{t('contact')}</h1>
-                            <BlockContent blocks={about.Contact}/>
+                            <BlockContent blocks={about.LeftColumn}/>
                         </div>
                         <div>
-                            <h1>{t('address')}</h1>
-                            <BlockContent blocks={about.Address}/>
-                        </div>
-                        <div>
-                            <h1>{t('open')}</h1>
-                            <BlockContent blocks={about.Open}/>
-                        </div>
-                        <div>
-                            <h1>{t('connect')}</h1>
-                            <BlockContent blocks={about.Connect}/>
+                            <BlockContent blocks={about.RightColumn}/>
                         </div>
                     </div>
 

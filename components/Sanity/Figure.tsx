@@ -73,7 +73,6 @@ const Figure: FunctionComponent<FigureProps> = (
             src={builder.image(image).auto("format").url()}
             alt={alt ?? 'Alt is missing'}
             placeholder={placeholderBlur ? 'blur' : 'empty'}
-            blurDataURL={builder.image(image).width(1).blur(50).url()}
         />
     )
 }

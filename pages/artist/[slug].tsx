@@ -35,8 +35,8 @@ export default function Artist() {
 
     const sortEvents = (events: Event[]) => {
         return events.sort((a, b) => {
-            const dateA = new Date(a.OpeningDate).getTime();
-            const dateB = new Date(b.OpeningDate).getTime();
+            const dateA = new Date(a.FromDate).getTime();
+            const dateB = new Date(b.FromDate).getTime();
             return dateB - dateA;
         });
     }

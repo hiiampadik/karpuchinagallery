@@ -44,7 +44,7 @@ const Fish = () => {
     const circling = new Two.Vector();
     const delta = new Two.Vector();
 
-    const r1 = two.makeSprite('/fish.svg', two.width / 2, two.height / 2);
+    const r1 = two.makeSprite('/ryba.svg', two.width / 2, two.height / 2);
     // r1.scale = 0.62;
     r1.scale = 0.4;
 

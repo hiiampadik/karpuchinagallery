@@ -27,7 +27,7 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
         const today = new Date();
         today.setHours(0, 0, 0, 0)
 
-        const start = new Date(event.OpeningDate);
+        const start = new Date(event.FromDate);
         start.setHours(0, 0, 0, 0)
 
         const end = event.ToDate ? new Date(event.ToDate) : start;

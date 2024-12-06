@@ -17,20 +17,30 @@ export const fetchArtists = async (query: string | null) => {
 
 export const fetchEvents = async (query: string, eventType: EventType, locale: string): Promise<Event[]> => {
     try {
-        const events = await client.fetch(`               
-                        *[_type == "${eventType}" && (title.cs match $queryString + "*" || title.en match $queryString + "*")] {
-                            ...,
-                            _id,
-                            title,
-                            slug,
-                            artists,
-                            openingDate,
-                            fromDate,
-                            toDate,
-                            color,
-                            cover,
-                        }
-                        `, {queryString: query});
+        const queryString = `*${query}*`;
+
+        const events = await client.fetch(
+            `*[_type == $eventType && (
+                title.cs match $queryString ||
+                title.en match $queryString ||
+                artists[] match $queryString
+            )] {
+                ..., 
+                _id, 
+                title, 
+                slug, 
+                artists, 
+                openingDate, 
+                fromDate, 
+                toDate, 
+                color, 
+                cover
+            }`,
+            {
+                eventType,
+                queryString
+            }
+        );
 
         return events ? events.map((value: any) => Event.fromPayload(value, locale)) : []
     } catch (error) {

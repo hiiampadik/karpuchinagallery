@@ -2,7 +2,7 @@
 
 
 .aboutInfoContainer{
-  @include container770px;
+  @include container900px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
@@ -12,6 +12,10 @@
 
   h1 {
     @include labelSmall;
+    margin-top: 60px;
+    &:first-of-type{
+      margin: 0;
+    }
   }
   p {
     font-size: 32px;

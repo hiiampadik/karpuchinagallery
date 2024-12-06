@@ -19,19 +19,16 @@
   height: 100%;
   width: 100vw;
 
-  .swiperSlide {
-    user-select: none;
-  }
 
   img {
     width: auto;
     height: 100%;
-
   }
 
   :global {
     .swiper-slide {
       width: auto !important;
+      //flex-shrink: 1;
     }
     .swiper-pagination {
       color: white;

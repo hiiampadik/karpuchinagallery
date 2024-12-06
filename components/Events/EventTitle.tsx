@@ -38,7 +38,7 @@ const EventTitle: FunctionComponent<EventTitleProps> = ({event, timeContext, fro
             {' '}
             <span className={styles.date}>
                 <span className={styles.dateInner}>
-                    {replaceSpaces(LocalizedDate(event.OpeningDate, router.locale ?? 'cs'))}
+                    {replaceSpaces(LocalizedDate(event.FromDate, router.locale ?? 'cs'))}
                     {event.ToDate &&
                         <>
                             {' - '}

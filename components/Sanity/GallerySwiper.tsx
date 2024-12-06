@@ -3,9 +3,9 @@ import React, {FunctionComponent, useState} from "react";
 import styles from './GalleryBlock.module.scss'
 import {Swiper, SwiperSlide} from "swiper/react";
 import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import "swiper/css/scrollbar";
+// import 'swiper/css/navigation';
+// import 'swiper/css/pagination';
+// import "swiper/css/scrollbar";
 import {FreeMode, Scrollbar} from 'swiper/modules';
 import Figure from '@/components/Sanity/Figure';
 import {Image} from '@/api/classes';
