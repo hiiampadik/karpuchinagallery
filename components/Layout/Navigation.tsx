@@ -154,6 +154,8 @@ const SearchOverlay: FunctionComponent = () => {
                     (events) => {
                         setFairs(events)
                     })
+
+                // todo
             },
             1000,
         ),

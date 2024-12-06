@@ -50,7 +50,7 @@ export default function Home() {
                                     {' '}<span className={styles.title}>{homepage.Upcoming.Title}</span>
                                     {homepage.Upcoming.Artists && homepage.Upcoming.Artists.length > 0 &&
                                         <>
-                                            {homepage.Upcoming.Type === EventType.Exhibitions ? ' ' : <br />}<FormatArtists artists={homepage.Upcoming.Artists} showBy={homepage.Upcoming.Type === EventType.Exhibitions}/>
+                                            {homepage.Upcoming.Type !== EventType.Fairs ? ' ' : <br />}<FormatArtists artists={homepage.Upcoming.Artists} showBy={homepage.Upcoming.Type !== EventType.Fairs}/>
                                         </>
                                     }
                                     {' '}

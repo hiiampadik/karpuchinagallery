@@ -97,11 +97,12 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
                         }
 
                         <div className={styles.allEvents}>
-                            {type === EventType.Fairs ?
+                            {type === EventType.Fairs &&
                                 <Link href={"/fairs"}>
                                     {t('allFairs')}
                                 </Link>
-                                :
+                            }
+                            {type === EventType.Exhibitions &&
                                 <Link href={"/exhibitions"}>
                                     {t('allExhibitions')}
                                 </Link>

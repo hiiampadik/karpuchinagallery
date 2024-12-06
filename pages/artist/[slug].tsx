@@ -41,17 +41,11 @@ export default function Artist() {
         });
     }
 
-    const [exhibitions, fairs] = useMemo(() => {
+    const events = useMemo(() => {
         if (artist === null || artist.Events === null){
-            return [[], []]
+            return []
         }
-        const exhibitions: Event[] = [];
-        const fairs: Event[] = [];
-
-        for (const event of artist.Events){
-            event.Type === EventType.Fairs ? fairs.push(event) : exhibitions.push(event)
-        }
-        return [sortEvents(exhibitions), sortEvents(fairs)]
+        return sortEvents(artist.Events)
     }, [artist])
     return (
         <>
@@ -77,23 +71,12 @@ export default function Artist() {
                               </div>
                           }
 
-                          {exhibitions.length > 0 &&
+                          {events.length > 0 &&
                               <div className={styles.exhibitionsContainer}>
                                   <h2>{t('exhibitions')}</h2>
                                   <div className={styles.exhibitions}>
-                                      {exhibitions.map(exhibition => (
-                                          <EventItem event={exhibition} key={exhibition.Id} useH2={false} type={EventType.Exhibitions}/>
-                                      ))}
-                                  </div>
-                              </div>
-                          }
-
-                          {fairs.length > 0 &&
-                              <div className={styles.exhibitionsContainer}>
-                                  <h2>{t('fairs')}</h2>
-                                  <div className={styles.exhibitions}>
-                                      {fairs.map(fair => (
-                                          <EventItem event={fair} key={fair.Id} useH2={false} type={EventType.Fairs}/>
+                                      {events.map(event => (
+                                          <EventItem event={event} key={event.Id} useH2={false} type={EventType.ArtistsEvents}/>
                                       ))}
                                   </div>
                               </div>

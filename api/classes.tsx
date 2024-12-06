@@ -88,6 +88,7 @@ export class Artist {
 export enum EventType {
     Fairs = 'fairs',
     Exhibitions = 'exhibitions',
+    ArtistsEvents = 'artistsEvents',
 }
 
 

@@ -15,11 +15,20 @@ interface EventItemProps {
 
 const EventItem: FunctionComponent<EventItemProps> = ({event, useH2, type}) => {
     const [loaded, setLoaded] = useState(false)
-    const hrefType = type === EventType.Exhibitions ? 'exhibition' : 'fair'
+    const getHref = () => {
+        switch (type){
+            case EventType.Exhibitions:
+                return 'exhibition'
+            case EventType.ArtistsEvents:
+                return 'artists-event'
+            case EventType.Fairs:
+                return 'fair'
+        }
+    }
 
     return (
-        <Link href={`/${hrefType}/[slug]`}
-              as={`/${hrefType}/${event.Slug}`}
+        <Link href={`/${getHref()}/[slug]`}
+              as={`/${getHref()}/${event.Slug}`}
               key={event.Slug}
               className={classNames([loaded ? figureStyles.loaded : figureStyles.loading, styles.eventContainer])}>
             <div className={styles.cover}>
@@ -32,12 +41,12 @@ const EventItem: FunctionComponent<EventItemProps> = ({event, useH2, type}) => {
             {useH2 ?
                 <h2>
                     <span className={styles.italic}>{event.Title}</span>
-                    {type === EventType.Exhibitions ? ' ' : <br />}<FormatArtists artists={event.Artists} showBy={type === EventType.Exhibitions}/>
+                    {type !== EventType.Fairs ? ' ' : <br />}<FormatArtists artists={event.Artists} showBy={type !== EventType.Fairs}/>
                 </h2>
                 :
                 <h3>
                     <span className={styles.italic}>{event.Title}</span>
-                    {type === EventType.Exhibitions ? ' ' : <br />}<FormatArtists artists={event.Artists} showBy={type === EventType.Exhibitions}/>
+                    {type !== EventType.Fairs ? ' ' : <br />}<FormatArtists artists={event.Artists} showBy={type !== EventType.Fairs}/>
                 </h3>
             }
         </Link>

@@ -32,7 +32,7 @@ const EventTitle: FunctionComponent<EventTitleProps> = ({event, timeContext, fro
             <span className={styles.title}>{event.Title}</span>
             {event.Artists && event.Artists.length > 0 &&
                 <>
-                    {event.Type === EventType.Exhibitions ? ' ' : <br />}<FormatArtists artists={event.Artists} max3Artists={fromHomepage} showBy={event.Type === EventType.Exhibitions}/>
+                    {event.Type !== EventType.Fairs ? ' ' : <br />}<FormatArtists artists={event.Artists} max3Artists={fromHomepage} showBy={event.Type !== EventType.Fairs}/>
                 </>
             }
             {' '}
