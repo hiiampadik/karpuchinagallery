@@ -11,15 +11,23 @@
 
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(18px);
-  padding: 100px 20px;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
+
+  &.scrollable{
+    overflow-y: scroll;
+  }
+  &.notScrollable {
+    overflow-y: hidden;
+  }
 }
 
 
 
 
 .closeButton {
+  margin:  20px 0 10px;
   font-size: 27px;
   line-height: 33px;
   font-family: Rhymes, serif;

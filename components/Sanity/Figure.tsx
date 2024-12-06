@@ -58,7 +58,7 @@ const Figure: FunctionComponent<FigureProps> = (
         } else {
             return "(max-width: 767px) 50vw, (max-width: 1199px) 30vw, 300px"
         }
-    }, [fullWidth, galleryImage, width, height, innerWidth, innerHeight])
+    }, [image, fullWidth, galleryImage, width, height, innerWidth, innerHeight])
 
 
     return (

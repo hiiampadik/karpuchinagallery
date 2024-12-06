@@ -76,7 +76,7 @@ const Navigation: FunctionComponent = () => {
                </div>
            </div>
 
-            <Overlay handleClose={() => setShowOverlay(null)} isOpen={showOverlay !== null} className={styles.menuContainer}>
+            <Overlay handleClose={() => setShowOverlay(null)} isOpen={showOverlay !== null} className={styles.menuContainer} scrollable={showOverlay === 'search'}>
                 {showOverlay === 'menu' &&
                     <NavigationOverlay handleShowSearch={() => setShowOverlay('search')} />
                 }
