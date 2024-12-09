@@ -44,9 +44,9 @@
     height: calc(100vh - 270px);
   }
   @media (max-width: $breakpoint-xs-max) {
-    height: calc(100vh - 240px);
-    @supports (max-height: calc(100dvh - 240px)) {
-      height: calc(100vh - 240px);
+    height: calc(100vh - 180px);
+    @supports (max-height: calc(100dvh - 180px)) {
+      height: calc(100vh - 180px);
     }
   }
 

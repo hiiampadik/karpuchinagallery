@@ -19,7 +19,7 @@ interface EventDetailProps {
     readonly type: EventType
 }
 const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
-    const [showArtwork, setArtwork] = useState<Artwork | null>(null)
+    const [showArtwork, setArtwork] = useState<number | null>(null)
     useDisableScroll(showArtwork !== null)
 
     const t = useTranslations('Event');
@@ -89,8 +89,8 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
                                     {t('works')}
                                 </h2>
                                 <div className={styles.selectedWorks}>
-                                    {event.Artworks.map(artwork => (
-                                        <ArtworkItem key={artwork.Id} artwork={artwork} onOpenArtwork={setArtwork} />
+                                    {event.Artworks.map((artwork, index) => (
+                                        <ArtworkItem key={artwork.Id} artwork={artwork} onOpenArtwork={() => setArtwork(index)} />
                                     ))}
                                 </div>
                             </div>
@@ -112,8 +112,8 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
                 }
             </Layout>
 
-            {showArtwork &&
-                <ArtworkDetail handleArtworkChange={(value) => setArtwork(value)} artwork={showArtwork} otherArtworks={event?.Artworks ?? []} />
+            {showArtwork !== null && event?.Artworks &&
+                <ArtworkDetail handleClose={() => setArtwork(null)} defaultArtwork={showArtwork} artworks={event.Artworks} />
             }
         </>
     )

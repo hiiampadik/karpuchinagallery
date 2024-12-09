@@ -23,7 +23,7 @@ export default function Artist() {
 
     const t = useTranslations('Artist');
 
-    const [showArtwork, setArtwork] = useState<Artwork | null>(null)
+    const [showArtwork, setArtwork] = useState<number | null>(null)
     useDisableScroll(showArtwork !== null)
 
     const artistArtworks = useMemo(() => {
@@ -64,8 +64,8 @@ export default function Artist() {
                               <div className={styles.selectedWorksContainer}>
                                   <h2>{t('selectedWorks')}</h2>
                                   <div className={styles.selectedWorks}>
-                                      {artistArtworks.map(artwork => (
-                                          <ArtworkItem key={artwork.Id} artwork={artwork} onOpenArtwork={setArtwork} />
+                                      {artistArtworks.map((artwork, index) => (
+                                          <ArtworkItem key={artwork.Id} artwork={artwork} onOpenArtwork={() => setArtwork(index)} />
                                       ))}
                                   </div>
                               </div>
@@ -156,8 +156,8 @@ export default function Artist() {
                   }
               </Layout>
 
-            {showArtwork &&
-                <ArtworkDetail handleArtworkChange={(value) => setArtwork(value)} artwork={showArtwork} otherArtworks={artistArtworks}/>
+            {showArtwork !== null &&
+                <ArtworkDetail handleClose={() => setArtwork(null)} defaultArtwork={showArtwork} artworks={artistArtworks}/>
             }
         </>
     )

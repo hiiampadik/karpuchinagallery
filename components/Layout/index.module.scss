@@ -12,9 +12,9 @@
     min-height: calc(100vh - 270px);
   }
   @media (max-width: $breakpoint-xs-max) {
-    min-height: calc(100vh - 240px);
-    @supports (max-height: calc(100dvh - 240px)) {
-      min-height: calc(100vh - 240px);
+    min-height: calc(100vh - 180px);
+    @supports (max-height: calc(100dvh - 180px)) {
+      min-height: calc(100vh - 180px);
     }
   }
 }
@@ -48,7 +48,7 @@
 
   @media (max-width: $breakpoint-xs-max) {
     font-size: 18px;
-    height: 240px;
+    height: 180px;
   }
 
 
@@ -109,7 +109,7 @@
 }
 
 .menuContainer {
-  padding: 100px 0;
+  padding: 100px 0 0;
   display: flex;
   flex-direction: column;
   align-items: center;

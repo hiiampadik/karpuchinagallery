@@ -7,7 +7,7 @@ import figureStyles from '@/components/Sanity/Figure.module.scss';
 
 interface ArtworkItemProps {
     readonly artwork: Artwork;
-    readonly onOpenArtwork: (artwork: Artwork) => void
+    readonly onOpenArtwork: () => void
 }
 
 const ArtworkItem: FunctionComponent<ArtworkItemProps> = ({artwork, onOpenArtwork}) => {
@@ -15,7 +15,7 @@ const ArtworkItem: FunctionComponent<ArtworkItemProps> = ({artwork, onOpenArtwor
 
     return (
         <div className={classNames([styles.work, loaded ? figureStyles.loaded : figureStyles.loading, ])}
-             onClick={() => onOpenArtwork(artwork)}>
+             onClick={() => onOpenArtwork()}>
             <div className={styles.cover}>
                 <Figure
                     onLoad={() => setLoaded(true)}
