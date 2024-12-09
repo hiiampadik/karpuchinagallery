@@ -27,12 +27,6 @@
     @supports (height: 50dvh){
       height: 50dvh
     }
-    @media (max-width: $breakpoint-sm-max) {
-      height: 70vh;
-      @supports (height: 70dvh){
-        height: 70dvh
-      }
-    }
   }
 }
 

@@ -48,13 +48,8 @@ const Figure: FunctionComponent<FigureProps> = (
             return "100vw"
         } else if (galleryImage) {
             const ratio = width / height;
-            if (innerWidth <= 767) {
-                // height 70vh
-                return `${innerHeight * 0.7 * ratio}px`
-            } else {
-                // height 50vh
-                return `${innerHeight * 0.5 * ratio}px`
-            }
+            // height 50vh
+            return `${innerHeight * 0.5 * ratio}px`
         } else {
             return "(max-width: 767px) 50vw, (max-width: 1199px) 30vw, 300px"
         }

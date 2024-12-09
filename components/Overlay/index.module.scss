@@ -21,6 +21,10 @@
   &.notScrollable {
     overflow-y: hidden;
   }
+
+  @media (max-width: $breakpoint-md-max) {
+    padding: 0 16px;
+  }
 }
 
 
@@ -43,6 +47,15 @@
     &:hover {
       color: $text-primary-default;
     }
+  }
+
+  @media (max-width: $breakpoint-md-max) {
+    margin:  16px 0 10px;
+    line-height: 120%;
+  }
+
+  @media (max-width: $breakpoint-xs-max) {
+    font-size: 18px;
   }
 }
 

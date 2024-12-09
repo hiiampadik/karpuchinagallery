@@ -99,7 +99,7 @@ const NavigationOverlay: FunctionComponent<NavigationOverlayProps> = ({handleSho
     const router = useRouter();
 
     return (
-        <div className={styles.searchContainer}>
+        <div className={styles.menuContainer}>
             <Link href={"/artists"}>
                 {t('artists')}
             </Link>

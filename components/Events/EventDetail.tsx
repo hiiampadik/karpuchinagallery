@@ -11,7 +11,7 @@ import {useTranslations} from 'next-intl';
 import EventTitle, {TimeContext} from '@/components/Events/EventTitle';
 import ArtworkItem from '@/components/Artworks/ArtworkItem';
 import {useDisableScroll} from '@/components/utils/useDisableScroll';
-import ArtworkDetail from '@/components/Artworks/ArtworkDetails';
+import ArtworkDetail from '@/components/Artworks/ArtworkDetail';
 
 
 interface EventDetailProps {

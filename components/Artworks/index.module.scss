@@ -10,7 +10,7 @@
   bottom: 0;
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(18px);
-  padding: 100px 20px;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,6 +39,11 @@
     font-family: Rhymes, serif;
   }
 
+  margin:  20px 0 10px;
+  @media (max-width: $breakpoint-md-max) {
+    margin:  16px 0 10px;
+  }
+
   .artworkClose {
     font-size: 27px;
     line-height: 33px;
@@ -55,6 +60,14 @@
       &:hover {
         color: $text-primary-default;
       }
+    }
+
+    @media (max-width: $breakpoint-md-max) {
+      line-height: 120%;
+    }
+
+    @media (max-width: $breakpoint-xs-max) {
+      font-size: 18px;
     }
   }
 }
