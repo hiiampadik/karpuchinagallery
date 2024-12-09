@@ -1,4 +1,3 @@
-import { allSlugsQuery } from '@/data/queries';
 import client from '../client.js'
 
 export const allSlugsQuery = `
@@ -11,7 +10,7 @@ const SiteMap = function () {
 
 export async function getServerSideProps({ res }) {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL;
-    const urls = await sanityClient.fetch(allSlugsQuery);
+    const urls = await client.fetch(allSlugsQuery);
     const slugs = urls.map(
         (page) =>
             `
