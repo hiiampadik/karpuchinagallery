@@ -1,5 +1,5 @@
 'use client'
-import React, {FunctionComponent, PropsWithChildren, useCallback, useState} from 'react';
+import React, {FunctionComponent, PropsWithChildren} from 'react';
 import Head from "next/head";
 import Navigation from './Navigation';
 import Footer from '@/components/Layout/Footer';
@@ -25,11 +25,11 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta
                   name="keywords"
-                  content=""
+                  content="Karpuchina Gallery, Karpuchina, Gallery, Prague, Praha, Contemporary, Art"
                 />
                 <meta
                   name="description"
-                  content=""
+                  content="We are a progressive gallery of contemporary art."
                 />
             </Head>
 

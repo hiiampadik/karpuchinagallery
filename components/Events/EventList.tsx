@@ -39,7 +39,7 @@ const EventList: FunctionComponent<EventsProps> = ({events, type}) => {
 
 
     return (
-        <Layout>
+        <Layout title={type === EventType.Fairs ? 'Fairs | Karpuchina Gallery' : 'Exhibitions | Karpuchina Gallery'}>
             {groupedEventsByYear.map((group) => (
                 <div key={group.year} className={styles.eventYear}>
                     <h1>{group.year}</h1>

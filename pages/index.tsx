@@ -20,7 +20,7 @@ export default function Home() {
     const t = useTranslations('Homepage');
 
     return (
-        <Layout loading={homepage === null}>
+        <Layout title={'Gallery | Karpuchina Gallery'}>
             {homepage &&
                 <div className={styles.homepageContainer}>
                     <Link href="/exhibition/[slug]"

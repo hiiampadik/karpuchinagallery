@@ -138,7 +138,8 @@ export class EventDetail {
         public readonly Cover: any, // todo
         public readonly Documents: Document[] | null,
         public readonly TextAuthor: string | null,
-        public readonly Text: PortableTextBlock,
+        public readonly AlternativeTextTitle: string | null,
+        public readonly Text: PortableTextBlock | null,
         public readonly Artworks: Artwork[] | null,
         public readonly Gallery: Image[] | null,
     ) {}
@@ -159,7 +160,8 @@ export class EventDetail {
             payload.cover,
             payload.documents?.map((document: any) => Document.fromPayload(document)) ?? null,
             payload.textAuthor ?? null,
-            payload.text[locale],
+            payload.alternativeTextTitle ? payload.alternativeTextTitle[locale] : null,
+            payload.text && payload.text[locale].length > 0 ? payload.text[locale] : null,
             payload.artworks?.map((artwork: any) =>  Artwork.fromPayload(artwork, locale)) ?? null,
             payload.gallery?.map((logo: any) => Image.fromPayload(logo, locale)) ?? null,
         );
@@ -175,7 +177,7 @@ export class Artwork {
         public readonly Artist: {Id: string, Name: string, Slug: string},
         public readonly ShowInSelection: boolean,
         public readonly Cover: any, // todo,
-        public readonly Info: PortableTextBlock,
+        public readonly Info: PortableTextBlock | null,
         public readonly Gallery: Image[]
     ) {}
 
@@ -187,7 +189,7 @@ export class Artwork {
             {Id: payload.artist._id, Name: payload.artist.name, Slug: payload.artist.slug.current },
             payload.showInSelection,
             payload.cover,
-            payload.info ? payload.info[locale] : null,
+            payload.info && payload.info[locale].length > 0 ? payload.info[locale] : null,
             payload.gallery?.map((image: any) => Image.fromPayload(image, locale)) ?? null,
         );
     }

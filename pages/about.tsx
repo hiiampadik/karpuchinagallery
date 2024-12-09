@@ -9,6 +9,7 @@ import BlockContent from '@/components/Sanity/BlockContent';
 import React from 'react';
 import GallerySwiper from '@/components/Sanity/GallerySwiper';
 import Figure from '@/components/Sanity/Figure';
+import {EventType} from '@/api/classes';
 
 export default function About() {
     const router = useRouter();
@@ -16,7 +17,7 @@ export default function About() {
     const t = useTranslations('About');
 
     return (
-        <Layout loading={about === null}>
+        <Layout loading={about === null} title={'About | Karpuchina Gallery'}>
             {about &&
                 <>
                     <div className={styles.aboutInfoContainer}>

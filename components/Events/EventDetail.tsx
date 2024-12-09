@@ -41,11 +41,9 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
         return null
     };
 
-
-
     return (
         <>
-            <Layout >
+            <Layout title={event?.Title + ' | Karpuchina Gallery'}>
                 {event &&
                     <div className={styles.eventContainer}>
                         <div className={styles.eventFold}>
@@ -57,12 +55,15 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
                             }
                         </div>
 
-                        <div className={styles.curatorsTextContainer}>
-                            <h2>
-                                {type === EventType.Fairs ? t('curatorsText') : t('text')}
-                            </h2>
-                            <BlockContent blocks={event.Text}/>
-                        </div>
+                        {event.Text &&
+                            <div className={styles.curatorsTextContainer}>
+                                <h2>
+                                    {event.AlternativeTextTitle ?? t('text')}
+                                </h2>
+                                <BlockContent blocks={event.Text}/>
+                                {event.TextAuthor && <p>{'– '}{event.TextAuthor}</p>}
+                            </div>
+                        }
 
                         {event.Documents &&
                             <div className={styles.documentsContainer}>

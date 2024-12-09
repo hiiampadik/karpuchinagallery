@@ -49,7 +49,7 @@ export default function Artist() {
     }, [artist])
     return (
         <>
-            <Layout >
+            <Layout title={artist?.Name + ' | Karpuchina Gallery'}>
                   {artist &&
                       <div className={styles.artistContainer}>
                           <h1>{artist.Name}</h1>
