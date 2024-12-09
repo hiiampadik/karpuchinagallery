@@ -1,7 +1,7 @@
 'use client'
 import styles from '@/styles/eventdetails.module.scss';
 import React, {FunctionComponent, useState} from 'react';
-import {Artwork, EventDetail as EventDetailClass, EventType} from '@/api/classes';
+import {EventDetail as EventDetailClass, EventType} from '@/api/classes';
 import Layout from '@/components/Layout';
 import GallerySwiper from '@/components/Sanity/GallerySwiper';
 import BlockContent from '@/components/Sanity/BlockContent';
@@ -43,11 +43,11 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
 
     return (
         <>
-            <Layout title={event?.Title + ' | Karpuchina Gallery'}>
+            <Layout title={event ? event.Title + ' | Karpuchina Gallery' : 'Karpuchina Gallery'}>
                 {event &&
                     <div className={styles.eventContainer}>
                         <div className={styles.eventFold}>
-                            <EventTitle event={event} timeContext={getTimeContext(event)} gallerySpace={event.GallerySpace}/>
+                            <EventTitle event={event} timeContext={getTimeContext(event)} curators={event.Curators}/>
                             {event.Gallery &&
                                 <div className={styles.eventGallery}>
                                     <GallerySwiper images={event.Gallery}></GallerySwiper>

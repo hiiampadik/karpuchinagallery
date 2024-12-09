@@ -2,7 +2,7 @@
 import React, {FunctionComponent} from 'react';
 import {useTranslations} from 'next-intl';
 import FormatArtists from '@/components/utils/FormatArtists';
-import {Event, EventType} from '@/api/classes';
+import {Event, EventType, EventDetail} from '@/api/classes';
 import {useRouter} from 'next/router';
 import LocalizedDate from '@/components/utils/LocalizeDate';
 import styles from '../common.module.scss'
@@ -15,13 +15,13 @@ export enum TimeContext {
 }
 
 interface EventTitleProps {
-    readonly event: Event
+    readonly event: Event | EventDetail
     readonly timeContext: TimeContext | null
     readonly fromHomepage?: boolean
-    readonly gallerySpace?: string | null;
+    readonly curators?: string[] | null;
 }
 
-const EventTitle: FunctionComponent<EventTitleProps> = ({event, timeContext, fromHomepage = false, gallerySpace}) => {
+const EventTitle: FunctionComponent<EventTitleProps> = ({event, timeContext, fromHomepage = false, curators}) => {
     const t = useTranslations('EventTitle');
     const router = useRouter();
 
@@ -46,8 +46,11 @@ const EventTitle: FunctionComponent<EventTitleProps> = ({event, timeContext, fro
                         </>
                     }
                 </span>
-                {gallerySpace &&
-                    <span className={styles.spaceName}>{replaceSpaces(gallerySpace)}</span>
+                {curators && curators.length > 0 &&
+                    <span className={styles.spaceName}>
+                        {curators.length === 1 ? t('curator') : t('curators')}{" "}
+                        <FormatArtists artists={curators} max3Artists={false} showBy={false}/>
+                    </span>
                 }
             </span>
         </h1>
