@@ -39,9 +39,9 @@ const EventList: FunctionComponent<EventsProps> = ({events, type}) => {
 
 
     return (
-        <Layout title={type === EventType.Fairs ? 'Fairs | Karpuchina Gallery' : 'Exhibitions | Karpuchina Gallery'}>
+        <Layout title={type === EventType.Fairs ? 'Fairs' : 'Exhibitions'}>
             {groupedEventsByYear.map((group) => (
-                <div key={group.year} className={styles.eventYear}>
+                <section key={group.year} className={styles.eventYear}>
                     <h1>{group.year}</h1>
                     <div className={styles.eventContainer}>
                         {group.events.map((event => (
@@ -49,7 +49,7 @@ const EventList: FunctionComponent<EventsProps> = ({events, type}) => {
                             )
                         ))}
                     </div>
-                </div>
+                </section>
             ))}
         </Layout>
     );

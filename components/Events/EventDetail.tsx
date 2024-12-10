@@ -43,30 +43,30 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
 
     return (
         <>
-            <Layout title={event ? event.Title + ' | Karpuchina Gallery' : 'Karpuchina Gallery'}>
+            <Layout title={event?.Title}>
                 {event &&
-                    <div className={styles.eventContainer}>
-                        <div className={styles.eventFold}>
+                    <article className={styles.eventContainer}>
+                        <section className={styles.eventFold}>
                             <EventTitle event={event} timeContext={getTimeContext(event)} curators={event.Curators}/>
                             {event.Gallery &&
                                 <div className={styles.eventGallery}>
                                     <GallerySwiper images={event.Gallery}></GallerySwiper>
                                 </div>
                             }
-                        </div>
+                        </section>
 
                         {event.Text &&
-                            <div className={styles.curatorsTextContainer}>
+                            <section className={styles.curatorsTextContainer}>
                                 <h2>
                                     {event.AlternativeTextTitle ?? t('text')}
                                 </h2>
                                 <BlockContent blocks={event.Text}/>
                                 {event.TextAuthor && <p>{'– '}{event.TextAuthor}</p>}
-                            </div>
+                            </section>
                         }
 
                         {event.Documents &&
-                            <div className={styles.documentsContainer}>
+                            <section className={styles.documentsContainer}>
                                 <h2>
                                     {t('documents')}
                                 </h2>
@@ -81,11 +81,11 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
                                     ))}
 
                                 </div>
-                            </div>
+                            </section>
                         }
 
                         {event.Artworks && event.Artworks.length > 0 &&
-                            <div className={styles.selectedWorksContainer}>
+                            <section className={styles.selectedWorksContainer}>
                                 <h2>
                                     {t('works')}
                                 </h2>
@@ -94,10 +94,10 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
                                         <ArtworkItem key={artwork.Id} artwork={artwork} onOpenArtwork={() => setArtwork(index)} />
                                     ))}
                                 </div>
-                            </div>
+                            </section>
                         }
 
-                        <div className={styles.allEvents}>
+                        <section className={styles.allEvents}>
                             {type === EventType.Fairs &&
                                 <Link href={"/fairs"}>
                                     {t('allFairs')}
@@ -108,8 +108,8 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
                                     {t('allExhibitions')}
                                 </Link>
                             }
-                        </div>
-                    </div>
+                        </section>
+                    </article>
                 }
             </Layout>
 

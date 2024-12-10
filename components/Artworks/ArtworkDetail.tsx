@@ -30,7 +30,7 @@ const ArtworkDetail: FunctionComponent<ArtworkDetailProps> = ({handleClose, defa
 
 
     return (
-        <div className={styles.artworkDetailContainer}>
+        <section className={styles.artworkDetailContainer}>
             <div className={styles.artworkHeader}>
                 <p>
                     <span className={selectedArtwork.Gallery.length >= 10 ? styles.numberWide : styles.number}>{selectedArtworkFigure + 1}</span>{' '}{t('of')}{' '}{selectedArtwork.Gallery.length}
@@ -77,7 +77,7 @@ const ArtworkDetail: FunctionComponent<ArtworkDetailProps> = ({handleClose, defa
             </div>
 
 
-        </div>
+        </section>
     );
 };
 

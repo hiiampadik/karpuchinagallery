@@ -20,9 +20,9 @@ export default function Home() {
     const t = useTranslations('Homepage');
 
     return (
-        <Layout title={'Gallery | Karpuchina Gallery'}>
+        <Layout>
             {homepage &&
-                <div className={styles.homepageContainer}>
+                <section className={styles.homepageContainer}>
                     <Link href="/exhibition/[slug]"
                           as={`/exhibition/${homepage.OnDisplay.Slug}`}
                           key={homepage.OnDisplay.Slug}
@@ -68,7 +68,7 @@ export default function Home() {
                             {t('olderExhibition')}
                         </Link>
                     </div>
-                </div>
+                </section>
             }
         </Layout>
 );

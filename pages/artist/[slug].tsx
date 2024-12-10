@@ -49,41 +49,41 @@ export default function Artist() {
     }, [artist])
     return (
         <>
-            <Layout title={artist ? artist.Name + ' | Karpuchina Gallery' : 'Karpuchina Gallery'}>
+            <Layout title={artist?.Name}>
                   {artist &&
-                      <div className={styles.artistContainer}>
+                      <article className={styles.artistContainer}>
                           <h1>{artist.Name}</h1>
-                          <div className={styles.bioContainer}>
+                          <section className={styles.bioContainer}>
                               <h2>{t('bio')}</h2>
                               <div className={styles.bioContainerParagraphs}>
                                 <BlockContent blocks={artist.Bio}/>
                               </div>
-                          </div>
+                          </section>
 
                           {artistArtworks.length > 0 &&
-                              <div className={styles.selectedWorksContainer}>
+                              <section className={styles.selectedWorksContainer}>
                                   <h2>{t('selectedWorks')}</h2>
                                   <div className={styles.selectedWorks}>
                                       {artistArtworks.map((artwork, index) => (
                                           <ArtworkItem key={artwork.Id} artwork={artwork} onOpenArtwork={() => setArtwork(index)} />
                                       ))}
                                   </div>
-                              </div>
+                              </section>
                           }
 
                           {events.length > 0 &&
-                              <div className={styles.exhibitionsContainer}>
+                              <section className={styles.exhibitionsContainer}>
                                   <h2>{t('exhibitions')}</h2>
                                   <div className={styles.exhibitions}>
                                       {events.map(event => (
                                           <EventItem event={event} key={event.Id} useH2={false} type={EventType.ArtistsEvents}/>
                                       ))}
                                   </div>
-                              </div>
+                              </section>
                           }
 
                           {(artist.SoloExhibitions || artist.GroupExhibitions ||  artist.Education || artist.Awards) &&
-                              <div className={styles.artistDetailsContainer}>
+                              <section className={styles.artistDetailsContainer}>
                                   {artist.SoloExhibitions && artist.SoloExhibitions.length > 0 &&
                                       <div className={styles.itemsWrapper}>
                                           <h2>{t('detailsSelectedSoloExhibitions')}</h2>
@@ -144,15 +144,15 @@ export default function Artist() {
                                           }
                                       </div>
                                   }
-                              </div>
+                              </section>
                           }
 
-                          <div className={styles.allArtists}>
+                          <section className={styles.allArtists}>
                               <Link href={"/artists"}>
                                   {t('allArtists')}
                               </Link>
-                          </div>
-                      </div>
+                          </section>
+                      </article>
                   }
               </Layout>
 

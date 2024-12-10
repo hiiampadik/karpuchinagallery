@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint"
   },
@@ -18,6 +19,7 @@
     "next": "14.2.13",
     "next-intl": "^3.20.0",
     "next-sanity": "^9.8.25",
+    "next-sitemap": "^4.2.3",
     "react": "^18",
     "react-dom": "^18",
     "sass": "^1.79.4",

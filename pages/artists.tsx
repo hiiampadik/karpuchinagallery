@@ -12,8 +12,8 @@ export default function Artists() {
     const {data: artists} = useFetchArtists(router.locale ?? 'cs')
 
     return (
-        <Layout title={'Artists | Karpuchina Gallery'}>
-            <div className={styles.artistsContainer}>
+        <Layout title={'Artists'}>
+            <section className={styles.artistsContainer}>
                 {artists?.map((artist =>  {
                     const words = artist.Name.trim().split(" ");
                     let lastName, firstNames;
@@ -32,7 +32,7 @@ export default function Artists() {
                                     key={artist.Slug} />
                     )
                 }))}
-            </div>
+            </section>
         </Layout>
     );
 }

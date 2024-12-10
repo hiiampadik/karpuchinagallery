@@ -1,6 +1,8 @@
 /** @type {import('next-sitemap').IConfig} */
-module.exports = {
-  siteUrl: "https://www.karpuchina.gallery",
-  generateRobotsTxt: true, // (optional)
+const config = {
+  siteUrl: process.env.SITE_URL || "https://www.karpuchina.gallery",
+  generateRobotsTxt: true,
   // ...other options
 };
+
+export default config

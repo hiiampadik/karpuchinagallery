@@ -9,7 +9,6 @@ import BlockContent from '@/components/Sanity/BlockContent';
 import React from 'react';
 import GallerySwiper from '@/components/Sanity/GallerySwiper';
 import Figure from '@/components/Sanity/Figure';
-import {EventType} from '@/api/classes';
 
 export default function About() {
     const router = useRouter();
@@ -17,39 +16,39 @@ export default function About() {
     const t = useTranslations('About');
 
     return (
-        <Layout loading={about === null} title={'About | Karpuchina Gallery'}>
+        <Layout loading={about === null} title={'About'}>
             {about &&
-                <>
-                    <div className={styles.aboutInfoContainer}>
+                <article className={styles.aboutContainer}>
+                    <section className={styles.aboutInfoContainer}>
                         <div>
                             <BlockContent blocks={about.LeftColumn}/>
                         </div>
                         <div>
                             <BlockContent blocks={about.RightColumn}/>
                         </div>
-                    </div>
+                    </section>
 
                     {about.Gallery &&
-                        <div className={styles.aboutGallery}>
+                        <section className={styles.aboutGallery}>
                             <GallerySwiper images={about.Gallery}></GallerySwiper>
-                        </div>
+                        </section>
                     }
 
-                    <div className={styles.aboutBio}>
+                    <section className={styles.aboutBio}>
                         <BlockContent blocks={about.Bio}/>
-                    </div>
+                    </section>
 
 
                     {about.Logos &&
-                        <div className={styles.aboutLogos}>
+                        <section className={styles.aboutLogos}>
                             {about.Logos.map((logo) => (
                                 <figure key={logo.Id}>
                                     <Figure image={logo.Image} alt={logo.Alt} />
                                 </figure>
                             ))}
-                        </div>
+                        </section>
                     }
-                </>
+                </article>
             }
 
         </Layout>
