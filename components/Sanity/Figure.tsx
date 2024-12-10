@@ -65,7 +65,7 @@ const Figure: FunctionComponent<FigureProps> = (
             sizes={resolvedSizes}
             width={width}
             height={height}
-            src={builder.image(image).auto("format").url()}
+            src={builder.image(image).auto("format").quality(90).url()}
             alt={alt ?? 'Alt is missing'}
             placeholder={placeholderBlur ? 'blur' : 'empty'}
         />
