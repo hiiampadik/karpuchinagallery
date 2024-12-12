@@ -10,7 +10,7 @@ const Fish = () => {
     const $container = document.querySelector('[data-controller="fish"]');
     if (!$container) return; // Check if container exists
 
-    const { innerWidth, innerHeight } = window;
+    const { innerWidth } = window;
     const toRadians = (n: number) => n * (Math.PI / 180);
     const radius = innerWidth / 7;
     const maxSpeed = 2.25;
@@ -28,12 +28,15 @@ const Fish = () => {
       autostart: true,
     }).appendTo($container as HTMLDivElement);
     function resize() {
-      two.width = innerWidth;
-      two.height = innerHeight;
-      two.renderer.setSize(innerWidth, innerHeight);
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      two.width = width;
+      two.height = height;
+      two.renderer.setSize(width, height);
     }
 
-    window.addEventListener('resize', resize, false);
+    window.addEventListener('resize', resize, true);
     resize();
 
     const mouse = new Two.Vector();
