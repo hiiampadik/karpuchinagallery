@@ -1,15 +1,45 @@
-import React, {FunctionComponent} from "react";
+import React, {FunctionComponent, useEffect} from "react";
 import { AppProps } from 'next/app';
 import '../styles/globals.scss';
 import {NextIntlClientProvider} from 'next-intl';
-import {useRouter} from 'next/router';
 import {OverlaysProvider} from '@blueprintjs/core';
 import { Analytics } from '@vercel/analytics/next';
+import Script from 'next/script';
+import * as gtag from "../lib/gtag";
 
-const MyApp: FunctionComponent<AppProps> = ({ Component, pageProps }) => {
-    const router = useRouter();
+
+const MyApp: FunctionComponent<AppProps> = ({ Component, router, pageProps }) => {
+
+    useEffect(() => {
+        const handleRouteChange = (url: string) => {
+            gtag.pageview(url);
+        };
+        router.events.on("routeChangeComplete", handleRouteChange);
+        return () => {
+            router.events.off("routeChangeComplete", handleRouteChange);
+        };
+    }, [router.events]);
+
+    const googleAnalyticsId = 'G-PZ09J30FR7'
 
     return (
+        <>
+            <Script
+                id="ga"
+                strategy="lazyOnload"
+                src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
+            />
+            <Script strategy="lazyOnload" id="ga2">
+                {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${googleAnalyticsId}', {
+                    page_path: window.location.pathname,
+              });
+          `}
+            </Script>
+
             <NextIntlClientProvider
                 locale={router.locale}
                 timeZone="Europe/Vienna"
@@ -20,6 +50,7 @@ const MyApp: FunctionComponent<AppProps> = ({ Component, pageProps }) => {
                     <Component key={router.route} {...pageProps} />
                 </OverlaysProvider>
             </NextIntlClientProvider>
+        </>
         )
 
 
