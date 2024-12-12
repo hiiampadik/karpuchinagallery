@@ -32,7 +32,6 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
     };
 
     const currentUrl = `https://karpuchina.gallery${router.asPath}`;
-    const ogImage = process.env.SITE_URL + '/og_image.jpg'
 
     //
     // canonical
@@ -59,7 +58,7 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
                 <meta property="og:type" content="website"/>
                 <meta property="og:url" content={currentUrl}/>
 
-                <meta property="og:image" content={ogImage}/>
+                <meta property="og:image" content={''}/>
                 <meta property="og:image:type" content="image/jpg"/>
                 <meta property="og:image:width" content="1440"/>
                 <meta property="og:image:height" content="960"/>
@@ -68,7 +67,7 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
                 <meta name="twitter:title" content={title ?? "Karpuchina Gallery"}/>
                 <meta name="twitter:description" content="We are a progressive gallery of contemporary art."/>
 
-                <meta name="twitter:image" content={ogImage}/>
+                <meta name="twitter:image" content={''}/>
                 <meta name="twitter:image:type" content="image/jpg"/>
                 <meta name="twitter:image:width" content="1440"/>
                 <meta name="twitter:image:height" content="960"/>
