@@ -4,8 +4,9 @@ import Layout from '../components/Layout';
 import {GetStaticPropsContext} from 'next';
 import {useFetchHomepage} from '@/api/useSanityData';
 import styles from '@/styles/homepage.module.scss';
+import figureStyles from '@/components/Sanity/Figure.module.scss';
 import Link from 'next/link';
-import React from 'react';
+import React, {useState} from 'react';
 import {useRouter} from 'next/router';
 import FormatArtists from '@/components/utils/FormatArtists';
 import LocalizedDate from '@/components/utils/LocalizeDate';
@@ -13,11 +14,13 @@ import Figure from '@/components/Sanity/Figure';
 import {replaceSpaces} from '@/components/utils/replaceSpaces';
 import EventTitle, {TimeContext} from '@/components/Events/EventTitle';
 import {EventType} from '@/api/classes';
+import {classNames} from '@/components/utils/classNames';
 
 export default function Home() {
     const router = useRouter();
     const {data: homepage} = useFetchHomepage(router.locale ?? 'cs')
     const t = useTranslations('Homepage');
+    const [loaded, setLoaded] = useState(false)
 
     return (
         <Layout>
@@ -30,8 +33,9 @@ export default function Home() {
                     >
                         <EventTitle event={homepage.OnDisplay} timeContext={TimeContext.OnDisplay} fromHomepage={true}/>
 
-                        <div className={styles.onDisplayImageContainer}>
+                        <div className={classNames([styles.onDisplayImageContainer, loaded ? figureStyles.loaded : figureStyles.loading])}>
                             <Figure
+                                onLoad={() => setLoaded(true)}
                                 className={styles.onDisplayCover}
                                 image={homepage.OnDisplay.Cover}
                                 alt={homepage.OnDisplay.Title.concat(" – Exhibition Cover Image")}

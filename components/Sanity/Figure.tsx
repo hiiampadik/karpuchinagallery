@@ -12,7 +12,6 @@ interface FigureProps {
     readonly image: {_type: 'image', asset: {_ref: string, _type: "reference"}};
     readonly alt?: string | null
     readonly className?: string
-    readonly placeholderBlur?: boolean
     readonly onLoad?: () => void
     readonly onClick?: () => void
     readonly fullWidth?: boolean
@@ -26,7 +25,6 @@ const Figure: FunctionComponent<FigureProps> = (
     {image,
         alt,
         className,
-        placeholderBlur = false,
         fullWidth = false,
         galleryImage = false,
         sizes,
@@ -65,9 +63,8 @@ const Figure: FunctionComponent<FigureProps> = (
             sizes={resolvedSizes}
             width={width}
             height={height}
-            src={builder.image(image).auto("format").quality(90).url()}
+            src={builder.image(image).auto("format").quality(80).url()}
             alt={alt ?? 'Alt is missing'}
-            placeholder={placeholderBlur ? 'blur' : 'empty'}
         />
     )
 }
