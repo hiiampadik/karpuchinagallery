@@ -9,7 +9,17 @@ interface FairProps {
     readonly event: any
 }
 
-export default function Fair({event}: FairProps) {
+export default function FairWrapper({event}: FairProps) {
+    if (!event) {
+        return <div>Loading...</div>;
+    }
+    return (
+        <Fair event={event} />
+    )
+}
+
+
+function Fair({event}: FairProps) {
     const router = useRouter();
     const fair = EventDetailClass.fromPayload(event, router.locale ?? 'cs')
 
@@ -30,7 +40,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-    const {event} = await client.fetch(
+    const data = await client.fetch(
         `{"event": *[_type == "fairs" && slug.current == $slug] | order(_updatedAt desc) [0] {
                         ...,
                         artworks[]->{
@@ -62,10 +72,17 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         { slug: context.params?.slug}
     )
 
+    if (!data || !(data.event)) {
+        return {
+            notFound: true,
+        }
+    }
+
     return {
         props: {
-            event,
+            event: data.event,
             messages: (await import(`../../public/locales/${context.locale}.json`)).default,
+            revalidate: 60
         },
     };
 }

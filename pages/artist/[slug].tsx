@@ -19,9 +19,19 @@ interface ArtistProps {
     readonly artistFetched: any
 }
 
-export default function Artist({artistFetched}: ArtistProps) {
+export default function ArtistWrapper({artistFetched}: ArtistProps) {
+    if (!artistFetched) {
+        return <div>Loading...</div>;
+    }
+    return (
+        <Artist artistFetched={artistFetched} />
+    )
+}
+
+function Artist({artistFetched}: ArtistProps) {
     const router = useRouter();
     const artist = ArtistClass.fromPayload(artistFetched, router.locale ?? 'cs')
+
     const {data: artworks} = useFetchArtworks(router.locale ?? 'cs')
 
     const t = useTranslations('Artist');
@@ -50,6 +60,7 @@ export default function Artist({artistFetched}: ArtistProps) {
         }
         return sortEvents(artist.Events)
     }, [artist])
+
     return (
         <>
             <Layout title={artist?.Name}>
@@ -178,7 +189,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-    const {artist} = await client.fetch(
+    const data = await client.fetch(
         `{"artist": *[_type == "artists" && slug.current == $slug] | order(_updatedAt desc) [0] {
                         ...,
                          events[]->{
@@ -188,10 +199,17 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         { slug: context.params?.slug}
     )
 
+    if (!data || !(data.artist)) {
+        return {
+            notFound: true,
+        }
+    }
+
     return {
         props: {
-            artistFetched: artist,
+            artistFetched: data.artist,
             messages: (await import(`../../public/locales/${context.locale}.json`)).default,
+            revalidate: 60
         },
     };
 }
