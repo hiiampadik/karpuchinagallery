@@ -5,7 +5,6 @@ import Image from "next/image";
 import {FunctionComponent, useMemo} from 'react';
 import {getImageDimensions} from '@sanity/asset-utils';
 import {classNames} from '@/components/utils/classNames';
-import {useWindowSize} from '@/components/utils/useWindowSize';
 
 const builder = imageUrlBuilder(client);
 
@@ -55,16 +54,49 @@ const Figure: FunctionComponent<FigureProps> = (
 
 
     return (
-        <Image
+        <img
             loading={loading}
             onClick={onClick}
             onLoad={() => onLoad?.()}
             className={classNames([className])}
+            alt={alt ?? 'Alt is missing'}
+
             sizes={resolvedSizes}
             width={width}
             height={height}
-            src={builder.image(image).auto("format").quality(80).url()}
-            alt={alt ?? 'Alt is missing'}
+            srcSet={`
+                      ${builder
+                .image(image)
+                .auto("format")
+                .width(320)
+                .url()} 320w,
+                      ${builder
+                .image(image)
+                .auto("format")
+                .width(480)
+                .url()} 480w,
+                      ${builder
+                .image(image)
+                .auto("format")
+                .width(800)
+                .url()} 800w,
+                      ${builder
+                .image(image)
+                .auto("format")
+                .width(1300)
+                .url()} 1300w,
+                      ${builder
+                .image(image)
+                .auto("format")
+                .width(1600)
+                .url()} 1600w,
+                      ${builder
+                .image(image)
+                .auto("format")
+                .width(2000)
+                .url()} 2000w,
+                    `}
+
         />
     )
 }
