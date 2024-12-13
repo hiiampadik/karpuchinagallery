@@ -8,14 +8,11 @@ import React from 'react';
 import GallerySwiper from '@/components/Sanity/GallerySwiper';
 import Figure from '@/components/Sanity/Figure';
 import client from '@/client';
-import {About} from '@/api/classes';
+import {About as AboutClass} from '@/api/classes';
 
-interface AboutProps {
-    readonly data: any
-}
-export default function Home({data}: AboutProps) {
+export default function About({data}: any) {
     const router = useRouter();
-    const about = About.fromPayload(data, router.locale ?? 'cs');
+    const about = AboutClass.fromPayload(data, router.locale ?? 'cs');
 
     return (
         <Layout loading={about === null} title={'About'}>
@@ -73,7 +70,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         props: {
             data,
             messages: (await import(`../public/locales/${context.locale}.json`)).default,
-            revalidate: 60
         },
     };
 }

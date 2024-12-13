@@ -4,19 +4,72 @@ import {useParams} from 'next/navigation';
 import {useRouter} from 'next/router';
 import {useFetchEventDetail} from '@/api';
 import EventDetail from '@/components/Events/EventDetail';
-import {EventType} from '@/api/classes';
+import {EventDetail as EventDetailClass, EventType} from '@/api/classes';
+import client from '@/client';
 
-export default function ArtistsEvent() {
-    const params = useParams()
+export default function ArtistsEvent({data}: any) {
     const router = useRouter();
-    const {data: artistsEvent} = useFetchEventDetail(params?.slug as string, router.locale ?? 'cs', EventType.ArtistsEvents)
+    const artistsEvent = EventDetailClass.fromPayload(data, router.locale ?? 'cs')
 
     return (
         <EventDetail event={artistsEvent} type={EventType.ArtistsEvents} />
     )
 }
 
-ArtistsEvent.getInitialProps = async (context: GetStaticPropsContext) => {
-    return {messages: (await import(`../../public/locales/${context.locale}.json`)).default}
+export async function getStaticPaths() {
+    const paths = await client.fetch(
+        `*[_type == "artistsEvents" && defined(slug.current)][].slug.current`
+    );
+
+    return {
+        paths: paths.map((slug: string) => ({ params: { slug } })),
+        fallback: true,
+    };
 }
 
+export async function getStaticProps(context: GetStaticPropsContext) {
+    const data = await client.fetch(
+        `{"event": *[_type == "artistsEvents" && slug.current == $slug] | order(_updatedAt desc) [0] {
+                        ...,
+                        artworks[]->{
+                            _id,
+                            title,
+                            year,
+                            artist->{
+                                _id,
+                                name,
+                                slug
+                            },
+                            showInSelection,
+                            cover,
+                            gallery
+                        },
+                        documents[]{
+                            ...,
+                            documentCover{
+                                ...,
+                            },
+                            file{
+                                ...,
+                                asset->{
+                                    ...
+                                }
+                            }
+                        }
+                        }}`,
+        { slug: context.params?.slug}
+    )
+
+    if (!data) {
+        return {
+            notFound: true,
+        }
+    }
+
+    return {
+        props: {
+            data: data.event,
+            messages: (await import(`../../public/locales/${context.locale}.json`)).default,
+        },
+    };
+}

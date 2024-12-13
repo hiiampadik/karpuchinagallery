@@ -4,23 +4,8 @@ import {useRouter} from 'next/router';
 import EventDetail from '@/components/Events/EventDetail';
 import {EventDetail as EventDetailClass, EventType} from '@/api/classes';
 import client from '@/client';
-import Layout from '@/components/Layout';
 
-interface FairProps {
-    readonly data: any
-}
-
-export default function FairWrapper({data}: FairProps) {
-    if (!data) {
-        return <Layout>Loading...</Layout>;
-    }
-    return (
-        <Fair data={data} />
-    )
-}
-
-
-function Fair({data}: FairProps) {
+export default function Fair({data}: any) {
     const router = useRouter();
     const fair = EventDetailClass.fromPayload(data, router.locale ?? 'cs')
 
@@ -83,7 +68,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         props: {
             data: fairsData.event,
             messages: (await import(`../../public/locales/${context.locale}.json`)).default,
-            revalidate: 60
         },
     };
 }

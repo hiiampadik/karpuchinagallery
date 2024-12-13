@@ -15,20 +15,7 @@ import ArtworkItem from '@/components/Artworks/ArtworkItem';
 import {useDisableScroll} from '@/components/utils/useDisableScroll';
 import client from '@/client';
 
-interface ArtistProps {
-    readonly data: any
-}
-
-export default function ArtistWrapper({data}: ArtistProps) {
-    if (!data) {
-        return <Layout>Loading...</Layout>;
-    }
-    return (
-        <Artist data={data} />
-    )
-}
-
-function Artist({data}: ArtistProps) {
+export default  function Artist({data}: any) {
     const router = useRouter();
     const artist = ArtistClass.fromPayload(data, router.locale ?? 'cs')
 
@@ -184,7 +171,7 @@ export async function getStaticPaths() {
 
     return {
         paths: paths.map((slug: string) => ({ params: { slug } })),
-        fallback: true,
+        fallback: false,
     };
 }
 
@@ -209,7 +196,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         props: {
             data: data.artist,
             messages: (await import(`../../public/locales/${context.locale}.json`)).default,
-            revalidate: 60
         },
     };
 }
