@@ -6,21 +6,21 @@ import {EventDetail as EventDetailClass, EventType} from '@/api/classes';
 import client from '@/client';
 
 interface ExhibitionProps {
-    readonly event: any
+    readonly data: any
 }
 
-export default function ExhibitionWrapper({event}: ExhibitionProps) {
-    if (!event) {
+export default function ExhibitionWrapper({data}: ExhibitionProps) {
+    if (!data) {
         return <div>Loading...</div>;
     }
     return (
-        <Exhibition event={event} />
+        <Exhibition data={data} />
     )
 }
 
-function Exhibition({event}: ExhibitionProps) {
+function Exhibition({data}: ExhibitionProps) {
     const router = useRouter();
-    const exhibition = EventDetailClass.fromPayload(event, router.locale ?? 'cs')
+    const exhibition = EventDetailClass.fromPayload(data, router.locale ?? 'cs')
 
     return (
         <EventDetail event={exhibition} type={EventType.Exhibitions} />
@@ -79,7 +79,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
     return {
         props: {
-            event: data.event,
+            data: data.event,
             messages: (await import(`../../public/locales/${context.locale}.json`)).default,
             revalidate: 60
         },

@@ -1,19 +1,21 @@
 'use client'
 import Layout from '../components/Layout';
 import {GetStaticPropsContext} from 'next';
-import {useFetchAbout} from '@/api/useSanityData';
-import {useTranslations} from 'next-intl';
 import styles from '../styles/about.module.scss'
 import {useRouter} from 'next/router';
 import BlockContent from '@/components/Sanity/BlockContent';
 import React from 'react';
 import GallerySwiper from '@/components/Sanity/GallerySwiper';
 import Figure from '@/components/Sanity/Figure';
+import client from '@/client';
+import {About} from '@/api/classes';
 
-export default function About() {
+interface AboutProps {
+    readonly data: any
+}
+export default function Home({data}: AboutProps) {
     const router = useRouter();
-    const {data: about} = useFetchAbout(router.locale ?? 'cs')
-    const t = useTranslations('About');
+    const about = About.fromPayload(data, router.locale ?? 'cs');
 
     return (
         <Layout loading={about === null} title={'About'}>
@@ -56,12 +58,22 @@ export default function About() {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
+    const data = await client.fetch(`
+                *[_type == 'about'][0]
+                `
+    );
+
+    if (!data) {
+        return {
+            notFound: true,
+        }
+    }
+
     return {
         props: {
-            // You can get the messages from anywhere you like. The recommended
-            // pattern is to put them in JSON files separated by locale and read
-            // the desired one based on the `locale` received from Next.js.
-            messages: (await import(`../public/locales/${context.locale}.json`)).default
-        }
+            data,
+            messages: (await import(`../public/locales/${context.locale}.json`)).default,
+            revalidate: 60
+        },
     };
 }

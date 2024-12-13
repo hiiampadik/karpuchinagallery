@@ -16,21 +16,21 @@ import {useDisableScroll} from '@/components/utils/useDisableScroll';
 import client from '@/client';
 
 interface ArtistProps {
-    readonly artistFetched: any
+    readonly data: any
 }
 
-export default function ArtistWrapper({artistFetched}: ArtistProps) {
-    if (!artistFetched) {
+export default function ArtistWrapper({data}: ArtistProps) {
+    if (!data) {
         return <div>Loading...</div>;
     }
     return (
-        <Artist artistFetched={artistFetched} />
+        <Artist data={data} />
     )
 }
 
-function Artist({artistFetched}: ArtistProps) {
+function Artist({data}: ArtistProps) {
     const router = useRouter();
-    const artist = ArtistClass.fromPayload(artistFetched, router.locale ?? 'cs')
+    const artist = ArtistClass.fromPayload(data, router.locale ?? 'cs')
 
     const {data: artworks} = useFetchArtworks(router.locale ?? 'cs')
 
@@ -207,7 +207,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
     return {
         props: {
-            artistFetched: data.artist,
+            data: data.artist,
             messages: (await import(`../../public/locales/${context.locale}.json`)).default,
             revalidate: 60
         },

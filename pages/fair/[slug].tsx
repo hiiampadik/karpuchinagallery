@@ -6,22 +6,22 @@ import {EventDetail as EventDetailClass, EventType} from '@/api/classes';
 import client from '@/client';
 
 interface FairProps {
-    readonly event: any
+    readonly data: any
 }
 
-export default function FairWrapper({event}: FairProps) {
-    if (!event) {
+export default function FairWrapper({data}: FairProps) {
+    if (!data) {
         return <div>Loading...</div>;
     }
     return (
-        <Fair event={event} />
+        <Fair data={data} />
     )
 }
 
 
-function Fair({event}: FairProps) {
+function Fair({data}: FairProps) {
     const router = useRouter();
-    const fair = EventDetailClass.fromPayload(event, router.locale ?? 'cs')
+    const fair = EventDetailClass.fromPayload(data, router.locale ?? 'cs')
 
     return (
         <EventDetail event={fair} type={EventType.Fairs} />
