@@ -15,7 +15,15 @@ import ArtworkItem from '@/components/Artworks/ArtworkItem';
 import {useDisableScroll} from '@/components/utils/useDisableScroll';
 import client from '@/client';
 
-export default  function Artist({data}: any) {
+
+export default function Wrapper({data}: any) {
+    if (!data){
+        return <Layout loading={true}></Layout>
+    }
+    return <Artist data={data} />
+}
+
+function Artist({data}: any) {
     const router = useRouter();
     const artist = ArtistClass.fromPayload(data, router.locale ?? 'cs')
 

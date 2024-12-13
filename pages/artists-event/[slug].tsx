@@ -1,13 +1,19 @@
 import React from "react";
 import {GetStaticPropsContext} from 'next';
-import {useParams} from 'next/navigation';
 import {useRouter} from 'next/router';
-import {useFetchEventDetail} from '@/api';
 import EventDetail from '@/components/Events/EventDetail';
 import {EventDetail as EventDetailClass, EventType} from '@/api/classes';
 import client from '@/client';
+import Layout from '@/components/Layout';
 
-export default function ArtistsEvent({data}: any) {
+export default function Wrapper({data}: any) {
+    if (!data){
+        return <Layout loading={true}></Layout>
+    }
+    return <ArtistsEvent data={data} />
+}
+
+function ArtistsEvent({data}: any) {
     const router = useRouter();
     const artistsEvent = EventDetailClass.fromPayload(data, router.locale ?? 'cs')
 
@@ -23,7 +29,7 @@ export async function getStaticPaths() {
 
     return {
         paths: paths.map((slug: string) => ({ params: { slug } })),
-        fallback: true,
+        fallback: false,
     };
 }
 

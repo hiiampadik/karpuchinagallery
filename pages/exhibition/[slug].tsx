@@ -4,8 +4,16 @@ import {useRouter} from 'next/router';
 import EventDetail from '@/components/Events/EventDetail';
 import {EventDetail as EventDetailClass, EventType} from '@/api/classes';
 import client from '@/client';
+import Layout from '@/components/Layout';
 
-export default function Exhibition({data}: any) {
+export default function Wrapper({data}: any) {
+    if (!data){
+        return <Layout loading={true}></Layout>
+    }
+    return <Exhibition data={data} />
+}
+
+function Exhibition({data}: any) {
     const router = useRouter();
     const exhibition = EventDetailClass.fromPayload(data, router.locale ?? 'cs')
 
@@ -21,7 +29,7 @@ export async function getStaticPaths() {
 
     return {
         paths: paths.map((slug: string) => ({ params: { slug } })),
-        fallback: true,
+        fallback: false,
     };
 }
 
