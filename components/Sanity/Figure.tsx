@@ -74,11 +74,6 @@ const Figure: FunctionComponent<FigureProps> = (
                       ${builder
                 .image(image)
                 .auto("format")
-                .width(320)
-                .url()} 320w,
-                      ${builder
-                .image(image)
-                .auto("format")
                 .width(480)
                 .url()} 480w,
                       ${builder
