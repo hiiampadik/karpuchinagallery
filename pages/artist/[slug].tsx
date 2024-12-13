@@ -2,23 +2,26 @@
 import Layout from "../../components/Layout";
 import React, {useMemo, useState} from "react";
 import {GetStaticPropsContext} from 'next';
-import {useFetchArtist, useFetchArtworks} from '@/api';
-import {useParams} from 'next/navigation';
+import {useFetchArtworks} from '@/api';
 import {useRouter} from 'next/router';
 import styles from './index.module.scss'
 import {useTranslations} from 'next-intl';
 import BlockContent from '@/components/Sanity/BlockContent';
 import EventItem from '@/components/Events/EventItem';
 import Link from 'next/link';
-import {Artwork, Event, EventType} from '@/api/classes';
+import {Artist as ArtistClass, Event, EventType} from '@/api/classes';
 import ArtworkDetail from '@/components/Artworks/ArtworkDetail';
 import ArtworkItem from '@/components/Artworks/ArtworkItem';
 import {useDisableScroll} from '@/components/utils/useDisableScroll';
+import client from '@/client';
 
-export default function Artist() {
-    const params = useParams()
+interface ArtistProps {
+    readonly artistFetched: any
+}
+
+export default function Artist({artistFetched}: ArtistProps) {
     const router = useRouter();
-    const {data: artist} = useFetchArtist(params?.slug as string, router.locale ?? 'cs')
+    const artist = ArtistClass.fromPayload(artistFetched, router.locale ?? 'cs')
     const {data: artworks} = useFetchArtworks(router.locale ?? 'cs')
 
     const t = useTranslations('Artist');
@@ -163,7 +166,35 @@ export default function Artist() {
     )
 }
 
-Artist.getInitialProps = async (context: GetStaticPropsContext) => {
-    return {messages: (await import(`../../public/locales/${context.locale}.json`)).default}
+export async function getStaticPaths() {
+    const paths = await client.fetch(
+        `*[_type == "artists" && defined(slug.current)][].slug.current`
+    );
+
+    return {
+        paths: paths.map((slug: string) => ({ params: { slug } })),
+        fallback: true,
+    };
 }
+
+export async function getStaticProps(context: GetStaticPropsContext) {
+    const {artist} = await client.fetch(
+        `{"artist": *[_type == "artists" && slug.current == $slug] | order(_updatedAt desc) [0] {
+                        ...,
+                         events[]->{
+                            ...
+                        },
+                        }}`,
+        { slug: context.params?.slug}
+    )
+
+    return {
+        props: {
+            artistFetched: artist,
+            messages: (await import(`../../public/locales/${context.locale}.json`)).default,
+        },
+    };
+}
+
+
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const replaceSpaces = (text :string) => {
-    if(window.matchMedia('(max-width: 500px)').matches){
+    if(typeof window !== "undefined" && window.matchMedia('(max-width: 500px)').matches){
         return text
     }
     return <span dangerouslySetInnerHTML={{ __html: text.replace(/ /g, '\u00A0') }} />;
