@@ -47,16 +47,7 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
 
     return (
         <>
-            <Layout title={event?.Title}
-                    image={event ? {
-                        "@type": "ImageObject",
-                        "@id": event.Id,
-                        "url": builder.image(event.Cover).auto("format").quality(80).url(),
-                        "width": getImageDimensions(event.Cover).width.toString(),
-                        "height": getImageDimensions(event.Cover).height.toString(),
-                        "caption": event.Title,
-                    } : undefined}
-            >
+            <Layout title={event?.Title}>
                 {event &&
                     <article className={styles.eventContainer}>
                         <section className={styles.eventFold}>

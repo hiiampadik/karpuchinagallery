@@ -11,29 +11,12 @@ import {useRouter} from 'next/router';
 interface LayoutProps {
     readonly title?: string
     readonly loading?: boolean;
-
-    readonly type?: string;
-    readonly name?: string;
-    readonly description?: string;
-    readonly image?:        {
-        "@type":"ImageObject",
-        "@id": string,
-        "url": string,
-        "width": string,
-        "height": string,
-        "caption": string,
-    };
 }
 
 const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
     {children,
         title,
         loading = undefined,
-
-        type,
-        name,
-        description,
-        image
     }) => {
 
     const pageTitle = title ? title + ' | Karpuchina Gallery' : 'Karpuchina Gallery'
@@ -52,7 +35,7 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
     const currentUrl = `https://karpuchina.gallery${router.asPath}`;
 
     const jsonLd = {
-        "@context":"https://schema.org",
+        '@context': 'https://schema.org',
         "@graph":[
             {
                 "@type":"Organization",
@@ -66,18 +49,18 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
                 "@id":"https://www.karpuchina.gallery#website",
                 "url":"https://www.karpuchina.gallery",
                 "name":"Karpuchina Gallery",
-                "publisher":{"@id":"https://karpuchina.gallery#organization"}
+                "publisher":{"@id":"https://karpuchina.gallery#organization"},
+                'description': "We are a progressive gallery of contemporary art."
             },
             {
-                "@type":"WebPage",
-                "@id":`${currentUrl}#webpage`,
+                '@type': 'WebPage',
+                "@id": currentUrl + "#website",
                 "url": currentUrl,
-                "inLanguage": router.locale ?? 'en',
-                "name": pageTitle,
-                "isPartOf":{"@id":"https://www.karpuchina.gallery#website"},
-            },
-            image,
-        ]}
+                'name': pageTitle,
+                'description': "We are a progressive gallery of contemporary art."
+            }
+        ]
+    }
 
     return (
         <>
@@ -117,12 +100,12 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
                 <link rel="shortcut icon" href="/favicon/favicon.ico"/>
                 <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png"/>
                 <meta name="apple-mobile-web-app-title" content="Karpuchina Gallery"/>
-
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}
-                />
             </Head>
+
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}
+            />
 
             <main>
                 <Navigation/>
