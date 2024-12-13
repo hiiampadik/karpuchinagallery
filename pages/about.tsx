@@ -7,12 +7,11 @@ import BlockContent from '@/components/Sanity/BlockContent';
 import React from 'react';
 import GallerySwiper from '@/components/Sanity/GallerySwiper';
 import Figure from '@/components/Sanity/Figure';
-import client from '@/client';
-import {About as AboutClass} from '@/api/classes';
+import {useFetchAbout} from '@/api/useSanityData';
 
-export default function About({data}: any) {
+export default function About() {
     const router = useRouter();
-    const about = AboutClass.fromPayload(data, router.locale ?? 'cs');
+    const {data: about} = useFetchAbout(router.locale ?? 'cs')
 
     return (
         <Layout loading={about === null} title={'About'}>
@@ -55,22 +54,12 @@ export default function About({data}: any) {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-    const data = await client.fetch(`
-                *[_type == 'about'][0]
-                `
-    );
-
-    if (!data) {
-        return {
-            notFound: true,
-        }
-    }
-
     return {
         props: {
-            data,
-            messages: (await import(`../public/locales/${context.locale}.json`)).default,
-            revalidate: 60,
-        },
+            // You can get the messages from anywhere you like. The recommended
+            // pattern is to put them in JSON files separated by locale and read
+            // the desired one based on the `locale` received from Next.js.
+            messages: (await import(`../public/locales/${context.locale}.json`)).default
+        }
     };
 }

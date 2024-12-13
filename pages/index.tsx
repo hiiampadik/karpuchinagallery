@@ -12,17 +12,13 @@ import LocalizedDate from '@/components/utils/LocalizeDate';
 import Figure from '@/components/Sanity/Figure';
 import {replaceSpaces} from '@/components/utils/replaceSpaces';
 import EventTitle, {TimeContext} from '@/components/Events/EventTitle';
-import {EventType, Homepage} from '@/api/classes';
+import {EventType} from '@/api/classes';
 import {classNames} from '@/components/utils/classNames';
-import client from '@/client';
+import {useFetchHomepage} from '@/api/useSanityData';
 
-
-interface HomepageProps {
-    readonly data: any
-}
-export default function Home({data}: HomepageProps) {
+export default function Home() {
     const router = useRouter();
-    const homepage = Homepage.fromPayload(data, router.locale ?? 'cs')
+    const {data: homepage} = useFetchHomepage(router.locale ?? 'cs')
 
     const t = useTranslations('Homepage');
     const [loaded, setLoaded] = useState(false)
@@ -85,29 +81,12 @@ export default function Home({data}: HomepageProps) {
 
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-    const data = await client.fetch(`
-                *[_type == 'homepage'][0]{
-                    onDisplay->{
-                        ...
-                    },
-                    upcoming->{
-                        ...
-                    }
-                }
-                `
-    );
-
-    if (!data) {
-        return {
-            notFound: true,
-        }
-    }
-
     return {
         props: {
-            data,
-            messages: (await import(`../public/locales/${context.locale}.json`)).default,
-            revalidate: 60,
-        },
+            // You can get the messages from anywhere you like. The recommended
+            // pattern is to put them in JSON files separated by locale and read
+            // the desired one based on the `locale` received from Next.js.
+            messages: (await import(`../public/locales/${context.locale}.json`)).default
+        }
     };
 }
