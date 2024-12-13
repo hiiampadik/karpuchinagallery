@@ -11,14 +11,32 @@ import {useRouter} from 'next/router';
 interface LayoutProps {
     readonly title?: string
     readonly loading?: boolean;
+
+    readonly type?: string;
+    readonly name?: string;
+    readonly description?: string;
+    readonly image?:        {
+        "@type":"ImageObject",
+        "@id": string,
+        "url": string,
+        "width": string,
+        "height": string,
+        "caption": string,
+    };
 }
 
 const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
     {children,
         title,
-        loading = undefined
+        loading = undefined,
+
+        type,
+        name,
+        description,
+        image
     }) => {
 
+    const pageTitle = title ? title + ' | Karpuchina Gallery' : 'Karpuchina Gallery'
     const router = useRouter();  // Get current locale from router
     const getLocale = () => {
         switch (router.locale) {
@@ -33,20 +51,38 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
 
     const currentUrl = `https://karpuchina.gallery${router.asPath}`;
 
-    //
-    // canonical
-    // alternate
-    // icon
-    // apple-touch-icon
-    // manifest
-
-
-    // {"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"http://karpuchina.gallery#organization","name":"Karpuchina Gallery","url":"http://karpuchina.gallery","sameAs":["https://www.facebook.com/whitepearlgallery/","https://www.instagram.com/whitepearlgallery/"]},{"@type":"WebSite","@id":"https://karpuchina.gallery#website","url":"https://karpuchina.gallery","name":"Karpuchina Gallery","publisher":{"@id":"http://karpuchina.gallery#organization"}},{"@type":"WebPage","@id":"https://karpuchina.gallery/cs/exhibitions#webpage","url":"https://karpuchina.gallery/cs/exhibitions","inLanguage":"cs","name":"V\u00fdstavy | Karpuchina Gallery","isPartOf":{"@id":"https://karpuchina.gallery#website"},"datePublished":"2021-03-25T09:43:39+01:00","dateModified":"2021-03-25T09:43:39+01:00"}]}
+    const jsonLd = {
+        "@context":"https://schema.org",
+        "@graph":[
+            {
+                "@type":"Organization",
+                "@id":"https://karpuchina.gallery#organization",
+                "name":"Karpuchina Gallery",
+                "url":"https://karpuchina.gallery",
+                "sameAs":["https://www.facebook.com/whitepearlgallery/","https://www.instagram.com/whitepearlgallery/"]
+            },
+            {
+                "@type":"WebSite",
+                "@id":"https://www.karpuchina.gallery#website",
+                "url":"https://www.karpuchina.gallery",
+                "name":"Karpuchina Gallery",
+                "publisher":{"@id":"https://karpuchina.gallery#organization"}
+            },
+            {
+                "@type":"WebPage",
+                "@id":`${currentUrl}#webpage`,
+                "url": currentUrl,
+                "inLanguage": router.locale ?? 'en',
+                "name": pageTitle,
+                "isPartOf":{"@id":"https://www.karpuchina.gallery#website"},
+            },
+            image,
+        ]}
 
     return (
         <>
             <Head>
-                <title>{title ? title + ' | Karpuchina Gallery' : 'Karpuchina Gallery'}</title>
+                <title>{pageTitle}</title>
 
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <meta name="keywords"
@@ -81,6 +117,11 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
                 <link rel="shortcut icon" href="/favicon/favicon.ico"/>
                 <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png"/>
                 <meta name="apple-mobile-web-app-title" content="Karpuchina Gallery"/>
+
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}
+                />
             </Head>
 
             <main>

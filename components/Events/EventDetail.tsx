@@ -12,7 +12,11 @@ import EventTitle, {TimeContext} from '@/components/Events/EventTitle';
 import ArtworkItem from '@/components/Artworks/ArtworkItem';
 import {useDisableScroll} from '@/components/utils/useDisableScroll';
 import ArtworkDetail from '@/components/Artworks/ArtworkDetail';
+import {getImageDimensions} from '@sanity/asset-utils';
+import imageUrlBuilder from '@sanity/image-url';
+import client from '@/client';
 
+const builder = imageUrlBuilder(client);
 
 interface EventDetailProps {
     readonly event: EventDetailClass | null
@@ -43,7 +47,16 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
 
     return (
         <>
-            <Layout title={event?.Title}>
+            <Layout title={event?.Title}
+                    image={event ? {
+                        "@type": "ImageObject",
+                        "@id": event.Id,
+                        "url": builder.image(event.Cover).auto("format").quality(80).url(),
+                        "width": getImageDimensions(event.Cover).width.toString(),
+                        "height": getImageDimensions(event.Cover).height.toString(),
+                        "caption": event.Title,
+                    } : undefined}
+            >
                 {event &&
                     <article className={styles.eventContainer}>
                         <section className={styles.eventFold}>
