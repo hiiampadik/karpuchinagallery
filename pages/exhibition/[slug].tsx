@@ -4,6 +4,7 @@ import {useRouter} from 'next/router';
 import EventDetail from '@/components/Events/EventDetail';
 import {EventDetail as EventDetailClass, EventType} from '@/api/classes';
 import client from '@/client';
+import Layout from '@/components/Layout';
 
 interface ExhibitionProps {
     readonly data: any
@@ -11,7 +12,7 @@ interface ExhibitionProps {
 
 export default function ExhibitionWrapper({data}: ExhibitionProps) {
     if (!data) {
-        return <div>Loading...</div>;
+        return <Layout>Loading...</Layout>;
     }
     return (
         <Exhibition data={data} />
@@ -71,7 +72,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         { slug: context.params?.slug}
     )
 
-    if (!data || !(data.event)) {
+    if (!data) {
         return {
             notFound: true,
         }

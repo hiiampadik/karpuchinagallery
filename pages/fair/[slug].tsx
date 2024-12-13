@@ -4,6 +4,7 @@ import {useRouter} from 'next/router';
 import EventDetail from '@/components/Events/EventDetail';
 import {EventDetail as EventDetailClass, EventType} from '@/api/classes';
 import client from '@/client';
+import Layout from '@/components/Layout';
 
 interface FairProps {
     readonly data: any
@@ -11,7 +12,7 @@ interface FairProps {
 
 export default function FairWrapper({data}: FairProps) {
     if (!data) {
-        return <div>Loading...</div>;
+        return <Layout>Loading...</Layout>;
     }
     return (
         <Fair data={data} />
@@ -40,7 +41,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-    const data = await client.fetch(
+    const fairsData = await client.fetch(
         `{"event": *[_type == "fairs" && slug.current == $slug] | order(_updatedAt desc) [0] {
                         ...,
                         artworks[]->{
@@ -72,7 +73,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         { slug: context.params?.slug}
     )
 
-    if (!data || !(data.event)) {
+    if (!fairsData) {
         return {
             notFound: true,
         }
@@ -80,7 +81,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
     return {
         props: {
-            event: data.event,
+            data: fairsData.event,
             messages: (await import(`../../public/locales/${context.locale}.json`)).default,
             revalidate: 60
         },

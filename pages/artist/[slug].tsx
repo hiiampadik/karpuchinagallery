@@ -21,7 +21,7 @@ interface ArtistProps {
 
 export default function ArtistWrapper({data}: ArtistProps) {
     if (!data) {
-        return <div>Loading...</div>;
+        return <Layout>Loading...</Layout>;
     }
     return (
         <Artist data={data} />

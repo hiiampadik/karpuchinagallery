@@ -1,8 +1,7 @@
 'use client'
 import imageUrlBuilder from "@sanity/image-url";
 import client from "../../client";
-import Image from "next/image";
-import {FunctionComponent, useMemo} from 'react';
+import {FunctionComponent, useEffect, useMemo, useRef} from 'react';
 import {getImageDimensions} from '@sanity/asset-utils';
 import {classNames} from '@/components/utils/classNames';
 
@@ -52,9 +51,16 @@ const Figure: FunctionComponent<FigureProps> = (
         }
     }, [image, fullWidth, galleryImage, width, height])
 
+    const imgRef = useRef<HTMLImageElement | null>(null);
+    useEffect(() => {
+        if (imgRef.current?.complete) {
+            onLoad?.();
+        }
+    }, [onLoad]);
 
     return (
         <img
+            ref={imgRef}
             loading={loading}
             onClick={onClick}
             onLoad={() => onLoad?.()}
