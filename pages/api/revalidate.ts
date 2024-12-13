@@ -28,8 +28,8 @@ export async function POST(req: NextRequest) {
         revalidatePath(body.path)
         const message = `Updated route: ${body.path}`
         return NextResponse.json({body, message})
-    } catch (err) {
+    } catch (err: any) {
         console.error(err)
-        return new Response(err.message, {status: 500})
+        return new Response(err?.message, {status: 500})
     }
 }
