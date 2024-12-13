@@ -173,12 +173,18 @@ function Artist({data}: any) {
 }
 
 export async function getStaticPaths() {
-    const paths = await client.fetch(
+    const slugs = await client.fetch(
         `*[_type == "artists" && defined(slug.current)][].slug.current`
     );
-
+    const locales = ['cs', 'en'];
+    const paths = slugs.flatMap((slug: string) =>
+        locales.map((locale) => ({
+            params: { slug },
+            locale,
+        }))
+    );
     return {
-        paths: paths.map((slug: string) => ({ params: { slug } })),
+        paths,
         fallback: false,
     };
 }

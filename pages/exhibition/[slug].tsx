@@ -23,16 +23,21 @@ function Exhibition({data}: any) {
 }
 
 export async function getStaticPaths() {
-    const paths = await client.fetch(
+    const slugs = await client.fetch(
         `*[_type == "exhibitions" && defined(slug.current)][].slug.current`
     );
-
+    const locales = ['cs', 'en'];
+    const paths = slugs.flatMap((slug: string) =>
+        locales.map((locale) => ({
+            params: { slug },
+            locale,
+        }))
+    );
     return {
-        paths: paths.map((slug: string) => ({ params: { slug } })),
+        paths,
         fallback: false,
     };
 }
-
 export async function getStaticProps(context: GetStaticPropsContext) {
     const data= await client.fetch(
         `{"event": *[_type == "exhibitions" && slug.current == $slug] | order(_updatedAt desc) [0] {
@@ -76,6 +81,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         props: {
             data: data.event,
             messages: (await import(`../../public/locales/${context.locale}.json`)).default,
+            revalidate: 10,
         },
     };
 }
