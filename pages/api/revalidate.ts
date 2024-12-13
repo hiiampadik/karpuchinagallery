@@ -6,7 +6,7 @@ import {parseBody} from 'next-sanity/webhook'
 
 type WebhookPayload = {path?: string}
 
-export async function POST(req: NextRequest) {
+async function POST(req: NextRequest) {
     try {
         if (!process.env.SANITY_REVALIDATE_SECRET) {
             return new Response('Missing environment variable SANITY_REVALIDATE_SECRET', {status: 500})
@@ -33,3 +33,5 @@ export async function POST(req: NextRequest) {
         return new Response(err?.message, {status: 500})
     }
 }
+
+export default POST
