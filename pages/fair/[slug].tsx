@@ -82,7 +82,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         props: {
             data: fairsData.event,
             messages: (await import(`../../public/locales/${context.locale}.json`)).default,
-            revalidate: 60 * 5 // in seconds
+            revalidate: 60 // in seconds
         },
     };
 }

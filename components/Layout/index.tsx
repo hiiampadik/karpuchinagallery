@@ -100,7 +100,7 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
                 </>}
 
                 <meta name="twitter:card" content="summary_large_image"/>
-                <meta name="twitter:title" content={title ?? "Karpuchina Gallery"}/>
+                <meta name="twitter:title" content={title ? title + " | Karpuchina Gallery" : "Karpuchina Gallery"}/>
                 <meta name="twitter:description" content="We are a progressive gallery of contemporary art."/>
 
                 <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96"/>
