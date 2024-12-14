@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 
     try {
         const slug = req.body.slug.current;
-        const type = req.body.type
+        const type = req.body['_type'];
 
         console.log(`===== Revalidating: ${type}, ${slug}`);
 
