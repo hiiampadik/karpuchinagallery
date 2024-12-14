@@ -38,7 +38,8 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
         }
     };
 
-    const currentUrl = `https://karpuchina.gallery${router.asPath}`;
+    const baseURL = 'https://karpuchinagallery.vercel.app/'
+    const currentUrl = baseURL + router.asPath;
 
     const jsonLd = {
         '@context': 'https://schema.org',
@@ -101,12 +102,12 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
                     </>
                     :
                     <>
-                        <meta property="og:image" content={'/favicon/web-app-manifest-512x512.png'}/>
+                        <meta property="og:image" content={baseURL + 'favicon/web-app-manifest-512x512.png'}/>
                         <meta property="og:image:type" content="image/png"/>
                         <meta property="og:image:width" content={'512'}/>
                         <meta property="og:image:height" content={'512'}/>
 
-                        <meta name="twitter:image" content={'/favicon/web-app-manifest-512x512.png'}/>
+                        <meta name="twitter:image" content={baseURL + 'favicon/web-app-manifest-512x512.png'}/>
                         <meta name="twitter:image:type" content="image/png"/>
                         <meta name="twitter:image:width" content={'512'}/>
                         <meta name="twitter:image:height" content={'512'}/>
