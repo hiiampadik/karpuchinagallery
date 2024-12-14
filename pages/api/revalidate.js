@@ -29,7 +29,7 @@ export default async function handler(req, res) {
                 path = 'fair';
                 break;
             case 'artistEvents':
-                path = 'artist-event';
+                path = 'artists-event';
                 break;
             case 'artists':
                 path = 'artist';
