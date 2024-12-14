@@ -15,11 +15,28 @@ export default async function handler(req, res) {
     }
 
     try {
-        const pathToRevalidate = req.body.slug.current;
+        const slug = req.body.slug.current;
+        const type = req.body.type
 
-        console.log(`===== Revalidating: ${pathToRevalidate}`);
+        console.log(`===== Revalidating: ${type}, ${slug}`);
 
-        await res.revalidate(`/exhibition/${pathToRevalidate}`);
+        let path = '';
+        switch(type){
+            case 'exhibitions':
+                path = 'exhibition';
+                break;
+            case 'fairs':
+                path = 'fair';
+                break;
+            case 'artistEvents':
+                path = 'artist-event';
+                break;
+            case 'artists':
+                path = 'artist';
+                break;
+        }
+
+        await res.revalidate(`/${path}/${slug}`);
 
         return res.json({ revalidated: true });
     } catch (err) {
