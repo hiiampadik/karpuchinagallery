@@ -6,10 +6,10 @@ export default async function handler(req, res) {
     const signature = req.headers[SIGNATURE_HEADER_NAME];
     const isValid = isValidSignature(JSON.stringify(req.body), signature, SANITY_WEBHOOK_SECRET);
 
-    console.log(`===== Is the webhook request valid? ${isValid}`);
-
     // Validate signature
     if (!isValid) {
+        console.log(`===== Not valid signature`);
+
         res.status(401).json({ success: false, message: 'Invalid signature' });
         return;
     }
@@ -37,6 +37,7 @@ export default async function handler(req, res) {
         }
 
         await res.revalidate(`/${path}/${slug}`);
+
 
         return res.json({ revalidated: true });
     } catch (err) {
