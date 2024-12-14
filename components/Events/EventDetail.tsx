@@ -19,7 +19,7 @@ import client from '@/client';
 const builder = imageUrlBuilder(client);
 
 interface EventDetailProps {
-    readonly event: EventDetailClass | null
+    readonly event: EventDetailClass
     readonly type: EventType
 }
 const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
@@ -45,9 +45,18 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
         return null
     };
 
+    const coverDimensions = getImageDimensions(event.Cover)
+
     return (
         <>
-            <Layout title={event?.Title}>
+            <Layout
+                title={event?.Title}
+                image={{
+                    url: builder.image(event.Cover).auto("format").width(480).url(),
+                    height: coverDimensions.height.toString(),
+                    width: coverDimensions.width.toString(),
+                }}
+            >
                 {event &&
                     <article className={styles.eventContainer}>
                         <section className={styles.eventFold}>

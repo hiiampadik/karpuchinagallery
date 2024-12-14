@@ -11,6 +11,11 @@ import {useRouter} from 'next/router';
 interface LayoutProps {
     readonly title?: string
     readonly loading?: boolean;
+    readonly image?: {
+        url: string,
+        width: string,
+        height: string,
+    }
 }
 
 const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
