@@ -22,6 +22,7 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
     {children,
         title,
         loading = undefined,
+        image
     }) => {
 
     const pageTitle = title ? title + ' | Karpuchina Gallery' : 'Karpuchina Gallery'
@@ -86,19 +87,21 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
                 <meta property="og:type" content="website"/>
                 <meta property="og:url" content={currentUrl}/>
 
-                <meta property="og:image" content={''}/>
-                <meta property="og:image:type" content="image/jpg"/>
-                <meta property="og:image:width" content="1440"/>
-                <meta property="og:image:height" content="960"/>
+                {image && <>
+                    <meta property="og:image" content={image.url}/>
+                    <meta property="og:image:type" content="image/jpg"/>
+                    <meta property="og:image:width" content={image.width}/>
+                    <meta property="og:image:height" content={image.height}/>
+
+                    <meta name="twitter:image" content={image.url}/>
+                    <meta name="twitter:image:type" content="image/jpg"/>
+                    <meta name="twitter:image:width" content={image.width}/>
+                    <meta name="twitter:image:height" content={image.height}/>
+                </>}
 
                 <meta name="twitter:card" content="summary_large_image"/>
                 <meta name="twitter:title" content={title ?? "Karpuchina Gallery"}/>
                 <meta name="twitter:description" content="We are a progressive gallery of contemporary art."/>
-
-                <meta name="twitter:image" content={''}/>
-                <meta name="twitter:image:type" content="image/jpg"/>
-                <meta name="twitter:image:width" content="1440"/>
-                <meta name="twitter:image:height" content="960"/>
 
                 <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96"/>
                 <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg"/>
