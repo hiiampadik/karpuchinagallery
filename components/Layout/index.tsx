@@ -87,17 +87,32 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
                 <meta property="og:type" content="website"/>
                 <meta property="og:url" content={currentUrl}/>
 
-                {image && <>
-                    <meta property="og:image" content={image.url}/>
-                    <meta property="og:image:type" content="image/jpg"/>
-                    <meta property="og:image:width" content={image.width}/>
-                    <meta property="og:image:height" content={image.height}/>
+                {image ?
+                    <>
+                        <meta property="og:image" content={image.url}/>
+                        <meta property="og:image:type" content="image/jpg"/>
+                        <meta property="og:image:width" content={image.width}/>
+                        <meta property="og:image:height" content={image.height}/>
 
-                    <meta name="twitter:image" content={image.url}/>
-                    <meta name="twitter:image:type" content="image/jpg"/>
-                    <meta name="twitter:image:width" content={image.width}/>
-                    <meta name="twitter:image:height" content={image.height}/>
-                </>}
+                        <meta name="twitter:image" content={image.url}/>
+                        <meta name="twitter:image:type" content="image/jpg"/>
+                        <meta name="twitter:image:width" content={image.width}/>
+                        <meta name="twitter:image:height" content={image.height}/>
+                    </>
+                    :
+                    <>
+                        <meta property="og:image" content={'/favicon/web-app-manifest-512x512.png'}/>
+                        <meta property="og:image:type" content="image/png"/>
+                        <meta property="og:image:width" content={'512'}/>
+                        <meta property="og:image:height" content={'512'}/>
+
+                        <meta name="twitter:image" content={'/favicon/web-app-manifest-512x512.png'}/>
+                        <meta name="twitter:image:type" content="image/png"/>
+                        <meta name="twitter:image:width" content={'512'}/>
+                        <meta name="twitter:image:height" content={'512'}/>
+                    </>
+
+                }
 
                 <meta name="twitter:card" content="summary_large_image"/>
                 <meta name="twitter:title" content={title ? title + " | Karpuchina Gallery" : "Karpuchina Gallery"}/>
