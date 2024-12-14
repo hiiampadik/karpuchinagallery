@@ -23,20 +23,26 @@ export default async function handler(req, res) {
         let path = '';
         switch(type){
             case 'exhibitions':
-                path = 'exhibition';
+                path = `/exhibition/${slug}`;
                 break;
             case 'fairs':
-                path = 'fair';
+                path = `/fair/${slug}`;
                 break;
             case 'artistEvents':
-                path = 'artists-event';
+                path = `/artists-event/${slug}`;
                 break;
             case 'artists':
-                path = 'artist';
+                path = `/artist/${slug}`;
                 break;
+            case 'homepage':
+                path = '/';
+                break
+            default:
+                console.log(`===== Wrong type ${type}`);
+                return res.status(500).send('Error while revalidating');
         }
 
-        await res.revalidate(`/${path}/${slug}`);
+        await res.revalidate(path);
 
 
         return res.json({ revalidated: true });
