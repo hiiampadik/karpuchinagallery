@@ -24,7 +24,7 @@ function Fair({data}: any) {
 }
 
 export async function getStaticPaths() {
-    const slugs = await clientWithoutCDN.fetch(QUERY_FAIR_SLUGS);
+    const slugs = await clientWithoutCDN.withConfig({useCdn: false}).fetch(QUERY_FAIR_SLUGS);
     const locales = ['cs', 'en'];
     const paths = slugs.flatMap((slug: string) =>
         locales.map((locale) => ({
@@ -39,7 +39,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-    const fairsData = await clientWithoutCDN.fetch(QUERY_FAIR, { slug: context.params?.slug}
+    const fairsData = await clientWithoutCDN.withConfig({useCdn: false}).fetch(QUERY_FAIR, { slug: context.params?.slug}
     )
 
     if (!fairsData) {

@@ -173,7 +173,7 @@ function Artist({data}: any) {
 }
 
 export async function getStaticPaths() {
-    const slugs = await clientWithoutCDN.fetch(QUERY_ARTIST_SLUGS);
+    const slugs = await clientWithoutCDN.withConfig({useCdn: false}).fetch(QUERY_ARTIST_SLUGS);
     const locales = ['cs', 'en'];
     const paths = slugs.flatMap((slug: string) =>
         locales.map((locale) => ({
@@ -188,7 +188,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-    const data = await clientWithoutCDN.fetch(QUERY_ARTIST, { slug: context.params?.slug})
+    const data = await clientWithoutCDN.withConfig({useCdn: false}).fetch(QUERY_ARTIST, { slug: context.params?.slug})
 
     if (!data || !(data.artist)) {
         return {

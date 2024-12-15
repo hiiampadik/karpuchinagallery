@@ -55,7 +55,7 @@ export default function About({data}: any) {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-    const data = await clientWithoutCDN.fetch(QUERY_ABOUT);
+    const data = await clientWithoutCDN.withConfig({useCdn: false}).fetch(QUERY_ABOUT);
 
     if (!data) {
         return {

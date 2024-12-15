@@ -82,7 +82,7 @@ export default function Home({data}: HomepageProps) {
 
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-    const data = await clientWithoutCDN.fetch(QUERY_HOMEPAGE);
+    const data = await clientWithoutCDN.withConfig({useCdn: false}).fetch(QUERY_HOMEPAGE);
 
     if (!data) {
         return {
