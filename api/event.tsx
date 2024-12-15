@@ -1,6 +1,6 @@
 import {Event, EventDetail, EventType} from '@/api/classes';
 import {useEffect, useState} from 'react';
-import client from '@/client';
+import clientCDN from '@/clientCDN';
 
 export const useFetchEvents = (locale: string, eventType: EventType): { data: Event[] | null, loading: boolean, error: Error | null} => {
     const [data, setData] = useState<any>(null);
@@ -10,7 +10,7 @@ export const useFetchEvents = (locale: string, eventType: EventType): { data: Ev
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await client.fetch(`               
+                const result = await clientCDN.fetch(`               
                     *[_type == "${eventType}"] | order(orderRank) {
                         ...,
                         _id,
@@ -57,7 +57,7 @@ export const useFetchEventDetail = (slug: string | undefined, locale: string, ev
         const fetchData = async () => {
             if (slug !== undefined){
                 try {
-                    const result = await client.fetch(
+                    const result = await clientCDN.fetch(
                         `{"event": *[_type == "${eventType}" && slug.current == $slug] | order(_updatedAt desc) [0] {
                         ...,
                         artworks[]->{

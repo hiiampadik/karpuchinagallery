@@ -1,9 +1,9 @@
-import client from '@/client';
 import {Event, EventType} from '@/api/classes';
+import clientCDN from '@/clientCDN';
 
 export const fetchArtists = async (query: string | null) => {
     try {
-        return await client.fetch(`*[_type == "artists" && name match $queryString + '*'] | order(orderRank){
+        return await clientCDN.fetch(`*[_type == "artists" && name match $queryString + '*'] | order(orderRank){
                     ...,
                     events[]->{
                         ...
@@ -19,7 +19,7 @@ export const fetchEvents = async (query: string, eventType: EventType, locale: s
     try {
         const queryString = `*${query}*`;
 
-        const events = await client.fetch(
+        const events = await clientCDN.fetch(
             `*[_type == $eventType && (
                 title.cs match $queryString ||
                 title.en match $queryString ||

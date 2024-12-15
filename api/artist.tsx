@@ -1,6 +1,6 @@
 import {Artist} from '@/api/classes';
 import {useEffect, useState} from 'react';
-import client from '@/client';
+import clientCDN from '@/clientCDN';
 
 export const useFetchArtists = (locale: string): { data: Artist[] | null, loading: boolean, error: Error | null} => {
     const [data, setData] = useState<any>(null);
@@ -10,7 +10,7 @@ export const useFetchArtists = (locale: string): { data: Artist[] | null, loadin
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await client.fetch(`*[_type == "artists"] | order(orderRank){
+                const result = await clientCDN.fetch(`*[_type == "artists"] | order(orderRank){
                     ...,
                     events[]->{
                         ...
@@ -47,7 +47,7 @@ export const useFetchArtist = (slug: string | undefined, locale: string): { data
         const fetchData = async () => {
             if (slug !== undefined){
                 try {
-                    const result = await client.fetch(
+                    const result = await clientCDN.fetch(
                         `{"artist": *[_type == "artists" && slug.current == $slug] | order(_updatedAt desc) [0] {
                         ...,
                          events[]->{

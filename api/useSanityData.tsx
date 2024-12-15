@@ -1,7 +1,7 @@
 'use client'
 import {useEffect, useState} from 'react';
-import client from '../client';
 import {About, Artwork, Homepage} from '@/api/classes';
+import clientCDN from '@/clientCDN';
 
 export const useFetchHomepage = (locale: string): { data: Homepage | null, loading: boolean, error: Error | null} => {
     const [data, setData] = useState<any>(null);
@@ -11,7 +11,7 @@ export const useFetchHomepage = (locale: string): { data: Homepage | null, loadi
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await client.fetch(`
+                const result = await clientCDN.fetch(`
                 *[_type == 'homepage'][0]{
                     onDisplay->{
                         ...
@@ -49,7 +49,7 @@ export const useFetchAbout = (locale: string): { data: About | null, loading: bo
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await client.fetch(`*[_type == 'about'][0]`);
+                const result = await clientCDN.fetch(`*[_type == 'about'][0]`);
                 setData(result);
             } catch (error) {
                 setError(error as Error);

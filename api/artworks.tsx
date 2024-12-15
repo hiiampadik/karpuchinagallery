@@ -1,6 +1,6 @@
 import {Artwork} from '@/api/classes';
 import {useEffect, useState} from 'react';
-import client from '@/client';
+import clientCDN from '@/clientCDN';
 
 export const useFetchArtworks = (locale: string): { data: Artwork[] | null, loading: boolean, error: Error | null} => {
     const [data, setData] = useState<any>(null);
@@ -10,7 +10,7 @@ export const useFetchArtworks = (locale: string): { data: Artwork[] | null, load
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await client.fetch(`*[_type == "artworks"] {
+                const result = await clientCDN.fetch(`*[_type == "artworks"] {
                 ...,
                 artist->{
                                 _id,
