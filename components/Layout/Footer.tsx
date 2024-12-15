@@ -1,4 +1,3 @@
-'use client'
 import React, {FunctionComponent} from 'react';
 import styles from './index.module.scss'
 import {useRouter} from 'next/router';

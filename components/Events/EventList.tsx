@@ -1,4 +1,3 @@
-'use client'
 import styles from '@/styles/events.module.scss';
 import React, {FunctionComponent, useMemo} from 'react';
 import {Event, EventType} from '@/api/classes';

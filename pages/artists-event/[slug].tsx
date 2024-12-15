@@ -3,7 +3,7 @@ import {GetStaticPropsContext} from 'next';
 import {useRouter} from 'next/router';
 import EventDetail from '@/components/Events/EventDetail';
 import {EventDetail as EventDetailClass, EventType} from '@/api/classes';
-import client, {clientWithoutCDN} from '@/sanity/client';
+import {clientWithoutCDN} from '@/sanity/client';
 import Layout from '@/components/Layout';
 import {QUERY_ARTISTS_EVENTS, QUERY_ARTISTS_EVENTS_SLUGS} from '@/sanity/queries';
 

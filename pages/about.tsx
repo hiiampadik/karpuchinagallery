@@ -1,4 +1,3 @@
-'use client'
 import Layout from '../components/Layout';
 import {GetStaticPropsContext} from 'next';
 import styles from '../styles/about.module.scss'
@@ -7,7 +6,7 @@ import BlockContent from '@/components/Sanity/BlockContent';
 import React from 'react';
 import GallerySwiper from '@/components/Sanity/GallerySwiper';
 import Figure from '@/components/Sanity/Figure';
-import client, {clientWithoutCDN} from '@/sanity/client';
+import {clientWithoutCDN} from '@/sanity/client';
 import {About as AboutClass} from '@/api/classes';
 import {QUERY_ABOUT} from '@/sanity/queries';
 

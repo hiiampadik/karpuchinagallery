@@ -1,9 +1,10 @@
 'use client'
 import imageUrlBuilder from "@sanity/image-url";
-import {FunctionComponent, useEffect, useMemo, useRef} from 'react';
+import {FunctionComponent, useEffect, useMemo, useRef, useState} from 'react';
 import {getImageDimensions} from '@sanity/asset-utils';
 import {classNames} from '@/components/utils/classNames';
 import client from '@/sanity/client';
+import styles from './Figure.module.scss'
 
 const builder = imageUrlBuilder(client);
 
@@ -11,7 +12,6 @@ interface FigureProps {
     readonly image: {_type: 'image', asset: {_ref: string, _type: "reference"}};
     readonly alt?: string | null
     readonly className?: string
-    readonly onLoad?: () => void
     readonly onClick?: () => void
     readonly fullWidth?: boolean
     readonly galleryImage?: boolean
@@ -27,10 +27,11 @@ const Figure: FunctionComponent<FigureProps> = (
         fullWidth = false,
         galleryImage = false,
         sizes,
-        onLoad,
         onClick,
         loading
     }) => {
+
+    const [loaded, setLoaded] = useState(false)
 
     const [height, width] = useMemo(() => {
         const dimensions = getImageDimensions(image)
@@ -54,9 +55,9 @@ const Figure: FunctionComponent<FigureProps> = (
     const imgRef = useRef<HTMLImageElement | null>(null);
     useEffect(() => {
         if (imgRef.current?.complete) {
-            onLoad?.();
+            setLoaded(true)
         }
-    }, [onLoad]);
+    }, []);
 
 
     return (
@@ -65,8 +66,8 @@ const Figure: FunctionComponent<FigureProps> = (
             ref={imgRef}
             loading={loading}
             onClick={onClick}
-            onLoad={() => onLoad?.()}
-            className={classNames([className])}
+            onLoad={() => setLoaded(true)}
+            className={classNames([className, loaded ? styles.loaded : styles.loading])}
             alt={alt ?? 'Alt is missing'}
 
             sizes={resolvedSizes}

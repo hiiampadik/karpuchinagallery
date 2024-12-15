@@ -1,4 +1,3 @@
-'use client'
 import Layout from "../../components/Layout";
 import React, {useMemo, useState} from "react";
 import {GetStaticPropsContext} from 'next';
@@ -13,7 +12,7 @@ import {Artist as ArtistClass, Event, EventType} from '@/api/classes';
 import ArtworkDetail from '@/components/Artworks/ArtworkDetail';
 import ArtworkItem from '@/components/Artworks/ArtworkItem';
 import {useDisableScroll} from '@/components/utils/useDisableScroll';
-import client, {clientWithoutCDN} from '@/sanity/client';
+import {clientWithoutCDN} from '@/sanity/client';
 import {QUERY_ARTIST, QUERY_ARTIST_SLUGS} from '@/sanity/queries';
 
 

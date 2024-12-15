@@ -1,9 +1,8 @@
 import styles from '../Layout/index.module.scss'
-import React, {FunctionComponent, useState} from 'react';
+import React, {FunctionComponent} from 'react';
 import {Artwork} from '@/api/classes';
 import Figure from '@/components/Sanity/Figure';
 import {classNames} from '@/components/utils/classNames';
-import figureStyles from '@/components/Sanity/Figure.module.scss';
 
 interface ArtworkItemProps {
     readonly artwork: Artwork;
@@ -11,14 +10,11 @@ interface ArtworkItemProps {
 }
 
 const ArtworkItem: FunctionComponent<ArtworkItemProps> = ({artwork, onOpenArtwork}) => {
-    const [loaded, setLoaded] = useState(false)
-
     return (
-        <div className={classNames([styles.work, loaded ? figureStyles.loaded : figureStyles.loading, ])}
+        <div className={classNames([styles.work])}
              onClick={() => onOpenArtwork()}>
             <div className={styles.cover}>
                 <Figure
-                    onLoad={() => setLoaded(true)}
                     image={artwork.Cover}
                     alt={artwork.Title.concat(" – Artwork Cover")}
                 />

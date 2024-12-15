@@ -1,3 +1,4 @@
+'use client'
 import {Artwork} from '@/api/classes';
 import {useEffect, useState} from 'react';
 import client from '@/sanity/client';

@@ -1,4 +1,3 @@
-'use client'
 import Layout from '../components/Layout';
 import React from 'react';
 import {GetStaticPropsContext} from 'next';

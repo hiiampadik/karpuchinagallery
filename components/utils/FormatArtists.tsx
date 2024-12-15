@@ -1,4 +1,3 @@
-'use client'
 import {FunctionComponent, useMemo} from 'react';
 import {useTranslations} from 'next-intl';
 import styles from '@/components/common.module.scss';

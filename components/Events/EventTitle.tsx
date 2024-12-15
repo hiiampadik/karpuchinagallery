@@ -1,4 +1,3 @@
-'use client'
 import React, {FunctionComponent} from 'react';
 import {useTranslations} from 'next-intl';
 import FormatArtists from '@/components/utils/FormatArtists';

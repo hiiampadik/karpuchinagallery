@@ -1,4 +1,3 @@
-'use client'
 import {GetStaticPropsContext} from 'next';
 import {useRouter} from 'next/router';
 import {useFetchEvents} from '@/api';

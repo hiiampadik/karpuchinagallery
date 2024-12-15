@@ -14,7 +14,6 @@ interface EventItemProps {
 }
 
 const EventItem: FunctionComponent<EventItemProps> = ({event, useH2, type}) => {
-    const [loaded, setLoaded] = useState(false)
     const getHref = () => {
         switch (type){
             case EventType.Exhibitions:
@@ -30,12 +29,11 @@ const EventItem: FunctionComponent<EventItemProps> = ({event, useH2, type}) => {
         <Link href={`/${getHref()}/[slug]`}
               as={`/${getHref()}/${event.Slug}`}
               key={event.Slug}
-              className={classNames([loaded ? figureStyles.loaded : figureStyles.loading, styles.eventContainer])}>
+              className={classNames([styles.eventContainer])}>
             <div className={styles.cover}>
                 <Figure
                     image={event.Cover}
                     alt={event.Title.concat(" – Cover Image")}
-                    onLoad={() => setLoaded(true)}
                 />
             </div>
             {useH2 ?

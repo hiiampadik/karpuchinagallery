@@ -1,11 +1,10 @@
-'use client'
 import {useTranslations} from 'next-intl';
 import Layout from '../components/Layout';
 import {GetStaticPropsContext} from 'next';
 import styles from '@/styles/homepage.module.scss';
 import figureStyles from '@/components/Sanity/Figure.module.scss';
 import Link from 'next/link';
-import React, {useState} from 'react';
+import React from 'react';
 import {useRouter} from 'next/router';
 import FormatArtists from '@/components/utils/FormatArtists';
 import LocalizedDate from '@/components/utils/LocalizeDate';
@@ -13,8 +12,7 @@ import Figure from '@/components/Sanity/Figure';
 import {replaceSpaces} from '@/components/utils/replaceSpaces';
 import EventTitle, {TimeContext} from '@/components/Events/EventTitle';
 import {EventType, Homepage} from '@/api/classes';
-import {classNames} from '@/components/utils/classNames';
-import client, {clientWithoutCDN} from '@/sanity/client';
+import {clientWithoutCDN} from '@/sanity/client';
 import {QUERY_HOMEPAGE} from '@/sanity/queries';
 
 
@@ -26,7 +24,6 @@ export default function Home({data}: HomepageProps) {
     const homepage = Homepage.fromPayload(data, router.locale ?? 'cs')
 
     const t = useTranslations('Homepage');
-    const [loaded, setLoaded] = useState(false)
 
     return (
         <Layout>
@@ -39,9 +36,8 @@ export default function Home({data}: HomepageProps) {
                     >
                         <EventTitle event={homepage.OnDisplay} timeContext={TimeContext.OnDisplay} fromHomepage={true}/>
 
-                        <div className={classNames([styles.onDisplayImageContainer, loaded ? figureStyles.loaded : figureStyles.loading])}>
+                        <div className={styles.onDisplayImageContainer}>
                             <Figure
-                                onLoad={() => setLoaded(true)}
                                 className={styles.onDisplayCover}
                                 image={homepage.OnDisplay.Cover}
                                 alt={homepage.OnDisplay.Title.concat(" – Exhibition Cover Image")}

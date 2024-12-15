@@ -109,17 +109,12 @@ interface GallerySlideProps {
 }
 
 const GallerySlide: FunctionComponent<GallerySlideProps> = ({image, galleryImage, fullWidth}) => {
-
-    const [loaded, setLoaded] = useState(false)
-
     return (
         <Figure
             image={image.Image}
             alt={image.Alt}
             galleryImage={galleryImage}
             fullWidth={fullWidth}
-            onLoad={() => setLoaded(true)}
-            className={loaded ? figureStyles.loaded : figureStyles.loading}
         />
     )
 }
