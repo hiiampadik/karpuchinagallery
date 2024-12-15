@@ -3,7 +3,7 @@ import {GetStaticPropsContext} from 'next';
 import {useRouter} from 'next/router';
 import EventDetail from '@/components/Events/EventDetail';
 import {EventDetail as EventDetailClass, EventType} from '@/api/classes';
-import client from '@/sanity/client';
+import client, {clientWithoutCDN} from '@/sanity/client';
 import Layout from '@/components/Layout';
 import {QUERY_FAIR, QUERY_FAIR_SLUGS} from '@/sanity/queries';
 
@@ -24,7 +24,7 @@ function Fair({data}: any) {
 }
 
 export async function getStaticPaths() {
-    const slugs = await client.withConfig({useCdn: false}).fetch(QUERY_FAIR_SLUGS);
+    const slugs = await clientWithoutCDN.fetch(QUERY_FAIR_SLUGS);
     const locales = ['cs', 'en'];
     const paths = slugs.flatMap((slug: string) =>
         locales.map((locale) => ({
@@ -39,7 +39,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-    const fairsData = await client.withConfig({useCdn: false}).fetch(QUERY_FAIR, { slug: context.params?.slug}
+    const fairsData = await clientWithoutCDN.fetch(QUERY_FAIR, { slug: context.params?.slug}
     )
 
     if (!fairsData) {
