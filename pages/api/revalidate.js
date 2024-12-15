@@ -54,8 +54,8 @@ export default async function handler(req, res) {
         }
 
         await Promise.all([
-            res.revalidate(path),
-            res.revalidate('/en' + path)
+            res.revalidate('/en' + path),
+            res.revalidate('/cs' + path)
         ]);
 
         return res.json({ revalidated: true });
