@@ -19,7 +19,6 @@ export class Homepage {
 
 export class About {
     public constructor(
-        public readonly Footer: PortableTextBlock,
         public readonly LeftColumn: PortableTextBlock,
         public readonly RightColumn: PortableTextBlock,
         public readonly Bio: PortableTextBlock,
@@ -29,7 +28,6 @@ export class About {
 
     public static fromPayload(payload: any, locale: string): About {
         return new About(
-            payload.footer[locale],
             payload.leftColumn[locale],
             payload.rightColumn[locale],
             payload.bio[locale],

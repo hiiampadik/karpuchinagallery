@@ -58,7 +58,9 @@ const Figure: FunctionComponent<FigureProps> = (
         }
     }, [onLoad]);
 
+
     return (
+        // eslint-disable-next-line @next/next/no-img-element
         <img
             ref={imgRef}
             loading={loading}
