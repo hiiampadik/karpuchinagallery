@@ -4,17 +4,9 @@ import {useRouter} from 'next/router';
 import EventDetail from '@/components/Events/EventDetail';
 import {EventDetail as EventDetailClass, EventType} from '@/api/classes';
 import {clientWithoutCDN} from '@/sanity/client';
-import Layout from '@/components/Layout';
 import {QUERY_EXHIBITION, QUERY_EXHIBITION_SLUGS} from '@/sanity/queries';
 
-export default function Wrapper({data}: any) {
-    if (!data){
-        return <Layout loading={true}></Layout>
-    }
-    return <Exhibition data={data} />
-}
-
-function Exhibition({data}: any) {
+export default function Exhibition({data}: any) {
     const router = useRouter();
     const exhibition = EventDetailClass.fromPayload(data, router.locale ?? 'cs')
 

@@ -4,17 +4,9 @@ import {useRouter} from 'next/router';
 import EventDetail from '@/components/Events/EventDetail';
 import {EventDetail as EventDetailClass, EventType} from '@/api/classes';
 import {clientWithoutCDN} from '@/sanity/client';
-import Layout from '@/components/Layout';
 import {QUERY_FAIR, QUERY_FAIR_SLUGS} from '@/sanity/queries';
 
-export default function Wrapper({data}: any) {
-    if (!data){
-        return <Layout loading={true}></Layout>
-    }
-    return <Fair data={data} />
-}
-
-function Fair({data}: any) {
+export default function Fair({data}: any) {
     const router = useRouter();
     const fair = EventDetailClass.fromPayload(data, router.locale ?? 'cs')
 

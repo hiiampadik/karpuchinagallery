@@ -4,17 +4,10 @@ import {useRouter} from 'next/router';
 import EventDetail from '@/components/Events/EventDetail';
 import {EventDetail as EventDetailClass, EventType} from '@/api/classes';
 import {clientWithoutCDN} from '@/sanity/client';
-import Layout from '@/components/Layout';
 import {QUERY_ARTISTS_EVENTS, QUERY_ARTISTS_EVENTS_SLUGS} from '@/sanity/queries';
 
-export default function Wrapper({data}: any) {
-    if (!data){
-        return <Layout loading={true}></Layout>
-    }
-    return <ArtistsEvent data={data} />
-}
 
-function ArtistsEvent({data}: any) {
+export default function ArtistsEvent({data}: any) {
     const router = useRouter();
     const artistsEvent = EventDetailClass.fromPayload(data, router.locale ?? 'cs')
 

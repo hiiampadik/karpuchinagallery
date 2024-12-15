@@ -53,7 +53,11 @@ export default async function handler(req, res) {
                 return res.status(500).send('Error while revalidating');
         }
 
-        await res.revalidate(path);
+        await Promise.all([
+            res.revalidate(path),
+            res.revalidate('/en' + path)
+        ]);
+
         return res.json({ revalidated: true });
 
     } catch (err) {
