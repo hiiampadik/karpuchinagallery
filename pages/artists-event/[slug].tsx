@@ -6,6 +6,7 @@ import {EventDetail as EventDetailClass, EventType} from '@/api/classes';
 import {clientWithoutCDN} from '@/sanity/client';
 import {QUERY_ARTISTS_EVENTS, QUERY_ARTISTS_EVENTS_SLUGS} from '@/sanity/queries';
 
+export const dynamic = 'auto';
 
 export default function ArtistsEvent({data}: any) {
     const router = useRouter();

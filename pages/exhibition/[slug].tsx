@@ -6,6 +6,8 @@ import {EventDetail as EventDetailClass, EventType} from '@/api/classes';
 import {clientWithoutCDN} from '@/sanity/client';
 import {QUERY_EXHIBITION, QUERY_EXHIBITION_SLUGS} from '@/sanity/queries';
 
+export const dynamic = 'auto';
+
 export default function Exhibition({data}: any) {
     const router = useRouter();
     const exhibition = EventDetailClass.fromPayload(data, router.locale ?? 'cs')

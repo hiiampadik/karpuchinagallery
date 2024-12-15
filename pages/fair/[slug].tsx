@@ -6,6 +6,8 @@ import {EventDetail as EventDetailClass, EventType} from '@/api/classes';
 import {clientWithoutCDN} from '@/sanity/client';
 import {QUERY_FAIR, QUERY_FAIR_SLUGS} from '@/sanity/queries';
 
+export const dynamic = 'auto';
+
 export default function Fair({data}: any) {
     const router = useRouter();
     const fair = EventDetailClass.fromPayload(data, router.locale ?? 'cs')

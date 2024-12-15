@@ -6,6 +6,7 @@ import {clientWithoutCDN} from '@/sanity/client';
 import {QUERY_ALL_ARTWORKS, QUERY_ARTIST, QUERY_ARTIST_SLUGS} from '@/sanity/queries';
 import ArtistDetail from '@/components/Artists/ArtistDetail';
 
+export const dynamic = 'auto';
 
 export default function Artist(props: any) {
     const router = useRouter();
