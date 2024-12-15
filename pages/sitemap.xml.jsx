@@ -1,8 +1,5 @@
-import client from '../client.js'
-
-export const allSlugsQuery = `
-  *[defined(slug.current)][].slug.current
-`;
+import client from "../sanity/client.js";
+import {QUERY_ALL_SLUGS} from "../sanity/queries.ts";
 
 const SiteMap = function () {
     return <div>loading</div>;
@@ -10,7 +7,7 @@ const SiteMap = function () {
 
 export async function getServerSideProps({ res }) {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://karpuchinagallery.vercel.app/';
-    const urls = await client.fetch(allSlugsQuery);
+    const urls = await client.withConfig({useCdn: false}).fetch(QUERY_ALL_SLUGS);
     const slugs = urls.map(
         (page) =>
             `

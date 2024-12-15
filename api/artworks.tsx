@@ -1,6 +1,7 @@
 import {Artwork} from '@/api/classes';
 import {useEffect, useState} from 'react';
-import clientCDN from '@/clientCDN';
+import client from '@/sanity/client';
+import {QUERY_ALL_ARTWORKS} from '@/sanity/queries';
 
 export const useFetchArtworks = (locale: string): { data: Artwork[] | null, loading: boolean, error: Error | null} => {
     const [data, setData] = useState<any>(null);
@@ -10,15 +11,7 @@ export const useFetchArtworks = (locale: string): { data: Artwork[] | null, load
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await clientCDN.fetch(`*[_type == "artworks"] {
-                ...,
-                artist->{
-                                _id,
-                                name,
-                                slug
-                            },
-                
-                }`);
+                const result = await client.fetch(QUERY_ALL_ARTWORKS);
                 setData(result);
             } catch (error) {
                 setError(error as Error);
@@ -29,11 +22,6 @@ export const useFetchArtworks = (locale: string): { data: Artwork[] | null, load
         };
 
         fetchData();
-
-        // Cleanup function
-        return () => {
-            // Optionally, you can cancel any pending requests here
-        };
     }, []);
 
     return {

@@ -14,7 +14,7 @@ import {useDisableScroll} from '@/components/utils/useDisableScroll';
 import ArtworkDetail from '@/components/Artworks/ArtworkDetail';
 import {getImageDimensions} from '@sanity/asset-utils';
 import imageUrlBuilder from '@sanity/image-url';
-import client from '@/client';
+import client from '@/sanity/client';
 
 const builder = imageUrlBuilder(client);
 

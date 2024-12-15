@@ -7,8 +7,9 @@ import BlockContent from '@/components/Sanity/BlockContent';
 import React from 'react';
 import GallerySwiper from '@/components/Sanity/GallerySwiper';
 import Figure from '@/components/Sanity/Figure';
-import client from '@/client';
+import client from '@/sanity/client';
 import {About as AboutClass} from '@/api/classes';
+import {QUERY_ABOUT} from '@/sanity/queries';
 
 export default function About({data}: any) {
     const router = useRouter();
@@ -55,10 +56,7 @@ export default function About({data}: any) {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-    const data = await client.fetch(`
-                *[_type == 'about'][0]
-                `
-    );
+    const data = await client.withConfig({useCdn: false}).fetch(QUERY_ABOUT);
 
     if (!data) {
         return {

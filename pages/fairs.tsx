@@ -5,10 +5,11 @@ import {useFetchEvents} from '@/api';
 import React from 'react';
 import EventList from '@/components/Events/EventList';
 import {EventType} from '@/api/classes';
+import {QUERY_ALL_FAIRS} from '@/sanity/queries';
 
 export default function Fairs() {
     const router = useRouter();
-    const {data: fairs} = useFetchEvents(router.locale ?? 'cs', EventType.Fairs)
+    const {data: fairs} = useFetchEvents(router.locale ?? 'cs', QUERY_ALL_FAIRS)
 
     return (
         <EventList events={fairs ?? []} type={EventType.Fairs}/>

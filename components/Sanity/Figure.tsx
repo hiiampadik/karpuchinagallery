@@ -1,9 +1,9 @@
 'use client'
 import imageUrlBuilder from "@sanity/image-url";
-import client from "../../client";
 import {FunctionComponent, useEffect, useMemo, useRef} from 'react';
 import {getImageDimensions} from '@sanity/asset-utils';
 import {classNames} from '@/components/utils/classNames';
+import client from '@/sanity/client';
 
 const builder = imageUrlBuilder(client);
 

@@ -5,10 +5,11 @@ import {useFetchEvents} from '@/api';
 import React from 'react';
 import EventList from '@/components/Events/EventList';
 import {EventType} from '@/api/classes';
+import {QUERY_ALL_EXHIBITIONS} from '@/sanity/queries';
 
 export default function Exhibitions() {
     const router = useRouter();
-    const {data: exhibitions} = useFetchEvents(router.locale ?? 'cs', EventType.Exhibitions)
+    const {data: exhibitions} = useFetchEvents(router.locale ?? 'cs', QUERY_ALL_EXHIBITIONS)
     return (
        <EventList events={exhibitions ?? []} type={EventType.Exhibitions} />
     );

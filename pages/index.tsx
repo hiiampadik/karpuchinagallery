@@ -14,7 +14,8 @@ import {replaceSpaces} from '@/components/utils/replaceSpaces';
 import EventTitle, {TimeContext} from '@/components/Events/EventTitle';
 import {EventType, Homepage} from '@/api/classes';
 import {classNames} from '@/components/utils/classNames';
-import client from '@/client';
+import client from '@/sanity/client';
+import {QUERY_HOMEPAGE} from '@/sanity/queries';
 
 
 interface HomepageProps {
@@ -85,17 +86,7 @@ export default function Home({data}: HomepageProps) {
 
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-    const data = await client.fetch(`
-                *[_type == 'homepage'][0]{
-                    onDisplay->{
-                        ...
-                    },
-                    upcoming->{
-                        ...
-                    }
-                }
-                `
-    );
+    const data = await client.withConfig({useCdn: false}).fetch(QUERY_HOMEPAGE);
 
     if (!data) {
         return {

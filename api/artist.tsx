@@ -1,6 +1,7 @@
 import {Artist} from '@/api/classes';
 import {useEffect, useState} from 'react';
-import clientCDN from '@/clientCDN';
+import client from '@/sanity/client';
+import {QUERY_ALL_ARTISTS} from '@/sanity/queries';
 
 export const useFetchArtists = (locale: string): { data: Artist[] | null, loading: boolean, error: Error | null} => {
     const [data, setData] = useState<any>(null);
@@ -10,12 +11,7 @@ export const useFetchArtists = (locale: string): { data: Artist[] | null, loadin
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await clientCDN.fetch(`*[_type == "artists"] | order(orderRank){
-                    ...,
-                    events[]->{
-                        ...
-                    }
-                }`);
+                const result = await client.fetch(QUERY_ALL_ARTISTS);
                 setData(result);
             } catch (error) {
                 setError(error as Error);
@@ -25,53 +21,10 @@ export const useFetchArtists = (locale: string): { data: Artist[] | null, loadin
         };
 
         fetchData();
-
-        // Cleanup function
-        return () => {
-            // Optionally, you can cancel any pending requests here
-        };
     }, [locale]);
 
     return {
         data: data && data.map((value: any) => Artist.fromPayload(value, locale)),
         loading,
         error };
-};
-
-export const useFetchArtist = (slug: string | undefined, locale: string): { data: Artist | null, loading: boolean, error: Error | null} => {
-    const [data, setData] = useState<any>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<Error | null>(null);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            if (slug !== undefined){
-                try {
-                    const result = await clientCDN.fetch(
-                        `{"artist": *[_type == "artists" && slug.current == $slug] | order(_updatedAt desc) [0] {
-                        ...,
-                         events[]->{
-                            ...
-                        },
-                        }}`,
-                        { slug: slug}
-                    );
-                    setData(result.artist);
-                } catch (error) {
-                    setError(error as Error);
-                } finally {
-                    setLoading(false);
-                }
-            }
-        };
-
-        fetchData();
-
-        // Cleanup function
-        return () => {
-            // Optionally, you can cancel any pending requests here
-        };
-    }, [slug]);
-
-    return { data: data && Artist.fromPayload(data, locale), loading, error };
 };

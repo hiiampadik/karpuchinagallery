@@ -3,8 +3,9 @@ import {GetStaticPropsContext} from 'next';
 import {useRouter} from 'next/router';
 import EventDetail from '@/components/Events/EventDetail';
 import {EventDetail as EventDetailClass, EventType} from '@/api/classes';
-import client from '@/client';
+import client from '@/sanity/client';
 import Layout from '@/components/Layout';
+import {QUERY_EXHIBITION, QUERY_EXHIBITION_SLUGS} from '@/sanity/queries';
 
 export default function Wrapper({data}: any) {
     if (!data){
@@ -23,9 +24,7 @@ function Exhibition({data}: any) {
 }
 
 export async function getStaticPaths() {
-    const slugs = await client.fetch(
-        `*[_type == "exhibitions" && defined(slug.current)][].slug.current`
-    );
+    const slugs = await client.withConfig({useCdn: false}).fetch(QUERY_EXHIBITION_SLUGS);
     const locales = ['cs', 'en'];
     const paths = slugs.flatMap((slug: string) =>
         locales.map((locale) => ({
@@ -39,37 +38,7 @@ export async function getStaticPaths() {
     };
 }
 export async function getStaticProps(context: GetStaticPropsContext) {
-    const data= await client.fetch(
-        `{"event": *[_type == "exhibitions" && slug.current == $slug] | order(_updatedAt desc) [0] {
-                        ...,
-                        artworks[]->{
-                            _id,
-                            title,
-                            year,
-                            artist->{
-                                _id,
-                                name,
-                                slug
-                            },
-                            showInSelection,
-                            cover,
-                            gallery
-                        },
-                        documents[]{
-                            ...,
-                            documentCover{
-                                ...,
-                            },
-                            file{
-                                ...,
-                                asset->{
-                                    ...
-                                }
-                            }
-                        }
-                        }}`,
-        { slug: context.params?.slug}
-    )
+    const data= await client.withConfig({useCdn: false}).fetch(QUERY_EXHIBITION, { slug: context.params?.slug})
 
     if (!data) {
         return {
