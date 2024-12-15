@@ -17,26 +17,35 @@ export default async function handler(req, res) {
     try {
         const type = req.body['_type'];
 
-        console.log(`===== Revalidating: ${type}, ${slug}`);
-
         let path = '';
+        let slug = ''
         switch(type){
             case 'exhibitions':
-                path = `/exhibition/${req.body.slug.current}`;
+                slug = req.body.slug.current
+                console.log(`===== Revalidating: ${type}, ${slug}`);
+                path = `/exhibition/${slug}`;
                 break;
             case 'fairs':
-                path = `/fair/${req.body.slug.current}`;
+                slug = req.body.slug.current
+                console.log(`===== Revalidating: ${type}, ${slug}`);
+                path = `/fair/${slug}`;
                 break;
             case 'artistEvents':
-                path = `/artists-event/${req.body.slug.current}`;
+                slug = req.body.slug.current
+                console.log(`===== Revalidating: ${type}, ${slug}`);
+                path = `/artists-event/${slug}`;
                 break;
             case 'artists':
-                path = `/artist/${req.body.slug.current}`;
+                slug = req.body.slug.current
+                console.log(`===== Revalidating: ${type}, ${slug}`);
+                path = `/artist/${slug}`;
                 break;
             case 'homepage':
+                console.log(`===== Revalidating: Homepage`);
                 path = '/';
                 break
             case 'about':
+                console.log(`===== Revalidating: About`);
                 path = '/about';
                 break
             default:
