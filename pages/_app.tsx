@@ -1,9 +1,9 @@
 import React, {FunctionComponent, useEffect} from "react";
-import { AppProps } from 'next/app';
+import {AppProps} from 'next/app';
 import '../styles/globals.scss';
-import {NextIntlClientProvider} from 'next-intl';
+import {IntlErrorCode, NextIntlClientProvider} from 'next-intl';
 import {OverlaysProvider} from '@blueprintjs/core';
-import { Analytics } from '@vercel/analytics/next';
+import {Analytics} from '@vercel/analytics/next';
 import Script from 'next/script';
 import * as gtag from "../lib/gtag";
 
@@ -44,6 +44,11 @@ const MyApp: FunctionComponent<AppProps> = ({ Component, router, pageProps }) =>
                 locale={router.locale}
                 timeZone="Europe/Vienna"
                 messages={pageProps.messages}
+                onError={(error) => {
+                    if (error.code === IntlErrorCode.MISSING_MESSAGE) {
+                        console.warn('Missing translation:', error.name);
+                    }
+                }}
             >
                 <OverlaysProvider>
                     <Analytics />

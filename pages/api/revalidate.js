@@ -15,7 +15,6 @@ export default async function handler(req, res) {
     }
 
     try {
-        const slug = req.body.slug.current;
         const type = req.body['_type'];
 
         console.log(`===== Revalidating: ${type}, ${slug}`);
@@ -23,19 +22,22 @@ export default async function handler(req, res) {
         let path = '';
         switch(type){
             case 'exhibitions':
-                path = `/exhibition/${slug}`;
+                path = `/exhibition/${req.body.slug.current}`;
                 break;
             case 'fairs':
-                path = `/fair/${slug}`;
+                path = `/fair/${req.body.slug.current}`;
                 break;
             case 'artistEvents':
-                path = `/artists-event/${slug}`;
+                path = `/artists-event/${req.body.slug.current}`;
                 break;
             case 'artists':
-                path = `/artist/${slug}`;
+                path = `/artist/${req.body.slug.current}`;
                 break;
             case 'homepage':
                 path = '/';
+                break
+            case 'about':
+                path = '/about';
                 break
             default:
                 console.log(`===== Wrong type ${type}`);
