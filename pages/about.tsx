@@ -67,7 +67,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         props: {
             data,
             messages: (await import(`../public/locales/${context.locale}.json`)).default,
-            revalidate: 60
         },
+        revalidate: 60
     };
 }
