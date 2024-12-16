@@ -3,7 +3,7 @@ import {GetStaticPropsContext} from 'next';
 import {useRouter} from 'next/router';
 import EventDetail from '@/components/Events/EventDetail';
 import {EventDetail as EventDetailClass, EventType} from '@/api/classes';
-import {clientWithoutCDN} from '@/sanity/client';
+import client from '@/sanity/client';
 import {QUERY_FAIR, QUERY_FAIR_SLUGS} from '@/sanity/queries';
 
 export const dynamic = 'auto';
@@ -18,7 +18,7 @@ export default function Fair({data}: any) {
 }
 
 export async function getStaticPaths() {
-    const slugs = await clientWithoutCDN.withConfig({useCdn: false}).fetch(QUERY_FAIR_SLUGS);
+    const slugs = await client.fetch(QUERY_FAIR_SLUGS);
     const locales = ['cs', 'en'];
     const paths = slugs.flatMap((slug: string) =>
         locales.map((locale) => ({
@@ -33,8 +33,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-    const fairsData = await clientWithoutCDN.withConfig({useCdn: false}).fetch(QUERY_FAIR, { slug: context.params?.slug}
-    )
+    const fairsData = await client.fetch(QUERY_FAIR, { slug: context.params?.slug})
 
     if (!fairsData) {
         return {
@@ -46,6 +45,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         props: {
             data: fairsData.event,
             messages: (await import(`../../public/locales/${context.locale}.json`)).default,
+            revalidate: 60
         },
     };
 }

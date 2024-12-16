@@ -1,4 +1,4 @@
-import client, {clientWithoutCDN} from "../sanity/client.ts";
+import {clientWithoutCDN} from "../sanity/client.ts";
 import {QUERY_ALL_SLUGS} from "../sanity/queries.ts";
 
 const SiteMap = function () {

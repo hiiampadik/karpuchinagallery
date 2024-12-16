@@ -6,7 +6,7 @@ import BlockContent from '@/components/Sanity/BlockContent';
 import React from 'react';
 import GallerySwiper from '@/components/Sanity/GallerySwiper';
 import Figure from '@/components/Sanity/Figure';
-import {clientWithoutCDN} from '@/sanity/client';
+import client from '@/sanity/client';
 import {About as AboutClass} from '@/api/classes';
 import {QUERY_ABOUT} from '@/sanity/queries';
 
@@ -55,7 +55,7 @@ export default function About({data}: any) {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-    const data = await clientWithoutCDN.withConfig({useCdn: false}).fetch(QUERY_ABOUT);
+    const data = await client.fetch(QUERY_ABOUT);
 
     if (!data) {
         return {
@@ -67,6 +67,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         props: {
             data,
             messages: (await import(`../public/locales/${context.locale}.json`)).default,
+            revalidate: 60
         },
     };
 }

@@ -2,7 +2,7 @@ import React from "react";
 import {GetStaticPropsContext} from 'next';
 import {useRouter} from 'next/router';
 import {Artist as ArtistClass, Artwork} from '@/api/classes';
-import {clientWithoutCDN} from '@/sanity/client';
+import client from '@/sanity/client';
 import {QUERY_ALL_ARTWORKS, QUERY_ARTIST, QUERY_ARTIST_SLUGS} from '@/sanity/queries';
 import ArtistDetail from '@/components/Artists/ArtistDetail';
 
@@ -19,7 +19,7 @@ export default function Artist(props: any) {
 }
 
 export async function getStaticPaths() {
-    const slugs = await clientWithoutCDN.withConfig({useCdn: false}).fetch(QUERY_ARTIST_SLUGS);
+    const slugs = await client.fetch(QUERY_ARTIST_SLUGS);
     const locales = ['cs', 'en'];
     const paths = slugs.flatMap((slug: string) =>
         locales.map((locale) => ({
@@ -34,8 +34,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-    const artist = await clientWithoutCDN.withConfig({useCdn: false}).fetch(QUERY_ARTIST, { slug: context.params?.slug})
-    const artworks = await clientWithoutCDN.withConfig({useCdn: false}).fetch(QUERY_ALL_ARTWORKS)
+    const artist = await client.fetch(QUERY_ARTIST, { slug: context.params?.slug})
+    const artworks = await client.fetch(QUERY_ALL_ARTWORKS)
 
     if (!artist || !artworks || !(artist.artist)) {
         return {
@@ -48,6 +48,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
             artist: artist.artist,
             artworks: artworks,
             messages: (await import(`../../public/locales/${context.locale}.json`)).default,
+            revalidate: 60
         },
     };
 }

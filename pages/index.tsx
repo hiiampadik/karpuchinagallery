@@ -2,7 +2,6 @@ import {useTranslations} from 'next-intl';
 import Layout from '../components/Layout';
 import {GetStaticPropsContext} from 'next';
 import styles from '@/styles/homepage.module.scss';
-import figureStyles from '@/components/Sanity/Figure.module.scss';
 import Link from 'next/link';
 import React from 'react';
 import {useRouter} from 'next/router';
@@ -12,7 +11,7 @@ import Figure from '@/components/Sanity/Figure';
 import {replaceSpaces} from '@/components/utils/replaceSpaces';
 import EventTitle, {TimeContext} from '@/components/Events/EventTitle';
 import {EventType, Homepage} from '@/api/classes';
-import {clientWithoutCDN} from '@/sanity/client';
+import client from '@/sanity/client';
 import {QUERY_HOMEPAGE} from '@/sanity/queries';
 
 
@@ -82,7 +81,7 @@ export default function Home({data}: HomepageProps) {
 
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-    const data = await clientWithoutCDN.withConfig({useCdn: false}).fetch(QUERY_HOMEPAGE);
+    const data = await client.fetch(QUERY_HOMEPAGE);
 
     if (!data) {
         return {
@@ -94,6 +93,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         props: {
             data,
             messages: (await import(`../public/locales/${context.locale}.json`)).default,
+            revalidate: 60,
         },
     };
 }

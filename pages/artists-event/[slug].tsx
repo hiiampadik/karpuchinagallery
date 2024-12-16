@@ -3,7 +3,7 @@ import {GetStaticPropsContext} from 'next';
 import {useRouter} from 'next/router';
 import EventDetail from '@/components/Events/EventDetail';
 import {EventDetail as EventDetailClass, EventType} from '@/api/classes';
-import {clientWithoutCDN} from '@/sanity/client';
+import client from '@/sanity/client';
 import {QUERY_ARTISTS_EVENTS, QUERY_ARTISTS_EVENTS_SLUGS} from '@/sanity/queries';
 
 export const dynamic = 'auto';
@@ -18,7 +18,7 @@ export default function ArtistsEvent({data}: any) {
 }
 
 export async function getStaticPaths() {
-    const slugs = await clientWithoutCDN.withConfig({useCdn: false}).fetch(QUERY_ARTISTS_EVENTS_SLUGS);
+    const slugs = await client.fetch(QUERY_ARTISTS_EVENTS_SLUGS);
     const locales = ['cs', 'en'];
     const paths = slugs.flatMap((slug: string) =>
         locales.map((locale) => ({
@@ -33,7 +33,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-    const data = await clientWithoutCDN.withConfig({useCdn: false}).fetch(QUERY_ARTISTS_EVENTS, { slug: context.params?.slug})
+    const data = await client.fetch(QUERY_ARTISTS_EVENTS, { slug: context.params?.slug})
 
     if (!data) {
         return {
@@ -45,6 +45,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         props: {
             data: data.event,
             messages: (await import(`../../public/locales/${context.locale}.json`)).default,
+            revalidate: 60
         },
     };
 }
