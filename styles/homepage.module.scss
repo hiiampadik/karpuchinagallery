@@ -40,14 +40,8 @@
   position: relative;
 
   height: calc(100vh - 270px);
-  @supports (max-height: calc(100dvh - 270px)) {
-    height: calc(100vh - 270px);
-  }
   @media (max-width: $breakpoint-xs-max) {
     height: calc(100vh - 180px);
-    @supports (max-height: calc(100dvh - 180px)) {
-      height: calc(100vh - 180px);
-    }
   }
 
   .onDisplayImageContainer {

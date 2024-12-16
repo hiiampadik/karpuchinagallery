@@ -24,9 +24,6 @@
   .eventGallery{
     margin-bottom: 20px;
     height: 50vh;
-    @supports (height: 50dvh){
-      height: 50dvh
-    }
   }
 }
 
