@@ -49,7 +49,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
             artworks: artworks,
             messages: (await import(`../../public/locales/${context.locale}.json`)).default,
         },
-        // revalidate: 60
+        revalidate: 60
     };
 }
 
