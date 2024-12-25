@@ -1,5 +1,5 @@
 import {QUERY_ALL_SLUGS} from "../sanity/queries.ts";
-import client from "../sanity/client.js";
+import client from "../sanity/client.ts";
 
 const SiteMap = function () {
     return <div>loading</div>;
