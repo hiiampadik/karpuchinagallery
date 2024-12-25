@@ -1,5 +1,5 @@
 import {QUERY_ALL_SLUGS} from "../sanity/queries.ts";
-import clientCDN from "../sanity/client.js";
+import client from "../sanity/client.js";
 
 const SiteMap = function () {
     return <div>loading</div>;
@@ -7,7 +7,7 @@ const SiteMap = function () {
 
 export async function getServerSideProps({ res }) {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://karpuchinagallery.vercel.app/';
-    const urls = await clientCDN.fetch(QUERY_ALL_SLUGS);
+    const urls = await client.fetch(QUERY_ALL_SLUGS);
     const slugs = urls.map(
         (page) =>
             `
