@@ -50,7 +50,7 @@ const Figure: FunctionComponent<FigureProps> = (
         } else {
             return "(max-width: 767px) 50vw, (max-width: 1199px) 30vw, 300px"
         }
-    }, [image, fullWidth, galleryImage, width, height])
+    }, [sizes, fullWidth, galleryImage, width, height])
 
     const imgRef = useRef<HTMLImageElement | null>(null);
     useEffect(() => {

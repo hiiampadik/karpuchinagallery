@@ -138,6 +138,7 @@ const SearchOverlay: FunctionComponent = () => {
     const [exhibitions, setExhibitions] = useState<null | Event[]>(null)
     const [fairs, setFairs] = useState<null | Event[]>(null)
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const handleSearch = useCallback(
         debounce(
             (searchTerm: string) => {

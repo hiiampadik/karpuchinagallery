@@ -1,14 +1,14 @@
 import {GetStaticPropsContext} from 'next';
 import {useRouter} from 'next/router';
-import {useFetchEvents} from '@/api';
 import React from 'react';
 import EventList from '@/components/Events/EventList';
-import {EventType} from '@/api/classes';
+import {Event, EventType} from '@/api/classes';
 import {QUERY_ALL_FAIRS} from '@/sanity/queries';
+import client from '@/sanity/client';
 
-export default function Fairs() {
+export default function Fairs({data}: any) {
     const router = useRouter();
-    const {data: fairs} = useFetchEvents(router.locale ?? 'cs', QUERY_ALL_FAIRS)
+    const fairs: Event[] = data.map((value: any) => Event.fromPayload(value, router.locale ?? 'cs'))
 
     return (
         <EventList events={fairs ?? []} type={EventType.Fairs}/>
@@ -16,12 +16,19 @@ export default function Fairs() {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
+    const data = await client.fetch(QUERY_ALL_FAIRS)
+
+    if (!data) {
+        return {
+            notFound: true,
+        }
+    }
+
     return {
         props: {
-            // You can get the messages from anywhere you like. The recommended
-            // pattern is to put them in JSON files separated by locale and read
-            // the desired one based on the `locale` received from Next.js.
+            data,
             messages: (await import(`../public/locales/${context.locale}.json`)).default
-        }
+        },
+        // revalidate: 60
     };
 }

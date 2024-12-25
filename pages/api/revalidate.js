@@ -23,38 +23,38 @@ export default async function handler(req, res) {
             case 'exhibitions':
                 slug = req.body.slug.current
                 console.log(`===== Revalidating: ${type}, ${slug}`);
-                path = `/exhibition/${slug}`;
+                path = `exhibition/${slug}`;
                 break;
             case 'fairs':
                 slug = req.body.slug.current
                 console.log(`===== Revalidating: ${type}, ${slug}`);
-                path = `/fair/${slug}`;
+                path = `fair/${slug}`;
                 break;
             case 'artistEvents':
                 slug = req.body.slug.current
                 console.log(`===== Revalidating: ${type}, ${slug}`);
-                path = `/artists-event/${slug}`;
+                path = `artists-event/${slug}`;
                 break;
             case 'artists':
                 slug = req.body.slug.current
                 console.log(`===== Revalidating: ${type}, ${slug}`);
-                path = `/artist/${slug}`;
+                path = `artist/${slug}`;
                 break;
             case 'homepage':
                 console.log(`===== Revalidating: Homepage`);
-                path = '/';
+                path = '';
                 break
             case 'about':
                 console.log(`===== Revalidating: About`);
-                path = '/about';
+                path = 'about';
                 break
             default:
                 console.log(`===== Wrong type ${type}`);
                 return res.status(500).send('Error while revalidating');
         }
 
-        await res.revalidate('/en' + path)
-        await res.revalidate('/cs' + path)
+        await res.revalidate(`/en/${path}`)
+        await res.revalidate(`/cs/${path}`)
 
         return res.json({ revalidated: true });
 

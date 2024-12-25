@@ -58,11 +58,11 @@ export const QUERY_ALL_ARTWORKS = defineQuery(`*[_type == "artworks"] {
 }`)
 
 export const QUERY_ALL_EXHIBITIONS = defineQuery(`*[_type == "exhibitions"] | order(orderRank) {
-    ...,
     _id,
+    _type,
     title,
     slug,
-    artists,
+    artists[0...3],
     openingDate,
     fromDate,
     toDate,
@@ -71,8 +71,8 @@ export const QUERY_ALL_EXHIBITIONS = defineQuery(`*[_type == "exhibitions"] | or
 }`)
 
 export const QUERY_ALL_FAIRS = defineQuery(`*[_type == "fairs"] | order(orderRank) {
-    ...,
     _id,
+    _type,
     title,
     slug,
     artists,
