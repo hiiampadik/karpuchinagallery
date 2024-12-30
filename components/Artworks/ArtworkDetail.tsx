@@ -57,9 +57,15 @@ const ArtworkDetail: FunctionComponent<ArtworkDetailProps> = ({handleClose, defa
 
             <div className={styles.artworkGallery}>
                 <button className={styles.prev}
-                        onClick={() => setSelectedArtworkIndex(selectedArtworkIndex === 0 ? artworks.length - 1 : selectedArtworkIndex - 1)}/>
+                        onClick={() => {
+                            setSelectedArtworkFigure(0)
+                            setSelectedArtworkIndex(selectedArtworkIndex === 0 ? artworks.length - 1 : selectedArtworkIndex - 1)
+                        }}/>
                 <button className={styles.next}
-                        onClick={() => setSelectedArtworkIndex((selectedArtworkIndex + 1) % artworks.length)}/>
+                        onClick={() => {
+                            setSelectedArtworkFigure(0)
+                            setSelectedArtworkIndex((selectedArtworkIndex + 1) % artworks.length)
+                        }}/>
                 <div className={styles.imageContainer}>
                     <Figure
                         image={selectedArtwork.Gallery[selectedArtworkFigure].Image}

@@ -31,7 +31,7 @@ const components: PortableTextComponents = {
         return <>{children}</>; // If no href is provided, just render the children
       }
       return (
-          <Link href={value.href}>
+          <Link href={value.href} target={'_blank'}>
             {children}
           </Link>
       );

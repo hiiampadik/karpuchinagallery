@@ -34,6 +34,7 @@ const Figure: FunctionComponent<FigureProps> = (
     const [loaded, setLoaded] = useState(false)
 
     const [height, width] = useMemo(() => {
+        setLoaded(false)
         const dimensions = getImageDimensions(image)
         return [dimensions.height, dimensions.width]
     }, [image])

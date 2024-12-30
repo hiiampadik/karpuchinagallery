@@ -135,25 +135,19 @@ const SearchOverlay: FunctionComponent = () => {
 
     const [searchQuery, setSearchQuery] = useState('')
 
-    const [exhibitions, setExhibitions] = useState<null | Event[]>(null)
-    const [fairs, setFairs] = useState<null | Event[]>(null)
+    const [events, setEvents] = useState<null | Event[]>(null)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const handleSearch = useCallback(
         debounce(
             (searchTerm: string) => {
                 if (searchTerm.length === 0){
-                    setExhibitions(null)
-                    setFairs(null)
+                    setEvents(null)
                     return
                 }
-                fetchEvents(searchTerm, EventType.Exhibitions, router.locale ?? 'cs').then(
+                fetchEvents(searchTerm,  router.locale ?? 'cs').then(
                     (events) => {
-                        setExhibitions(events)
-                    })
-                fetchEvents(searchTerm, EventType.Fairs, router.locale ?? 'cs').then(
-                    (events) => {
-                        setFairs(events)
+                        setEvents(events)
                     })
 
                 // todo
@@ -176,15 +170,15 @@ const SearchOverlay: FunctionComponent = () => {
                    }}
                    placeholder={t('placeholder')}
             />
-            {exhibitions !== null && fairs !== null &&
+            {events !== null&&
                 <>
-                    {exhibitions.length === 0 && fairs.length === 0 ?
+                    {events.length === 0 ?
                         <>
                             {t('noResults')}
                         </>
                         :
                         <div className={styles.eventsContainer}>
-                            {exhibitions.concat(fairs).map(event => (
+                            {events.map(event => (
                                 <EventItem event={event} key={event.Id} useH2={true} type={event.Type} />
                             ))}
                         </div>
