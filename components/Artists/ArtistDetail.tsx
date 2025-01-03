@@ -80,7 +80,7 @@ export default function ArtistDetail(props: ArtistProps) {
                             </section>
                         }
 
-                        {(artist.SoloExhibitions || artist.GroupExhibitions ||  artist.Education || artist.Awards) &&
+                        {(artist.SoloExhibitions || artist.GroupExhibitions ||  artist.Education || artist.Awards || artist.ArtFairs) &&
                             <section className={styles.artistDetailsContainer}>
                                 {artist.SoloExhibitions && artist.SoloExhibitions.length > 0 &&
                                     <div className={styles.itemsWrapper}>
@@ -110,7 +110,7 @@ export default function ArtistDetail(props: ArtistProps) {
                                     </div>
                                 }
 
-                                {((artist.Education && artist.Education.length > 0) || (artist.Awards && artist.Awards.length > 0)) &&
+                                {((artist.Education && artist.Education.length > 0) || (artist.Awards && artist.Awards.length > 0) || (artist.ArtFairs && artist.ArtFairs.length > 0)) &&
                                     <div className={styles.itemsFlexWrapper}>
                                         {artist.Education && artist.Education.length > 0 &&
                                             <div className={styles.itemsWrapper}>
@@ -131,6 +131,20 @@ export default function ArtistDetail(props: ArtistProps) {
                                                 <h2>{t('detailsAwards')}</h2>
                                                 <div className={styles.itemsContainer}>
                                                     {artist.Awards.map(award => (
+                                                        <div key={award.Id} className={styles.item}>
+                                                            <div className={styles.year}>{award.Year}</div>
+                                                            <div className={styles.title}><BlockContent blocks={award.Title}/>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        }
+                                        {artist.ArtFairs && artist.ArtFairs.length > 0 &&
+                                            <div className={styles.itemsWrapper}>
+                                                <h2>{t('detailsFairs')}</h2>
+                                                <div className={styles.itemsContainer}>
+                                                    {artist.ArtFairs.map(award => (
                                                         <div key={award.Id} className={styles.item}>
                                                             <div className={styles.year}>{award.Year}</div>
                                                             <div className={styles.title}><BlockContent blocks={award.Title}/>

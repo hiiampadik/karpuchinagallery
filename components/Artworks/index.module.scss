@@ -91,12 +91,17 @@
 .artworkGallery{
   position: relative;
   align-self: center;
-  display: inline-block;
+  width: 100%;
   margin: auto 0;
 
-  .prev, .next{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .prev, .next, .zoomIn, .zoomOut{
     height: 100%;
-    width: 50%;
+    width: 30%;
     position: absolute;
     top: 0;
     background: none;
@@ -112,43 +117,87 @@
     right: 0;
     cursor: e-resize;
   }
+  .zoomIn {
+    width: 40%;
+    left: 30%;
+    cursor: zoom-in;
+  }
+  .zoomOut {
+    width: 40%;
+    left: 30%;
+    cursor: zoom-out;
+  }
 
   .imageContainer {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    position: relative;
+    justify-content: center;
     img {
       object-fit: contain;
-      object-position: bottom;
+      width: auto;
       max-width: 100%;
 
-      @media (min-width: $breakpoint-sm-min) {
-        width: 100%;
 
-        max-height: calc(100vh - 320px);
+      @media (min-width: $breakpoint-sm-min) {
+        height: calc(100vh - 320px);
       }
 
       @media (max-width: $breakpoint-xs-max) {
-        width: auto;
-        height: 100%;
+        height: calc(100vh - 280px);
+      }
+    }
 
-        max-height: calc(100vh - 280px);
+    .artworkDescription {
+      margin: 7px 0 16px;
+      width: 100%;
+      p {
+        font-size: 12px;
+        font-family: Rhymes, serif;
+
+      }
+      .title{
+        font-style: italic;
+        font-weight: 500;
       }
     }
   }
 
-  .artworkDescription {
-    margin: 7px 0 16px;
-    width: 100%;
-    p {
-      font-size: 12px;
-      font-family: Rhymes, serif;
+  &.artworkWithoutGallery{
+    .imageContainer{
+      img {
+        @media (min-width: $breakpoint-sm-min) {
+          height: calc(100vh - 240px);
+        }
 
+        @media (max-width: $breakpoint-xs-max) {
+          height: calc(100vh - 200px);
+        }
+
+      }
     }
-    .title{
-      font-style: italic;
-      font-weight: 500;
+  }
+
+
+  &.artworkGalleryZoom{
+    margin: 0;
+
+    &.artworkWithoutGallery {
+      .imageContainer {
+        img {
+          height: calc(100vh - 80px);
+          object-position: center;
+        }
+      }
+    }
+
+    &:not(.artworkWithoutGallery){
+      .imageContainer {
+        img {
+          height: calc(100vh - 185px);
+          object-position: center;
+        }
+      }
     }
   }
 }

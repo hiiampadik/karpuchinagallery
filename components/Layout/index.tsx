@@ -80,6 +80,7 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
                 <meta name="robots" content="index, follow"/>
                 <meta charSet="utf-8"/>
 
+
                 <meta property="og:site_name" content="Karpuchina Gallery"/>
                 <meta property="og:locale" content={getLocale()}/>
                 <meta property="og:title" content={title ?? "Karpuchina Gallery"}/>

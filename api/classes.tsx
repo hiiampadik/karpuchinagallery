@@ -64,6 +64,7 @@ export class Artist {
         public readonly GroupExhibitions: ArtistItem[] | null,
         public readonly Education: ArtistItem[] | null,
         public readonly Awards: ArtistItem[] | null,
+        public readonly ArtFairs: ArtistItem[] | null,
         public readonly Events: Event[] | null,
     ) {}
 
@@ -78,6 +79,7 @@ export class Artist {
             payload.groupExhibitions?.map((exhibition: any) => ArtistItem.fromPayload(exhibition, locale)) ?? null,
             payload.education?.map((edu: any) => ArtistItem.fromPayload(edu, locale)) ?? null,
             payload.awards?.map((award: any) => ArtistItem.fromPayload(award, locale)) ?? null,
+            payload.artFairs?.map((award: any) => ArtistItem.fromPayload(award, locale)) ?? null,
             payload.events?.map((event: any) => Event.fromPayload(event, locale)) ?? null
         );
     }

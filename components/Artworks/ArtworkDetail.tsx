@@ -5,6 +5,7 @@ import {useTranslations} from 'next-intl';
 import {Artwork} from '@/api/classes';
 import BlockContent from '@/components/Sanity/BlockContent';
 import Figure from '@/components/Sanity/Figure';
+import {classNames} from '@/components/utils/classNames';
 
 interface ArtworkDetailProps {
     readonly handleClose: () => void
@@ -23,6 +24,8 @@ const ArtworkDetail: FunctionComponent<ArtworkDetailProps> = ({handleClose, defa
 
     const [selectedArtworkFigure, setSelectedArtworkFigure] = useState(0)
 
+    const [zoom, setZoom] = useState(false);
+
     useEffect(() => {
         setSelectedArtworkFigure(0)
     }, [selectedArtwork]);
@@ -33,7 +36,9 @@ const ArtworkDetail: FunctionComponent<ArtworkDetailProps> = ({handleClose, defa
         <section className={styles.artworkDetailContainer}>
             <div className={styles.artworkHeader}>
                 <p>
-                    <span className={selectedArtwork.Gallery.length >= 10 ? styles.numberWide : styles.number}>{selectedArtworkFigure + 1}</span>{' '}{t('of')}{' '}{selectedArtwork.Gallery.length}
+                    {selectedArtwork.Gallery.length > 1 &&
+                        <><span className={selectedArtwork.Gallery.length >= 10 ? styles.numberWide : styles.number}>{selectedArtworkFigure + 1}</span>{' '}{t('of')}{' '}{selectedArtwork.Gallery.length}</>
+                    }
                 </p>
                 <button className={styles.artworkClose} onClick={() => handleClose()}>
                     {t('close')}
@@ -55,7 +60,7 @@ const ArtworkDetail: FunctionComponent<ArtworkDetailProps> = ({handleClose, defa
                 </div>
             }
 
-            <div className={styles.artworkGallery}>
+            <div className={classNames([styles.artworkGallery, selectedArtwork.Gallery.length === 1 && styles.artworkWithoutGallery, zoom && styles.artworkGalleryZoom])}>
                 <button className={styles.prev}
                         onClick={() => {
                             setSelectedArtworkFigure(0)
@@ -66,20 +71,27 @@ const ArtworkDetail: FunctionComponent<ArtworkDetailProps> = ({handleClose, defa
                             setSelectedArtworkFigure(0)
                             setSelectedArtworkIndex((selectedArtworkIndex + 1) % artworks.length)
                         }}/>
-                <div className={styles.imageContainer}>
+                <button className={classNames([!zoom ? styles.zoomIn : styles.zoomOut])}
+                        onClick={() => setZoom(e => !e)}
+                />
+                <div className={classNames([styles.imageContainer])}>
                     <Figure
                         image={selectedArtwork.Gallery[selectedArtworkFigure].Image}
                         alt={selectedArtwork.Gallery[selectedArtworkFigure].Alt}
                         fullWidth={true}
                     />
+
+                    {!zoom &&
+                        <div className={styles.artworkDescription}>
+                            <p>{selectedArtwork.Artist.Name}</p>
+                            <p className={styles.title}>{selectedArtwork.Title}</p>
+                            {selectedArtwork.Year && <p>{selectedArtwork.Year}</p>}
+                            <BlockContent blocks={selectedArtwork.Info}/>
+                        </div>
+                    }
                 </div>
 
-                <div className={styles.artworkDescription}>
-                    <p>{selectedArtwork.Artist.Name}</p>
-                    <p className={styles.title}>{selectedArtwork.Title}</p>
-                    {selectedArtwork.Year && <p>{selectedArtwork.Year}</p>}
-                    <BlockContent blocks={selectedArtwork.Info}/>
-                </div>
+
             </div>
 
 
