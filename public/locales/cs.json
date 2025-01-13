@@ -60,5 +60,9 @@
   "Artwork": {
     "close": "Zavřít",
     "of": "z"
+  },
+
+  "About": {
+    "support": "Za podpory"
   }
 }

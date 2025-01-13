@@ -32,9 +32,13 @@ const Figure: FunctionComponent<FigureProps> = (
     }) => {
 
     const [loaded, setLoaded] = useState(false)
+    const [ref, setRef] = useState(image.asset._ref)
 
     const [height, width] = useMemo(() => {
-        setLoaded(false)
+        if (image.asset._ref !== ref){
+            setRef(image.asset._ref)
+            setLoaded(false)
+        }
         const dimensions = getImageDimensions(image)
         return [dimensions.height, dimensions.width]
     }, [image])

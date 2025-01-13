@@ -42,19 +42,25 @@ export const QUERY_ABOUT = defineQuery(`
 // Pages with overview
 
 export const QUERY_ALL_ARTISTS = defineQuery(`*[_type == "artists"] | order(orderRank){
-    ...,
-    events[]->{
-        ...
-    }
+    _id,
+    name,
+    slug,
+    cover,
 }`)
 
 export const QUERY_ALL_ARTWORKS = defineQuery(`*[_type == "artworks"] | order(orderRank) {
-    ...,
+    _id,
+    title,
+    year,
     artist->{
         _id,
         name,
         slug
     },
+    showInSelection,
+    cover,
+    info,
+    gallery
 }`)
 
 export const QUERY_ALL_EXHIBITIONS = defineQuery(`*[_type == "exhibitions"] | order(orderRank) {
@@ -89,6 +95,7 @@ export const QUERY_ALL_FAIRS = defineQuery(`*[_type == "fairs"] | order(orderRan
 
 export const QUERY_ARTIST_SLUGS = defineQuery(`
 *[_type == "artists" && defined(slug.current)][].slug.current`)
+
 export const QUERY_ARTIST = defineQuery(`
 {"artist": *[_type == "artists" && slug.current == $slug] | order(_updatedAt desc) [0] {
     ...,

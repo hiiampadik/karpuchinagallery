@@ -1,6 +1,5 @@
 import Layout from '../components/Layout';
 import {GetStaticPropsContext} from 'next';
-import {useRouter} from 'next/router';
 import styles from '../styles/artists.module.scss'
 import React from 'react';
 import {ArtistItem} from '@/components/Artists/ArtistItem';
@@ -10,8 +9,7 @@ import {Artist} from '@/api/classes';
 
 
 export default function Artists({data}: any) {
-    const router = useRouter();
-    const artists: Artist[] = data.map((value: any) => Artist.fromPayload(value, router.locale ?? 'cs'))
+    const artists: Artist[] = data.map((value: any) => Artist.fromPayload(value))
 
     return (
         <Layout title={'Artists'}>

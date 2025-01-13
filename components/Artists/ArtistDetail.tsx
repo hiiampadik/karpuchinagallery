@@ -6,7 +6,7 @@ import {useTranslations} from 'next-intl';
 import BlockContent from '@/components/Sanity/BlockContent';
 import EventItem from '@/components/Events/EventItem';
 import Link from 'next/link';
-import {Artist as ArtistClass, Artwork, Event, EventType} from '@/api/classes';
+import {ArtistDetail as ArtistClass, Artwork, Event, EventType} from '@/api/classes';
 import ArtworkDetail from '@/components/Artworks/ArtworkDetail';
 import ArtworkItem from '@/components/Artworks/ArtworkItem';
 import {useDisableScroll} from '@/components/utils/useDisableScroll';

@@ -9,10 +9,12 @@ import Figure from '@/components/Sanity/Figure';
 import client from '@/sanity/client';
 import {About as AboutClass} from '@/api/classes';
 import {QUERY_ABOUT} from '@/sanity/queries';
+import {useTranslations} from 'next-intl';
 
 export default function About({data}: any) {
     const router = useRouter();
     const about = AboutClass.fromPayload(data, router.locale ?? 'cs');
+    const t = useTranslations('About');
 
     return (
         <Layout loading={about === null} title={'About'}>
@@ -40,11 +42,16 @@ export default function About({data}: any) {
 
                     {about.Logos &&
                         <section className={styles.aboutLogos}>
+                            <p>
+                                {t('support')}
+                            </p>
+                            <div className={styles.aboutLogosInner}>
                             {about.Logos.map((logo) => (
                                 <figure key={logo.Id}>
                                     <Figure image={logo.Image} alt={logo.Alt} />
                                 </figure>
                             ))}
+                            </div>
                         </section>
                     }
                 </article>

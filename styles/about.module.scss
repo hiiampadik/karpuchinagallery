@@ -72,11 +72,19 @@
 
 .aboutLogos {
   margin-bottom:100px;
-  display: flex;
-  gap: 42px;
-  flex-wrap: wrap;
-  justify-content: center;
   padding: 20px;
+
+  p {
+    text-align: center;
+    margin: 0 0 30px;
+    @include labelSmall;
+  }
+  .aboutLogosInner {
+    display: flex;
+    gap: 42px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 
   figure {
     display: flex;

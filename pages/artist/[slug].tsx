@@ -1,7 +1,7 @@
 import React from "react";
 import {GetStaticPropsContext} from 'next';
 import {useRouter} from 'next/router';
-import {Artist as ArtistClass, Artwork} from '@/api/classes';
+import {ArtistDetail as ArtistClass, Artwork} from '@/api/classes';
 import client from '@/sanity/client';
 import {QUERY_ALL_ARTWORKS, QUERY_ARTIST, QUERY_ARTIST_SLUGS} from '@/sanity/queries';
 import ArtistDetail from '@/components/Artists/ArtistDetail';

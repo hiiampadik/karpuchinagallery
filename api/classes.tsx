@@ -53,7 +53,7 @@ export class ArtistItem {
     }
 }
 
-export class Artist {
+export class ArtistDetail {
     public constructor(
         public readonly Id: string,
         public readonly Name: string,
@@ -68,8 +68,8 @@ export class Artist {
         public readonly Events: Event[] | null,
     ) {}
 
-    public static fromPayload(payload: any, locale: string): Artist {
-        return new Artist(
+    public static fromPayload(payload: any, locale: string): ArtistDetail {
+        return new ArtistDetail(
             payload._id,
             payload.name,
             payload.slug.current,
@@ -81,6 +81,24 @@ export class Artist {
             payload.awards?.map((award: any) => ArtistItem.fromPayload(award, locale)) ?? null,
             payload.artFairs?.map((award: any) => ArtistItem.fromPayload(award, locale)) ?? null,
             payload.events?.map((event: any) => Event.fromPayload(event, locale)) ?? null
+        );
+    }
+}
+
+export class Artist {
+    public constructor(
+        public readonly Id: string,
+        public readonly Name: string,
+        public readonly Slug: string,
+        public readonly Cover: any, // required
+    ) {}
+
+    public static fromPayload(payload: any): Artist {
+        return new Artist(
+            payload._id,
+            payload.name,
+            payload.slug.current,
+            payload.cover,
         );
     }
 }

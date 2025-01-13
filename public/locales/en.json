@@ -63,5 +63,9 @@
   "Artwork": {
     "close": "Close",
     "of": "of"
+  },
+
+  "About": {
+    "support": "Kindly supported by"
   }
 }
