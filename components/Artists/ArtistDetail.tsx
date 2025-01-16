@@ -10,8 +10,8 @@ import ArtworkDetail from '@/components/Artworks/ArtworkDetail';
 import ArtworkItem from '@/components/Artworks/ArtworkItem';
 import {useDisableScroll} from '@/components/utils/useDisableScroll';
 import {useRouter} from 'next/router';
-import {cs} from '@/public/locales/cs';
-import {en} from '@/public/locales/en';
+import {cs} from '@/components/locales/cs';
+import {en} from '@/components/locales/en';
 
 interface ArtistProps {
     readonly artist: ArtistClass;

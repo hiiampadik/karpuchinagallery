@@ -4,8 +4,8 @@ import {Overlay2} from '@blueprintjs/core';
 import styles from './index.module.scss';
 import {classNames} from '@/components/utils/classNames';
 import {useRouter} from 'next/router';
-import {cs} from '@/public/locales/cs';
-import {en} from '@/public/locales/en';
+import {cs} from '@/components/locales/cs';
+import {en} from '@/components/locales/en';
 
 interface OverlayProps {
     readonly isOpen?: boolean

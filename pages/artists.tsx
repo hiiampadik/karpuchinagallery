@@ -39,7 +39,7 @@ export default function Artists({data}: any) {
 
 export async function getStaticProps() {
     const data = await client.fetch(QUERY_ALL_ARTISTS)
-
+    console.log('getStaticProps')
     return {
         props: {
             data,

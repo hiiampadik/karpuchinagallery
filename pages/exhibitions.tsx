@@ -18,7 +18,7 @@ export default function Exhibitions({data}: any) {
 
 export async function getStaticProps() {
     const data = await client.fetch(QUERY_ALL_EXHIBITIONS)
-
+    console.log('getStaticProps')
     return {
         props: {
             data,

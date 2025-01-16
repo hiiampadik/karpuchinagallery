@@ -5,8 +5,8 @@ import {useRouter} from 'next/router';
 import LocalizedDate from '@/components/utils/LocalizeDate';
 import styles from '../common.module.scss'
 import {replaceSpaces} from '@/components/utils/replaceSpaces';
-import {cs} from '@/public/locales/cs';
-import {en} from '@/public/locales/en';
+import {cs} from '@/components/locales/cs';
+import {en} from '@/components/locales/en';
 
 
 export enum TimeContext {

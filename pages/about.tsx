@@ -8,8 +8,8 @@ import Figure from '@/components/Sanity/Figure';
 import client from '@/sanity/client';
 import {About as AboutClass} from '@/api/classes';
 import {QUERY_ABOUT} from '@/sanity/queries';
-import {cs} from '@/public/locales/cs';
-import {en} from '@/public/locales/en';
+import {cs} from '@/components/locales/cs';
+import {en} from '@/components/locales/en';
 
 export const revalidate = 3600
 
@@ -65,7 +65,7 @@ export default function About({data}: any) {
 
 export async function getStaticProps() {
     const data = await client.fetch(QUERY_ABOUT);
-
+    console.log('getStaticProps')
     return {
         props: {
             data,

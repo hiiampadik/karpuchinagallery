@@ -3,8 +3,8 @@ import styles from '@/components/common.module.scss';
 import {replaceSpaces} from '@/components/utils/replaceSpaces';
 import {classNames} from '@/components/utils/classNames';
 import {useRouter} from 'next/router';
-import {cs} from '@/public/locales/cs';
-import {en} from '@/public/locales/en';
+import {cs} from '@/components/locales/cs';
+import {en} from '@/components/locales/en';
 
 
 interface FormatArtistsProps {

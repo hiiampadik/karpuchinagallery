@@ -11,8 +11,8 @@ import EventTitle, {TimeContext} from '@/components/Events/EventTitle';
 import {EventType, Homepage} from '@/api/classes';
 import client from '@/sanity/client';
 import {QUERY_HOMEPAGE} from '@/sanity/queries';
-import {cs} from '@/public/locales/cs';
-import {en} from '@/public/locales/en';
+import {cs} from '@/components/locales/cs';
+import {en} from '@/components/locales/en';
 
 export const revalidate = 3600
 
@@ -80,7 +80,7 @@ export default function Home({data}: any) {
 
 export async function getStaticProps() {
     const data = await client.fetch(QUERY_HOMEPAGE);
-
+    console.log('getStaticProps')
     return {
         props: {
             data,

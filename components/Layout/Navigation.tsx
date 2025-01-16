@@ -13,8 +13,8 @@ import {fetchEvents} from '@/api/search';
 import {Event} from '@/api/classes';
 import {debounce} from '@/components/utils/debounce';
 import EventItem from '@/components/Events/EventItem';
-import {cs} from '@/public/locales/cs';
-import {en} from '@/public/locales/en';
+import {cs} from '@/components/locales/cs';
+import {en} from '@/components/locales/en';
 
 
 const Navigation: FunctionComponent = () => {

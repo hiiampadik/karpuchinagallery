@@ -15,8 +15,8 @@ import {getImageDimensions} from '@sanity/asset-utils';
 import imageUrlBuilder from '@sanity/image-url';
 import client from '@/sanity/client';
 import {useRouter} from 'next/router';
-import {cs} from '@/public/locales/cs';
-import {en} from '@/public/locales/en';
+import {cs} from '@/components/locales/cs';
+import {en} from '@/components/locales/en';
 
 const builder = imageUrlBuilder(client);
 
