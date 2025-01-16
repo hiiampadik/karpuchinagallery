@@ -3,7 +3,7 @@ import {GetStaticPropsContext} from 'next';
 import {useRouter} from 'next/router';
 import {ArtistDetail as ArtistClass, Artwork} from '@/api/classes';
 import client from '@/sanity/client';
-import {QUERY_ALL_ARTWORKS, QUERY_ARTIST, QUERY_ARTIST_SLUGS} from '@/sanity/queries';
+import {QUERY_ALL_ARTWORKS_AND_ARTIST, QUERY_ARTIST_SLUGS} from '@/sanity/queries';
 import ArtistDetail from '@/components/Artists/ArtistDetail';
 
 export const dynamic = 'auto';
@@ -34,19 +34,13 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-    const artist = await client.fetch(QUERY_ARTIST, { slug: context.params?.slug})
-    const artworks = await client.fetch(QUERY_ALL_ARTWORKS)
-
-    if (!artist || !artworks || !(artist.artist)) {
-        return {
-            notFound: true,
-        }
-    }
+    const data = await client.fetch(QUERY_ALL_ARTWORKS_AND_ARTIST, { slug: context.params?.slug})
 
     return {
         props: {
-            artist: artist.artist,
-            artworks: artworks,
+            data,
+            artist: data.artist,
+            artworks: data.artworks,
             messages: (await import(`../../public/locales/${context.locale}.json`)).default,
         },
         revalidate: 3600

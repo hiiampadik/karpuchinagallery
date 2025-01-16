@@ -18,12 +18,6 @@ export default function Fairs({data}: any) {
 export async function getStaticProps(context: GetStaticPropsContext) {
     const data = await client.fetch(QUERY_ALL_FAIRS)
 
-    if (!data) {
-        return {
-            notFound: true,
-        }
-    }
-
     return {
         props: {
             data,

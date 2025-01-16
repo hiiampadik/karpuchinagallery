@@ -40,12 +40,6 @@ export default function Artists({data}: any) {
 export async function getStaticProps(context: GetStaticPropsContext) {
     const data = await client.fetch(QUERY_ALL_ARTISTS)
 
-    if (!data) {
-        return {
-            notFound: true,
-        }
-    }
-
     return {
         props: {
             data,

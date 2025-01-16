@@ -64,12 +64,6 @@ export default function About({data}: any) {
 export async function getStaticProps(context: GetStaticPropsContext) {
     const data = await client.fetch(QUERY_ABOUT);
 
-    if (!data) {
-        return {
-            notFound: true,
-        }
-    }
-
     return {
         props: {
             data,

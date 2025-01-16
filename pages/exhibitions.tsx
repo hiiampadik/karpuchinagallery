@@ -18,12 +18,6 @@ export default function Exhibitions({data}: any) {
 export async function getStaticProps(context: GetStaticPropsContext) {
     const data = await client.fetch(QUERY_ALL_EXHIBITIONS)
 
-    if (!data) {
-        return {
-            notFound: true,
-        }
-    }
-
     return {
         props: {
             data,

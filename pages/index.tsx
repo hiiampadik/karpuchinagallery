@@ -83,11 +83,7 @@ export default function Home({data}: HomepageProps) {
 export async function getStaticProps(context: GetStaticPropsContext) {
     const data = await client.fetch(QUERY_HOMEPAGE);
 
-    if (!data) {
-        return {
-            notFound: true,
-        }
-    }
+    console.log('getStaticProps')
 
     return {
         props: {

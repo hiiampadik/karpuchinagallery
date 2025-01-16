@@ -35,12 +35,6 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: GetStaticPropsContext) {
     const data = await client.fetch(QUERY_ARTISTS_EVENTS, { slug: context.params?.slug})
 
-    if (!data) {
-        return {
-            notFound: true,
-        }
-    }
-
     return {
         props: {
             data: data.event,
