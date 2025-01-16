@@ -1,10 +1,9 @@
-import styles from '../Layout/index.module.scss'
+import styles from './index.module.scss'
 import Link from 'next/link';
-import React, {FunctionComponent, useState} from 'react';
+import React, {FunctionComponent} from 'react';
 import {Event, EventType} from '@/api/classes';
 import FormatArtists from '@/components/utils/FormatArtists';
 import Figure from '@/components/Sanity/Figure';
-import figureStyles from '@/components/Sanity/Figure.module.scss';
 import {classNames} from '@/components/utils/classNames';
 
 interface EventItemProps {

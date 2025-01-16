@@ -117,10 +117,9 @@ export default function ArtistDetail(props: ArtistProps) {
                                                 <h2>{t('detailsEducation')}</h2>
                                                 <div className={styles.itemsContainer}>
                                                     {artist.Education.map(education => (
-                                                        <div key={education.Id} className={styles.item}>
+                                                        <div key={education.Id} className={education.Year.length > 4 ? styles.itemEducation : styles.item}>
                                                             <div className={styles.year}>{education.Year}</div>
-                                                            <div className={styles.title}><BlockContent blocks={education.Title}/>
-                                                            </div>
+                                                            <div className={styles.title}><BlockContent blocks={education.Title}/></div>
                                                         </div>
                                                     ))}
                                                 </div>
