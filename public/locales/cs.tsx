@@ -1,4 +1,4 @@
-{
+export const cs = {
   "Navigation": {
     "artists": "Umělci",
     "exhibitions": "Výstavy",

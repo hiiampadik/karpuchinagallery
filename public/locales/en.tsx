@@ -1,4 +1,4 @@
-{
+export const en = {
   "Navigation": {
     "artists": "Artists",
     "exhibitions": "Exhibitions",
