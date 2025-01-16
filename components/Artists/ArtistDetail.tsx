@@ -2,7 +2,6 @@
 import Layout from "../../components/Layout";
 import React, {useMemo, useState} from "react";
 import styles from './index.module.scss'
-import {useTranslations} from 'next-intl';
 import BlockContent from '@/components/Sanity/BlockContent';
 import EventItem from '@/components/Events/EventItem';
 import Link from 'next/link';
@@ -10,6 +9,9 @@ import {ArtistDetail as ArtistClass, Artwork, Event, EventType} from '@/api/clas
 import ArtworkDetail from '@/components/Artworks/ArtworkDetail';
 import ArtworkItem from '@/components/Artworks/ArtworkItem';
 import {useDisableScroll} from '@/components/utils/useDisableScroll';
+import {useRouter} from 'next/router';
+import {cs} from '@/public/locales/cs';
+import {en} from '@/public/locales/en';
 
 interface ArtistProps {
     readonly artist: ArtistClass;
@@ -18,7 +20,9 @@ interface ArtistProps {
 
 export default function ArtistDetail(props: ArtistProps) {
     const {artist, artworks} = props;
-    const t = useTranslations('Artist');
+
+    const router = useRouter();
+    const t = router.locale === "cs" ? cs.Artist : en.Artist;
 
     const [showArtwork, setArtwork] = useState<number | null>(null)
     useDisableScroll(showArtwork !== null)
@@ -52,7 +56,7 @@ export default function ArtistDetail(props: ArtistProps) {
                     <article className={styles.artistContainer}>
                         <h1>{artist.Name}</h1>
                         <section className={styles.bioContainer}>
-                            <h2>{t('bio')}</h2>
+                            <h2>{t.bio}</h2>
                             <div className={styles.bioContainerParagraphs}>
                                 <BlockContent blocks={artist.Bio}/>
                             </div>
@@ -60,7 +64,7 @@ export default function ArtistDetail(props: ArtistProps) {
 
                         {artistArtworks.length > 0 &&
                             <section className={styles.selectedWorksContainer}>
-                                <h2>{t('selectedWorks')}</h2>
+                                <h2>{t.selectedWorks}</h2>
                                 <div className={styles.selectedWorks}>
                                     {artistArtworks.map((artwork, index) => (
                                         <ArtworkItem key={artwork.Id} artwork={artwork} onOpenArtwork={() => setArtwork(index)} />
@@ -71,7 +75,7 @@ export default function ArtistDetail(props: ArtistProps) {
 
                         {events.length > 0 &&
                             <section className={styles.exhibitionsContainer}>
-                                <h2>{t('exhibitions')}</h2>
+                                <h2>{t.exhibitions}</h2>
                                 <div className={styles.exhibitions}>
                                     {events.map(event => (
                                         <EventItem event={event} key={event.Id} useH2={false} type={EventType.ArtistsEvents}/>
@@ -84,7 +88,7 @@ export default function ArtistDetail(props: ArtistProps) {
                             <section className={styles.artistDetailsContainer}>
                                 {artist.SoloExhibitions && artist.SoloExhibitions.length > 0 &&
                                     <div className={styles.itemsWrapper}>
-                                        <h2>{t('detailsSelectedSoloExhibitions')}</h2>
+                                        <h2>{t.detailsSelectedSoloExhibitions}</h2>
                                         <div className={styles.itemsContainer}>
                                             {artist.SoloExhibitions.map(exhibition => (
                                                 <div key={exhibition.Id} className={styles.item}>
@@ -98,7 +102,7 @@ export default function ArtistDetail(props: ArtistProps) {
 
                                 {artist.GroupExhibitions && artist.GroupExhibitions.length > 0 &&
                                     <div className={styles.itemsWrapper}>
-                                        <h2>{t('detailsSelectedGroupExhibitions')}</h2>
+                                        <h2>{t.detailsSelectedGroupExhibitions}</h2>
                                         <div className={styles.itemsContainer}>
                                             {artist.GroupExhibitions.map(exhibition => (
                                                 <div key={exhibition.Id} className={styles.item}>
@@ -114,7 +118,7 @@ export default function ArtistDetail(props: ArtistProps) {
                                     <div className={styles.itemsFlexWrapper}>
                                         {artist.Education && artist.Education.length > 0 &&
                                             <div className={styles.itemsWrapper}>
-                                                <h2>{t('detailsEducation')}</h2>
+                                                <h2>{t.detailsEducation}</h2>
                                                 <div className={styles.itemsContainer}>
                                                     {artist.Education.map(education => (
                                                         <div key={education.Id} className={education.Year.length > 4 ? styles.itemEducation : styles.item}>
@@ -127,7 +131,7 @@ export default function ArtistDetail(props: ArtistProps) {
                                         }
                                         {artist.Awards && artist.Awards.length > 0 &&
                                             <div className={styles.itemsWrapper}>
-                                                <h2>{t('detailsAwards')}</h2>
+                                                <h2>{t.detailsAwards}</h2>
                                                 <div className={styles.itemsContainer}>
                                                     {artist.Awards.map(award => (
                                                         <div key={award.Id} className={styles.item}>
@@ -141,7 +145,7 @@ export default function ArtistDetail(props: ArtistProps) {
                                         }
                                         {artist.ArtFairs && artist.ArtFairs.length > 0 &&
                                             <div className={styles.itemsWrapper}>
-                                                <h2>{t('detailsFairs')}</h2>
+                                                <h2>{t.detailsFairs}</h2>
                                                 <div className={styles.itemsContainer}>
                                                     {artist.ArtFairs.map(award => (
                                                         <div key={award.Id} className={styles.item}>
@@ -160,7 +164,7 @@ export default function ArtistDetail(props: ArtistProps) {
 
                         <section className={styles.allArtists}>
                             <Link href={"/artists"}>
-                                {t('allArtists')}
+                                {t.allArtists}
                             </Link>
                         </section>
                     </article>

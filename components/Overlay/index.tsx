@@ -1,9 +1,11 @@
 'use client'
 import {FunctionComponent, PropsWithChildren} from 'react';
-import {useTranslations} from 'next-intl';
 import {Overlay2} from '@blueprintjs/core';
 import styles from './index.module.scss';
 import {classNames} from '@/components/utils/classNames';
+import {useRouter} from 'next/router';
+import {cs} from '@/public/locales/cs';
+import {en} from '@/public/locales/en';
 
 interface OverlayProps {
     readonly isOpen?: boolean
@@ -13,7 +15,8 @@ interface OverlayProps {
 }
 
 const Overlay: FunctionComponent<PropsWithChildren<OverlayProps>> = ({isOpen = true, scrollable = false, handleClose, children, className}) => {
-    const t = useTranslations('Overlay');
+    const router = useRouter();
+    const t = router.locale === "cs" ? cs.Overlay : en.Overlay;
 
     return (
         <>
@@ -25,7 +28,7 @@ const Overlay: FunctionComponent<PropsWithChildren<OverlayProps>> = ({isOpen = t
                 >
                     <div className={classNames([styles.container, scrollable ? styles.scrollable : styles.notScrollable])}>
                         <button className={styles.closeButton} onClick={() => handleClose()}>
-                            {t('close')}
+                            {t['close']}
                         </button>
                         <div className={className}>
                             {children}

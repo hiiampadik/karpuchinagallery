@@ -3,7 +3,6 @@ import React, {FunctionComponent, useCallback, useEffect, useState} from 'react'
 import styles from './index.module.scss'
 import Link from 'next/link';
 import {useRouter} from 'next/router';
-import {useTranslations} from 'next-intl';
 import {usePathname} from 'next/navigation';
 import SearchIcon from '../../public/SearchIcon.svg'
 import Image from 'next/image'
@@ -11,15 +10,17 @@ import Overlay from '@/components/Overlay';
 import {useDisableScroll} from '@/components/utils/useDisableScroll';
 
 import {fetchEvents} from '@/api/search';
-import {EventType, Event} from '@/api/classes';
+import {Event} from '@/api/classes';
 import {debounce} from '@/components/utils/debounce';
 import EventItem from '@/components/Events/EventItem';
+import {cs} from '@/public/locales/cs';
+import {en} from '@/public/locales/en';
 
 
 const Navigation: FunctionComponent = () => {
     const router = useRouter();
     const currentPath = usePathname();
-    const t = useTranslations('Navigation');
+    const t = router.locale === "cs" ? cs.Navigation : en.Navigation;
 
     const [showOverlay, setShowOverlay] = useState<'menu' | 'search' | null>(null);
 
@@ -43,22 +44,22 @@ const Navigation: FunctionComponent = () => {
                </div>
                <div className={styles.navigationLinksContainer}>
                    <Link href={"/artists"} className={currentPath === '/artists' ? styles.activeRoute : ''}>
-                       {t('artists')}
+                       {t['artists']}
                    </Link>
                    <Link href={"/exhibitions"} className={currentPath === '/exhibitions' ? styles.activeRoute : ''}>
-                       {t('exhibitions')}
+                       {t['exhibitions']}
                    </Link>
                    <Link href={"/fairs"} className={currentPath === '/fairs' ? styles.activeRoute : ''}>
-                       {t('fairs')}
+                       {t['fairs']}
                    </Link>
                    <Link href={"/about"} className={currentPath === '/about' ? styles.activeRoute : ''}>
-                       {t('contact')}
+                       {t['contact']}
                    </Link>
 
                    <button onClick={() => {
                        setShowOverlay('search')
                    }}>
-                       {t('search')}
+                       {t['search']}
                    </button>
 
                    <Link
@@ -71,7 +72,7 @@ const Navigation: FunctionComponent = () => {
                </div>
                <div className={styles.navigationMenuContainer}>
                    <button onClick={() => setShowOverlay('menu')}>
-                       {t('menu')}
+                       {t['menu']}
                    </button>
                </div>
            </div>
@@ -95,26 +96,26 @@ interface NavigationOverlayProps {
     readonly handleShowSearch: () => void
 }
 const NavigationOverlay: FunctionComponent<NavigationOverlayProps> = ({handleShowSearch}) => {
-    const t = useTranslations('Navigation');
     const router = useRouter();
+    const t = router.locale === "cs" ? cs.Navigation : en.Navigation;
 
     return (
         <div className={styles.menuContainer}>
             <Link href={"/artists"}>
-                {t('artists')}
+                {t['artists']}
             </Link>
             <Link href={"/exhibitions"}>
-                {t('exhibitions')}
+                {t['exhibitions']}
             </Link>
             <Link href={"/fairs"}>
-                {t('fairs')}
+                {t['fairs']}
             </Link>
             <Link href={"/about"}>
-                {t('contact')}
+                {t['contact']}
             </Link>
 
             <button onClick={() => handleShowSearch()} className={styles.searchButton}>
-                {t('search')}
+                {t['search']}
                 <Image src={SearchIcon} alt={'s'} width="30" height="30"/>
             </button>
 
@@ -130,8 +131,8 @@ const NavigationOverlay: FunctionComponent<NavigationOverlayProps> = ({handleSho
 
 
 const SearchOverlay: FunctionComponent = () => {
-    const t = useTranslations('Search');
     const router = useRouter();
+    const t = router.locale === "cs" ? cs.Search : en.Search;
 
     const [searchQuery, setSearchQuery] = useState('')
 
@@ -168,13 +169,13 @@ const SearchOverlay: FunctionComponent = () => {
                            handleSearch(searchTerm);
                        }
                    }}
-                   placeholder={t('placeholder')}
+                   placeholder={t['placeholder']}
             />
             {events !== null&&
                 <>
                     {events.length === 0 ?
                         <>
-                            {t('noResults')}
+                            {t['noResults']}
                         </>
                         :
                         <div className={styles.eventsContainer}>

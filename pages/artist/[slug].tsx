@@ -7,6 +7,7 @@ import {QUERY_ALL_ARTWORKS_AND_ARTIST, QUERY_ARTIST_SLUGS} from '@/sanity/querie
 import ArtistDetail from '@/components/Artists/ArtistDetail';
 
 export const dynamic = 'auto';
+export const revalidate = 3600
 
 export default function Artist(props: any) {
     const router = useRouter();
@@ -41,7 +42,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
             data,
             artist: data.artist,
             artworks: data.artworks,
-            messages: (await import(`../../public/locales/${context.locale}.json`)).default,
         },
         revalidate: 3600
     };

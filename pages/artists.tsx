@@ -1,5 +1,4 @@
 import Layout from '../components/Layout';
-import {GetStaticPropsContext} from 'next';
 import styles from '../styles/artists.module.scss'
 import React from 'react';
 import {ArtistItem} from '@/components/Artists/ArtistItem';
@@ -7,6 +6,7 @@ import client from '@/sanity/client';
 import {QUERY_ALL_ARTISTS} from '@/sanity/queries';
 import {Artist} from '@/api/classes';
 
+export const revalidate = 3600
 
 export default function Artists({data}: any) {
     const artists: Artist[] = data.map((value: any) => Artist.fromPayload(value))
@@ -37,15 +37,14 @@ export default function Artists({data}: any) {
     );
 }
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps() {
     const data = await client.fetch(QUERY_ALL_ARTISTS)
 
     return {
         props: {
             data,
-            messages: (await import(`../public/locales/${context.locale}.json`)).default,
         },
-        revalidate: 600
+        revalidate: 3600
     };
 }
 

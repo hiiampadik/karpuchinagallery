@@ -1,6 +1,4 @@
-import {useTranslations} from 'next-intl';
 import Layout from '../components/Layout';
-import {GetStaticPropsContext} from 'next';
 import styles from '@/styles/homepage.module.scss';
 import Link from 'next/link';
 import React from 'react';
@@ -13,16 +11,16 @@ import EventTitle, {TimeContext} from '@/components/Events/EventTitle';
 import {EventType, Homepage} from '@/api/classes';
 import client from '@/sanity/client';
 import {QUERY_HOMEPAGE} from '@/sanity/queries';
+import {cs} from '@/public/locales/cs';
+import {en} from '@/public/locales/en';
 
+export const revalidate = 3600
 
-interface HomepageProps {
-    readonly data: any
-}
-export default function Home({data}: HomepageProps) {
+export default function Home({data}: any) {
     const router = useRouter();
-    const homepage = Homepage.fromPayload(data, router.locale ?? 'cs')
+    const t = router.locale === "cs" ? cs.Homepage : en.Homepage;
 
-    const t = useTranslations('Homepage');
+    const homepage = Homepage.fromPayload(data, router.locale ?? 'cs')
 
     return (
         <Layout>
@@ -51,7 +49,7 @@ export default function Home({data}: HomepageProps) {
                                   key={homepage.Upcoming.Slug}
                             >
                                 <h1>
-                                    <span className={styles.opacity}>{t('upcoming')}:</span>
+                                    <span className={styles.opacity}>{t.upcoming}:</span>
                                     {' '}<span className={styles.title}>{homepage.Upcoming.Title}</span>
                                     {homepage.Upcoming.Artists && homepage.Upcoming.Artists.length > 0 &&
                                         <>
@@ -60,7 +58,7 @@ export default function Home({data}: HomepageProps) {
                                     }
                                     {' '}
                                     <span className={styles.note}>
-                                        {homepage.Upcoming.ToDate && <>{t('from')}{replaceSpaces(' ')}</>}
+                                        {homepage.Upcoming.ToDate && <>{t.from}{replaceSpaces(' ')}</>}
                                         {replaceSpaces(LocalizedDate(homepage.Upcoming.FromDate, router.locale ?? 'cs'))}
 
                                     </span>
@@ -70,7 +68,7 @@ export default function Home({data}: HomepageProps) {
                     </div>
                     <div className={styles.olderExhibitions}>
                         <Link href={"/exhibitions"}>
-                            {t('olderExhibition')}
+                            {t.olderExhibition}
                         </Link>
                     </div>
                 </section>
@@ -80,16 +78,13 @@ export default function Home({data}: HomepageProps) {
 }
 
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps() {
     const data = await client.fetch(QUERY_HOMEPAGE);
-
-    console.log('getStaticProps')
 
     return {
         props: {
             data,
-            messages: (await import(`../public/locales/${context.locale}.json`)).default,
         },
-        revalidate: 600
+        revalidate: 3600
     };
 }

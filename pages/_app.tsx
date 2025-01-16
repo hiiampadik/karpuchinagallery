@@ -1,7 +1,6 @@
 import React, {FunctionComponent, useEffect} from "react";
 import {AppProps} from 'next/app';
 import '../styles/globals.scss';
-import {IntlErrorCode, NextIntlClientProvider} from 'next-intl';
 import {OverlaysProvider} from '@blueprintjs/core';
 import {Analytics} from '@vercel/analytics/next';
 import Script from 'next/script';
@@ -39,22 +38,10 @@ const MyApp: FunctionComponent<AppProps> = ({ Component, router, pageProps }) =>
               });
           `}
             </Script>
-
-            <NextIntlClientProvider
-                locale={router.locale}
-                timeZone="Europe/Vienna"
-                messages={pageProps.messages}
-                onError={(error) => {
-                    if (error.code === IntlErrorCode.MISSING_MESSAGE) {
-                        console.warn('Missing translation:', error.name);
-                    }
-                }}
-            >
                 <OverlaysProvider>
                     <Analytics />
                     <Component key={router.route} {...pageProps} />
                 </OverlaysProvider>
-            </NextIntlClientProvider>
         </>
         )
 

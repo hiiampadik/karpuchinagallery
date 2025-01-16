@@ -1,11 +1,13 @@
 'use client'
 import React, {FunctionComponent, useEffect, useMemo, useState} from 'react';
 import styles from './index.module.scss'
-import {useTranslations} from 'next-intl';
 import {Artwork} from '@/api/classes';
 import BlockContent from '@/components/Sanity/BlockContent';
 import Figure from '@/components/Sanity/Figure';
 import {classNames} from '@/components/utils/classNames';
+import {useRouter} from 'next/router';
+import {cs} from '@/public/locales/cs';
+import {en} from '@/public/locales/en';
 
 interface ArtworkDetailProps {
     readonly handleClose: () => void
@@ -14,7 +16,8 @@ interface ArtworkDetailProps {
 }
 
 const ArtworkDetail: FunctionComponent<ArtworkDetailProps> = ({handleClose, defaultArtwork, artworks}) => {
-    const t = useTranslations('Artwork');
+    const router = useRouter();
+    const t = router.locale === "cs" ? cs.Artwork : en.Artwork;
 
     const [selectedArtworkIndex, setSelectedArtworkIndex] = useState(defaultArtwork)
 
@@ -37,11 +40,11 @@ const ArtworkDetail: FunctionComponent<ArtworkDetailProps> = ({handleClose, defa
             <div className={styles.artworkHeader}>
                 <p>
                     {selectedArtwork.Gallery.length > 1 &&
-                        <><span className={selectedArtwork.Gallery.length >= 10 ? styles.numberWide : styles.number}>{selectedArtworkFigure + 1}</span>{' '}{t('of')}{' '}{selectedArtwork.Gallery.length}</>
+                        <><span className={selectedArtwork.Gallery.length >= 10 ? styles.numberWide : styles.number}>{selectedArtworkFigure + 1}</span>{' '}{t.of}{' '}{selectedArtwork.Gallery.length}</>
                     }
                 </p>
                 <button className={styles.artworkClose} onClick={() => handleClose()}>
-                    {t('close')}
+                    {t.close}
                 </button>
             </div>
 

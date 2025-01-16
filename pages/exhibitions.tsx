@@ -1,10 +1,11 @@
-import {GetStaticPropsContext} from 'next';
 import {useRouter} from 'next/router';
 import React from 'react';
 import EventList from '@/components/Events/EventList';
 import {Event, EventType} from '@/api/classes';
 import {QUERY_ALL_EXHIBITIONS} from '@/sanity/queries';
 import client from '@/sanity/client';
+
+export const revalidate = 3600
 
 export default function Exhibitions({data}: any) {
     const router = useRouter();
@@ -15,14 +16,13 @@ export default function Exhibitions({data}: any) {
     );
 }
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps() {
     const data = await client.fetch(QUERY_ALL_EXHIBITIONS)
 
     return {
         props: {
             data,
-            messages: (await import(`../public/locales/${context.locale}.json`)).default
         },
-        revalidate: 600
+        revalidate: 3600
     };
 }

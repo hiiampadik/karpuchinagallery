@@ -7,6 +7,7 @@ import client from '@/sanity/client';
 import {QUERY_ARTISTS_EVENTS, QUERY_ARTISTS_EVENTS_SLUGS} from '@/sanity/queries';
 
 export const dynamic = 'auto';
+export const revalidate = 3600
 
 export default function ArtistsEvent({data}: any) {
     const router = useRouter();
@@ -38,7 +39,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
         props: {
             data: data.event,
-            messages: (await import(`../../public/locales/${context.locale}.json`)).default,
         },
         revalidate: 3600
     };

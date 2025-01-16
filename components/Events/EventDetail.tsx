@@ -7,7 +7,6 @@ import GallerySwiper from '@/components/Sanity/GallerySwiper';
 import BlockContent from '@/components/Sanity/BlockContent';
 import Link from 'next/link';
 import Figure from '@/components/Sanity/Figure';
-import {useTranslations} from 'next-intl';
 import EventTitle, {TimeContext} from '@/components/Events/EventTitle';
 import ArtworkItem from '@/components/Artworks/ArtworkItem';
 import {useDisableScroll} from '@/components/utils/useDisableScroll';
@@ -15,6 +14,9 @@ import ArtworkDetail from '@/components/Artworks/ArtworkDetail';
 import {getImageDimensions} from '@sanity/asset-utils';
 import imageUrlBuilder from '@sanity/image-url';
 import client from '@/sanity/client';
+import {useRouter} from 'next/router';
+import {cs} from '@/public/locales/cs';
+import {en} from '@/public/locales/en';
 
 const builder = imageUrlBuilder(client);
 
@@ -26,7 +28,9 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
     const [showArtwork, setArtwork] = useState<number | null>(null)
     useDisableScroll(showArtwork !== null)
 
-    const t = useTranslations('Event');
+    const router = useRouter();
+    const t = router.locale === "cs" ? cs.Event : en.Event;
+
     const getTimeContext = (event: EventDetailClass) => {
         const today = new Date();
         today.setHours(0, 0, 0, 0)
@@ -71,7 +75,7 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
                         {event.Text &&
                             <section className={styles.curatorsTextContainer}>
                                 <h2>
-                                    {event.AlternativeTextTitle ?? t('text')}
+                                    {event.AlternativeTextTitle ?? t['text']}
                                 </h2>
                                 <BlockContent blocks={event.Text}/>
                                 {event.TextAuthor && <p>{'– '}{event.TextAuthor}</p>}
@@ -81,7 +85,7 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
                         {event.Documents &&
                             <section className={styles.documentsContainer}>
                                 <h2>
-                                    {t('documents')}
+                                    {t.documents}
                                 </h2>
                                 <div className={styles.documents}>
                                     {event.Documents.map(document => (
@@ -100,7 +104,7 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
                         {event.Artworks && event.Artworks.length > 0 &&
                             <section className={styles.selectedWorksContainer}>
                                 <h2>
-                                    {t('works')}
+                                    {t['works']}
                                 </h2>
                                 <div className={styles.selectedWorks}>
                                     {event.Artworks.map((artwork, index) => (
@@ -113,12 +117,12 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
                         <section className={styles.allEvents}>
                             {type === EventType.Fairs &&
                                 <Link href={"/fairs"}>
-                                    {t('allFairs')}
+                                    {t['allFairs']}
                                 </Link>
                             }
                             {type === EventType.Exhibitions &&
                                 <Link href={"/exhibitions"}>
-                                    {t('allExhibitions')}
+                                    {t['allExhibitions']}
                                 </Link>
                             }
                         </section>
