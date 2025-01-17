@@ -2,14 +2,11 @@ import Layout from '../components/Layout';
 import styles from '../styles/artists.module.scss'
 import React from 'react';
 import {ArtistItem} from '@/components/Artists/ArtistItem';
-import client from '@/sanity/client';
-import {QUERY_ALL_ARTISTS} from '@/sanity/queries';
-import {Artist} from '@/api/classes';
+import {useFetchArtists} from '@/api/artist';
 
-export const revalidate = 3600
 
-export default function Artists({data}: any) {
-    const artists: Artist[] = data.map((value: any) => Artist.fromPayload(value))
+export default function Artists() {
+    const {data: artists} = useFetchArtists()
 
     return (
         <Layout title={'Artists'}>
@@ -36,14 +33,3 @@ export default function Artists({data}: any) {
         </Layout>
     );
 }
-
-export async function getStaticProps() {
-    const data = await client.fetch(QUERY_ALL_ARTISTS)
-    return {
-        props: {
-            data,
-        },
-        revalidate: 3600
-    };
-}
-

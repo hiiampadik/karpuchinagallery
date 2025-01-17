@@ -20,13 +20,7 @@ export const useFetchHomepage = (locale: string): { data: Homepage | null, loadi
                 setLoading(false);
             }
         };
-
         fetchData();
-
-        // Cleanup function
-        return () => {
-            // Optionally, you can cancel any pending requests here
-        };
     }, []);
 
     return { data: data && Homepage.fromPayload(data, locale), loading, error };

@@ -8,16 +8,15 @@ import LocalizedDate from '@/components/utils/LocalizeDate';
 import Figure from '@/components/Sanity/Figure';
 import {replaceSpaces} from '@/components/utils/replaceSpaces';
 import EventTitle, {TimeContext} from '@/components/Events/EventTitle';
-import {EventType, Homepage} from '@/api/classes';
+import {EventType} from '@/api/classes';
 import {cs} from '@/components/locales/cs';
 import {en} from '@/components/locales/en';
-import client from '@/sanity/client';
-import {QUERY_HOMEPAGE} from '@/sanity/queries';
+import {useFetchHomepage} from '@/api/homepage';
 
-export default function Home({data}: any) {
+export default function Home() {
     const router = useRouter();
+    const {data: homepage} = useFetchHomepage(router.locale ?? 'cs')
     const t = router.locale === "cs" ? cs.Homepage : en.Homepage;
-    const homepage = Homepage.fromPayload(data, router.locale ?? 'cs')
 
     return (
         <Layout>
@@ -72,16 +71,5 @@ export default function Home({data}: any) {
             }
         </Layout>
 );
-}
-
-
-export async function getStaticProps() {
-    const data = await client.fetch(QUERY_HOMEPAGE);
-    return {
-        props: {
-            data,
-        },
-        revalidate: 3600
-    };
 }
 

@@ -1,7 +1,6 @@
 import styles from '@/styles/events.module.scss';
 import React, {FunctionComponent, useMemo} from 'react';
 import {Event, EventType} from '@/api/classes';
-import Layout from '@/components/Layout';
 import EventItem from '@/components/Events/EventItem';
 
 interface EventsProps {
@@ -38,7 +37,7 @@ const EventList: FunctionComponent<EventsProps> = ({events, type}) => {
 
 
     return (
-        <Layout title={type === EventType.Fairs ? 'Fairs' : 'Exhibitions'}>
+        <>
             {groupedEventsByYear.map((group) => (
                 <section key={group.year} className={styles.eventYear}>
                     <h1>{group.year}</h1>
@@ -50,7 +49,7 @@ const EventList: FunctionComponent<EventsProps> = ({events, type}) => {
                     </div>
                 </section>
             ))}
-        </Layout>
+        </>
     );
 }
 

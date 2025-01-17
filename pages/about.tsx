@@ -5,18 +5,13 @@ import BlockContent from '@/components/Sanity/BlockContent';
 import React from 'react';
 import GallerySwiper from '@/components/Sanity/GallerySwiper';
 import Figure from '@/components/Sanity/Figure';
-import client from '@/sanity/client';
-import {About as AboutClass} from '@/api/classes';
-import {QUERY_ABOUT} from '@/sanity/queries';
 import {cs} from '@/components/locales/cs';
 import {en} from '@/components/locales/en';
+import {useFetchAbout} from '@/api/homepage';
 
-export const revalidate = 3600
-
-export default function About({data}: any) {
-    const router = useRouter();
-    const about = AboutClass.fromPayload(data, router.locale ?? 'cs');
-    const t = router.locale === "cs" ? cs.About : en.About;
+export default function About() {
+    const router = useRouter();const t = router.locale === "cs" ? cs.About : en.About;
+    const {data: about} = useFetchAbout(router.locale ?? 'cs')
 
     return (
         <Layout loading={about === null} title={'About'}>
@@ -61,14 +56,4 @@ export default function About({data}: any) {
 
         </Layout>
     );
-}
-
-export async function getStaticProps() {
-    const data = await client.fetch(QUERY_ABOUT);
-    return {
-        props: {
-            data,
-        },
-        revalidate: 3600
-    };
 }

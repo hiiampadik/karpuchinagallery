@@ -1,27 +1,20 @@
 import {useRouter} from 'next/router';
 import React from 'react';
 import EventList from '@/components/Events/EventList';
-import {Event, EventType} from '@/api/classes';
+import {EventType} from '@/api/classes';
 import {QUERY_ALL_EXHIBITIONS} from '@/sanity/queries';
-import client from '@/sanity/client';
+import {useFetchEvents} from '@/api/event';
+import Layout from '@/components/Layout';
 
-export const revalidate = 3600
-
-export default function Exhibitions({data}: any) {
+export default function Exhibitions() {
     const router = useRouter();
-    const exhibitions: Event[] = data.map((value: any) => Event.fromPayload(value, router.locale ?? 'cs'))
+    const {data} = useFetchEvents( router.locale ?? 'cs', QUERY_ALL_EXHIBITIONS)
 
     return (
-       <EventList events={exhibitions ?? []} type={EventType.Exhibitions} />
+        <Layout title={'Exhibitions'}>
+            {data &&
+                <EventList events={data} type={EventType.Exhibitions} />
+            }
+        </Layout>
     );
-}
-
-export async function getStaticProps() {
-    const data = await client.fetch(QUERY_ALL_EXHIBITIONS)
-    return {
-        props: {
-            data,
-        },
-        revalidate: 3600
-    };
 }
