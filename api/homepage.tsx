@@ -1,7 +1,7 @@
 'use client'
 import {useEffect, useState} from 'react';
 import {About, Homepage} from '@/api/classes';
-import client from '@/sanity/client';
+import {sanityFetch} from '@/sanity/client';
 import {QUERY_HOMEPAGE} from '@/sanity/queries';
 
 export const useFetchHomepage = (locale: string): { data: Homepage | null, loading: boolean, error: Error | null} => {
@@ -12,7 +12,8 @@ export const useFetchHomepage = (locale: string): { data: Homepage | null, loadi
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await client.fetch(QUERY_HOMEPAGE);
+                // const result = await client.fetch(QUERY_HOMEPAGE);
+                const result = await sanityFetch({query: QUERY_HOMEPAGE});
                 setData(result);
             } catch (error) {
                 setError(error as Error);
@@ -34,7 +35,8 @@ export const useFetchAbout = (locale: string): { data: About | null, loading: bo
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await client.fetch(`*[_type == 'about'][0]`);
+                // const result = await client.fetch(`*[_type == 'about'][0]`);
+                const result = await sanityFetch({query: `*[_type == 'about'][0]`});
                 setData(result);
             } catch (error) {
                 setError(error as Error);

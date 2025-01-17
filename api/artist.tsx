@@ -1,7 +1,7 @@
 'use client'
-import {Artist ,ArtistDetail as ArtistClass, Artwork} from '@/api/classes';
+import {Artist, ArtistDetail as ArtistClass, Artwork} from '@/api/classes';
 import {useEffect, useState} from 'react';
-import client from '@/sanity/client';
+import {sanityFetch} from '@/sanity/client';
 import {QUERY_ALL_ARTISTS, QUERY_ALL_ARTWORKS_AND_ARTIST} from '@/sanity/queries';
 
 
@@ -14,7 +14,8 @@ export const useFetchArtist = (slug: string | undefined, locale: string): { data
         const fetchData = async () => {
             if (slug !== undefined){
                 try {
-                    const result = await client.fetch(QUERY_ALL_ARTWORKS_AND_ARTIST, {slug: slug});
+                    // const result = await client.fetch(QUERY_ALL_ARTWORKS_AND_ARTIST, {slug: slug});
+                    const result = await sanityFetch({query: QUERY_ALL_ARTWORKS_AND_ARTIST, params: {slug: slug}});
                     setData(result);
                 } catch (error) {
                     setError(error as Error);
@@ -48,7 +49,8 @@ export const useFetchArtists = (): { data: Artist[] | null, loading: boolean, er
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await client.fetch(QUERY_ALL_ARTISTS);
+                // const result = await client.fetch(QUERY_ALL_ARTISTS);
+                const result = await sanityFetch({query: QUERY_ALL_ARTISTS});
                 setData(result);
             } catch (error) {
                 setError(error as Error);

@@ -43,13 +43,13 @@ const Navigation: FunctionComponent = () => {
                    </Link>
                </div>
                <div className={styles.navigationLinksContainer}>
-                   <Link href={"/artists"} className={currentPath === '/artists' ? styles.activeRoute : ''}>
+                   <Link href={"/artists"} className={currentPath?.startsWith('/artist') ? styles.activeRoute : ''}>
                        {t['artists']}
                    </Link>
-                   <Link href={"/exhibitions"} className={currentPath === '/exhibitions' ? styles.activeRoute : ''}>
+                   <Link href={"/exhibitions"} className={currentPath?.startsWith('/exhibition') ? styles.activeRoute : ''}>
                        {t['exhibitions']}
                    </Link>
-                   <Link href={"/fairs"} className={currentPath === '/fairs' ? styles.activeRoute : ''}>
+                   <Link href={"/fairs"} className={currentPath?.startsWith('/fair') ? styles.activeRoute : ''}>
                        {t['fairs']}
                    </Link>
                    <Link href={"/about"} className={currentPath === '/about' ? styles.activeRoute : ''}>

@@ -1,7 +1,7 @@
 'use client'
 import {Event, EventDetail} from '@/api/classes';
 import {useEffect, useState} from 'react';
-import client from '@/sanity/client';
+import {sanityFetch} from '@/sanity/client';
 
 export const useFetchEvents = (locale: string, query: string): { data: Event[] | null, loading: boolean, error: Error | null} => {
     const [data, setData] = useState<any>(null);
@@ -11,7 +11,8 @@ export const useFetchEvents = (locale: string, query: string): { data: Event[] |
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await client.fetch(query);
+                // const result = await client.fetch(query);
+                const result = await sanityFetch({query: query});
                 setData(result);
             } catch (error) {
                 console.log(error)
@@ -40,7 +41,8 @@ export const useFetchEventDetail = (slug: string | undefined, locale: string, qu
         const fetchData = async () => {
             if (slug !== undefined){
                 try {
-                    const result = await client.fetch(query, { slug: slug});
+                    // const result = await client.fetch(query, { slug: slug});
+                    const result = await sanityFetch({query, params: {slug: slug}});
                     setData(result.event);
                 } catch (error) {
                     setError(error as Error);

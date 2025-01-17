@@ -1,5 +1,4 @@
-// sanity.js
-import {createClient} from '@sanity/client'
+import {createClient, type QueryParams} from 'next-sanity'
 
 const client = createClient({
     projectId: 'cg5jvog9', // you can find this in sanity.json
@@ -10,3 +9,24 @@ const client = createClient({
 })
 
 export default client;
+
+
+export async function sanityFetch<const QueryString extends string>(
+    {   query,
+        params = {},
+        revalidate = 3600, // default revalidation time in seconds
+        tags = []
+    }: {
+    query: QueryString
+    params?: QueryParams
+    revalidate?: number | false
+    tags?: string[]
+}) {
+    return client.fetch(query, params, {
+        next: {
+            revalidate: tags.length ? false : revalidate, // for simple, time-based revalidation
+            tags, // for tag-based revalidation
+        },
+    })
+}
+
