@@ -164,7 +164,7 @@ const SearchOverlay: FunctionComponent = () => {
                    autoFocus={true}
                    onChange={(e) => {
                        const searchTerm = e.target.value;
-                       if (searchTerm.length > 0 && searchTerm.length < 40) {
+                       if (searchTerm.length < 40) {
                            setSearchQuery(searchTerm)
                            handleSearch(searchTerm);
                        }

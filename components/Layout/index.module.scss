@@ -151,11 +151,6 @@
     font-size: 27px;
     line-height: 120%;
     font-family: Rhymes, serif;
-
-    @media (max-width: $breakpoint-xs-max) {
-      font-size: 18px;
-    }
-
     border: none;
     padding: 0;
     background: none;
@@ -163,6 +158,9 @@
     align-self: flex-end;
     color: $text-secondary-default;
 
+    @media (max-width: $breakpoint-xs-max) {
+      font-size: 18px;
+    }
     @media (hover: hover) {
       &:hover {
         color: $text-primary-default;
@@ -226,11 +224,11 @@
     }
   }
   .eventsContainer {
-    @include gridCol4-1;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr !important;
     max-width: calc(100vw - 32px);
     width: 874px;
     padding-bottom: 100px;
+    @include gridCol4-1;
   }
   h2 {
     line-height: 1.38em;

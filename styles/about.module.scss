@@ -15,13 +15,13 @@
 }
 
 .aboutInfoContainer{
-  @include container900px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
   row-gap: 60px;
   column-gap: 10px;
   margin-bottom: 90px;
+  @include container900px;
 
   h1 {
     @include labelSmall;

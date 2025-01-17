@@ -17,7 +17,7 @@
     "@sanity/image-url": "^1.0.2",
     "@sanity/webhook": "^4.0.4",
     "@vercel/analytics": "^1.4.1",
-    "next": "^13",
+    "next": "15.1.2",
     "next-sanity": "^9.8.25",
     "next-sitemap": "^4.2.3",
     "react": "^18",

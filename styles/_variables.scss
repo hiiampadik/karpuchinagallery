@@ -44,23 +44,26 @@ $text-primary-default: #000;
 }
 
 @mixin whiteButton {
-  @include squareButton;
   color: white;
   border: 1px white solid;
+  @include squareButton;
 }
 
 @mixin blackButton {
-  @include squareButton;
   color: black;
   border: 1px black solid;
+  @include squareButton;
 }
 
 
 @mixin container1200px {
-  max-width: 1200px;
-  width: calc(100vw - 40px);
+  @media (min-width: $breakpoint-lg-min) {
+    max-width: 1200px;
+    width: calc(100vw - 40px);
+  }
   @media (max-width: $breakpoint-md-max) {
     width: calc(100vw - 32px);
+    max-width: 1200px;
   }
 }
 

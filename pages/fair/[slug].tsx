@@ -35,7 +35,6 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context: GetStaticPropsContext) {
     const fairsData = await client.fetch(QUERY_FAIR, { slug: context.params?.slug})
-    console.log('getStaticProps')
     return {
         props: {
             data: fairsData.event,

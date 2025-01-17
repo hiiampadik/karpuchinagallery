@@ -65,7 +65,6 @@ export default function About({data}: any) {
 
 export async function getStaticProps() {
     const data = await client.fetch(QUERY_ABOUT);
-    console.log('getStaticProps')
     return {
         props: {
             data,

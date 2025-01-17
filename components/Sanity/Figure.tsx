@@ -41,7 +41,7 @@ const Figure: FunctionComponent<FigureProps> = (
         }
         const dimensions = getImageDimensions(image)
         return [dimensions.height, dimensions.width]
-    }, [image])
+    }, [image, ref])
 
     const resolvedSizes = useMemo(() => {
         if (sizes){

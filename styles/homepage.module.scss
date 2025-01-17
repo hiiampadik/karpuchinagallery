@@ -84,11 +84,12 @@
   }
 
   h1 {
-    @include container900px;
     color: white;
     font-size: 37px;
     font-family: Rhymes, serif;
     font-weight: 400;
+
+    @include container900px;
     @media (max-width: $breakpoint-xs-max) {
       font-size: 23px;
     }
