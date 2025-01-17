@@ -3,10 +3,9 @@ import {GetStaticPropsContext} from 'next';
 import {useRouter} from 'next/router';
 import EventDetail from '@/components/Events/EventDetail';
 import {EventDetail as EventDetailClass, EventType} from '@/api/classes';
-import client, {sanityFetch} from '@/sanity/client';
-import {QUERY_ALL_ARTWORKS_AND_ARTIST, QUERY_ARTISTS_EVENTS, QUERY_ARTISTS_EVENTS_SLUGS} from '@/sanity/queries';
+import {sanityFetch} from '@/sanity/client';
+import {QUERY_ARTISTS_EVENTS, QUERY_ARTISTS_EVENTS_SLUGS} from '@/sanity/queries';
 
-export const dynamic = 'auto';
 export const revalidate = 3600
 
 export default function ArtistsEvent({data}: any) {

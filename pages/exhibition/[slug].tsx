@@ -6,7 +6,6 @@ import {EventDetail as EventDetailClass, EventType} from '@/api/classes';
 import {sanityFetch} from '@/sanity/client';
 import {QUERY_EXHIBITION, QUERY_EXHIBITION_SLUGS} from '@/sanity/queries';
 
-export const dynamic = 'auto';
 export const revalidate = 3600
 
 export default function Exhibition({data}: any) {
