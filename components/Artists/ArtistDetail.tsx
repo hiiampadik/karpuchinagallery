@@ -1,13 +1,10 @@
-'use client'
-import React, {useMemo, useState} from "react";
+import React, {useMemo} from "react";
 import styles from './index.module.scss'
 import BlockContent from '@/components/Sanity/BlockContent';
 import EventItem from '@/components/Events/EventItem';
 import Link from 'next/link';
 import {ArtistDetail as ArtistClass, Artwork, Event, EventType} from '@/api/classes';
-import ArtworkDetail from '@/components/Artworks/ArtworkDetail';
-import ArtworkItem from '@/components/Artworks/ArtworkItem';
-import {useDisableScroll} from '@/components/utils/useDisableScroll';
+import {ArtworkDetailWrapper} from '@/components/Artworks/ArtworkDetail';
 import {useRouter} from 'next/router';
 import {cs} from '@/components/locales/cs';
 import {en} from '@/components/locales/en';
@@ -23,8 +20,6 @@ export default function ArtistDetail(props: ArtistProps) {
     const router = useRouter();
     const t = router.locale === "cs" ? cs.Artist : en.Artist;
 
-    const [showArtwork, setArtwork] = useState<number | null>(null)
-    useDisableScroll(showArtwork !== null)
 
     const artistArtworks = useMemo(() => {
         if (artworks === null || artist === null){
@@ -63,9 +58,7 @@ export default function ArtistDetail(props: ArtistProps) {
                     <section className={styles.selectedWorksContainer}>
                         <h2>{t.selectedWorks}</h2>
                         <div className={styles.selectedWorks}>
-                            {artistArtworks.map((artwork, index) => (
-                                <ArtworkItem key={artwork.Id} artwork={artwork} onOpenArtwork={() => setArtwork(index)} />
-                            ))}
+                            <ArtworkDetailWrapper artworks={artistArtworks} />
                         </div>
                     </section>
                 }
@@ -165,10 +158,6 @@ export default function ArtistDetail(props: ArtistProps) {
                     </Link>
                 </section>
             </article>
-
-            {showArtwork !== null &&
-                <ArtworkDetail handleClose={() => setArtwork(null)} defaultArtwork={showArtwork} artworks={artistArtworks}/>
-            }
         </>
     )
 }

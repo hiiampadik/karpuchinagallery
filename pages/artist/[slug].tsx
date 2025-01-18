@@ -5,7 +5,6 @@ import {useFetchArtist} from '@/api/artist';
 import {useParams} from 'next/navigation';
 import Layout from '@/components/Layout';
 
-export const revalidate = 3600
 
 export default function Artist() {
     const router = useRouter();
@@ -13,7 +12,7 @@ export default function Artist() {
     const {data} = useFetchArtist(params?.slug as string, router.locale ?? 'cs')
 
     return (
-        <Layout title={data?.artist.Name}>
+        <Layout title={data?.artist.Name ?? 'Artist'}>
             {data &&
                 <ArtistDetail artist={data.artist} artworks={data.artworks} />
             }

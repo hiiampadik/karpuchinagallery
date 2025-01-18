@@ -11,7 +11,6 @@ import "swiper/css/mousewheel";
 import {FreeMode, Scrollbar, Mousewheel} from 'swiper/modules';
 import Figure from '@/components/Sanity/Figure';
 import {Image} from '@/api/classes';
-import figureStyles from '@/components/Sanity/Figure.module.scss';
 import Overlay from '@/components/Overlay';
 import {useDisableScroll} from '@/components/utils/useDisableScroll';
 

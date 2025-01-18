@@ -3,17 +3,29 @@ import {GetStaticPropsContext} from 'next';
 import {useRouter} from 'next/router';
 import EventDetail from '@/components/Events/EventDetail';
 import {EventDetail as EventDetailClass, EventType} from '@/api/classes';
-import {sanityFetch} from '@/sanity/client';
+import client, {sanityFetch} from '@/sanity/client';
 import {QUERY_EXHIBITION, QUERY_EXHIBITION_SLUGS} from '@/sanity/queries';
-
-export const revalidate = 3600
+import {getImageDimensions} from '@sanity/asset-utils';
+import imageUrlBuilder from '@sanity/image-url';
+import Layout from '@/components/Layout';
 
 export default function Exhibition({data}: any) {
     const router = useRouter();
     const exhibition = EventDetailClass.fromPayload(data, router.locale ?? 'cs')
+    const coverDimensions = getImageDimensions(exhibition.Cover)
+    const builder = imageUrlBuilder(client);
 
     return (
-        <EventDetail event={exhibition} type={EventType.Exhibitions} />
+        <Layout
+            title={exhibition.Title}
+            image={{
+                url: builder.image(exhibition.Cover).auto("format").width(480).url(),
+                height: coverDimensions.height.toString(),
+                width: coverDimensions.width.toString(),
+            }}
+        >
+            <EventDetail event={exhibition} type={EventType.Exhibitions} />
+        </Layout>
     )
 }
 

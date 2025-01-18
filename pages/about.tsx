@@ -9,8 +9,6 @@ import {cs} from '@/components/locales/cs';
 import {en} from '@/components/locales/en';
 import {useFetchAbout} from '@/api/homepage';
 
-export const revalidate = 3600
-
 export default function About() {
     const router = useRouter();
     const t = router.locale === "cs" ? cs.About : en.About;

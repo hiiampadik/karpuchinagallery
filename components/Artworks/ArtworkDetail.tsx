@@ -8,6 +8,32 @@ import {classNames} from '@/components/utils/classNames';
 import {useRouter} from 'next/router';
 import {cs} from '@/components/locales/cs';
 import {en} from '@/components/locales/en';
+import {useDisableScroll} from '@/components/utils/useDisableScroll';
+import ArtworkItem from '@/components/Artworks/ArtworkItem';
+
+
+interface ArtworkDetailWrapperProps {
+    readonly artworks: Artwork[]
+}
+export const ArtworkDetailWrapper: FunctionComponent<ArtworkDetailWrapperProps> = ({artworks}) => {
+    const [showArtwork, setArtwork] = useState<number | null>(null)
+    useDisableScroll(showArtwork !== null)
+
+
+    return (
+        <>
+            {artworks.map((artwork, index) => (
+                <ArtworkItem key={artwork.Id} artwork={artwork} onOpenArtwork={() => setArtwork(index)} />
+            ))}
+            {showArtwork !== null &&
+                <ArtworkDetail handleClose={() => setArtwork(null)} defaultArtwork={showArtwork} artworks={artworks} />
+            }
+        </>
+    )
+}
+
+
+
 
 interface ArtworkDetailProps {
     readonly handleClose: () => void
