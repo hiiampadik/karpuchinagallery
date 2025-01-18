@@ -2,7 +2,6 @@ import React, {FunctionComponent, useEffect} from "react";
 import {AppProps} from 'next/app';
 import '../styles/globals.scss';
 import {OverlaysProvider} from '@blueprintjs/core';
-import {Analytics} from '@vercel/analytics/next';
 import Script from 'next/script';
 import * as gtag from "../lib/gtag";
 
@@ -39,7 +38,6 @@ const MyApp: FunctionComponent<AppProps> = ({ Component, router, pageProps }) =>
           `}
             </Script>
                 <OverlaysProvider>
-                    <Analytics />
                     <Component key={router.route} {...pageProps} />
                 </OverlaysProvider>
         </>
