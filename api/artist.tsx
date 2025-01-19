@@ -14,7 +14,6 @@ export const useFetchArtist = (slug: string | undefined, locale: string): { data
         const fetchData = async () => {
             if (slug !== undefined){
                 try {
-                    // const result = await client.fetch(QUERY_ALL_ARTWORKS_AND_ARTIST, {slug: slug});
                     const result = await sanityFetch({query: QUERY_ALL_ARTWORKS_AND_ARTIST, params: {slug: slug}});
                     setData(result);
                 } catch (error) {
@@ -49,7 +48,6 @@ export const useFetchArtists = (): { data: Artist[] | null, loading: boolean, er
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // const result = await client.fetch(QUERY_ALL_ARTISTS);
                 const result = await sanityFetch({query: QUERY_ALL_ARTISTS});
                 setData(result);
             } catch (error) {

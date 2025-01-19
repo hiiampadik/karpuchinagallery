@@ -11,7 +11,6 @@ export const useFetchEvents = (locale: string, query: string): { data: Event[] |
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // const result = await client.fetch(query);
                 const result = await sanityFetch({query: query});
                 setData(result);
             } catch (error) {
@@ -41,7 +40,6 @@ export const useFetchEventDetail = (slug: string | undefined, locale: string, qu
         const fetchData = async () => {
             if (slug !== undefined){
                 try {
-                    // const result = await client.fetch(query, { slug: slug});
                     const result = await sanityFetch({query, params: {slug: slug}});
                     setData(result.event);
                 } catch (error) {

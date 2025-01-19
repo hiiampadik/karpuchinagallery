@@ -12,7 +12,6 @@ export const useFetchHomepage = (locale: string): { data: Homepage | null, loadi
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // const result = await client.fetch(QUERY_HOMEPAGE);
                 const result = await sanityFetch({query: QUERY_HOMEPAGE});
                 setData(result);
             } catch (error) {
@@ -35,7 +34,6 @@ export const useFetchAbout = (locale: string): { data: About | null, loading: bo
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // const result = await client.fetch(`*[_type == 'about'][0]`);
                 const result = await sanityFetch({query: `*[_type == 'about'][0]`});
                 setData(result);
             } catch (error) {
