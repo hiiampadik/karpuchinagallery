@@ -83,25 +83,25 @@ const Figure: FunctionComponent<FigureProps> = (
                 .image(image)
                 .auto("format")
                 .width(480)
-                .quality(80)
+                .quality(70)
                 .url()} 480w,
                       ${builder
                 .image(image)
                 .auto("format")
                 .width(800)
-                .quality(80)
+                .quality(70)
                 .url()} 800w,
                       ${builder
                 .image(image)
                 .auto("format")
                 .width(1300)
-                .quality(80)
+                .quality(70)
                 .url()} 1300w,
                       ${builder
                 .image(image)
                 .auto("format")
                 .width(1600)
-                .quality(80)
+                .quality(70)
                 .url()} 1600w,
                       ${builder
                 .image(image)

@@ -14,15 +14,19 @@ export default client;
 export async function sanityFetch<const QueryString extends string>(
     {   query,
         params = {},
-        revalidate = 3600, // default revalidation time in seconds
+        revalidate = 18000, // default revalidation time in seconds
+        useCdn = true,
         tags = []
     }: {
     query: QueryString
     params?: QueryParams
     revalidate?: number | false
+    useCdn?: boolean
     tags?: string[]
 }) {
-    return client.fetch(query, params, {
+    return client
+        .withConfig({useCdn: useCdn})
+        .fetch(query, params, {
         next: {
             revalidate: tags.length ? false : revalidate, // for simple, time-based revalidation
             tags, // for tag-based revalidation

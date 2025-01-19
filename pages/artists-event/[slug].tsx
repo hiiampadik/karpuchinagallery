@@ -31,7 +31,7 @@ export default function ArtistsEvent({data}: any) {
 
 export async function getStaticPaths() {
     // const slugs = await client.fetch(QUERY_ARTISTS_EVENTS_SLUGS);
-    const slugs = await sanityFetch({query: QUERY_ARTISTS_EVENTS_SLUGS});
+    const slugs = await sanityFetch({query: QUERY_ARTISTS_EVENTS_SLUGS, useCdn: false});
     const locales = ['cs', 'en'];
     const paths = slugs.flatMap((slug: string) =>
         locales.map((locale) => ({
@@ -47,12 +47,12 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context: GetStaticPropsContext) {
     // const data = await client.fetch(QUERY_ARTISTS_EVENTS, { slug: context.params?.slug})
-    const data = await sanityFetch({query: QUERY_ARTISTS_EVENTS, params: {slug: context.params?.slug}});
+    const data = await sanityFetch({query: QUERY_ARTISTS_EVENTS, params: {slug: context.params?.slug}, useCdn: false});
 
     return {
         props: {
             data: data.event,
         },
-        revalidate: 3600
+        revalidate: 18000
     };
 }

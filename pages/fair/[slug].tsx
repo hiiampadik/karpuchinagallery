@@ -31,7 +31,7 @@ export default function Fair({data}: any) {
 
 export async function getStaticPaths() {
     // const slugs = await client.fetch(QUERY_FAIR_SLUGS);
-    const slugs = await sanityFetch({query: QUERY_FAIR_SLUGS});
+    const slugs = await sanityFetch({query: QUERY_FAIR_SLUGS, useCdn: false});
     const locales = ['cs', 'en'];
     const paths = slugs.flatMap((slug: string) =>
         locales.map((locale) => ({
@@ -47,11 +47,11 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context: GetStaticPropsContext) {
     // const fairsData = await client.fetch(QUERY_FAIR, { slug: context.params?.slug})
-    const fairsData = await sanityFetch({query: QUERY_FAIR, params: {slug: context.params?.slug}});
+    const fairsData = await sanityFetch({query: QUERY_FAIR, params: {slug: context.params?.slug}, useCdn: false});
     return {
         props: {
             data: fairsData.event,
         },
-        revalidate: 3600
+        revalidate: 18000
     };
 }
