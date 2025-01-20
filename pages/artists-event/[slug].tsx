@@ -19,7 +19,7 @@ export default function ArtistsEvent({data}: any) {
         <Layout
             title={artistsEvent.Title}
             image={{
-                url: builder.image(artistsEvent.Cover).auto("format").width(480).url(),
+                url: builder.image(artistsEvent.Cover).auto("format").width(480).quality(60).url(),
                 height: coverDimensions.height.toString(),
                 width: coverDimensions.width.toString(),
             }}
@@ -51,6 +51,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         props: {
             data: data.event,
         },
-        revalidate: 86400
+        revalidate: 172800, // two days
     };
 }

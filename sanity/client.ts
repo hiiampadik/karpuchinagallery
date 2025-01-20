@@ -14,7 +14,7 @@ export default client;
 export async function sanityFetch<const QueryString extends string>(
     {   query,
         params = {},
-        revalidate = 86400, // default revalidation time in seconds
+        revalidate = 172800, // two days, // default revalidation time in seconds
         useCdn = true,
         tags = []
     }: {

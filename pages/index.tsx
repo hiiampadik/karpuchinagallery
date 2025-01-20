@@ -11,16 +11,26 @@ import EventTitle, {TimeContext} from '@/components/Events/EventTitle';
 import {EventType, Homepage} from '@/api/classes';
 import {cs} from '@/components/locales/cs';
 import {en} from '@/components/locales/en';
-import {sanityFetch} from '@/sanity/client';
+import client, {sanityFetch} from '@/sanity/client';
 import {QUERY_HOMEPAGE} from '@/sanity/queries';
+import {getImageDimensions} from '@sanity/asset-utils';
+import imageUrlBuilder from '@sanity/image-url';
 
 export default function Home({data}: any) {
     const router = useRouter();
     const homepage = Homepage.fromPayload(data, router.locale ?? 'cs')
     const t = router.locale === "cs" ? cs.Homepage : en.Homepage;
+    const coverDimensions = getImageDimensions(homepage.OnDisplay.Cover)
+    const builder = imageUrlBuilder(client);
 
     return (
-        <Layout>
+        <Layout
+            image={{
+                url: builder.image(homepage.OnDisplay.Cover).auto("format").width(480).quality(60).url(),
+                height: coverDimensions.height.toString(),
+                width: coverDimensions.width.toString(),
+            }}
+        >
             <section className={styles.homepageContainer}>
                 <Link href="/exhibition/[slug]"
                       as={`/exhibition/${homepage.OnDisplay.Slug}`}
@@ -80,6 +90,6 @@ export async function getStaticProps() {
         props: {
             data,
         },
-        revalidate: 86400
+        revalidate: 172800, // two days
     };
 }

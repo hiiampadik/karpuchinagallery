@@ -1,5 +1,5 @@
 'use client'
-import React, {FunctionComponent, useCallback, useEffect, useState} from 'react';
+import React, {FunctionComponent, useEffect, useState} from 'react';
 import styles from './index.module.scss'
 import Link from 'next/link';
 import {useRouter} from 'next/router';
@@ -8,13 +8,9 @@ import SearchIcon from '../../public/SearchIcon.svg'
 import Image from 'next/image'
 import Overlay from '@/components/Overlay';
 import {useDisableScroll} from '@/components/utils/useDisableScroll';
-
-import {fetchEvents} from '@/api/search';
-import {Event} from '@/api/classes';
-import {debounce} from '@/components/utils/debounce';
-import EventItem from '@/components/Events/EventItem';
 import {cs} from '@/components/locales/cs';
 import {en} from '@/components/locales/en';
+import {SearchOverlay} from '@/components/Layout/SearchOverlay';
 
 
 const Navigation: FunctionComponent = () => {
@@ -129,63 +125,3 @@ const NavigationOverlay: FunctionComponent<NavigationOverlayProps> = ({handleSho
     )
 }
 
-
-const SearchOverlay: FunctionComponent = () => {
-    const router = useRouter();
-    const t = router.locale === "cs" ? cs.Search : en.Search;
-
-    const [searchQuery, setSearchQuery] = useState('')
-
-    const [events, setEvents] = useState<null | Event[]>(null)
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const handleSearch = useCallback(
-        debounce(
-            (searchTerm: string) => {
-                if (searchTerm.length === 0){
-                    setEvents(null)
-                    return
-                }
-                fetchEvents(searchTerm,  router.locale ?? 'cs').then(
-                    (events) => {
-                        setEvents(events)
-                    })
-
-                // todo
-            },
-            1000,
-        ),
-        [],
-    );
-
-    return (
-        <div className={styles.searchContainer}>
-            <input type="text" value={searchQuery}
-                   autoFocus={true}
-                   onChange={(e) => {
-                       const searchTerm = e.target.value;
-                       if (searchTerm.length < 40) {
-                           setSearchQuery(searchTerm)
-                           handleSearch(searchTerm);
-                       }
-                   }}
-                   placeholder={t['placeholder']}
-            />
-            {events !== null&&
-                <>
-                    {events.length === 0 ?
-                        <>
-                            {t['noResults']}
-                        </>
-                        :
-                        <div className={styles.eventsContainer}>
-                            {events.map(event => (
-                                <EventItem event={event} key={event.Id} useH2={true} type={event.Type} />
-                            ))}
-                        </div>
-                    }
-                </>
-            }
-        </div>
-    )
-}

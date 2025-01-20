@@ -19,7 +19,7 @@ export default function Fair({data}: any) {
         <Layout
             title={fair.Title}
             image={{
-                url: builder.image(fair.Cover).auto("format").width(480).url(),
+                url: builder.image(fair.Cover).auto("format").width(480).quality(60).url(),
                 height: coverDimensions.height.toString(),
                 width: coverDimensions.width.toString(),
             }}
@@ -50,6 +50,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         props: {
             data: fairsData.event,
         },
-        revalidate: 86400
+        revalidate: 172800, // two days
     };
 }
