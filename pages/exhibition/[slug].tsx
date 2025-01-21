@@ -14,7 +14,6 @@ export default function Exhibition({data}: any) {
     const exhibition = EventDetailClass.fromPayload(data, router.locale ?? 'cs')
     const coverDimensions = getImageDimensions(exhibition.Cover)
     const builder = imageUrlBuilder(client);
-
     return (
         <Layout
             title={exhibition.Title}

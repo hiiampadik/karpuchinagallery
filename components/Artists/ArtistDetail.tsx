@@ -20,14 +20,6 @@ export default function ArtistDetail(props: ArtistProps) {
     const router = useRouter();
     const t = router.locale === "cs" ? cs.Artist : en.Artist;
 
-
-    const artistArtworks = useMemo(() => {
-        if (artworks === null || artist === null){
-            return []
-        }
-        return artworks.filter(artwork => artwork.Artist.Id === artist.Id && artwork.ShowInSelection)
-    }, [artworks, artist])
-
     const sortEvents = (events: Event[]) => {
         return events.sort((a, b) => {
             const dateA = new Date(a.FromDate).getTime();
@@ -54,11 +46,11 @@ export default function ArtistDetail(props: ArtistProps) {
                     </div>
                 </section>
 
-                {artistArtworks.length > 0 &&
+                {artworks.length > 0 &&
                     <section className={styles.selectedWorksContainer}>
                         <h2>{t.selectedWorks}</h2>
                         <div className={styles.selectedWorks}>
-                            <ArtworkDetailWrapper artworks={artistArtworks} />
+                            <ArtworkDetailWrapper artworks={artworks} />
                         </div>
                     </section>
                 }

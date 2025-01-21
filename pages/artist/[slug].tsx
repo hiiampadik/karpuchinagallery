@@ -12,7 +12,6 @@ import imageUrlBuilder from '@sanity/image-url';
 
 export default function Artist({data}: any) {
     const router = useRouter();
-
     const artist = ArtistClass.fromPayload(data.artist, router.locale ?? 'cs')
     const artworks = data.artworks.map((artworks: any) => Artwork.fromPayload(artworks, router.locale ?? 'cs'))
 

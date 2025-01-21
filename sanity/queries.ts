@@ -3,7 +3,6 @@ import {defineQuery} from "next-sanity";
 export const QUERY_ALL_SLUGS = defineQuery(`
     *[defined(slug.current)][].slug.current
 `)
-
 export const QUERY_SEARCH = defineQuery(`
 *[_type in ["exhibitions", "fairs", "artistsEvents"] && (
     title.cs match $queryString ||
@@ -14,7 +13,7 @@ export const QUERY_SEARCH = defineQuery(`
         _type,
         title,
         slug,
-        artists,
+        artists[0...3],
         openingDate, 
         fromDate, 
         toDate, 
@@ -32,7 +31,7 @@ export const QUERY_HOMEPAGE = defineQuery(`
         _type,
         title,
         slug,
-        artists,
+        artists[0...3],
         openingDate, 
         fromDate, 
         toDate, 
@@ -44,7 +43,7 @@ export const QUERY_HOMEPAGE = defineQuery(`
         _type,
         title,
         slug,
-        artists,
+        artists[0...3],
         openingDate, 
         fromDate, 
         toDate, 
@@ -70,7 +69,7 @@ export const QUERY_ALL_EXHIBITIONS = defineQuery(`*[_type == "exhibitions"] | or
     _type,
     title,
     slug,
-    artists[0...3],
+    artists,
     openingDate,
     fromDate,
     toDate,
@@ -96,7 +95,7 @@ export const QUERY_ARTIST_SLUGS = defineQuery(`
 *[_type == "artists" && defined(slug.current)][].slug.current`)
 export const QUERY_ALL_ARTWORKS_AND_ARTIST = defineQuery(`
 {
-  "artworks": *[_type == "artworks"] | order(orderRank) {
+  "artworks": *[_type == "artworks" && showInSelection == true && artist->slug.current == $slug] | order(orderRank) {
     _id,
     title,
     year,
@@ -126,7 +125,7 @@ export const QUERY_ALL_ARTWORKS_AND_ARTIST = defineQuery(`
         _type,
         title,
         slug,
-        artists,
+        artists[0...3],
         openingDate,
         fromDate,
         toDate,
@@ -182,14 +181,20 @@ const QUERY_EVENT_DETAILS = `
 export const QUERY_ARTISTS_EVENTS_SLUGS = defineQuery(`
 *[_type == "artistsEvents" && defined(slug.current)][].slug.current
 `)
-export const QUERY_ARTISTS_EVENTS = defineQuery(`{"event": *[_type == "artistsEvents" && slug.current == $slug] | order(_updatedAt desc) [0] {${QUERY_EVENT_DETAILS}}}`)
+export const QUERY_ARTISTS_EVENTS = defineQuery(`
+{"event": *[_type == "artistsEvents" && slug.current == $slug] | order(_updatedAt desc) [0] {${QUERY_EVENT_DETAILS}}}
+`)
 
 export const QUERY_EXHIBITION_SLUGS = defineQuery(`
 *[_type == "exhibitions" && defined(slug.current)][].slug.current
 `)
-export const QUERY_EXHIBITION = defineQuery(`{"event": *[_type == "exhibitions" && slug.current == $slug] | order(_updatedAt desc) [0] {${QUERY_EVENT_DETAILS}}}`)
+export const QUERY_EXHIBITION = defineQuery(`
+{"event": *[_type == "exhibitions" && slug.current == $slug] | order(_updatedAt desc) [0] {${QUERY_EVENT_DETAILS}}}
+`)
 
 export const QUERY_FAIR_SLUGS = defineQuery(`
 *[_type == "fairs" && defined(slug.current)][].slug.current
 `)
-export const QUERY_FAIR = defineQuery(`{"event": *[_type == "fairs" && slug.current == $slug] | order(_updatedAt desc) [0] {${QUERY_EVENT_DETAILS}}}`)
+export const QUERY_FAIR = defineQuery(`
+{"event": *[_type == "fairs" && slug.current == $slug] | order(_updatedAt desc) [0] {${QUERY_EVENT_DETAILS}}}
+`)
