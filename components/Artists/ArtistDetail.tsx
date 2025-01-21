@@ -145,7 +145,7 @@ export default function ArtistDetail(props: ArtistProps) {
                 }
 
                 <section className={styles.allArtists}>
-                    <Link href={"/artists"}>
+                    <Link href={"/artists"} prefetch={false}>
                         {t.allArtists}
                     </Link>
                 </section>

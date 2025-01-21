@@ -69,7 +69,7 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
                         </h2>
                         <div className={styles.documents}>
                             {event.Documents.map(document => (
-                                <Link href={document.Url} download={true} key={document.Id}>
+                                <Link href={document.Url} download={true} key={document.Id} prefetch={false}>
                                     <Figure
                                         image={document.Cover}
                                         alt={(document.Alt)}
@@ -94,12 +94,12 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
 
                 <section className={styles.allEvents}>
                     {type === EventType.Fairs &&
-                        <Link href={"/fairs"}>
+                        <Link href={"/fairs"} prefetch={false}>
                             {t['allFairs']}
                         </Link>
                     }
                     {type === EventType.Exhibitions &&
-                        <Link href={"/exhibitions"}>
+                        <Link href={"/exhibitions"} prefetch={false}>
                             {t['allExhibitions']}
                         </Link>
                     }

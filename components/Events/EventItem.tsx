@@ -28,7 +28,8 @@ const EventItem: FunctionComponent<EventItemProps> = ({event, useH2, type}) => {
         <Link href={`/${getHref()}/[slug]`}
               as={`/${getHref()}/${event.Slug}`}
               key={event.Slug}
-              className={classNames([styles.eventContainer])}>
+              className={classNames([styles.eventContainer])}
+              prefetch={false}>
             <div className={styles.cover}>
                 <Figure
                     image={event.Cover}

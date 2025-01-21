@@ -13,7 +13,9 @@ export const ArtistItem: FunctionComponent<ArtistItemProps> = ({artist, firstNam
     return (
         <Link href="/artist/[slug]"
               as={`/artist/${artist.Slug}`}
-              className={styles.artistContainer}>
+              className={styles.artistContainer}
+              prefetch={false}
+        >
             <div className={styles.cover}>
                 <Figure
                     image={artist.Cover}

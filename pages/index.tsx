@@ -53,6 +53,7 @@ export default function Home({data}: any) {
                         <Link href="/exhibition/[slug]"
                               as={`/exhibition/${homepage.Upcoming.Slug}`}
                               key={homepage.Upcoming.Slug}
+                              prefetch={false}
                         >
                             <h1>
                                 <span className={styles.opacity}>{t.upcoming}:</span>
@@ -73,7 +74,7 @@ export default function Home({data}: any) {
                     }
                 </div>
                 <div className={styles.olderExhibitions}>
-                    <Link href={"/exhibitions"}>
+                    <Link href={"/exhibitions"} prefetch={false}>
                         {t.olderExhibition}
                     </Link>
                 </div>

@@ -34,21 +34,21 @@ const Navigation: FunctionComponent = () => {
         <>
            <div className={styles.navigationContainer}>
                <div className={styles.galleryTitle} >
-                   <Link href="/" >
+                   <Link href="/" prefetch={false}>
                        Karpuchina<br />Gallery
                    </Link>
                </div>
                <div className={styles.navigationLinksContainer}>
-                   <Link href={"/artists"} className={currentPath?.startsWith('/artist') ? styles.activeRoute : ''}>
+                   <Link href={"/artists"} className={currentPath?.startsWith('/artist') ? styles.activeRoute : ''} prefetch={false}>
                        {t['artists']}
                    </Link>
-                   <Link href={"/exhibitions"} className={currentPath?.startsWith('/exhibition') ? styles.activeRoute : ''}>
+                   <Link href={"/exhibitions"} className={currentPath?.startsWith('/exhibition') ? styles.activeRoute : ''} prefetch={false}>
                        {t['exhibitions']}
                    </Link>
-                   <Link href={"/fairs"} className={currentPath?.startsWith('/fair') ? styles.activeRoute : ''}>
+                   <Link href={"/fairs"} className={currentPath?.startsWith('/fair') ? styles.activeRoute : ''} prefetch={false}>
                        {t['fairs']}
                    </Link>
-                   <Link href={"/about"} className={currentPath === '/about' ? styles.activeRoute : ''}>
+                   <Link href={"/about"} className={currentPath === '/about' ? styles.activeRoute : ''} prefetch={false}>
                        {t['contact']}
                    </Link>
 
@@ -62,6 +62,7 @@ const Navigation: FunctionComponent = () => {
                        href={router.asPath}
                        locale={router.locale === "cs" ? "en" : "cs"}
                        className={styles.languageButton}
+                       prefetch={false}
                    >
                        {router.locale === "cs" ? "EN" : "CZ"}
                    </Link>
@@ -97,16 +98,16 @@ const NavigationOverlay: FunctionComponent<NavigationOverlayProps> = ({handleSho
 
     return (
         <div className={styles.menuContainer}>
-            <Link href={"/artists"}>
+            <Link href={"/artists"} prefetch={false}>
                 {t['artists']}
             </Link>
-            <Link href={"/exhibitions"}>
+            <Link href={"/exhibitions"} prefetch={false}>
                 {t['exhibitions']}
             </Link>
-            <Link href={"/fairs"}>
+            <Link href={"/fairs"} prefetch={false}>
                 {t['fairs']}
             </Link>
-            <Link href={"/about"}>
+            <Link href={"/about"} prefetch={false}>
                 {t['contact']}
             </Link>
 
@@ -115,8 +116,10 @@ const NavigationOverlay: FunctionComponent<NavigationOverlayProps> = ({handleSho
                 <Image src={SearchIcon} alt={'s'} width="30" height="30"/>
             </button>
 
-            <Link href={router.asPath} locale={router.locale === "cs" ? "en" : "cs"}
-                  className={styles.languageButton}>
+            <Link href={router.asPath}
+                  locale={router.locale === "cs" ? "en" : "cs"}
+                  className={styles.languageButton}
+                  prefetch={false}>
                 <span className={router.locale === "cs" ? styles.activeLocale : ''}>CZ</span>
                 {'/'}
                 <span className={router.locale === "en" ? styles.activeLocale : ''}>EN</span>
