@@ -50,7 +50,7 @@ export default async function handler(req, res) {
                 break
             default:
                 console.log(`===== Wrong type ${type}`);
-                return res.status(500).send('Error while revalidating');
+                return
         }
 
         await res.revalidate(`/en/${path}`)
