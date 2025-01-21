@@ -62,6 +62,5 @@ export default async function handler(req, res) {
         // Could not revalidate. The stale page will continue to be shown until
         // this issue is fixed.
         console.log(`===== Error ${err.message}`);
-        return res.status(500).send('Error while revalidating');
     }
 }
