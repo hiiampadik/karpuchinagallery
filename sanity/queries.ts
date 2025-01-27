@@ -98,6 +98,7 @@ export const QUERY_ALL_ARTWORKS_AND_ARTIST = defineQuery(`
   "artworks": *[_type == "artworks" && showInSelection == true && artist->slug.current == $slug] | order(orderRank) {
     _id,
     title,
+    titleEn,
     year,
     artist->{
       _id,
@@ -156,6 +157,7 @@ const QUERY_EVENT_DETAILS = `
     artworks[]-> | order(orderRank){
         _id,
         title,
+        titleEn,
         year,
         artist->{
             _id,

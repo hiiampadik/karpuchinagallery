@@ -46,7 +46,7 @@ export const en = {
     "detailsSelectedSoloExhibitions": "Selection of Solo Exhibitions",
     "detailsEducation": "Education",
     "detailsAwards": "Awards",
-    "detailsFairs": "Selection of Art Fairs",
+    "detailsFairs": "Art Fairs",
 
     "allArtists": "All artists"
   },

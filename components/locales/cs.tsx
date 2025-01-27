@@ -44,7 +44,7 @@ export const cs = {
     "detailsSelectedSoloExhibitions": "Solo výstavy (výběr)",
     "detailsEducation": "Vzdělání",
     "detailsAwards": "Ocenění",
-    "detailsFairs": "Veletrhy (výběr)",
+    "detailsFairs": "Veletrhy",
 
     "allArtists": "Všichni umělci"
   },

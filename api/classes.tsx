@@ -202,7 +202,7 @@ export class Artwork {
     public static fromPayload(payload: any, locale: string): Artwork {
         return new Artwork(
             payload._id,
-            payload.title,
+            locale === 'cs' || !payload.titleEn ? payload.title : payload.titleEn,
             payload.year ?? null,
             {Id: payload.artist._id, Name: payload.artist.name, Slug: payload.artist.slug.current },
             payload.showInSelection,
