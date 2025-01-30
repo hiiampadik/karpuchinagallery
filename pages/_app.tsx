@@ -34,6 +34,8 @@ const MyApp: FunctionComponent<AppProps> = ({ Component, router, pageProps }) =>
                 gtag('js', new Date());
                 gtag('config', '${googleAnalyticsId}', {
                     page_path: window.location.pathname,
+                    page_title: window.location.pathname,
+                    page_location: window.location.href,
               });
           `}
             </Script>
