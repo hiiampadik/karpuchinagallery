@@ -5,17 +5,19 @@ const SiteMap = function () {
     return <div>loading</div>;
 };
 
-export async function getServerSideProps({ res }) {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://karpuchinagallery.vercel.app/';
-    const urls = await client.fetch(QUERY_ALL_SLUGS);
-    const slugs = urls.map(
-        (page) =>
-            `
-      <loc>${baseUrl}${page.replace('/', '')}</loc>
-      <changefreq>daily</changefreq>
+function createXmlEntry(url) {
+    return `
+    <url>
+      <loc>${url}</loc>
+      <changefreq>weekly</changefreq>
       <priority>0.7</priority>
-    `
-    );
+    </url>`;
+}
+
+export async function getServerSideProps({ res }) {
+    const baseUrl = 'https://www.karpuchina.gallery/';
+    const urls = await client.fetch(QUERY_ALL_SLUGS);
+    const slugs = []
 
     slugs.push(`
         <loc>${baseUrl}</loc>
@@ -47,7 +49,14 @@ export async function getServerSideProps({ res }) {
         <priority>0.9</priority>
     `)
 
-    const locations = [...slugs];
+    const locations = [
+        ...slugs,
+        ...urls.exhibitions.map((slug) => createXmlEntry(`${baseUrl}exhibition/${slug.slug}`)),
+        ...urls.fairs.map((slug) => createXmlEntry(`${baseUrl}fair/${slug.slug}`)),
+        ...urls.artistsEvents.map((slug) => createXmlEntry(`${baseUrl}artists-event/${slug.slug}`)),
+        ...urls.artists.map((slug) => createXmlEntry(`${baseUrl}artist/${slug.slug}`)),
+    ];
+
     const createSitemap = () => `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         ${locations.map((location) => `<url> ${location}</url>`).join('')}

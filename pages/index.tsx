@@ -23,6 +23,8 @@ export default function Home({data}: any) {
     const coverDimensions = getImageDimensions(homepage.OnDisplay.Cover)
     const builder = imageUrlBuilder(client);
 
+
+
     return (
         <Layout
             image={{
@@ -82,7 +84,6 @@ export default function Home({data}: any) {
         </Layout>
 );
 }
-
 
 export async function getStaticProps() {
     const data = await sanityFetch({query: QUERY_HOMEPAGE, useCdn: false});

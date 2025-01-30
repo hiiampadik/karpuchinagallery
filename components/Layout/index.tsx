@@ -37,7 +37,7 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = (
         }
     };
 
-    const baseURL = 'https://karpuchinagallery.vercel.app/'
+    const baseURL = 'https://www.karpuchina.gallery/'
     const currentUrl = baseURL + router.asPath;
 
     const jsonLd = {

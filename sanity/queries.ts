@@ -1,7 +1,12 @@
 import {defineQuery} from "next-sanity";
 
 export const QUERY_ALL_SLUGS = defineQuery(`
-    *[defined(slug.current)][].slug.current
+   {
+  "exhibitions": *[_type == "exhibitions"]{ "slug": slug.current },
+  "fairs": *[_type == "fairs"]{ "slug": slug.current },
+  "artistsEvents": *[_type == "artistsEvents"]{ "slug": slug.current },
+  "artists": *[_type == "artists"]{ "slug": slug.current }
+}
 `)
 export const QUERY_SEARCH = defineQuery(`
 *[_type in ["exhibitions", "fairs", "artistsEvents"] && (
