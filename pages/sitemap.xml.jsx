@@ -7,11 +7,9 @@ const SiteMap = function () {
 
 function createXmlEntry(url) {
     return `
-    <url>
       <loc>${url}</loc>
       <changefreq>weekly</changefreq>
-      <priority>0.7</priority>
-    </url>`;
+      <priority>0.7</priority>`;
 }
 
 export async function getServerSideProps({ res }) {
