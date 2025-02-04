@@ -5,6 +5,7 @@ import {EventType} from '@/api/classes';
 import {QUERY_ALL_FAIRS} from '@/sanity/queries';
 import {useFetchEvents} from '@/api/event';
 import Layout from '@/components/Layout';
+import {GetStaticPropsContext} from 'next';
 
 export default function Fairs() {
     const router = useRouter();
@@ -17,4 +18,11 @@ export default function Fairs() {
             }
         </Layout>
     );
+}
+
+export async function getStaticProps(context: GetStaticPropsContext) {
+    return {
+        props: {
+            messages: (await import(`../public/locales/${context.locale}.json`)).default,
+        }};
 }

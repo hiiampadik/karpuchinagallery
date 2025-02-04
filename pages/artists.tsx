@@ -3,6 +3,7 @@ import styles from '../styles/artists.module.scss'
 import React from 'react';
 import {ArtistItem} from '@/components/Artists/ArtistItem';
 import {useFetchArtists} from '@/api/artist';
+import {GetStaticPropsContext} from 'next';
 
 
 export default function Artists() {
@@ -32,4 +33,11 @@ export default function Artists() {
             </section>
         </Layout>
     );
+}
+
+export async function getStaticProps(context: GetStaticPropsContext) {
+    return {
+        props: {
+            messages: (await import(`../public/locales/${context.locale}.json`)).default,
+        }};
 }

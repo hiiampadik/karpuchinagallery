@@ -1,17 +1,16 @@
 'use client'
 import React, {FunctionComponent, useCallback, useState} from 'react';
 import {useRouter} from 'next/router';
-import {cs} from '@/components/locales/cs';
-import {en} from '@/components/locales/en';
 import {Event} from '@/api/classes';
 import {debounce} from '@/components/utils/debounce';
 import {fetchEvents} from '@/api/search';
 import styles from '@/components/Layout/index.module.scss';
 import EventItem from '@/components/Events/EventItem';
+import {useTranslations} from 'next-intl';
 
 export const SearchOverlay: FunctionComponent = () => {
     const router = useRouter();
-    const t = router.locale === "cs" ? cs.Search : en.Search;
+    const t = useTranslations('Search');
 
     const [searchQuery, setSearchQuery] = useState('')
 
@@ -48,13 +47,13 @@ export const SearchOverlay: FunctionComponent = () => {
                            handleSearch(searchTerm);
                        }
                    }}
-                   placeholder={t['placeholder']}
+                   placeholder={t('placeholder')}
             />
             {events !== null&&
                 <>
                     {events.length === 0 ?
                         <>
-                            {t['noResults']}
+                            {t('noResults')}
                         </>
                         :
                         <div className={styles.eventsContainer}>

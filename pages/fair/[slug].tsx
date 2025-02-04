@@ -49,6 +49,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
         props: {
             data: fairsData.event,
+            messages: (await import(`../../public/locales/${context.locale}.json`)).default,
         },
         revalidate: 172800, // two days
     };

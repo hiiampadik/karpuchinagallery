@@ -5,6 +5,7 @@ import {EventType} from '@/api/classes';
 import {QUERY_ALL_EXHIBITIONS} from '@/sanity/queries';
 import {useFetchEvents} from '@/api/event';
 import Layout from '@/components/Layout';
+import {GetStaticPropsContext} from 'next';
 
 export default function Exhibitions() {
     const router = useRouter();
@@ -17,4 +18,11 @@ export default function Exhibitions() {
             }
         </Layout>
     );
+}
+
+export async function getStaticProps(context: GetStaticPropsContext) {
+    return {
+        props: {
+            messages: (await import(`../public/locales/${context.locale}.json`)).default,
+        }};
 }

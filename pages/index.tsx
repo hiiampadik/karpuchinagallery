@@ -9,20 +9,19 @@ import Figure from '@/components/Sanity/Figure';
 import {replaceSpaces} from '@/components/utils/replaceSpaces';
 import EventTitle, {TimeContext} from '@/components/Events/EventTitle';
 import {EventType, Homepage} from '@/api/classes';
-import {cs} from '@/components/locales/cs';
-import {en} from '@/components/locales/en';
 import client, {sanityFetch} from '@/sanity/client';
 import {QUERY_HOMEPAGE} from '@/sanity/queries';
 import {getImageDimensions} from '@sanity/asset-utils';
 import imageUrlBuilder from '@sanity/image-url';
+import {GetStaticPropsContext} from 'next';
+import {useTranslations} from 'next-intl';
 
 export default function Home({data}: any) {
     const router = useRouter();
     const homepage = Homepage.fromPayload(data, router.locale ?? 'cs')
-    const t = router.locale === "cs" ? cs.Homepage : en.Homepage;
     const coverDimensions = getImageDimensions(homepage.OnDisplay.Cover)
     const builder = imageUrlBuilder(client);
-
+    const t = useTranslations('Homepage');
 
 
     return (
@@ -58,7 +57,7 @@ export default function Home({data}: any) {
                               prefetch={false}
                         >
                             <h1>
-                                <span className={styles.opacity}>{t.upcoming}:</span>
+                                <span className={styles.opacity}>{t('upcoming')}:</span>
                                 {' '}<span className={styles.title}>{homepage.Upcoming.Title}</span>
                                 {homepage.Upcoming.Artists && homepage.Upcoming.Artists.length > 0 &&
                                     <>
@@ -67,7 +66,7 @@ export default function Home({data}: any) {
                                 }
                                 {' '}
                                 <span className={styles.note}>
-                                    {homepage.Upcoming.ToDate && <>{t.from}{replaceSpaces(' ')}</>}
+                                    {homepage.Upcoming.ToDate && <>{t('from')}{replaceSpaces(' ')}</>}
                                     {replaceSpaces(LocalizedDate(homepage.Upcoming.FromDate, router.locale ?? 'cs'))}
 
                                 </span>
@@ -77,7 +76,7 @@ export default function Home({data}: any) {
                 </div>
                 <div className={styles.olderExhibitions}>
                     <Link href={"/exhibitions"} prefetch={false}>
-                        {t.olderExhibition}
+                        {t('olderExhibition')}
                     </Link>
                 </div>
             </section>
@@ -85,12 +84,13 @@ export default function Home({data}: any) {
 );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps(context: GetStaticPropsContext) {
     const data = await sanityFetch({query: QUERY_HOMEPAGE, useCdn: false});
 
     return {
         props: {
             data,
+            messages: (await import(`../public/locales/${context.locale}.json`)).default,
         },
         revalidate: 172800, // two days
     };

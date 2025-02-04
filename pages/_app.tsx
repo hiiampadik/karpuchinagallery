@@ -4,6 +4,7 @@ import '../styles/globals.scss';
 import {OverlaysProvider} from '@blueprintjs/core';
 import Script from 'next/script';
 import * as gtag from "../lib/gtag";
+import {IntlErrorCode, NextIntlClientProvider} from 'next-intl';
 
 
 const MyApp: FunctionComponent<AppProps> = ({ Component, router, pageProps }) => {
@@ -39,9 +40,20 @@ const MyApp: FunctionComponent<AppProps> = ({ Component, router, pageProps }) =>
               });
           `}
             </Script>
+            <NextIntlClientProvider
+                locale={router.locale}
+                timeZone="Europe/Vienna"
+                messages={pageProps.messages}
+                onError={(error) => {
+                    if (error.code === IntlErrorCode.MISSING_MESSAGE) {
+                        console.warn('Missing translation:', error.name);
+                    }
+                }}
+            >
                 <OverlaysProvider>
                     <Component key={router.route} {...pageProps} />
                 </OverlaysProvider>
+            </NextIntlClientProvider>
         </>
         )
 

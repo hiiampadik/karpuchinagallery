@@ -7,9 +7,7 @@ import Link from 'next/link';
 import Figure from '@/components/Sanity/Figure';
 import EventTitle, {TimeContext} from '@/components/Events/EventTitle';
 import {ArtworkDetailWrapper} from '@/components/Artworks/ArtworkDetail';
-import {useRouter} from 'next/router';
-import {cs} from '@/components/locales/cs';
-import {en} from '@/components/locales/en';
+import {useTranslations} from 'next-intl';
 
 
 interface EventDetailProps {
@@ -17,9 +15,7 @@ interface EventDetailProps {
     readonly type: EventType
 }
 const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
-
-    const router = useRouter();
-    const t = router.locale === "cs" ? cs.Event : en.Event;
+    const t = useTranslations('Event');
 
     const getTimeContext = (event: EventDetailClass) => {
         const today = new Date();
@@ -55,7 +51,7 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
                 {event.Text &&
                     <section className={styles.curatorsTextContainer}>
                         <h2>
-                            {event.AlternativeTextTitle ?? t['text']}
+                            {event.AlternativeTextTitle ?? t('text')}
                         </h2>
                         <BlockContent blocks={event.Text}/>
                         {event.TextAuthor && <p>{'– '}{event.TextAuthor}</p>}
@@ -65,7 +61,7 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
                 {event.Documents &&
                     <section className={styles.documentsContainer}>
                         <h2>
-                            {t.documents}
+                            {t('documents')}
                         </h2>
                         <div className={styles.documents}>
                             {event.Documents.map(document => (
@@ -84,7 +80,7 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
                 {event.Artworks && event.Artworks.length > 0 &&
                     <section className={styles.selectedWorksContainer}>
                         <h2>
-                            {t['works']}
+                            {t('works')}
                         </h2>
                         <div className={styles.selectedWorks}>
                             <ArtworkDetailWrapper artworks={event.Artworks} />
@@ -95,12 +91,12 @@ const EventDetail: FunctionComponent<EventDetailProps> = ({event, type}) => {
                 <section className={styles.allEvents}>
                     {type === EventType.Fairs &&
                         <Link href={"/fairs"} prefetch={false}>
-                            {t['allFairs']}
+                            {t('allFairs')}
                         </Link>
                     }
                     {type === EventType.Exhibitions &&
                         <Link href={"/exhibitions"} prefetch={false}>
-                            {t['allExhibitions']}
+                            {t('allExhibitions')}
                         </Link>
                     }
                 </section>

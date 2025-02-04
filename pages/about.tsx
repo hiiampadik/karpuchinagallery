@@ -5,16 +5,16 @@ import BlockContent from '@/components/Sanity/BlockContent';
 import React from 'react';
 import GallerySwiper from '@/components/Sanity/GallerySwiper';
 import Figure from '@/components/Sanity/Figure';
-import {cs} from '@/components/locales/cs';
-import {en} from '@/components/locales/en';
 import {About as AboutClass} from '@/api/classes'
 import {sanityFetch} from '@/sanity/client';
 import {QUERY_ABOUT} from '@/sanity/queries';
+import {GetStaticPropsContext} from 'next';
+import {useTranslations} from 'next-intl';
 
 export default function About({data}: any) {
     const router = useRouter();
-    const t = router.locale === "cs" ? cs.About : en.About;
     const about = AboutClass.fromPayload(data, router.locale ?? 'cs');
+    const t = useTranslations('About');
 
     return (
         <Layout loading={about === null} title={'About'}>
@@ -42,7 +42,7 @@ export default function About({data}: any) {
                 {about.Logos &&
                     <section className={styles.aboutLogos}>
                         <p>
-                            {t['support']}
+                            {t('support')}
                         </p>
                         <div className={styles.aboutLogosInner}>
                         {about.Logos.map((logo) => (
@@ -58,12 +58,13 @@ export default function About({data}: any) {
     );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps(context: GetStaticPropsContext) {
     const data = await sanityFetch({query: QUERY_ABOUT, useCdn: false});
 
     return {
         props: {
             data,
+            messages: (await import(`../public/locales/${context.locale}.json`)).default,
         },
         revalidate: 172800, // two days
     };

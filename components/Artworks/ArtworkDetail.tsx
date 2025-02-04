@@ -5,11 +5,9 @@ import {Artwork} from '@/api/classes';
 import BlockContent from '@/components/Sanity/BlockContent';
 import Figure from '@/components/Sanity/Figure';
 import {classNames} from '@/components/utils/classNames';
-import {useRouter} from 'next/router';
-import {cs} from '@/components/locales/cs';
-import {en} from '@/components/locales/en';
 import {useDisableScroll} from '@/components/utils/useDisableScroll';
 import ArtworkItem from '@/components/Artworks/ArtworkItem';
+import {useTranslations} from 'next-intl';
 
 
 interface ArtworkDetailWrapperProps {
@@ -42,8 +40,7 @@ interface ArtworkDetailProps {
 }
 
 const ArtworkDetail: FunctionComponent<ArtworkDetailProps> = ({handleClose, defaultArtwork, artworks}) => {
-    const router = useRouter();
-    const t = router.locale === "cs" ? cs.Artwork : en.Artwork;
+    const t = useTranslations('Artwork');
 
     const [selectedArtworkIndex, setSelectedArtworkIndex] = useState(defaultArtwork)
 
@@ -66,11 +63,11 @@ const ArtworkDetail: FunctionComponent<ArtworkDetailProps> = ({handleClose, defa
             <div className={styles.artworkHeader}>
                 <p>
                     {selectedArtwork.Gallery.length > 1 &&
-                        <><span className={selectedArtwork.Gallery.length >= 10 ? styles.numberWide : styles.number}>{selectedArtworkFigure + 1}</span>{' '}{t.of}{' '}{selectedArtwork.Gallery.length}</>
+                        <><span className={selectedArtwork.Gallery.length >= 10 ? styles.numberWide : styles.number}>{selectedArtworkFigure + 1}</span>{' '}{t('of')}{' '}{selectedArtwork.Gallery.length}</>
                     }
                 </p>
                 <button className={styles.artworkClose} onClick={() => handleClose()}>
-                    {t.close}
+                    {t('close')}
                 </button>
             </div>
 

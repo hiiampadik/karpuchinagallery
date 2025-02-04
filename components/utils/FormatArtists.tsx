@@ -2,9 +2,7 @@ import {FunctionComponent, useMemo} from 'react';
 import styles from '@/components/common.module.scss';
 import {replaceSpaces} from '@/components/utils/replaceSpaces';
 import {classNames} from '@/components/utils/classNames';
-import {useRouter} from 'next/router';
-import {cs} from '@/components/locales/cs';
-import {en} from '@/components/locales/en';
+import {useTranslations} from 'next-intl';
 
 
 interface FormatArtistsProps {
@@ -14,8 +12,7 @@ interface FormatArtistsProps {
 }
 
 const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists, max3Artists=false, showBy=true}) => {
-    const router = useRouter();
-    const t = router.locale === "cs" ? cs.Homepage : en.Homepage;
+    const t = useTranslations('Homepage');
 
     const formatedNames = useMemo(() => {
         if (!artists) {
@@ -26,7 +23,7 @@ const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists, max3Arti
         } else if (artists.length === 2) {
             return (
                 <>
-                {replaceSpaces(artists[0])} <span className={classNames([styles.opacity])}>{replaceSpaces(t.and + ' ')}</span>{replaceSpaces(artists[1])}
+                {replaceSpaces(artists[0])} <span className={classNames([styles.opacity])}>{replaceSpaces(t('and') + ' ')}</span>{replaceSpaces(artists[1])}
                 </>
             );
         } else {
@@ -42,7 +39,7 @@ const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists, max3Arti
                         </span>
                         ))}
                         {artists.length === 3 &&
-                            <span className={classNames([styles.opacity])}>{replaceSpaces(t.and + ' ')}</span>
+                            <span className={classNames([styles.opacity])}>{replaceSpaces(t('and') + ' ')}</span>
                         }
                         {replaceSpaces(artists[2])}
                         <span className={styles.gradient}></span>
@@ -57,7 +54,7 @@ const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists, max3Arti
                                 {index < artists.length - 2 ? ', ' : ' '}
                             </span>
                         ))}
-                        <span className={classNames([styles.opacity])}>{replaceSpaces(t.and + ' ')}</span>
+                        <span className={classNames([styles.opacity])}>{replaceSpaces(t('and') + ' ')}</span>
                         {replaceSpaces(artists[artists.length - 1])}
                     </>
                 );
@@ -70,7 +67,7 @@ const FormatArtists: FunctionComponent<FormatArtistsProps> = ({artists, max3Arti
     return (
         <>
             {showBy &&
-                <><span className={classNames([styles.opacity])}>{t.by}</span>{' '}</>
+                <><span className={classNames([styles.opacity])}>{t('by')}</span>{' '}</>
             }
             {formatedNames}
         </>
