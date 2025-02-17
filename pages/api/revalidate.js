@@ -9,7 +9,6 @@ export default async function handler(req, res) {
     // Validate signature
     if (!isValid) {
         console.log(`===== Not valid signature`);
-
         res.status(401).json({ success: false, message: 'Invalid signature' });
         return;
     }
@@ -50,11 +49,14 @@ export default async function handler(req, res) {
                 break
             default:
                 console.log(`===== Wrong type ${type}`);
+                res.status(401).json({ success: false, message: 'Invalid Type' });
                 return
         }
 
-        await res.revalidate(`/en/${path}`)
-        await res.revalidate(`/cs/${path}`)
+        await Promise.all([
+             res.revalidate(`/en/${path}`),
+             res.revalidate(`/cs/${path}`)
+        ]);
 
         return res.json({ revalidated: true });
 
@@ -62,5 +64,6 @@ export default async function handler(req, res) {
         // Could not revalidate. The stale page will continue to be shown until
         // this issue is fixed.
         console.log(`===== Error ${err.message}`);
+        res.status(401).json({ success: false, message: 'Could not Revalidate' });
     }
 }
